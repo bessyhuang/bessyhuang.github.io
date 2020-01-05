@@ -1,11 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<title>Hello BessyHuang!</title>
+	<title>Bessy Huang 的個人網頁</title>
+
+	<link rel="stylesheet" href="css/tootik.min.css">
+
+
+	<style>		
+		* {	padding: 0; margin: 0;}
+		body {	margin: 0px; background-color: #efefef; /*灰底*/
+				line-height: 20px; /*border: 1px dashed blue;*/ }
+		.content {	width:1000px; margin-left: auto; margin-right: auto; padding-bottom: 50px;
+					/*border: 1px dashed red;*/	}
+		#info {	margin-left: auto; margin-right: auto; /*border: 1px dashed green;*/
+				text-align: center;
+				box-shadow: 0 1px 5px 0 rgba(0,0,0,0.11), 0 2px 10px 0 rgba(0,0,0,0.11);
+				background-color: #ffffff;			 
+				margin-top: 30px; margin-bottom: 30px; }
+		.about-top { padding: 30px; /*border: 1px dashed blue;*/ }
+		#info img { border-radius: 120px; height: 120px; }
+		.img-bg{ height: 120px;	width: 120px; display: inline-block;
+  				box-shadow: 0 1px 5px 0 rgba(0,0,0,0.11), 0 2px 10px 0 rgba(0,0,0,0.11);
+  				border-radius: 50%;	}
+  		#about { padding-bottom:50px; }
+		#about > h2{ padding-top: 20px;	font-family: Microsoft JhengHei; }
+		#about > h3{ padding-top: 10px; font-family: Microsoft JhengHei; padding-bottom: 20px; }
+		#about > p{	font-family: Microsoft JhengHei; }
+		
+		.contact-head { /*border: 1px dashed red;*/ display: inline-block; 
+						float:center; padding-top:40px; }
+		#contact > div.contact-head > img { margin-left:-100px;	}
+		#contact > div.contact-head > h3 { font-family: Microsoft JhengHei; display: inline; 
+										position: absolute; padding-top: 20px;padding-left: 15px }
+		
+		.contact-col1{ font-family: Microsoft JhengHei;	width: 400px; text-align: right;
+			float: center;	padding-top: 10px;	/*border: 1px dashed green;*/display: inline-block;	}
+		.contact-col2{ font-family: Microsoft JhengHei;	width: 400px; text-align: left; 
+			padding-top: 10px;	/*border: 1px dashed green;*/ display: inline-block; }
+		#contact > div.contact-col1 > div > p { display: inline; }
+		#contact > div.contact-col2 > div > p { display: inline; }
+		.contact-col3{ 	width: 500px; text-align: center; /*border: 1px dashed blue;*/ display: inline-block; }
+		#icon-contact-01 { padding-top: 30px; padding-bottom: 40px;}
+		#icon-contact-01 > a > img{ border-radius: 20px; /*border: 1px dashed purple;*/
+			 width:50px; height:50px; padding-top: 0px; padding-left: 30px;padding-right: 30px;	}
+/**/
+		#hobby_favorite { height: auto; /*border: 1px dashed yellow;*/ padding-top: 40px;}
+
+		#hobby > h3{font-family: Microsoft JhengHei; display: inline; position: absolute; padding-top: 20px; padding-left: 15px;}
+		#hobby > div:nth-child(3) > p{font-family: Microsoft JhengHei; text-align: center;/*border: 1px dashed green;*/}
+
+
+		#favorite{display: inline-block; padding-top: 70px; padding-bottom: 70px; /*border: 1px dashed purple;*/ }
+		#favorite > h3{font-family: Microsoft JhengHei; display: inline; position: absolute; padding-top: 20px; padding-left: 15px;}
+		#favorite-content > p{font-family: Microsoft JhengHei;text-align: center;/*border: 1px dashed white;*/line-height: 30px; }
+/**/
+		#skills  { display: inline-block; padding-top: 40px; padding-bottom: 10px;/*border: 1px dashed purple;*/ }
+		#skills > h3 { font-family: Microsoft JhengHei; display: inline; position: absolute; padding-top: 20px; padding-left: 15px;	}
+		#skills > div > p{font-family: Microsoft JhengHei; text-align: center;/*border: 1px dashed green;*/ }
+
+
+		#projects { display: inline-block; padding-top: 70px; padding-bottom: 70px;/*border: 1px dashed yellow;*/ }
+		#projects > h3{font-family: Microsoft JhengHei; display: inline; position: absolute; padding-top: 20px; padding-left: 15px;}
+		#projects > div > p{font-family: Microsoft JhengHei; text-align: center;/*border: 1px dashed green;*/}
+	</style>
 </head>
+
 <body>
-	<h1>Hello BessyHuang!</h1>
-	<p>This is my Github Pages.</p>
+	<div class="content"><!--大外框(box要有陰影)-->
+		<div id="info">	<!--照片/姓名/性別/自我描述+聯絡資訊<github.gwiddle.codepen 地址、信箱、電話>(上方整塊)-->
+			<div class="about-top"></div>
+			<div id="about">
+				<div class="img-bg"><img src="img/chia_me.jpg"></div>
+				<h2>黃丰嘉</h2>
+				<h3>Feng-Chia Huang</h3>
+				<p>我是一個主修圖資系，同時雙主修統資系的大學生。</p>
+				<p>喜歡吸收新知、拉小提琴…各種陶冶性情的休閒活動我都愛，</p>
+				<p>或是接受一些具有挑戰性且富有意義的事。</p>
+			</div>
+			<div id="contact" style="background-color: #F7F6E7;">
+				<div class="contact-head" style="display: block;">
+					<img src="img/contact.png" style="width: 50px;height: 50px;">
+					<h3>聯絡資訊</h3>
+				</div>
+				<div class="contact-col1">
+					<div><p style="font-weight: 600;">Address&nbsp;&emsp;</p><p>&emsp;Taiwan Taipei&emsp;&emsp;&emsp;&emsp;&emsp;</p></div>
+					<div><p style="font-weight: 600;">Phone&emsp;&emsp;</p><p>&emsp;+886 908 303 576&emsp;&emsp;&emsp;</p></div>
+				</div>
+				<div class="contact-col2">
+					<div><p style="font-weight: 600;">&emsp;&emsp;Email</p><p>&nbsp;&emsp;&emsp;&emsp;bessy110576@gmail.com</p></div>
+					<div><p style="font-weight: 600;">&emsp;&emsp;Website</p><p>&emsp;&emsp;<a href="http://bessyhuang.gwiddle.co.uk/" target="_blank">Chia's websites</a></p></div>
+				</div>
+			</div>
+			<div style="background-color: #F7F6E7;">
+				<div class="contact-col3" >
+					<div id="icon-contact-01">
+						<a href="https://github.com/bessyhuang" data-tootik="GitHub" data-tootik-conf="info bottom" target="_blank"><img src="img/GitHub.jpg"></a>
+						<a href="https://codepen.io/bessyhuang" data-tootik="CodePen" data-tootik-conf="info bottom" target="_blank"><img src="img/CodePen.png"></a>
+					</div>
+				</div>
+			</div>
+		
+		<!--嗜好/<技能 Skills><教育背景Education>、<工作經驗Experience>/成果(中間切三塊)-->
+		<div id="hobby_favorite" style="background-color: #C1C0B9;">
+			<div id="hobby" class="hobby-head" style="display: block;">
+				<img src="img/hobby.png" style="width: 50px;height: 50px;">
+				<h3>嗜好</h3>
+				<div id="hobby-content">
+					<p>打羽球、游泳。拉小提琴。看電影。閱讀科技方面的報章雜誌。</p>
+				</div>	
+			<div>
+			
+
+			<div id="favorite" class="favorite-head" style="display: block;">
+				<img src="img/favorite.png" style="width: 50px;height: 50px;">
+				<h3>勉勵自己的話</h3>
+
+				<div id="favorite-content">
+					<p>人生沒有彩排，每一天都是現場直播。</p>
+					<p>能力是練出來的，潛能是逼出來的，習慣是養成的，成功是一步步走出來的。</p>
+					<p>“If your WHY is not strong enough, you will continue to search for an easier 'how to'.” — Robert Kiyosaki</p>
+				</div>
+			</div>
+		</div>
+		</div>		
+		<div style="background-color: #537791">
+			<div id="skills" class="skills-head" style="display: block;">
+				<img src="img/skills.png" style="width: 50px;height: 50px;">
+				<h3>技能</h3>
+				<div>
+					<p>善用工具簡化作業流程。安裝 Ubuntu 和 Windows 作業系統。會寫一點程式。</p>
+				</div>
+			</div>
+			
+			<div id="projects" class="projects-head" style="display: block;">
+				<img src="img/projects.png" style="width: 50px;height: 50px;">
+					<h3>成果</h3>
+					<div>
+						<p>正在努力累積中...</p>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
 </body>
 </html>
