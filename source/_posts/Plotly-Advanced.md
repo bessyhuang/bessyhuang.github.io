@@ -10,6 +10,7 @@ tags:
 # For Example: Line Plots
 📘 Download [World Earthquake Data From 1906-2022](https://www.kaggle.com/datasets/garrickhague/world-earthquake-data-from-1906-2022)
 
+---
 ## Line Plots with `plotly.express`
 *<font color=royalblue>The plotly.express module (usually imported as px) contains functions that can create entire figures at once. 
 Plotly Express is a built-in part of the plotly library, and is the recommended starting point for creating most common figures.</font>*
@@ -30,12 +31,21 @@ fig = px.line(df, x="Year", y="Max_mag", title='Max magnitude from 2000 to 2022'
 fig.show()
 ```
 
-> 解釋
-> `df.groupby(['Year'])['mag'].max()`
-> `df.groupby(['Year'])['mag'].transform(max)`
-> `df.query("2022 >= Year >= 2021")["Max_mag"]`
+- Explanation
+  - Pandas `groupby` splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.
 
+    ```python
+    # Group by 'Year', and get the maximum of 'mag' column
+    df.groupby(['Year'])['mag'].max()
 
+    # Group by 'Year', get the maximum of 'mag' column, and fit the length of dataframe  
+    df.groupby(['Year'])['mag'].transform(max)
+
+    # Query '2022 >= Year >= 2021' and get the value of 'Max_mag' column
+    df.query("2022 >= Year >= 2021")["Max_mag"]
+    ```
+
+---
 ## Line Plots with Column Encoding Color
 ```python
 import pandas as pd
@@ -49,20 +59,29 @@ df["Country"] = df["place"].str.split(pat=',', expand=False).str.get(-1)
 df["Max_mag"] = df.groupby(['Year', 'magType'])['mag'].transform(max)
 
 df = df.query("2012 <= Year <= 2022")
-fig = px.line(df, x="Year", y="Max_mag", title='Max magnitude from 2012 to 2022', color='magType')
+fig = px.line(df, x="Year", y="Max_mag", 
+  title='Max magnitude from 2012 to 2022', color='magType')
 fig.show()
 ```
 
-> 解釋
-> `df.groupby(['Year', 'magType'])['mag'].max()`
-> `df.groupby(['Year', 'magType'])['mag'].transform(max)`
-> `df.query("2022 >= Year >= 2021")["Max_mag"]`
+- Explanation
+  - Pandas `groupby` splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.
 
+    ```python
+    # Group by 'Year' and 'magType', and get the maximum of 'mag' column
+    df.groupby(['Year', 'magType'])['mag'].max()
+
+    # Group by 'Year' and 'magType', get the maximum of 'mag' column, and fit the length of dataframe  
+    df.groupby(['Year', 'magType'])['mag'].transform(max)
+
+    # Query '2022 >= Year >= 2021' and get the value of 'Max_mag' column
+    df.query("2022 >= Year >= 2021")["Max_mag"]
+    ```
 
 ---
-# Basic Settings
+## Basic Settings
 
-## Line charts with Markers
+### Line charts with Markers
 - Set Title
   - `title = 'Max magnitude and Min depth from 2012 to 2022'`
 - Add one more field on text label
@@ -80,8 +99,8 @@ fig.show()
     df["Max_mag"] = df.groupby(['Year', 'magType'])['mag'].transform(max)
     df["Min_depth"] = df.groupby(['Year', 'magType'])['depth'].transform(min)
 
-    df = df.query("2022 >= Year >= 2012 & magType in ['mw', 'ml', 'ms', 'mb']")
-    fig = px.line(df, x="Year", y="Max_mag", 
+    query_df = df.query("2022 >= Year >= 2012 & magType in ['mw', 'ml', 'ms', 'mb']")
+    fig = px.line(query_df, x="Year", y="Max_mag", 
       title='Max magnitude and Min depth from 2012 to 2022', 
       color='magType', text="Min_depth")
     fig.show()
@@ -102,24 +121,26 @@ fig.show()
     df["Country"] = df["place"].str.split(pat=',', expand=False).str.get(-1)
     df["Max_mag"] = df.groupby(['Year', 'magType'])['mag'].transform(max)
 
-    df = df.query("2022 >= Year >= 2012")
+    query_df = df.query("2022 >= Year >= 2012")
 
     # Method 1: markers
-    fig = px.line(df, x="Year", y="Max_mag", title='Max magnitude from 2012 to 2022', 
+    fig = px.line(query_df, x="Year", y="Max_mag", 
+      title='Max magnitude from 2012 to 2022', 
       color='magType', markers=True)
     fig.show()
 
     # Method 2: symbol
-    fig = px.line(df, x="Year", y="Max_mag", title='Max magnitude from 2012 to 2022', 
+    fig = px.line(query_df, x="Year", y="Max_mag", 
+      title='Max magnitude from 2012 to 2022', 
       color='magType', symbol="magType")
     fig.show()
     ```
 
-## Save a Plot (html, png)
-- Install Package
-    ```basic
-    pip install -U kaleido
-    ```
+### Save a Plot
+```basic
+# Install Package
+$ pip install -U kaleido
+```
 
 - Save a Figure in xxx Format: PNG, JPEG, SVG, PDF
     ```python
@@ -146,24 +167,58 @@ fig.show()
     fig.write_html("fig1.html", auto_open=True)
     ```
 
-
 ---
-# Advanced
+## Advanced: Interactive Custom Controls
 
-## Subplots
+### Basic Range Slider and Range Selectors
+```python
+import plotly.graph_objects as go
+import pandas as pd
 
+# Load data
+df = pd.read_csv('data.csv')
 
-## Interactive
+# Pre-processing
+df['Year'] = pd.to_datetime(df['time']).dt.year
+df["Max_mag"] = df.groupby(['Year', 'magType'])['mag'].transform(max)
 
+# Query
+query_df = df.query("magType == 'mww'")
+
+# Create figure
+fig = go.Figure()
+
+fig.add_trace(
+    go.Scatter(x=list(query_df.time), y=list(query_df.Max_mag)))
+
+# Set title
+fig.update_layout(
+    title_text="Time series with range slider and selectors"
+)
+
+# Add range slider
+fig.update_layout(
+    xaxis=dict(
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1m", step="month", stepmode="backward"),
+                dict(count=6, label="6m", step="month", stepmode="backward"),
+                dict(count=1, label="YTD", step="year", stepmode="todate"),
+                dict(count=1, label="1y", step="year", stepmode="backward"),
+                dict(step="all")
+            ])
+        ),
+        rangeslider=dict( visible=True ),
+        type="date"
+    )
+)
+
+fig.show()
+```
 
 ---
 # References
 - [USGS - Magnitude Types](https://www.usgs.gov/programs/earthquake-hazards/magnitude-types)
 - [矩量級 Moment Magnitude Scale](https://academic-accelerator.com/encyclopedia/zh/moment-magnitude-scale)
 - [Magnitude Type: Mw vs. ML vs. MS vs. mb](https://www.facebook.com/momlovestaiwan/photos/a.1076309132504673/1076350115833908/?type=3&locale=zh_TW)
-
-
-
-[常用 Markdown 語法（Hexo 適用）](https://ithelp.ithome.com.tw/articles/10312641)
-
-
+- [Plotly Open Source Graphing Library for Python](https://plotly.com/python/)

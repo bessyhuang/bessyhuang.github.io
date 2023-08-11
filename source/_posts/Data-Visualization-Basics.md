@@ -2,8 +2,8 @@
 title: Data Visualization - Basics
 date: 2023-08-03 10:52:08
 tags:
-- Python
 - Data Visualization
+- Introduction
 ---
 
 # What is data visualization?
