@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Plotly - Basics | Bessy&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="If you work with massive datasets, you can use a library like Plotly, designed to handle massive datasets well.   Before Doing Data VisualizationFind Datasets Kaggle Datasets Google Dataset Search Ta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Plotly - Basics">
+<meta property="og:url" content="https://bessyhuang.github.io/2023/08/03/Plotly-Basics/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="If you work with massive datasets, you can use a library like Plotly, designed to handle massive datasets well.   Before Doing Data VisualizationFind Datasets Kaggle Datasets Google Dataset Search Ta">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-03T05:52:27.000Z">
+<meta property="article:modified_time" content="2023-10-02T15:33:44.089Z">
+<meta property="article:author" content="Huang, Feng-Chia">
+<meta property="article:tag" content="Data Visualization">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Plotly">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Bessy's Tech Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Bessy&#39;s Tech Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bessyhuang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Plotly-Basics" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/03/Plotly-Basics/" class="article-date">
+  <time class="dt-published" datetime="2023-08-03T05:52:27.000Z" itemprop="datePublished">2023-08-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Plotly - Basics
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<h3><i><font color=saddlebrown>If you work with massive datasets, <br>you can use a library like Plotly, designed to handle massive datasets well.</font></i></h3>
+</blockquote>
+<hr>
+<h1 id="Before-Doing-Data-Visualization"><a href="#Before-Doing-Data-Visualization" class="headerlink" title="Before Doing Data Visualization"></a>Before Doing Data Visualization</h1><h2 id="Find-Datasets"><a href="#Find-Datasets" class="headerlink" title="Find Datasets"></a>Find Datasets</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets">Kaggle Datasets</a></li>
+<li><a target="_blank" rel="noopener" href="https://datasetsearch.research.google.com/">Google Dataset Search</a></li>
+<li><a target="_blank" rel="noopener" href="https://data.gov.tw/">Taiwan Government’s Open Data</a></li>
+<li><a target="_blank" rel="noopener" href="https://data.gov/">The U.S. Government’s Open Data</a></li>
+<li>…</li>
+</ul>
+<h2 id="Prepared-Environment"><a href="#Prepared-Environment" class="headerlink" title="Prepared Environment"></a>Prepared Environment</h2><ul>
+<li>Install packages<ul>
+<li>Plotly</li>
+<li>Pandas</li>
+<li><a target="_blank" rel="noopener" href="https://jupyter.org/install">JupyterLab</a></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ pip install plotly==<span class="number">5.15</span>.<span class="number">0</span></span><br><span class="line">$ pip install pandas</span><br><span class="line">$ pip install jupyterlab</span><br><span class="line">$ jupyter lab</span><br></pre></td></tr></table></figure>
+
+<h2 id="Load-Dataset"><a href="#Load-Dataset" class="headerlink" title="Load Dataset"></a>Load Dataset</h2><p>📘 Download <a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets/garrickhague/world-earthquake-data-from-1906-2022">World Earthquake Data From 1906-2022</a></p>
+<ul>
+<li><code>head()</code><ul>
+<li>Shows the first n (the default is 5) rows</li>
+</ul>
+</li>
+<li><code>tail()</code><ul>
+<li>The “opposite” method of head() is tail()</li>
+<li>Shows the last n (5 by default) rows of the dataframe object</li>
+</ul>
+</li>
+<li><code>info()</code> <ul>
+<li>Prints out a concise summary of the dataframe, including information about the index, data types, columns, non-null values, and memory usage</li>
+</ul>
+</li>
+<li><code>describe()</code><ul>
+<li>Generates descriptive statistics, including those that summarize the central tendency, dispersion, and shape of the dataset’s distribution</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Shows the first 5 rows</span></span><br><span class="line"><span class="built_in">print</span>(df.head())</span><br><span class="line"></span><br><span class="line"><span class="comment"># Shows the last 5 rows</span></span><br><span class="line"><span class="built_in">print</span>(df.tail())</span><br><span class="line"></span><br><span class="line"><span class="comment"># Concise summary of the dataframe</span></span><br><span class="line"><span class="built_in">print</span>(df.info())</span><br><span class="line"></span><br><span class="line"><span class="comment"># Descriptive statistics</span></span><br><span class="line"><span class="built_in">print</span>(df.describe())</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save as `Year` field</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save as `Country` field</span></span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><em><font color=royalblue>After collection, most data requires some degree of cleaning or reformatting before it can be analyzed or used to create visualizations.</font></em></p>
+<hr>
+<h1 id="Getting-Started-Plotly"><a href="#Getting-Started-Plotly" class="headerlink" title="Getting Started - Plotly"></a>Getting Started - <a target="_blank" rel="noopener" href="https://plotly.com/python/">Plotly</a></h1><h2 id="Line-Charts"><a href="#Line-Charts" class="headerlink" title="Line Charts"></a>Line Charts</h2><p>Line charts are used to convey changes over time.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = px.data.gapminder().query(<span class="string">&quot;country==&#x27;Canada&#x27;&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;year&quot;</span>, y=<span class="string">&quot;lifeExp&quot;</span>, title=<span class="string">&#x27;Life expectancy in Canada&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = px.data.gapminder().query(<span class="string">&quot;continent==&#x27;Oceania&#x27;&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;year&quot;</span>, y=<span class="string">&quot;lifeExp&quot;</span>, color=<span class="string">&#x27;country&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Histogram"><a href="#Histogram" class="headerlink" title="Histogram"></a>Histogram</h2><p>Use a histogram to visualize the frequency distribution of a single event over a certain time period.<br><em><font color=royalblue>A histogram is the graphical representation of quantitative data.</font></em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = px.data.tips()</span><br><span class="line">fig = px.histogram(df, x=<span class="string">&quot;total_bill&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bar-Charts"><a href="#Bar-Charts" class="headerlink" title="Bar Charts"></a>Bar Charts</h2><p><em><font color=royalblue>The bar chart is the graphical representation of categorical data.</font></em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">long_df = px.data.medals_long()</span><br><span class="line">fig = px.bar(long_df, x=<span class="string">&quot;nation&quot;</span>, y=<span class="string">&quot;count&quot;</span>, color=<span class="string">&quot;medal&quot;</span>, title=<span class="string">&quot;Long-Form Input&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Scatter-Plots"><a href="#Scatter-Plots" class="headerlink" title="Scatter Plots"></a>Scatter Plots</h2><p>If you wanted to <strong>highlight the relationship or correlations between two variables</strong> (e.g. marketing spend and revenue, or hours of weekly exercise vs. cardiovascular fitness), you could use a scatter plot to see, at a glance, if one increases as the other decreases (or vice versa).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">fig = px.scatter(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;mag&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pie-chart"><a href="#Pie-chart" class="headerlink" title="Pie chart"></a>Pie chart</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = px.data.tips()</span><br><span class="line">fig = px.pie(df, values=<span class="string">&#x27;tip&#x27;</span>, names=<span class="string">&#x27;day&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Maps"><a href="#Maps" class="headerlink" title="Maps"></a>Maps</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Draw a map after doing `mag &gt;= 7` query</span></span><br><span class="line">fig = px.density_mapbox(df.query(<span class="string">&quot;mag &gt;= 7&quot;</span>), lat=<span class="string">&#x27;latitude&#x27;</span>, lon=<span class="string">&#x27;longitude&#x27;</span>, z=<span class="string">&#x27;mag&#x27;</span>, radius=<span class="number">10</span>,</span><br><span class="line">                        center=<span class="built_in">dict</span>(lat=<span class="number">0</span>, lon=<span class="number">180</span>), zoom=<span class="number">0</span>, mapbox_style=<span class="string">&quot;stamen-terrain&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Do pre-processing on `place` field </span></span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">fig = px.scatter_mapbox(df.query(<span class="string">&quot;mag &gt;= 7&quot;</span>), lat=<span class="string">&quot;latitude&quot;</span>, lon=<span class="string">&quot;longitude&quot;</span>, </span><br><span class="line">                        hover_name=<span class="string">&quot;Country&quot;</span>, hover_data=[<span class="string">&quot;mag&quot;</span>, <span class="string">&quot;depth&quot;</span>],</span><br><span class="line">                        color_discrete_sequence=[<span class="string">&quot;red&quot;</span>], zoom=<span class="number">3</span>, height=<span class="number">300</span>)</span><br><span class="line">fig.update_layout(mapbox_style=<span class="string">&quot;open-street-map&quot;</span>)</span><br><span class="line">fig.update_layout(margin=&#123;<span class="string">&quot;r&quot;</span>:<span class="number">0</span>,<span class="string">&quot;t&quot;</span>:<span class="number">0</span>,<span class="string">&quot;l&quot;</span>:<span class="number">0</span>,<span class="string">&quot;b&quot;</span>:<span class="number">0</span>&#125;)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://plotly.com/python/plotly-fundamentals/">Plotly Python Open Source Graphing Library Fundamentals</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.datacamp.com/tutorial/python-plotly-express-tutorial">Python Plotly Express Tutorial: Unlock Beautiful Visualizations</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://bessyhuang.github.io/2023/08/03/Plotly-Basics/" data-id="cln93z8r100050id9d1slh2dk" data-title="Plotly - Basics" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Visualization/" rel="tag">Data Visualization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Plotly/" rel="tag">Plotly</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/08/05/Plotly-Advanced/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Plotly - Advanced
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/08/03/Data-Visualization-Basics/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Data Visualization - Basics</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Common-Mistakes/" rel="tag">Common Mistakes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Visualization/" rel="tag">Data Visualization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Introduction/" rel="tag">Introduction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Plotly/" rel="tag">Plotly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/" rel="tag">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E2%98%85%E2%98%86%E2%98%85/" rel="tag">★☆★</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Common-Mistakes/" style="font-size: 10px;">Common Mistakes</a> <a href="/tags/Data-Visualization/" style="font-size: 20px;">Data Visualization</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Introduction/" style="font-size: 10px;">Introduction</a> <a href="/tags/Plotly/" style="font-size: 15px;">Plotly</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/S3/" style="font-size: 10px;">S3</a> <a href="/tags/%E2%98%85%E2%98%86%E2%98%85/" style="font-size: 10px;">★☆★</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/02/Amazon-S3/">Amazon S3</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/02/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/16/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/12/Data-Visualization-Advanced/">Data Visualization - Advanced</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/05/Plotly-Advanced/">Plotly - Advanced</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 Huang, Feng-Chia<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

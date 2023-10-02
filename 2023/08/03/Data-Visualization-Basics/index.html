@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Data Visualization - Basics | Bessy&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="What is data visualization?DefinitionData visualization (資料視覺化) is the graphical or visual representation of data.It helps to highlight the most useful insights from a dataset, making it easier to spo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data Visualization - Basics">
+<meta property="og:url" content="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="What is data visualization?DefinitionData visualization (資料視覺化) is the graphical or visual representation of data.It helps to highlight the most useful insights from a dataset, making it easier to spo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/Temporal_data_viz.jpg">
+<meta property="og:image" content="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/Hierarchical_viz.jpg">
+<meta property="og:image" content="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/Network_viz.jpg">
+<meta property="og:image" content="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/Multidimensional_viz.jpg">
+<meta property="og:image" content="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/Geospatial_viz.jpg">
+<meta property="article:published_time" content="2023-08-03T02:52:08.000Z">
+<meta property="article:modified_time" content="2023-10-02T15:33:44.073Z">
+<meta property="article:author" content="Huang, Feng-Chia">
+<meta property="article:tag" content="Data Visualization">
+<meta property="article:tag" content="Introduction">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/Temporal_data_viz.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Bessy's Tech Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Bessy&#39;s Tech Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bessyhuang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Data-Visualization-Basics" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/03/Data-Visualization-Basics/" class="article-date">
+  <time class="dt-published" datetime="2023-08-03T02:52:08.000Z" itemprop="datePublished">2023-08-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Data Visualization - Basics
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="What-is-data-visualization"><a href="#What-is-data-visualization" class="headerlink" title="What is data visualization?"></a>What is data visualization?</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Data visualization (資料視覺化) is the graphical or visual representation of data.<br>It helps to highlight the most useful insights from a dataset, making it easier to spot trends, patterns, outliers, and correlations.</p>
+<hr>
+<h1 id="Two-main-types-of-data-visualization"><a href="#Two-main-types-of-data-visualization" class="headerlink" title="Two main types of data visualization"></a>Two main types of data visualization</h1><h2 id="1-Exploration"><a href="#1-Exploration" class="headerlink" title="1. Exploration"></a>1. Exploration</h2><p><em><font color=royalblue>Exploration takes place while you’re still analyzing the data.</font></em></p>
+<ul>
+<li>When faced with a new dataset, one of the first things you’ll do!</li>
+<li>It helps you figure out what’s in your data.<ul>
+<li>Get a sense of what’s in your dataset and to spot any noteworthy trends or anomalies. </li>
+<li>Finding clues as to what the data might be trying to tell you.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Explanation"><a href="#2-Explanation" class="headerlink" title="2. Explanation"></a>2. Explanation</h2><p><em><font color=royalblue>Explanatory visualization helps you to communicate what you’ve found.</font></em></p>
+<ul>
+<li>Once you’ve conducted your analysis and have figured out what the data is telling you, you’ll want to share these insights with others.</li>
+<li>Help you tell the story, and it’s up to you to determine which visualizations will help you to do so most effectively.</li>
+</ul>
+<hr>
+<h1 id="Five-types-of-data-visualization"><a href="#Five-types-of-data-visualization" class="headerlink" title="Five types of data visualization"></a>Five types of data visualization</h1><h2 id="1-Temporal-data-visualizations"><a href="#1-Temporal-data-visualizations" class="headerlink" title="1. Temporal data visualizations"></a>1. Temporal data visualizations</h2><ul>
+<li>Linear and one-dimensional</li>
+<li>e.g. scatterplots, timelines, line graphs</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Temporal_data_viz.jpg" class="" title="Temporal data visualizations">
+
+<h2 id="2-Hierarchical-visualizations"><a href="#2-Hierarchical-visualizations" class="headerlink" title="2. Hierarchical visualizations"></a>2. Hierarchical visualizations</h2><ul>
+<li>Organize groups within larger groups</li>
+<li>Often used to display clusters of information</li>
+<li>e.g. tree diagrams, ring charts, sunburst diagrams</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Hierarchical_viz.jpg" class="" title="Hierarchical visualizations">
+
+<h2 id="3-Network-visualizations"><a href="#3-Network-visualizations" class="headerlink" title="3. Network visualizations"></a>3. Network visualizations</h2><ul>
+<li>Show the relationships and connections between multiple datasets</li>
+<li>e.g. matrix charts, word clouds, node-link diagrams</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Network_viz.jpg" class="" title="Network visualizations">
+
+<h2 id="4-Multidimensional-or-3D-visualizations"><a href="#4-Multidimensional-or-3D-visualizations" class="headerlink" title="4. Multidimensional or 3D visualizations"></a>4. Multidimensional or <a target="_blank" rel="noopener" href="https://plotly.com/python/3d-charts/">3D visualizations</a></h2><ul>
+<li>Depict two or more variables</li>
+<li>e.g. pie charts, Venn diagrams, stacked bar graphs, histograms</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Multidimensional_viz.jpg" class="" title="Multidimensional visualizations">
+
+<h2 id="5-Geospatial-visualizations"><a href="#5-Geospatial-visualizations" class="headerlink" title="5. Geospatial visualizations"></a>5. Geospatial visualizations</h2><ul>
+<li>Convey various data points in relation to physical, real-world locations</li>
+<li>e.g. heat maps, cartograms, density maps</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Geospatial_viz.jpg" class="" title="Geospatial visualizations">
+
+<hr>
+<h1 id="Popular-Python-Libraries-For-Data-Visualization"><a href="#Popular-Python-Libraries-For-Data-Visualization" class="headerlink" title="Popular Python Libraries For Data Visualization"></a>Popular Python Libraries For Data Visualization</h1><h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a><a target="_blank" rel="noopener" href="https://matplotlib.org/">Matplotlib</a></h2><p>Matplotlib is an easy-to-use Python library for data visualization which is built on top of NumPy arrays.<br>It is a low-level module and provides a lot of flexibility but at the cost of writing more code. </p>
+<h2 id="Seaborn"><a href="#Seaborn" class="headerlink" title="Seaborn"></a><a target="_blank" rel="noopener" href="https://seaborn.pydata.org/">Seaborn</a></h2><p>Seaborn is a high-level library built on the top of Matplotlib which means that it can also use Matplotlib functions and classes.<br>This library provides default styles and color palettes to make a plot more attractive.</p>
+<h2 id="Plotly"><a href="#Plotly" class="headerlink" title="Plotly"></a><a target="_blank" rel="noopener" href="https://plotly.com/python/">Plotly</a></h2><p>Plotly has hover tool capabilities that allow us to detect any outliers or anomalies in a large number of data points.<br>It is visually attractive that can be accepted by a wide range of audiences.<br>It allows us for the endless customization of our graphs that makes our plot more meaningful and understandable for others.</p>
+<h2 id="Other-Popular-Python-Libraries"><a href="#Other-Popular-Python-Libraries" class="headerlink" title="Other Popular Python Libraries"></a>Other Popular Python Libraries</h2><ul>
+<li>Altair</li>
+<li>Bokeh</li>
+<li>Folium</li>
+<li>Diagrams</li>
+<li>Wordcloud</li>
+<li>…</li>
+</ul>
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://careerfoundry.com/en/blog/data-analytics/what-is-data-visualization/">What Is Data Visualization and Why Is It Important? A Complete Introduction</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/python-data-visualization-tutorial/">Python – Data visualization tutorial</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/" data-id="cln93z8qz00010id97zatdgpl" data-title="Data Visualization - Basics" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Visualization/" rel="tag">Data Visualization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Introduction/" rel="tag">Introduction</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/08/03/Plotly-Basics/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Plotly - Basics
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Common-Mistakes/" rel="tag">Common Mistakes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Visualization/" rel="tag">Data Visualization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Introduction/" rel="tag">Introduction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Plotly/" rel="tag">Plotly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/" rel="tag">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E2%98%85%E2%98%86%E2%98%85/" rel="tag">★☆★</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Common-Mistakes/" style="font-size: 10px;">Common Mistakes</a> <a href="/tags/Data-Visualization/" style="font-size: 20px;">Data Visualization</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Introduction/" style="font-size: 10px;">Introduction</a> <a href="/tags/Plotly/" style="font-size: 15px;">Plotly</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/S3/" style="font-size: 10px;">S3</a> <a href="/tags/%E2%98%85%E2%98%86%E2%98%85/" style="font-size: 10px;">★☆★</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/10/02/Amazon-S3/">Amazon S3</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/02/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/16/Django/">Django</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/12/Data-Visualization-Advanced/">Data Visualization - Advanced</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/05/Plotly-Advanced/">Plotly - Advanced</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 Huang, Feng-Chia<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
