@@ -4,10 +4,10 @@
 
 # Site
 title: Bessy's Tech Blog
-subtitle: ''
+subtitle: '一個紀錄自我學習和抒發本人心情的地方'
 description: ''
-keywords:
-author: Huang, Feng-Chia
+keywords: 自學, 心情, 部落格
+author: Bessy  #Huang, Feng-Chia
 language: en
 timezone: ''
 
@@ -66,9 +66,19 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: uncategorized
+# [下面這個是範例，設定方式為 "給人看的": "給網址看的"]
+default_category: 未分類 # uncategorized
 category_map:
+  雲端原生: cloud-native
+  DevOps: DevOps
+  Cybersecurity: cybersecurity
+  軟體開發: software-development
+  未分類: uncategorized
 tag_map:
+  容器化: container
+  微服務: microservices
+  日記: daily
+  美食: food
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
@@ -97,7 +107,8 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+#theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -105,3 +116,10 @@ deploy:
   type: git
   repo: https://github.com/bessyhuang/bessyhuang.github.io.git
   branch: master
+
+# 文章搜尋功能
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html

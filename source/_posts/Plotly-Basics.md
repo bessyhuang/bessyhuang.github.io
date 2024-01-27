@@ -1,6 +1,7 @@
 ---
 title: Plotly - Basics
 date: 2023-08-03 13:52:27
+description: " "
 tags:
 - Python
 - Data Visualization

@@ -1,6 +1,7 @@
 ---
 title: Data Visualization - Basics
 date: 2023-08-03 10:52:08
+description: " "
 tags:
 - Data Visualization
 - Introduction
