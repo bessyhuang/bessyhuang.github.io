@@ -110,6 +110,80 @@
       </tags>
   </entry>
   <entry>
+    <title>Data Visualization - Basics</title>
+    <url>/2023/08/03/Data-Visualization-Basics/</url>
+    <content><![CDATA[<h1 id="What-is-data-visualization"><a href="#What-is-data-visualization" class="headerlink" title="What is data visualization?"></a>What is data visualization?</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Data visualization (資料視覺化) is the graphical or visual representation of data.<br>It helps to highlight the most useful insights from a dataset, making it easier to spot trends, patterns, outliers, and correlations.</p>
+<hr>
+<h1 id="Two-main-types-of-data-visualization"><a href="#Two-main-types-of-data-visualization" class="headerlink" title="Two main types of data visualization"></a>Two main types of data visualization</h1><h2 id="1-Exploration"><a href="#1-Exploration" class="headerlink" title="1. Exploration"></a>1. Exploration</h2><p><em><font color=royalblue>Exploration takes place while you’re still analyzing the data.</font></em></p>
+<ul>
+<li>When faced with a new dataset, one of the first things you’ll do!</li>
+<li>It helps you figure out what’s in your data.<ul>
+<li>Get a sense of what’s in your dataset and to spot any noteworthy trends or anomalies. </li>
+<li>Finding clues as to what the data might be trying to tell you.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Explanation"><a href="#2-Explanation" class="headerlink" title="2. Explanation"></a>2. Explanation</h2><p><em><font color=royalblue>Explanatory visualization helps you to communicate what you’ve found.</font></em></p>
+<ul>
+<li>Once you’ve conducted your analysis and have figured out what the data is telling you, you’ll want to share these insights with others.</li>
+<li>Help you tell the story, and it’s up to you to determine which visualizations will help you to do so most effectively.</li>
+</ul>
+<hr>
+<h1 id="Five-types-of-data-visualization"><a href="#Five-types-of-data-visualization" class="headerlink" title="Five types of data visualization"></a>Five types of data visualization</h1><h2 id="1-Temporal-data-visualizations"><a href="#1-Temporal-data-visualizations" class="headerlink" title="1. Temporal data visualizations"></a>1. Temporal data visualizations</h2><ul>
+<li>Linear and one-dimensional</li>
+<li>e.g. scatterplots, timelines, line graphs</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Temporal_data_viz.jpg" class="" title="Temporal data visualizations">
+
+<h2 id="2-Hierarchical-visualizations"><a href="#2-Hierarchical-visualizations" class="headerlink" title="2. Hierarchical visualizations"></a>2. Hierarchical visualizations</h2><ul>
+<li>Organize groups within larger groups</li>
+<li>Often used to display clusters of information</li>
+<li>e.g. tree diagrams, ring charts, sunburst diagrams</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Hierarchical_viz.jpg" class="" title="Hierarchical visualizations">
+
+<h2 id="3-Network-visualizations"><a href="#3-Network-visualizations" class="headerlink" title="3. Network visualizations"></a>3. Network visualizations</h2><ul>
+<li>Show the relationships and connections between multiple datasets</li>
+<li>e.g. matrix charts, word clouds, node-link diagrams</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Network_viz.jpg" class="" title="Network visualizations">
+
+<h2 id="4-Multidimensional-or-3D-visualizations"><a href="#4-Multidimensional-or-3D-visualizations" class="headerlink" title="4. Multidimensional or 3D visualizations"></a>4. Multidimensional or <a href="https://plotly.com/python/3d-charts/">3D visualizations</a></h2><ul>
+<li>Depict two or more variables</li>
+<li>e.g. pie charts, Venn diagrams, stacked bar graphs, histograms</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Multidimensional_viz.jpg" class="" title="Multidimensional visualizations">
+
+<h2 id="5-Geospatial-visualizations"><a href="#5-Geospatial-visualizations" class="headerlink" title="5. Geospatial visualizations"></a>5. Geospatial visualizations</h2><ul>
+<li>Convey various data points in relation to physical, real-world locations</li>
+<li>e.g. heat maps, cartograms, density maps</li>
+</ul>
+<img src="/2023/08/03/Data-Visualization-Basics/Geospatial_viz.jpg" class="" title="Geospatial visualizations">
+
+<hr>
+<h1 id="Popular-Python-Libraries-For-Data-Visualization"><a href="#Popular-Python-Libraries-For-Data-Visualization" class="headerlink" title="Popular Python Libraries For Data Visualization"></a>Popular Python Libraries For Data Visualization</h1><h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a><a href="https://matplotlib.org/">Matplotlib</a></h2><p>Matplotlib is an easy-to-use Python library for data visualization which is built on top of NumPy arrays.<br>It is a low-level module and provides a lot of flexibility but at the cost of writing more code. </p>
+<h2 id="Seaborn"><a href="#Seaborn" class="headerlink" title="Seaborn"></a><a href="https://seaborn.pydata.org/">Seaborn</a></h2><p>Seaborn is a high-level library built on the top of Matplotlib which means that it can also use Matplotlib functions and classes.<br>This library provides default styles and color palettes to make a plot more attractive.</p>
+<h2 id="Plotly"><a href="#Plotly" class="headerlink" title="Plotly"></a><a href="https://plotly.com/python/">Plotly</a></h2><p>Plotly has hover tool capabilities that allow us to detect any outliers or anomalies in a large number of data points.<br>It is visually attractive that can be accepted by a wide range of audiences.<br>It allows us for the endless customization of our graphs that makes our plot more meaningful and understandable for others.</p>
+<h2 id="Other-Popular-Python-Libraries"><a href="#Other-Popular-Python-Libraries" class="headerlink" title="Other Popular Python Libraries"></a>Other Popular Python Libraries</h2><ul>
+<li>Altair</li>
+<li>Bokeh</li>
+<li>Folium</li>
+<li>Diagrams</li>
+<li>Wordcloud</li>
+<li>…</li>
+</ul>
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://careerfoundry.com/en/blog/data-analytics/what-is-data-visualization/">What Is Data Visualization and Why Is It Important? A Complete Introduction</a></li>
+<li><a href="https://www.geeksforgeeks.org/python-data-visualization-tutorial/">Python – Data visualization tutorial</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Data Visualization</tag>
+        <tag>Introduction</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Django</title>
     <url>/2023/08/16/Django/</url>
     <content><![CDATA[<blockquote>
@@ -275,80 +349,6 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Data Visualization - Basics</title>
-    <url>/2023/08/03/Data-Visualization-Basics/</url>
-    <content><![CDATA[<h1 id="What-is-data-visualization"><a href="#What-is-data-visualization" class="headerlink" title="What is data visualization?"></a>What is data visualization?</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Data visualization (資料視覺化) is the graphical or visual representation of data.<br>It helps to highlight the most useful insights from a dataset, making it easier to spot trends, patterns, outliers, and correlations.</p>
-<hr>
-<h1 id="Two-main-types-of-data-visualization"><a href="#Two-main-types-of-data-visualization" class="headerlink" title="Two main types of data visualization"></a>Two main types of data visualization</h1><h2 id="1-Exploration"><a href="#1-Exploration" class="headerlink" title="1. Exploration"></a>1. Exploration</h2><p><em><font color=royalblue>Exploration takes place while you’re still analyzing the data.</font></em></p>
-<ul>
-<li>When faced with a new dataset, one of the first things you’ll do!</li>
-<li>It helps you figure out what’s in your data.<ul>
-<li>Get a sense of what’s in your dataset and to spot any noteworthy trends or anomalies. </li>
-<li>Finding clues as to what the data might be trying to tell you.</li>
-</ul>
-</li>
-</ul>
-<h2 id="2-Explanation"><a href="#2-Explanation" class="headerlink" title="2. Explanation"></a>2. Explanation</h2><p><em><font color=royalblue>Explanatory visualization helps you to communicate what you’ve found.</font></em></p>
-<ul>
-<li>Once you’ve conducted your analysis and have figured out what the data is telling you, you’ll want to share these insights with others.</li>
-<li>Help you tell the story, and it’s up to you to determine which visualizations will help you to do so most effectively.</li>
-</ul>
-<hr>
-<h1 id="Five-types-of-data-visualization"><a href="#Five-types-of-data-visualization" class="headerlink" title="Five types of data visualization"></a>Five types of data visualization</h1><h2 id="1-Temporal-data-visualizations"><a href="#1-Temporal-data-visualizations" class="headerlink" title="1. Temporal data visualizations"></a>1. Temporal data visualizations</h2><ul>
-<li>Linear and one-dimensional</li>
-<li>e.g. scatterplots, timelines, line graphs</li>
-</ul>
-<img src="/2023/08/03/Data-Visualization-Basics/Temporal_data_viz.jpg" class="" title="Temporal data visualizations">
-
-<h2 id="2-Hierarchical-visualizations"><a href="#2-Hierarchical-visualizations" class="headerlink" title="2. Hierarchical visualizations"></a>2. Hierarchical visualizations</h2><ul>
-<li>Organize groups within larger groups</li>
-<li>Often used to display clusters of information</li>
-<li>e.g. tree diagrams, ring charts, sunburst diagrams</li>
-</ul>
-<img src="/2023/08/03/Data-Visualization-Basics/Hierarchical_viz.jpg" class="" title="Hierarchical visualizations">
-
-<h2 id="3-Network-visualizations"><a href="#3-Network-visualizations" class="headerlink" title="3. Network visualizations"></a>3. Network visualizations</h2><ul>
-<li>Show the relationships and connections between multiple datasets</li>
-<li>e.g. matrix charts, word clouds, node-link diagrams</li>
-</ul>
-<img src="/2023/08/03/Data-Visualization-Basics/Network_viz.jpg" class="" title="Network visualizations">
-
-<h2 id="4-Multidimensional-or-3D-visualizations"><a href="#4-Multidimensional-or-3D-visualizations" class="headerlink" title="4. Multidimensional or 3D visualizations"></a>4. Multidimensional or <a href="https://plotly.com/python/3d-charts/">3D visualizations</a></h2><ul>
-<li>Depict two or more variables</li>
-<li>e.g. pie charts, Venn diagrams, stacked bar graphs, histograms</li>
-</ul>
-<img src="/2023/08/03/Data-Visualization-Basics/Multidimensional_viz.jpg" class="" title="Multidimensional visualizations">
-
-<h2 id="5-Geospatial-visualizations"><a href="#5-Geospatial-visualizations" class="headerlink" title="5. Geospatial visualizations"></a>5. Geospatial visualizations</h2><ul>
-<li>Convey various data points in relation to physical, real-world locations</li>
-<li>e.g. heat maps, cartograms, density maps</li>
-</ul>
-<img src="/2023/08/03/Data-Visualization-Basics/Geospatial_viz.jpg" class="" title="Geospatial visualizations">
-
-<hr>
-<h1 id="Popular-Python-Libraries-For-Data-Visualization"><a href="#Popular-Python-Libraries-For-Data-Visualization" class="headerlink" title="Popular Python Libraries For Data Visualization"></a>Popular Python Libraries For Data Visualization</h1><h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a><a href="https://matplotlib.org/">Matplotlib</a></h2><p>Matplotlib is an easy-to-use Python library for data visualization which is built on top of NumPy arrays.<br>It is a low-level module and provides a lot of flexibility but at the cost of writing more code. </p>
-<h2 id="Seaborn"><a href="#Seaborn" class="headerlink" title="Seaborn"></a><a href="https://seaborn.pydata.org/">Seaborn</a></h2><p>Seaborn is a high-level library built on the top of Matplotlib which means that it can also use Matplotlib functions and classes.<br>This library provides default styles and color palettes to make a plot more attractive.</p>
-<h2 id="Plotly"><a href="#Plotly" class="headerlink" title="Plotly"></a><a href="https://plotly.com/python/">Plotly</a></h2><p>Plotly has hover tool capabilities that allow us to detect any outliers or anomalies in a large number of data points.<br>It is visually attractive that can be accepted by a wide range of audiences.<br>It allows us for the endless customization of our graphs that makes our plot more meaningful and understandable for others.</p>
-<h2 id="Other-Popular-Python-Libraries"><a href="#Other-Popular-Python-Libraries" class="headerlink" title="Other Popular Python Libraries"></a>Other Popular Python Libraries</h2><ul>
-<li>Altair</li>
-<li>Bokeh</li>
-<li>Folium</li>
-<li>Diagrams</li>
-<li>Wordcloud</li>
-<li>…</li>
-</ul>
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://careerfoundry.com/en/blog/data-analytics/what-is-data-visualization/">What Is Data Visualization and Why Is It Important? A Complete Introduction</a></li>
-<li><a href="https://www.geeksforgeeks.org/python-data-visualization-tutorial/">Python – Data visualization tutorial</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Data Visualization</tag>
-        <tag>Introduction</tag>
       </tags>
   </entry>
   <entry>

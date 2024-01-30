@@ -230,9 +230,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2024-01-30 21:46:07 / Modified: 23:55:36" itemprop="dateCreated datePublished" datetime="2024-01-30T21:46:07+08:00">2024-01-30</time>
+      <time title="Created: 2024-01-30 21:46:07" itemprop="dateCreated datePublished" datetime="2024-01-30T21:46:07+08:00">2024-01-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-01-31 00:01:13" itemprop="dateModified" datetime="2024-01-31T00:01:13+08:00">2024-01-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -254,39 +260,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
-
-<h1 id="功用一：簡化部署流程"><a href="#功用一：簡化部署流程" class="headerlink" title="功用一：簡化部署流程"></a>功用一：簡化部署流程</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>如果沒有使用 Docker，當你需要將應用程式部署到多台伺服器上時，必須逐一輸入指令進行設定。這不僅在環境安裝階段耗費大量時間且枯燥乏味，還容易因人為失誤而輸入錯誤指令。更重要的是，若需要在不同環境中進行部署，還得應對各種環境變數和配置的複雜性。</p>
-<p>Docker 的推出為我們提供了一套強大的容器化解決方案。</p>
-<p>透過使用 Docker，我們能夠將應用程式及其相依的環境、套件等打包成一個獨立、可攜帶的容器。這樣一來，無論在何處都能確保應用程式以相同的方式運行，避免受到不同環境的影響。</p>
-<p>這種容器化的方法使得應用程式的部署和管理變得更加靈活、簡便，同時提供了更高度的一致性和可攜性。</p>
-<hr>
-<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><h2 id="建立一個映像檔（Docker-Image）"><a href="#建立一個映像檔（Docker-Image）" class="headerlink" title="建立一個映像檔（Docker Image）"></a>建立一個映像檔（Docker Image）</h2><p>Docker Image 就像是一個獨立、可攜帶的程式部署包，其中包含了應用程式（在這個範例中是 Django 網站）以及它所需要的環境、套件等資源，都被一併打包在一起。</p>
-<h3 id="Start-a-Docker-Container"><a href="#Start-a-Docker-Container" class="headerlink" title="Start a Docker Container"></a>Start a Docker Container</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker pull python:3.12-alpine</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite -it -p 8000:8000 python:3.12-alpine /bin/sh</span></span><br><span class="line">/ #</span><br></pre></td></tr></table></figure>
-
-<h3 id="Install-packages-in-a-Docker-Container"><a href="#Install-packages-in-a-Docker-Container" class="headerlink" title="Install packages in a Docker Container"></a>Install packages in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/ # apk update</span><br><span class="line">/ # apk add vim</span><br><span class="line">/ # pip install django</span><br></pre></td></tr></table></figure>
-
-<h3 id="Create-a-Django-website-in-a-Docker-Container"><a href="#Create-a-Django-website-in-a-Docker-Container" class="headerlink" title="Create a Django website in a Docker Container"></a>Create a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/     # cd /home/</span><br><span class="line">/home # django-admin startproject mysite</span><br><span class="line">/home # cd mysite/</span><br><span class="line">/home/mysite # django-admin startapp app1</span><br></pre></td></tr></table></figure>
-
-<h3 id="Django-Settings"><a href="#Django-Settings" class="headerlink" title="Django Settings"></a>Django Settings</h3><ul>
-<li><code>mysite/settings.py</code>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li><code>mysite/urls.py</code>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path <span class="keyword">as</span> url</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       url(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li><code>app1/views.py</code>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">       <span class="keyword">return</span> HttpResponse(<span class="string">&#x27;Hello, World.&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Run-a-Django-website-in-a-Docker-Container"><a href="#Run-a-Django-website-in-a-Docker-Container" class="headerlink" title="Run a Django website in a Docker Container"></a>Run a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Open your browser: <a target="_blank" rel="noopener" href="http://localhost:8000/hello/">http://localhost:8000/hello/</a></p>
-<img src="/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/hello_world.jpg" class="" title="Hello, World.">
-</blockquote>
-<h3 id="Create-a-new-image-from-a-container’s-changes"><a href="#Create-a-new-image-from-a-container’s-changes" class="headerlink" title="Create a new image from a container’s changes"></a>Create a new image from a container’s changes</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker container <span class="built_in">ls</span> -a</span></span><br><span class="line">CONTAINER ID   IMAGE                COMMAND     CREATED          STATUS                      PORTS     NAMES</span><br><span class="line">dbd03d68bf0d   python:3.12-alpine   &quot;/bin/sh&quot;   32 minutes ago   Exited (0) 10 seconds ago             mysite</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker commit dbd03d68bf0d  django_site:v1</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker images</span></span><br><span class="line">REPOSITORY    TAG           IMAGE ID       CREATED         SIZE</span><br><span class="line">django_site   v1            5499518614d6   2 seconds ago   136MB</span><br><span class="line">python        3.12-alpine   d2cfe5300063   5 weeks ago     56.4MB</span><br></pre></td></tr></table></figure>
-
-<h2 id="部署一個-Django-網站"><a href="#部署一個-Django-網站" class="headerlink" title="部署一個 Django 網站"></a>部署一個 Django 網站</h2><h3 id="Use-a-Docker-Image-to-create-a-Docker-Container"><a href="#Use-a-Docker-Image-to-create-a-Docker-Container" class="headerlink" title="Use a Docker Image to create a Docker Container"></a>Use a Docker Image to create a Docker Container</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite_002 -it -p 8000:8000 django_site:v1 /bin/sh</span></span><br><span class="line">/ # cd home/mysite/</span><br><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>哇！只要三行指令，就能把事先打包好的 Django 網站建立起來了～<br>Open your browser: <a target="_blank" rel="noopener" href="http://localhost:8000/hello/">http://localhost:8000/hello/</a><br>PS. 後續還有更進階的部署作法，像是 Dockerfile、Docker Compose 喔！</p>
-</blockquote>
-
+          <p> </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
