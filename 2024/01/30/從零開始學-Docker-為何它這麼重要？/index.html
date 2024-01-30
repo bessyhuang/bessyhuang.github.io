@@ -19,24 +19,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="blog">
-<meta property="og:title" content="Bessy&#39;s Tech Blog">
-<meta property="og:url" content="https://bessyhuang.github.io/index.html">
+    <meta name="description" content="1234Docker 的三大功用：1. 簡化部署流程2. 跨平台部署3. 建立乾淨測試環境  功用一：簡化部署流程觀念解說如果沒有使用 Docker，當你需要將應用程式部署到多台伺服器上時，必須逐一輸入指令進行設定。這不僅在環境安裝階段耗費大量時間且枯燥乏味，還容易因人為失誤而輸入錯誤指令。更重要的是，若需要在不同環境中進行部署，還得應對各種環境變數和配置的複雜性。 Docker 的推出為我們提供">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="從零開始學 Docker - 為何它這麼重要？">
+<meta property="og:url" content="https://bessyhuang.github.io/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/index.html">
 <meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="1234Docker 的三大功用：1. 簡化部署流程2. 跨平台部署3. 建立乾淨測試環境  功用一：簡化部署流程觀念解說如果沒有使用 Docker，當你需要將應用程式部署到多台伺服器上時，必須逐一輸入指令進行設定。這不僅在環境安裝階段耗費大量時間且枯燥乏味，還容易因人為失誤而輸入錯誤指令。更重要的是，若需要在不同環境中進行部署，還得應對各種環境變數和配置的複雜性。 Docker 的推出為我們提供">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://bessyhuang.github.io/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/hello_world.jpg">
+<meta property="article:published_time" content="2024-01-30T13:46:07.000Z">
+<meta property="article:modified_time" content="2024-01-30T15:55:36.646Z">
 <meta property="article:author" content="Bessy">
-<meta property="article:tag" content="自學, 心情, 部落格">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="觀念解說">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bessyhuang.github.io/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/hello_world.jpg">
 
 
-<link rel="canonical" href="https://bessyhuang.github.io/">
+<link rel="canonical" href="https://bessyhuang.github.io/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/","path":"2024/01/30/從零開始學-Docker-為何它這麼重要？/","title":"從零開始學 Docker - 為何它這麼重要？"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Bessy's Tech Blog</title>
+<title>從零開始學 Docker - 為何它這麼重要？ | Bessy's Tech Blog</title>
   
 
 
@@ -69,7 +76,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Bessy's Tech Blog</h1>
+      <p class="site-title">Bessy's Tech Blog</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
@@ -124,7 +131,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -137,6 +144,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%9F%E7%94%A8%E4%B8%80%EF%BC%9A%E7%B0%A1%E5%8C%96%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">功用一：簡化部署流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%80%E5%BF%B5%E8%A7%A3%E8%AA%AA"><span class="nav-number">1.1.</span> <span class="nav-text">觀念解說</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E7%A4%BA%E7%AF%84"><span class="nav-number">2.</span> <span class="nav-text">實作示範</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B%E6%98%A0%E5%83%8F%E6%AA%94%EF%BC%88Docker-Image%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">建立一個映像檔（Docker Image）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-a-Docker-Container"><span class="nav-number">2.1.1.</span> <span class="nav-text">Start a Docker Container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-packages-in-a-Docker-Container"><span class="nav-number">2.1.2.</span> <span class="nav-text">Install packages in a Docker Container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-Django-website-in-a-Docker-Container"><span class="nav-number">2.1.3.</span> <span class="nav-text">Create a Django website in a Docker Container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django-Settings"><span class="nav-number">2.1.4.</span> <span class="nav-text">Django Settings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-a-Django-website-in-a-Docker-Container"><span class="nav-number">2.1.5.</span> <span class="nav-text">Run a Django website in a Docker Container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-image-from-a-container%E2%80%99s-changes"><span class="nav-number">2.1.6.</span> <span class="nav-text">Create a new image from a container’s changes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%80%E5%80%8B-Django-%E7%B6%B2%E7%AB%99"><span class="nav-number">2.2.</span> <span class="nav-text">部署一個 Django 網站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-a-Docker-Image-to-create-a-Docker-Container"><span class="nav-number">2.2.1.</span> <span class="nav-text">Use a Docker Image to create a Docker Container</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -192,16 +200,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -215,13 +224,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bessy's Tech Blog">
+      <meta itemprop="name" content="從零開始學 Docker - 為何它這麼重要？ | Bessy's Tech Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/" class="post-title-link" itemprop="url">從零開始學 Docker - 為何它這麼重要？</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          從零開始學 Docker - 為何它這麼重要？
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -245,6 +254,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
 </div>
 
         </div>
@@ -253,8 +269,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
 
 <h1 id="功用一：簡化部署流程"><a href="#功用一：簡化部署流程" class="headerlink" title="功用一：簡化部署流程"></a>功用一：簡化部署流程</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>如果沒有使用 Docker，當你需要將應用程式部署到多台伺服器上時，必須逐一輸入指令進行設定。這不僅在環境安裝階段耗費大量時間且枯燥乏味，還容易因人為失誤而輸入錯誤指令。更重要的是，若需要在不同環境中進行部署，還得應對各種環境變數和配置的複雜性。</p>
 <p>Docker 的推出為我們提供了一套強大的容器化解決方案。</p>
@@ -287,7 +302,6 @@
 <p>哇！只要三行指令，就能把事先打包好的 Django 網站建立起來了～<br>Open your browser: <a target="_blank" rel="noopener" href="http://localhost:8000/hello/">http://localhost:8000/hello/</a><br>PS. 後續還有更進階的部署作法，像是 Dockerfile、Docker Compose 喔！</p>
 </blockquote>
 
-      
     </div>
 
     
@@ -295,585 +309,43 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/" title="從零開始學 Docker - 為何它這麼重要？">https://bessyhuang.github.io/2024/01/30/從零開始學-Docker-為何它這麼重要？/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/%E8%A7%80%E5%BF%B5%E8%A7%A3%E8%AA%AA/" rel="tag"># 觀念解說</a>
+          </div>
 
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2024/01/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bessy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/01/27/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-01-27 15:42:58" itemprop="dateCreated datePublished" datetime="2024-01-27T15:42:58+08:00">2024-01-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/01/27/hello-world/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2023/10/02/Amazon-S3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bessy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/02/Amazon-S3/" class="post-title-link" itemprop="url">Amazon S3</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-10-02 23:36:23" itemprop="dateCreated datePublished" datetime="2023-10-02T23:36:23+08:00">2023-10-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-27 15:32:48" itemprop="dateModified" datetime="2024-01-27T15:32:48+08:00">2024-01-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/02/Amazon-S3/">
-                Read more &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/27/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-angle-left"></i> Hello World
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2023/08/16/Django/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bessy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/16/Django/" class="post-title-link" itemprop="url">Django</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-08-16 15:38:34" itemprop="dateCreated datePublished" datetime="2023-08-16T15:38:34+08:00">2023-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-27 15:33:44" itemprop="dateModified" datetime="2024-01-27T15:33:44+08:00">2024-01-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/16/Django/">
-                Read more &raquo;
-              </a>
+            <div class="post-nav-item">
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bessy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/12/Data-Visualization-Advanced/" class="post-title-link" itemprop="url">Data Visualization - Advanced</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-08-12 00:18:24" itemprop="dateCreated datePublished" datetime="2023-08-12T00:18:24+08:00">2023-08-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-27 15:33:12" itemprop="dateModified" datetime="2024-01-27T15:33:12+08:00">2024-01-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/12/Data-Visualization-Advanced/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2023/08/05/Plotly-Advanced/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bessy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/05/Plotly-Advanced/" class="post-title-link" itemprop="url">Plotly - Advanced</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-08-05 02:40:12" itemprop="dateCreated datePublished" datetime="2023-08-05T02:40:12+08:00">2023-08-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-27 15:33:59" itemprop="dateModified" datetime="2024-01-27T15:33:59+08:00">2024-01-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/05/Plotly-Advanced/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2023/08/03/Plotly-Basics/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bessy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/03/Plotly-Basics/" class="post-title-link" itemprop="url">Plotly - Basics</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-08-03 13:52:27" itemprop="dateCreated datePublished" datetime="2023-08-03T13:52:27+08:00">2023-08-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-27 15:34:15" itemprop="dateModified" datetime="2024-01-27T15:34:15+08:00">2024-01-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/03/Plotly-Basics/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2023/08/03/Data-Visualization-Basics/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bessy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bessy's Tech Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/03/Data-Visualization-Basics/" class="post-title-link" itemprop="url">Data Visualization - Basics</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-08-03 10:52:08" itemprop="dateCreated datePublished" datetime="2023-08-03T10:52:08+08:00">2023-08-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-27 15:33:26" itemprop="dateModified" datetime="2024-01-27T15:33:26+08:00">2024-01-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/03/Data-Visualization-Basics/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
