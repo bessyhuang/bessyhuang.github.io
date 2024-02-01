@@ -412,11 +412,11 @@ back2top:
   # Back to top in sidebar.
   sidebar: false
   # Scroll percent label in b2t button.
-  scrollpercent: false
+  scrollpercent: true
 
 # Reading progress bar
 reading_progress:
-  enable: false
+  enable: true
   # Available values: left | right
   start_at: left
   # Available values: top | bottom
@@ -796,7 +796,7 @@ addtoany:
 # Google Analytics
 # See: https://analytics.google.com
 google_analytics:
-  tracking_id: # <app_id>
+  tracking_id: G-NV0JEBF158
   # By default, NexT will load an external gtag.js script on your site.
   # If you only need the pageview feature, set the following option to true to get a better performance.
   only_pageview: false
