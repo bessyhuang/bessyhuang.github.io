@@ -184,18 +184,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Django</title>
-    <url>/2023/08/16/Django/</url>
-    <content><![CDATA[<blockquote>
-<p><em>“Django makes it easier to build better web apps more quickly and with less code.” — Django Official Website</em></p>
-</blockquote>
-<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It’s free and open source.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>]]></content>
-      <tags>
-        <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Plotly - Advanced</title>
     <url>/2023/08/05/Plotly-Advanced/</url>
     <content><![CDATA[<h1 id="For-Example-Line-Plots"><a href="#For-Example-Line-Plots" class="headerlink" title="For Example: Line Plots"></a>For Example: Line Plots</h1><p>📘 Download <a href="https://www.kaggle.com/datasets/garrickhague/world-earthquake-data-from-1906-2022">World Earthquake Data From 1906-2022</a></p>
@@ -349,6 +337,18 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django</title>
+    <url>/2023/08/16/Django/</url>
+    <content><![CDATA[<blockquote>
+<p><em>“Django makes it easier to build better web apps more quickly and with less code.” — Django Official Website</em></p>
+</blockquote>
+<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It’s free and open source.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>]]></content>
+      <tags>
+        <tag>Django</tag>
       </tags>
   </entry>
   <entry>
