@@ -71,6 +71,45 @@
       </tags>
   </entry>
   <entry>
+    <title>Data Visualization - Advanced</title>
+    <url>/2023/08/12/Data-Visualization-Advanced/</url>
+    <content><![CDATA[<h1 id="Common-Data-Visualization-Mistakes"><a href="#Common-Data-Visualization-Mistakes" class="headerlink" title="Common Data Visualization Mistakes"></a>Common Data Visualization Mistakes</h1><h2 id="1-Misleading-color-contrast"><a href="#1-Misleading-color-contrast" class="headerlink" title="1. Misleading color contrast"></a>1. Misleading color contrast</h2><p>Although using various colors aids in interpreting data visualizations, too much color can confuse the user.<br>It’s crucial to stick to a limited number of unique colors.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU" alt="Bad Example: Misleading color contrast"></p>
+<ul>
+<li>Solution<ul>
+<li>The simplest way to determine contrast value is to compare contrast colors on greyscale to check if the color you choose displays the difference.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*M_5cpWpvfNJzVsqQ"></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Overwhelming-charts-with-too-much-data"><a href="#2-Overwhelming-charts-with-too-much-data" class="headerlink" title="2. Overwhelming charts with too much data"></a>2. Overwhelming charts with too much data</h2><p><img src="https://miro.medium.com/v2/resize:fit:1400/0*wzDTQBW8wYIev4GC" alt="Bad Example: Overwhelming charts with too much data"></p>
+<ul>
+<li>Solution<ul>
+<li>Do not put all of your insights into a chart. Multiple visualizations can help you communicate data more effectively.</li>
+<li>It is recommended that no more than 5–6 colors be used in a single visualization.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Omitting-baseline-and-truncating-scale"><a href="#3-Omitting-baseline-and-truncating-scale" class="headerlink" title="3. Omitting baseline and truncating scale"></a>3. Omitting baseline and truncating scale</h2><img src="/2023/08/12/Data-Visualization-Advanced/Omitting_baseline_and_truncating_scale.jpg" class="" title="Bad Example: Omitting baseline and truncating scale">
+
+<ul>
+<li>Solution<ul>
+<li>Concentrate on creating data visualizations with a zero-baseline y-axis.</li>
+<li>If removing the zero makes sense, add a zero-break to communicate that.<img src="/2023/08/12/Data-Visualization-Advanced/solution_Omitting_baseline_and_truncating_scale.jpg" class=""></li>
+</ul>
+</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://flourish.studio/blog/common-mistakes-in-data-visualization/">Four data visualization mistakes you’re probably making and how to fix them</a></li>
+<li><a href="https://www.toptal.com/designers/ux/data-visualization-mistakes">Numbers Shouldn’t Lie: An Overview of Common Data Visualization Mistakes</a></li>
+<li><a href="https://chartio.com/learn/charts/how-to-choose-data-visualization/">How to Choose the Right Data Visualization</a></li>
+<li><a href="https://careerfoundry.com/en/tutorials/data-analytics-for-beginners/introduction-to-data-visualization/">Tutorial 4: An Introduction to Data Visualization</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Data Visualization</tag>
+        <tag>Common Mistakes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Data Visualization - Basics</title>
     <url>/2023/08/03/Data-Visualization-Basics/</url>
     <content><![CDATA[<h1 id="What-is-data-visualization"><a href="#What-is-data-visualization" class="headerlink" title="What is data visualization?"></a>What is data visualization?</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Data visualization (資料視覺化) is the graphical or visual representation of data.<br>It helps to highlight the most useful insights from a dataset, making it easier to spot trends, patterns, outliers, and correlations.</p>
@@ -157,6 +196,129 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo | Getting Started</title>
+    <url>/2024/03/18/Hexo-Getting-Started/</url>
+    <content><![CDATA[<h1 id="建立一個新的-Hexo-網站"><a href="#建立一個新的-Hexo-網站" class="headerlink" title="建立一個新的 Hexo 網站"></a>建立一個新的 Hexo 網站</h1><h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-cli -g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm@10.5.0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果要把 Hexo deploy 到 Github 上面，需要先安裝 <code>hexo-deployer-git</code>。<ul>
+<li>相關設定，請參考 <a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a>。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nano _config.yml</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="網站初始化"><a href="#網站初始化" class="headerlink" title="網站初始化"></a>網站初始化</h2><p>如果沒有設定 folder 的話，Hexo 會在目前的資料夾建立網站。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init myblog</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> myblog/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="新增一篇-Post"><a href="#新增一篇-Post" class="headerlink" title="新增一篇 Post"></a>新增一篇 Post</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo new <span class="string">&quot;Hexo | Getting Started&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim <span class="built_in">source</span>/_posts/Hexo-Getting-Started.md</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="啟動伺服器"><a href="#啟動伺服器" class="headerlink" title="啟動伺服器"></a>啟動伺服器</h2><p>預設是 <a href="http://localhost:4000/">http://localhost:4000/</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="部署三部曲"><a href="#部署三部曲" class="headerlink" title="部署三部曲"></a>部署三部曲</h1><ol>
+<li><p>清除快取檔案 (db.json) 和已產生的靜態檔案 (public)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo cl</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>產生靜態檔案 (部署網站前先產生靜態檔案)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo generate</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署網站</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo deploy</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo d</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="Clone-Run-your-Repository"><a href="#Clone-Run-your-Repository" class="headerlink" title="Clone &amp; Run your Repository"></a>Clone &amp; Run your Repository</h1><h2 id="Repository-跑起來"><a href="#Repository-跑起來" class="headerlink" title="Repository 跑起來"></a>Repository 跑起來</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/bessyhuang/bessyhuang.github.io.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> bessyhuang.github.io/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="備份於-GitHub-Repository-的-backup-分支"><a href="#備份於-GitHub-Repository-的-backup-分支" class="headerlink" title="備份於 GitHub Repository 的 backup 分支"></a>備份於 GitHub Repository 的 <code>backup 分支</code></h2><ul>
+<li>git checkout<ul>
+<li>切換分支。Switch branches or restore working tree files</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git push --set-upstream origin backup</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://hexo.io/zh-tw/docs/commands.html">Hexo 指令</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10308093">CI&#x2F;CD X Jenkins、CircleCI、Github Action (28)</a></li>
+<li><a href="https://blog.marsen.me/2022/09/26/2022/Hexo_CICD/">[實作筆記] Hexo CI&#x2F;CD 設置</a></li>
+<li><a href="https://anemology.cc/post/hexo-backup/">Hexo 備份至 GitHub</a></li>
+<li><a href="https://afun.tw/blog/20201114-hexo-init-github-page/">Hexo - 基本設定與 GitHub Page 發佈流程</a></li>
+<li><a href="https://op30132.github.io/2019/12/24/hexo-tag-page/">hexo 新增 tag、catagories、about等頁面</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MQTT vs. Redis vs. Kafka</title>
+    <url>/2024/03/18/MQTT-vs-Redis-vs-Kafka/</url>
+    <content><![CDATA[<h1 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h1><blockquote>
+<p>Message Queueing Telemetry Transport</p>
+</blockquote>
+<p>It is a lightweight communication protocol for IoT devices and networks. MQTT is well-suited for use in low-bandwidth, high-latency networks, and is often used for real-time data transfer in applications such as home automation and energy management.</p>
+<p>MQTT (Message Queuing Telemetry Transport) is a publish&#x2F;subscribe messaging protocol designed for resource-constrained devices and low-bandwidth networks. It provides a lightweight and efficient messaging infrastructure for microservices, making it ideal for IoT and mobile applications.</p>
+<ul>
+<li>物聯網(IoT) 通訊協議，專為資源受限的設備設計，提供了可靠的、有序的、低延遲的訊息傳輸</li>
+<li>適用於物聯網設備間的訊息通訊</li>
+</ul>
+<h2 id="Advantages"><a href="#Advantages" class="headerlink" title="Advantages"></a>Advantages</h2><ol>
+<li>Lightweight and efficient</li>
+<li>Ideal for IoT and mobile applications</li>
+<li>Publish&#x2F;subscribe model for easy scalability</li>
+<li>Widely supported and well-documented API</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Quality of Service (QoS)</span><br><span class="line">Retained Messages</span><br><span class="line">Last Will and Testament (LWT)</span><br><span class="line"></span><br><span class="line">Scalability and Reliability</span><br></pre></td></tr></table></figure>
+
+<h2 id="Disadvantages"><a href="#Disadvantages" class="headerlink" title="Disadvantages"></a>Disadvantages</h2><ol>
+<li>Limited security options compared to other protocols</li>
+<li>May not be suitable for high-volume or complex data transfers</li>
+</ol>
+<h2 id="Best-Use-Case"><a href="#Best-Use-Case" class="headerlink" title="Best Use Case"></a>Best Use Case</h2><p>MQTT is best for low-volume, resource-constrained, and scalable communication between microservices, especially in IoT and mobile applications.<br>It’s well-suited for environments with limited bandwidth or unreliable networks, and devices with low computational resources.</p>
+<p>Choose: You need to ensure message delivery over unreliable or bandwidth-constrained networks. You are dealing with a large number of distributed devices or sensors.</p>
+<hr>
+<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><blockquote>
+<p>Remote Dictionary Server</p>
+</blockquote>
+<p>It is an in-memory data structure store that can be used as a database, cache, and message broker. Redis can be used for real-time communication between services, where messages are stored and retrieved using Redis pub&#x2F;sub.</p>
+<p>Redis is an open-source, in-memory data structure store that can be used as a database, cache, and message broker. It provides fast and flexible access to data, making it well-suited for use as a cache and message broker in microservices.</p>
+<ul>
+<li>適用於需要高效能、在短時間內處理大量訊息的場景</li>
+</ul>
+<h2 id="Advantages-1"><a href="#Advantages-1" class="headerlink" title="Advantages"></a>Advantages</h2><ol>
+<li>Fast in-memory access to data</li>
+<li>Flexible data storage options</li>
+<li>Publish&#x2F;subscribe model for easy scalability</li>
+<li>Widely supported and well-documented API</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">high performance and low latency (Performance: Excellent for high-performance computing scenarios where rapid access to data is required.)</span><br><span class="line"></span><br><span class="line">Pub/Sub System</span><br><span class="line">Data Persistence</span><br><span class="line">Advanced Data Structures</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Disadvantages-1"><a href="#Disadvantages-1" class="headerlink" title="Disadvantages"></a>Disadvantages</h2><ol>
+<li>Limited durability compared to other protocols</li>
+<li>May not be suitable for high-volume or complex data transfers</li>
+<li>May require additional setup and configuration</li>
+</ol>
+<h2 id="Best-Use-Case-1"><a href="#Best-Use-Case-1" class="headerlink" title="Best Use Case"></a>Best Use Case</h2><p>Redis is best for fast, flexible, and scalable communication between microservices, especially as a cache or message broker.<br>It is also used for message brokering but in more data-centric applications like web applications, gaming, and real-time analytics.</p>
+<p>Choose: You are developing applications that need rapid access to data with minimal latency. Your use case involves real-time analytics, gaming, or session management in web applications.</p>
+<hr>
+<h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://blog.nonstopio.com/comparison-of-tcp-rmq-mqtt-redis-and-grpc-transport-layers-in-nest-js-microservices-2c10a2a98a6f">Comparison of TCP, (RMQ), MQTT, Redis, and gRPC transport layers in Nest.js microservices</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Pub/Sub Messaging</category>
+      </categories>
+      <tags>
+        <tag>MQTT</tag>
+        <tag>Redis</tag>
+        <tag>Kafka</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Plotly - Advanced</title>
     <url>/2023/08/05/Plotly-Advanced/</url>
     <content><![CDATA[<h1 id="For-Example-Line-Plots"><a href="#For-Example-Line-Plots" class="headerlink" title="For Example: Line Plots"></a>For Example: Line Plots</h1><p>📘 Download <a href="https://www.kaggle.com/datasets/garrickhague/world-earthquake-data-from-1906-2022">World Earthquake Data From 1906-2022</a></p>
@@ -230,6 +392,107 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/01/27/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>從零開始學 Docker - 為何它這麼重要？(Part 2)</title>
+    <url>/2024/02/04/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-2/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
+
+<h1 id="功用二：跨平台部署"><a href="#功用二：跨平台部署" class="headerlink" title="功用二：跨平台部署"></a>功用二：跨平台部署</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>Docker 的強大功能之一是「跨平台部署」！透過把程式及其相依的環境、套件打包成 Docker Image（aka. 程式部署包），你可以輕鬆地在不同作業系統上（Linux、MacOS 或 Windows）運行你的應用程式。</p>
+<p>完成 Docker Image 的製作後，成功上傳至 Docker Hub（aka. 存放 Docker Image 的雲端空間），使其他使用者能夠在全球的任何地方、任何作業系統上輕鬆進行下載。隨後，透過在各自作業系統上安裝 Docker Engine，可以協調作業系統與 Docker 容器之間的運行，而無需擔心環境相容性問題。</p>
+<p>簡言之，Docker 讓跨平台部署變得快速、便捷，確保了一致的部署體驗。</p>
+<hr>
+<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：部署一個 Django Website 於不同作業系統上。<br>藉由撰寫 Dockerfile 來建立 Docker Image，並且將製作好的 Docker Image 上傳至 Docker Hub，以便進行跨平台部署。</p>
+<h2 id="準備-Django-Website"><a href="#準備-Django-Website" class="headerlink" title="準備 Django Website"></a>準備 Django Website</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startproject mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startapp app1</span></span><br></pre></td></tr></table></figure>
+
+<p>網站的階層架構，如下所示。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── mysite/</span><br><span class="line">    ├── app1/</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── admin.py</span><br><span class="line">    │   ├── apps.py</span><br><span class="line">    │   ├── models.py</span><br><span class="line">    │   ├── tests.py</span><br><span class="line">    │   └── views.py</span><br><span class="line">    ├── manage.py</span><br><span class="line">    └── mysite/</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── asgi.py</span><br><span class="line">        ├── settings.py</span><br><span class="line">        ├── urls.py</span><br><span class="line">        └── wsgi.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysite-settings-py"><a href="#mysite-settings-py" class="headerlink" title="mysite&#x2F;settings.py"></a>mysite&#x2F;settings.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysite-urls-py"><a href="#mysite-urls-py" class="headerlink" title="mysite&#x2F;urls.py"></a>mysite&#x2F;urls.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    re_path(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="app1-views-py"><a href="#app1-views-py" class="headerlink" title="app1&#x2F;views.py"></a>app1&#x2F;views.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="撰寫-Dockerfile"><a href="#撰寫-Dockerfile" class="headerlink" title="撰寫 Dockerfile"></a>撰寫 Dockerfile</h2><p>Dockerfile 是用於建置 Docker Image 的腳本。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.10</span>-alpine</span><br><span class="line"><span class="keyword">ENV</span> myworkdir /home/django_site</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite/ <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk update</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk add vim</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install django</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>, <span class="string">&quot;0.0.0.0:8000&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="建立-Docker-Image"><a href="#建立-Docker-Image" class="headerlink" title="建立 Docker Image"></a>建立 Docker Image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── site/</span><br><span class="line">   ├── Dockerfile</span><br><span class="line">   └── mysite/</span><br><span class="line">        ├── app1/</span><br><span class="line">        │    ├── ...</span><br><span class="line">        ├── manage.py</span><br><span class="line">        └── mysite/</span><br><span class="line">             ├── ...</span><br></pre></td></tr></table></figure>
+
+<p>cd 到有 <code>Dockerfile</code> 的目錄下。接著，建立名為 <code>django_site</code> 的 Docker Image。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> site/</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker build -t bessyhuang/django_site . --no-cache</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="執行"><a href="#執行" class="headerlink" title="執行"></a>執行</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d -p 8001:8000 django_site</span> </span><br></pre></td></tr></table></figure>
+<p>打開瀏覽器 <a href="http://localhost:8001/hello/">http://localhost:8001/hello/</a></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>觀念解說</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>從零開始學 Docker - 為何它這麼重要？(Part 1)</title>
+    <url>/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-1/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
+
+<h1 id="功用一：簡化部署流程"><a href="#功用一：簡化部署流程" class="headerlink" title="功用一：簡化部署流程"></a>功用一：簡化部署流程</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>如果沒有使用 Docker，當你需要將應用程式部署到多台伺服器上時，必須逐一輸入指令進行設定。這不僅在環境安裝階段耗費大量時間且枯燥乏味，還容易因人為失誤而輸入錯誤指令。更重要的是，若需要在不同環境中進行部署，還得應對各種環境變數和配置的複雜性。</p>
+<p>Docker 的推出為我們提供了一套強大的容器化解決方案。</p>
+<p>透過使用 Docker，我們能夠將應用程式及其相依的環境、套件等打包成一個獨立、可攜帶的容器。這樣一來，無論在何處都能確保應用程式以相同的方式運行，避免受到不同環境的影響。</p>
+<p>這種容器化的方法使得應用程式的部署和管理變得更加靈活、簡便，同時提供了更高度的一致性和可攜性。</p>
+<hr>
+<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><h2 id="建立一個映像檔（Docker-Image）"><a href="#建立一個映像檔（Docker-Image）" class="headerlink" title="建立一個映像檔（Docker Image）"></a>建立一個映像檔（Docker Image）</h2><p>Docker Image 就像是一個獨立、可攜帶的程式部署包，其中包含了應用程式（在這個範例中是 Django 網站）以及它所需要的環境、套件等資源，都被一併打包在一起。</p>
+<h3 id="Start-a-Docker-Container"><a href="#Start-a-Docker-Container" class="headerlink" title="Start a Docker Container"></a>Start a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker pull python:3.12-alpine</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite -it -p 8000:8000 python:3.12-alpine /bin/sh</span></span><br><span class="line">/ #</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install-packages-in-a-Docker-Container"><a href="#Install-packages-in-a-Docker-Container" class="headerlink" title="Install packages in a Docker Container"></a>Install packages in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/ # apk update</span><br><span class="line">/ # apk add vim</span><br><span class="line">/ # pip install django</span><br></pre></td></tr></table></figure>
+
+<h3 id="Create-a-Django-website-in-a-Docker-Container"><a href="#Create-a-Django-website-in-a-Docker-Container" class="headerlink" title="Create a Django website in a Docker Container"></a>Create a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/     # cd /home/</span><br><span class="line">/home # django-admin startproject mysite</span><br><span class="line">/home # cd mysite/</span><br><span class="line">/home/mysite # django-admin startapp app1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Django-Settings"><a href="#Django-Settings" class="headerlink" title="Django Settings"></a>Django Settings</h3><ul>
+<li><code>mysite/settings.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+<li><code>mysite/urls.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path <span class="keyword">as</span> url</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       url(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+<li><code>app1/views.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">       <span class="keyword">return</span> HttpResponse(<span class="string">&#x27;Hello, World.&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Run-a-Django-website-in-a-Docker-Container"><a href="#Run-a-Django-website-in-a-Docker-Container" class="headerlink" title="Run a Django website in a Docker Container"></a>Run a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Open your browser: <a href="http://localhost:8000/hello/">http://localhost:8000/hello/</a><br><img src="/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/hello_world.jpg" alt="Hello, World."></p>
+</blockquote>
+<h3 id="Create-a-new-image-from-a-container’s-changes"><a href="#Create-a-new-image-from-a-container’s-changes" class="headerlink" title="Create a new image from a container’s changes"></a>Create a new image from a container’s changes</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker container <span class="built_in">ls</span> -a</span></span><br><span class="line">CONTAINER ID   IMAGE                COMMAND     CREATED          STATUS                      PORTS     NAMES</span><br><span class="line">dbd03d68bf0d   python:3.12-alpine   &quot;/bin/sh&quot;   32 minutes ago   Exited (0) 10 seconds ago             mysite</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker commit dbd03d68bf0d  django_site:v1</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker images</span></span><br><span class="line">REPOSITORY    TAG           IMAGE ID       CREATED         SIZE</span><br><span class="line">django_site   v1            5499518614d6   2 seconds ago   136MB</span><br><span class="line">python        3.12-alpine   d2cfe5300063   5 weeks ago     56.4MB</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署一個-Django-網站"><a href="#部署一個-Django-網站" class="headerlink" title="部署一個 Django 網站"></a>部署一個 Django 網站</h2><h3 id="Use-a-Docker-Image-to-create-a-Docker-Container"><a href="#Use-a-Docker-Image-to-create-a-Docker-Container" class="headerlink" title="Use a Docker Image to create a Docker Container"></a>Use a Docker Image to create a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite_002 -it -p 8000:8000 django_site:v1 /bin/sh</span></span><br><span class="line">/ # cd home/mysite/</span><br><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>哇！只要三行指令，就能把事先打包好的 Django 網站建立起來了～<br>Open your browser: <a href="http://localhost:8000/hello/">http://localhost:8000/hello/</a><br>PS. 後續還有更進階的部署作法，像是 Dockerfile、Docker Compose 喔！</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>觀念解說</tag>
       </tags>
   </entry>
   <entry>
@@ -310,204 +573,6 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>從零開始學 Docker - 為何它這麼重要？(Part 1)</title>
-    <url>/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-1/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
-
-<h1 id="功用一：簡化部署流程"><a href="#功用一：簡化部署流程" class="headerlink" title="功用一：簡化部署流程"></a>功用一：簡化部署流程</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>如果沒有使用 Docker，當你需要將應用程式部署到多台伺服器上時，必須逐一輸入指令進行設定。這不僅在環境安裝階段耗費大量時間且枯燥乏味，還容易因人為失誤而輸入錯誤指令。更重要的是，若需要在不同環境中進行部署，還得應對各種環境變數和配置的複雜性。</p>
-<p>Docker 的推出為我們提供了一套強大的容器化解決方案。</p>
-<p>透過使用 Docker，我們能夠將應用程式及其相依的環境、套件等打包成一個獨立、可攜帶的容器。這樣一來，無論在何處都能確保應用程式以相同的方式運行，避免受到不同環境的影響。</p>
-<p>這種容器化的方法使得應用程式的部署和管理變得更加靈活、簡便，同時提供了更高度的一致性和可攜性。</p>
-<hr>
-<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><h2 id="建立一個映像檔（Docker-Image）"><a href="#建立一個映像檔（Docker-Image）" class="headerlink" title="建立一個映像檔（Docker Image）"></a>建立一個映像檔（Docker Image）</h2><p>Docker Image 就像是一個獨立、可攜帶的程式部署包，其中包含了應用程式（在這個範例中是 Django 網站）以及它所需要的環境、套件等資源，都被一併打包在一起。</p>
-<h3 id="Start-a-Docker-Container"><a href="#Start-a-Docker-Container" class="headerlink" title="Start a Docker Container"></a>Start a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker pull python:3.12-alpine</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite -it -p 8000:8000 python:3.12-alpine /bin/sh</span></span><br><span class="line">/ #</span><br></pre></td></tr></table></figure>
-
-<h3 id="Install-packages-in-a-Docker-Container"><a href="#Install-packages-in-a-Docker-Container" class="headerlink" title="Install packages in a Docker Container"></a>Install packages in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/ # apk update</span><br><span class="line">/ # apk add vim</span><br><span class="line">/ # pip install django</span><br></pre></td></tr></table></figure>
-
-<h3 id="Create-a-Django-website-in-a-Docker-Container"><a href="#Create-a-Django-website-in-a-Docker-Container" class="headerlink" title="Create a Django website in a Docker Container"></a>Create a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/     # cd /home/</span><br><span class="line">/home # django-admin startproject mysite</span><br><span class="line">/home # cd mysite/</span><br><span class="line">/home/mysite # django-admin startapp app1</span><br></pre></td></tr></table></figure>
-
-<h3 id="Django-Settings"><a href="#Django-Settings" class="headerlink" title="Django Settings"></a>Django Settings</h3><ul>
-<li><code>mysite/settings.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li><code>mysite/urls.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path <span class="keyword">as</span> url</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       url(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li><code>app1/views.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">       <span class="keyword">return</span> HttpResponse(<span class="string">&#x27;Hello, World.&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Run-a-Django-website-in-a-Docker-Container"><a href="#Run-a-Django-website-in-a-Docker-Container" class="headerlink" title="Run a Django website in a Docker Container"></a>Run a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Open your browser: <a href="http://localhost:8000/hello/">http://localhost:8000/hello/</a><br><img src="/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F/hello_world.jpg" alt="Hello, World."></p>
-</blockquote>
-<h3 id="Create-a-new-image-from-a-container’s-changes"><a href="#Create-a-new-image-from-a-container’s-changes" class="headerlink" title="Create a new image from a container’s changes"></a>Create a new image from a container’s changes</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker container <span class="built_in">ls</span> -a</span></span><br><span class="line">CONTAINER ID   IMAGE                COMMAND     CREATED          STATUS                      PORTS     NAMES</span><br><span class="line">dbd03d68bf0d   python:3.12-alpine   &quot;/bin/sh&quot;   32 minutes ago   Exited (0) 10 seconds ago             mysite</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker commit dbd03d68bf0d  django_site:v1</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker images</span></span><br><span class="line">REPOSITORY    TAG           IMAGE ID       CREATED         SIZE</span><br><span class="line">django_site   v1            5499518614d6   2 seconds ago   136MB</span><br><span class="line">python        3.12-alpine   d2cfe5300063   5 weeks ago     56.4MB</span><br></pre></td></tr></table></figure>
-
-<h2 id="部署一個-Django-網站"><a href="#部署一個-Django-網站" class="headerlink" title="部署一個 Django 網站"></a>部署一個 Django 網站</h2><h3 id="Use-a-Docker-Image-to-create-a-Docker-Container"><a href="#Use-a-Docker-Image-to-create-a-Docker-Container" class="headerlink" title="Use a Docker Image to create a Docker Container"></a>Use a Docker Image to create a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite_002 -it -p 8000:8000 django_site:v1 /bin/sh</span></span><br><span class="line">/ # cd home/mysite/</span><br><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>哇！只要三行指令，就能把事先打包好的 Django 網站建立起來了～<br>Open your browser: <a href="http://localhost:8000/hello/">http://localhost:8000/hello/</a><br>PS. 後續還有更進階的部署作法，像是 Dockerfile、Docker Compose 喔！</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>觀念解說</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Data Visualization - Advanced</title>
-    <url>/2023/08/12/Data-Visualization-Advanced/</url>
-    <content><![CDATA[<h1 id="Common-Data-Visualization-Mistakes"><a href="#Common-Data-Visualization-Mistakes" class="headerlink" title="Common Data Visualization Mistakes"></a>Common Data Visualization Mistakes</h1><h2 id="1-Misleading-color-contrast"><a href="#1-Misleading-color-contrast" class="headerlink" title="1. Misleading color contrast"></a>1. Misleading color contrast</h2><p>Although using various colors aids in interpreting data visualizations, too much color can confuse the user.<br>It’s crucial to stick to a limited number of unique colors.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU" alt="Bad Example: Misleading color contrast"></p>
-<ul>
-<li>Solution<ul>
-<li>The simplest way to determine contrast value is to compare contrast colors on greyscale to check if the color you choose displays the difference.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*M_5cpWpvfNJzVsqQ"></li>
-</ul>
-</li>
-</ul>
-<h2 id="2-Overwhelming-charts-with-too-much-data"><a href="#2-Overwhelming-charts-with-too-much-data" class="headerlink" title="2. Overwhelming charts with too much data"></a>2. Overwhelming charts with too much data</h2><p><img src="https://miro.medium.com/v2/resize:fit:1400/0*wzDTQBW8wYIev4GC" alt="Bad Example: Overwhelming charts with too much data"></p>
-<ul>
-<li>Solution<ul>
-<li>Do not put all of your insights into a chart. Multiple visualizations can help you communicate data more effectively.</li>
-<li>It is recommended that no more than 5–6 colors be used in a single visualization.</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-Omitting-baseline-and-truncating-scale"><a href="#3-Omitting-baseline-and-truncating-scale" class="headerlink" title="3. Omitting baseline and truncating scale"></a>3. Omitting baseline and truncating scale</h2><img src="/2023/08/12/Data-Visualization-Advanced/Omitting_baseline_and_truncating_scale.jpg" class="" title="Bad Example: Omitting baseline and truncating scale">
-
-<ul>
-<li>Solution<ul>
-<li>Concentrate on creating data visualizations with a zero-baseline y-axis.</li>
-<li>If removing the zero makes sense, add a zero-break to communicate that.<img src="/2023/08/12/Data-Visualization-Advanced/solution_Omitting_baseline_and_truncating_scale.jpg" class=""></li>
-</ul>
-</li>
-</ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li><a href="https://flourish.studio/blog/common-mistakes-in-data-visualization/">Four data visualization mistakes you’re probably making and how to fix them</a></li>
-<li><a href="https://www.toptal.com/designers/ux/data-visualization-mistakes">Numbers Shouldn’t Lie: An Overview of Common Data Visualization Mistakes</a></li>
-<li><a href="https://chartio.com/learn/charts/how-to-choose-data-visualization/">How to Choose the Right Data Visualization</a></li>
-<li><a href="https://careerfoundry.com/en/tutorials/data-analytics-for-beginners/introduction-to-data-visualization/">Tutorial 4: An Introduction to Data Visualization</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Data Visualization</tag>
-        <tag>Common Mistakes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/01/27/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>從零開始學 Docker - 為何它這麼重要？(Part 2)</title>
-    <url>/2024/02/04/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-2/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
-
-<h1 id="功用二：跨平台部署"><a href="#功用二：跨平台部署" class="headerlink" title="功用二：跨平台部署"></a>功用二：跨平台部署</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>Docker 的強大功能之一是「跨平台部署」！透過把程式及其相依的環境、套件打包成 Docker Image（aka. 程式部署包），你可以輕鬆地在不同作業系統上（Linux、MacOS 或 Windows）運行你的應用程式。</p>
-<p>完成 Docker Image 的製作後，成功上傳至 Docker Hub（aka. 存放 Docker Image 的雲端空間），使其他使用者能夠在全球的任何地方、任何作業系統上輕鬆進行下載。隨後，透過在各自作業系統上安裝 Docker Engine，可以協調作業系統與 Docker 容器之間的運行，而無需擔心環境相容性問題。</p>
-<p>簡言之，Docker 讓跨平台部署變得快速、便捷，確保了一致的部署體驗。</p>
-<hr>
-<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：部署一個 Django Website 於不同作業系統上。<br>藉由撰寫 Dockerfile 來建立 Docker Image，並且將製作好的 Docker Image 上傳至 Docker Hub，以便進行跨平台部署。</p>
-<h2 id="準備-Django-Website"><a href="#準備-Django-Website" class="headerlink" title="準備 Django Website"></a>準備 Django Website</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startproject mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startapp app1</span></span><br></pre></td></tr></table></figure>
-
-<p>網站的階層架構，如下所示。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── mysite/</span><br><span class="line">    ├── app1/</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── admin.py</span><br><span class="line">    │   ├── apps.py</span><br><span class="line">    │   ├── models.py</span><br><span class="line">    │   ├── tests.py</span><br><span class="line">    │   └── views.py</span><br><span class="line">    ├── manage.py</span><br><span class="line">    └── mysite/</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── asgi.py</span><br><span class="line">        ├── settings.py</span><br><span class="line">        ├── urls.py</span><br><span class="line">        └── wsgi.py</span><br></pre></td></tr></table></figure>
-
-<h3 id="mysite-settings-py"><a href="#mysite-settings-py" class="headerlink" title="mysite&#x2F;settings.py"></a>mysite&#x2F;settings.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h3 id="mysite-urls-py"><a href="#mysite-urls-py" class="headerlink" title="mysite&#x2F;urls.py"></a>mysite&#x2F;urls.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    re_path(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h3 id="app1-views-py"><a href="#app1-views-py" class="headerlink" title="app1&#x2F;views.py"></a>app1&#x2F;views.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="撰寫-Dockerfile"><a href="#撰寫-Dockerfile" class="headerlink" title="撰寫 Dockerfile"></a>撰寫 Dockerfile</h2><p>Dockerfile 是用於建置 Docker Image 的腳本。</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.10</span>-alpine</span><br><span class="line"><span class="keyword">ENV</span> myworkdir /home/django_site</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite/ <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk update</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk add vim</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install django</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>, <span class="string">&quot;0.0.0.0:8000&quot;</span>]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="建立-Docker-Image"><a href="#建立-Docker-Image" class="headerlink" title="建立 Docker Image"></a>建立 Docker Image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── site/</span><br><span class="line">   ├── Dockerfile</span><br><span class="line">   └── mysite/</span><br><span class="line">        ├── app1/</span><br><span class="line">        │    ├── ...</span><br><span class="line">        ├── manage.py</span><br><span class="line">        └── mysite/</span><br><span class="line">             ├── ...</span><br></pre></td></tr></table></figure>
-
-<p>cd 到有 <code>Dockerfile</code> 的目錄下。接著，建立名為 <code>django_site</code> 的 Docker Image。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> site/</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker build -t bessyhuang/django_site . --no-cache</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="執行"><a href="#執行" class="headerlink" title="執行"></a>執行</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d -p 8001:8000 django_site</span> </span><br></pre></td></tr></table></figure>
-<p>打開瀏覽器 <a href="http://localhost:8001/hello/">http://localhost:8001/hello/</a></p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>觀念解說</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo | Getting Started</title>
-    <url>/2024/03/18/Hexo-Getting-Started/</url>
-    <content><![CDATA[<h1 id="建立一個新的-Hexo-網站"><a href="#建立一個新的-Hexo-網站" class="headerlink" title="建立一個新的 Hexo 網站"></a>建立一個新的 Hexo 網站</h1><h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-cli -g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm@10.5.0</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>如果要把 Hexo deploy 到 Github 上面，需要先安裝 <code>hexo-deployer-git</code>。<ul>
-<li>相關設定，請參考 <a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a>。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nano _config.yml</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="網站初始化"><a href="#網站初始化" class="headerlink" title="網站初始化"></a>網站初始化</h2><p>如果沒有設定 folder 的話，Hexo 會在目前的資料夾建立網站。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init myblog</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> myblog/</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="新增一篇-Post"><a href="#新增一篇-Post" class="headerlink" title="新增一篇 Post"></a>新增一篇 Post</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo new <span class="string">&quot;Hexo | Getting Started&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim <span class="built_in">source</span>/_posts/Hexo-Getting-Started.md</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="啟動伺服器"><a href="#啟動伺服器" class="headerlink" title="啟動伺服器"></a>啟動伺服器</h2><p>預設是 <a href="http://localhost:4000/">http://localhost:4000/</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="部署三部曲"><a href="#部署三部曲" class="headerlink" title="部署三部曲"></a>部署三部曲</h1><ol>
-<li><p>清除快取檔案 (db.json) 和已產生的靜態檔案 (public)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo cl</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>產生靜態檔案 (部署網站前先產生靜態檔案)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo generate</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>部署網站</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo deploy</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo d</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h1 id="Clone-Run-your-Repository"><a href="#Clone-Run-your-Repository" class="headerlink" title="Clone &amp; Run your Repository"></a>Clone &amp; Run your Repository</h1><h2 id="Repository-跑起來"><a href="#Repository-跑起來" class="headerlink" title="Repository 跑起來"></a>Repository 跑起來</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/bessyhuang/bessyhuang.github.io.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> bessyhuang.github.io/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="備份於-GitHub-Repository-的-backup-分支"><a href="#備份於-GitHub-Repository-的-backup-分支" class="headerlink" title="備份於 GitHub Repository 的 backup 分支"></a>備份於 GitHub Repository 的 <code>backup 分支</code></h2><ul>
-<li>git checkout<ul>
-<li>切換分支。Switch branches or restore working tree files</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git push --set-upstream origin backup</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://hexo.io/zh-tw/docs/commands.html">Hexo 指令</a></li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10308093">CI&#x2F;CD X Jenkins、CircleCI、Github Action (28)</a></li>
-<li><a href="https://blog.marsen.me/2022/09/26/2022/Hexo_CICD/">[實作筆記] Hexo CI&#x2F;CD 設置</a></li>
-<li><a href="https://anemology.cc/post/hexo-backup/">Hexo 備份至 GitHub</a></li>
-<li><a href="https://afun.tw/blog/20201114-hexo-init-github-page/">Hexo - 基本設定與 GitHub Page 發佈流程</a></li>
-<li><a href="https://op30132.github.io/2019/12/24/hexo-tag-page/">hexo 新增 tag、catagories、about等頁面</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Hexo</tag>
       </tags>
   </entry>
 </search>
