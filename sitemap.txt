@@ -16,10 +16,11 @@ https://bessyhuang.github.io/tags/S3/
 https://bessyhuang.github.io/tags/%E2%98%85%E2%98%86%E2%98%85/
 https://bessyhuang.github.io/tags/Data-Visualization/
 https://bessyhuang.github.io/tags/Introduction/
-https://bessyhuang.github.io/tags/Common-Mistakes/
 https://bessyhuang.github.io/tags/Django/
 https://bessyhuang.github.io/tags/Python/
 https://bessyhuang.github.io/tags/Plotly/
 https://bessyhuang.github.io/tags/Docker/
 https://bessyhuang.github.io/tags/%E8%A7%80%E5%BF%B5%E8%A7%A3%E8%AA%AA/
+https://bessyhuang.github.io/tags/Common-Mistakes/
+https://bessyhuang.github.io/tags/Hexo/
 https://bessyhuang.github.io/categories/Docker/
