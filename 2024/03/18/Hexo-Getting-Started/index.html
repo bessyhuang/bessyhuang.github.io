@@ -31,26 +31,25 @@
 
 
     <meta property="og:type" content="blog">
-<meta property="og:title" content="Amazon S3">
-<meta property="og:url" content="https://bessyhuang.github.io/2023/10/02/Amazon-S3/index.html">
+<meta property="og:title" content="Hexo | Getting Started">
+<meta property="og:url" content="https://bessyhuang.github.io/2024/03/18/Hexo-Getting-Started/index.html">
 <meta property="og:site_name" content="Bessy&#39;s Tech Blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-10-02T15:36:23.000Z">
-<meta property="article:modified_time" content="2024-01-27T07:32:48.119Z">
+<meta property="article:published_time" content="2024-03-18T14:11:45.000Z">
+<meta property="article:modified_time" content="2024-03-18T15:03:51.832Z">
 <meta property="article:author" content="Bessy">
-<meta property="article:tag" content="S3">
-<meta property="article:tag" content="★☆★">
+<meta property="article:tag" content="自學, 心情, 部落格">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://bessyhuang.github.io/2023/10/02/Amazon-S3/">
+<link rel="canonical" href="https://bessyhuang.github.io/2024/03/18/Hexo-Getting-Started/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2023/10/02/Amazon-S3/","path":"2023/10/02/Amazon-S3/","title":"Amazon S3"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2024/03/18/Hexo-Getting-Started/","path":"2024/03/18/Hexo-Getting-Started/","title":"Hexo | Getting Started"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Amazon S3 | Bessy's Tech Blog</title>
+<title>Hexo | Getting Started | Bessy's Tech Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
@@ -154,7 +153,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Amazon-S3-Components"><span class="nav-number">2.</span> <span class="nav-text">Amazon S3 - Components</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Buckets"><span class="nav-number">2.1.</span> <span class="nav-text">Buckets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Objects"><span class="nav-number">2.2.</span> <span class="nav-text">Objects</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-Cases"><span class="nav-number">3.</span> <span class="nav-text">Use Cases</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Business-Use-Cases"><span class="nav-number">3.1.</span> <span class="nav-text">Business Use Cases</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Limitations"><span class="nav-number">4.</span> <span class="nav-text">Limitations</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B%E6%96%B0%E7%9A%84-Hexo-%E7%B6%B2%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">建立一個新的 Hexo 網站</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E5%A5%97%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">安裝套件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B6%B2%E7%AB%99%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">網站初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E4%B8%80%E7%AF%87-Post"><span class="nav-number">1.3.</span> <span class="nav-text">新增一篇 Post</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%9F%E5%8B%95%E4%BC%BA%E6%9C%8D%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">啟動伺服器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%B8%89%E9%83%A8%E6%9B%B2"><span class="nav-number">2.</span> <span class="nav-text">部署三部曲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Clone-Run-your-Repository"><span class="nav-number">3.</span> <span class="nav-text">Clone &amp; Run your Repository</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Repository-%E8%B7%91%E8%B5%B7%E4%BE%86"><span class="nav-number">3.1.</span> <span class="nav-text">Repository 跑起來</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%99%E4%BB%BD%E6%96%BC-GitHub-Repository-%E7%9A%84-backup-%E5%88%86%E6%94%AF"><span class="nav-number">3.2.</span> <span class="nav-text">備份於 GitHub Repository 的 backup 分支</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -221,7 +220,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2023/10/02/Amazon-S3/">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2024/03/18/Hexo-Getting-Started/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -234,12 +233,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Amazon S3 | Bessy's Tech Blog">
+      <meta itemprop="name" content="Hexo | Getting Started | Bessy's Tech Blog">
       <meta itemprop="description" content=" ">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Amazon S3
+          Hexo | Getting Started
         </h1>
 
         <div class="post-meta-container">
@@ -249,15 +248,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2023-10-02 23:36:23" itemprop="dateCreated datePublished" datetime="2023-10-02T23:36:23+08:00">2023-10-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-27 15:32:48" itemprop="dateModified" datetime="2024-01-27T15:32:48+08:00">2024-01-27</time>
+      <time title="Created: 2024-03-18 22:11:45 / Modified: 23:03:51" itemprop="dateCreated datePublished" datetime="2024-03-18T22:11:45+08:00">2024-03-18</time>
     </span>
 
   
@@ -277,68 +270,57 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><em><font color=royalblue>Infinitely Scaling Storage</font></em></p>
-<h1 id="Amazon-S3-Components"><a href="#Amazon-S3-Components" class="headerlink" title="Amazon S3 - Components"></a>Amazon S3 - Components</h1><p>Amazon S3 allows people to store objects (files) in buckets (directories).</p>
-<h2 id="Buckets"><a href="#Buckets" class="headerlink" title="Buckets"></a>Buckets</h2><p><em><font color=red>S3 looks like a global service but buckets are created in a region</font></em></p>
+    <div class="post-body" itemprop="articleBody"><h1 id="建立一個新的-Hexo-網站"><a href="#建立一個新的-Hexo-網站" class="headerlink" title="建立一個新的 Hexo 網站"></a>建立一個新的 Hexo 網站</h1><h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-cli -g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm@10.5.0</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>Buckets must have a globally unique name (across all regions all accounts)</li>
-<li>Buckets are defined at the region level</li>
-<li>Name Convention<ul>
-<li>No uppercase, No underscore</li>
-<li>3-63 characters long</li>
-<li>Not an IP</li>
-<li>Must start with lowercase letter or number</li>
-<li>Must NOT start with the prefix <code>xn--</code></li>
-<li>Must NOT end with the suffix <code>-s3alias</code></li>
+<li>如果要把 Hexo deploy 到 Github 上面，需要先安裝 <code>hexo-deployer-git</code>。<ul>
+<li>相關設定，請參考 <a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a>。</li>
 </ul>
 </li>
 </ul>
-<h2 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h2><p><em><font color=red>Objects (files) have a Key. Key with very long names that contain slashes (“&#x2F;“).</font></em><br><em><font color=red>There is no concept of “directories” within buckets</font></em></p>
-<ul>
-<li>The key is the FULL path:<ul>
-<li>s3:&#x2F;&#x2F;my-bucket&#x2F;my_folder&#x2F;another_folder&#x2F;my_file.txt</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nano _config.yml</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="網站初始化"><a href="#網站初始化" class="headerlink" title="網站初始化"></a>網站初始化</h2><p>如果沒有設定 folder 的話，Hexo 會在目前的資料夾建立網站。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init myblog</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> myblog/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="新增一篇-Post"><a href="#新增一篇-Post" class="headerlink" title="新增一篇 Post"></a>新增一篇 Post</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo new <span class="string">&quot;Hexo | Getting Started&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim <span class="built_in">source</span>/_posts/Hexo-Getting-Started.md</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="啟動伺服器"><a href="#啟動伺服器" class="headerlink" title="啟動伺服器"></a>啟動伺服器</h2><p>預設是 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="部署三部曲"><a href="#部署三部曲" class="headerlink" title="部署三部曲"></a>部署三部曲</h1><ol>
+<li><p>清除快取檔案 (db.json) 和已產生的靜態檔案 (public)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo cl</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>產生靜態檔案 (部署網站前先產生靜態檔案)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo generate</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署網站</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo deploy</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo d</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="Clone-Run-your-Repository"><a href="#Clone-Run-your-Repository" class="headerlink" title="Clone &amp; Run your Repository"></a>Clone &amp; Run your Repository</h1><h2 id="Repository-跑起來"><a href="#Repository-跑起來" class="headerlink" title="Repository 跑起來"></a>Repository 跑起來</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/bessyhuang/bessyhuang.github.io.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> bessyhuang.github.io/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="備份於-GitHub-Repository-的-backup-分支"><a href="#備份於-GitHub-Repository-的-backup-分支" class="headerlink" title="備份於 GitHub Repository 的 backup 分支"></a>備份於 GitHub Repository 的 <code>backup 分支</code></h2><ul>
+<li>git checkout<ul>
+<li>切換分支。Switch branches or restore working tree files</li>
 </ul>
 </li>
-<li>The key is composed of <font color=red>prefix</font> + <font color=green>object name</font><ul>
-<li>s3:&#x2F;&#x2F;my-bucket&#x2F;<font color=red>my_folder&#x2F;another_folder&#x2F;</font><font color=green>my_file.txt</font></li>
 </ul>
-</li>
-<li>Object values are the content of the body:<ul>
-<li>Max. Object Size is 5 TB (5000 GB)</li>
-<li>If uploading more than 5 GB, must use “multi-part upload”.</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git push --set-upstream origin backup</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://hexo.io/zh-tw/docs/commands.html">Hexo 指令</a></li>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10308093">CI&#x2F;CD X Jenkins、CircleCI、Github Action (28)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.marsen.me/2022/09/26/2022/Hexo_CICD/">[實作筆記] Hexo CI&#x2F;CD 設置</a></li>
+<li><a target="_blank" rel="noopener" href="https://anemology.cc/post/hexo-backup/">Hexo 備份至 GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://afun.tw/blog/20201114-hexo-init-github-page/">Hexo - 基本設定與 GitHub Page 發佈流程</a></li>
+<li><a target="_blank" rel="noopener" href="https://op30132.github.io/2019/12/24/hexo-tag-page/">hexo 新增 tag、catagories、about等頁面</a></li>
 </ul>
-</li>
-<li>Metadata<ul>
-<li>List of text key&#x2F;value pairs</li>
-<li>System or user metadata</li>
-</ul>
-</li>
-<li>Tags<ul>
-<li>Unicode key&#x2F;value pair</li>
-<li>Up to 10</li>
-<li>Useful for security&#x2F;lifecycle</li>
-</ul>
-</li>
-<li>Version ID<ul>
-<li>If versioning is enabled</li>
-</ul>
-</li>
-</ul>
-<h1 id="Use-Cases"><a href="#Use-Cases" class="headerlink" title="Use Cases"></a>Use Cases</h1><ul>
-<li>Backup &amp; Storage</li>
-<li>Disaster Recovery</li>
-<li>Archive</li>
-<li>Hybrid Cloud Storage</li>
-<li>Application&#x2F;Media Hosting</li>
-<li>Data Lakes &amp; Big Data Analytics</li>
-<li>Software Delivery</li>
-<li>Static Website</li>
-</ul>
-<h2 id="Business-Use-Cases"><a href="#Business-Use-Cases" class="headerlink" title="Business Use Cases"></a>Business Use Cases</h2><ul>
-<li>Nasdaq stores 7 years of data into Glacier</li>
-<li>Sysco runs analytics on its data and gain business insights</li>
-</ul>
-<h1 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h1>
+
     </div>
 
     
@@ -355,7 +337,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="https://bessyhuang.github.io/2023/10/02/Amazon-S3/" title="Amazon S3">https://bessyhuang.github.io/2023/10/02/Amazon-S3/</a>
+      <a href="https://bessyhuang.github.io/2024/03/18/Hexo-Getting-Started/" title="Hexo | Getting Started">https://bessyhuang.github.io/2024/03/18/Hexo-Getting-Started/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -363,23 +345,16 @@
 </ul>
 </div>
 
-          <div class="post-tags">
-              <a href="/tags/S3/" rel="tag"># S3</a>
-              <a href="/tags/%E2%98%85%E2%98%86%E2%98%85/" rel="tag"># ★☆★</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/08/16/Django/" rel="prev" title="Django">
-                  <i class="fa fa-angle-left"></i> Django
+                <a href="/2024/02/04/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-2/" rel="prev" title="從零開始學 Docker - 為何它這麼重要？(Part 2)">
+                  <i class="fa fa-angle-left"></i> 從零開始學 Docker - 為何它這麼重要？(Part 2)
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/01/27/hello-world/" rel="next" title="Hello World">
-                  Hello World <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
