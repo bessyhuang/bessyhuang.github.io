@@ -42,6 +42,7 @@ $ vim source/_posts/Hexo-Getting-Started.md
 
 ```shell
 $ hexo server
+$ hexo s
 ```
 
 ---
@@ -83,6 +84,8 @@ $ hexo server
 
 ```shell
 $ git checkout backup
+$ git add --all
+$ git commit -m "New function or something modified"
 $ git push --set-upstream origin backup
 ```
 
