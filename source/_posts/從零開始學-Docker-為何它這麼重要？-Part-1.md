@@ -88,7 +88,7 @@ $ docker run --name mysite -it -p 8000:8000 python:3.12-alpine /bin/sh
 ```
 
 > Open your browser: [http://localhost:8000/hello/](http://localhost:8000/hello/)
-> ![Hello, World.](從零開始學-Docker-為何它這麼重要？/hello_world.jpg)
+> ![Hello, World.](從零開始學-Docker-為何它這麼重要？-Part-1/hello_world.jpg)
 
 ### Create a new image from a container's changes
 ```shell
