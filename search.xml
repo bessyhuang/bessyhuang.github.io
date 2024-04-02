@@ -184,15 +184,61 @@
       </tags>
   </entry>
   <entry>
-    <title>Django</title>
-    <url>/2023/08/16/Django/</url>
-    <content><![CDATA[<blockquote>
-<p><em>“Django makes it easier to build better web apps more quickly and with less code.” — Django Official Website</em></p>
-</blockquote>
-<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It’s free and open source.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>]]></content>
+    <title>Hexo | Getting Started</title>
+    <url>/2024/03/18/Hexo-Getting-Started/</url>
+    <content><![CDATA[<h1 id="建立一個新的-Hexo-網站"><a href="#建立一個新的-Hexo-網站" class="headerlink" title="建立一個新的 Hexo 網站"></a>建立一個新的 Hexo 網站</h1><h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-cli -g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm@10.5.0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果要把 Hexo deploy 到 Github 上面，需要先安裝 <code>hexo-deployer-git</code>。<ul>
+<li>相關設定，請參考 <a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a>。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nano _config.yml</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="網站初始化"><a href="#網站初始化" class="headerlink" title="網站初始化"></a>網站初始化</h2><p>如果沒有設定 folder 的話，Hexo 會在目前的資料夾建立網站。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init myblog</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> myblog/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="新增一篇-Post"><a href="#新增一篇-Post" class="headerlink" title="新增一篇 Post"></a>新增一篇 Post</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo new <span class="string">&quot;Hexo | Getting Started&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim <span class="built_in">source</span>/_posts/Hexo-Getting-Started.md</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="啟動伺服器"><a href="#啟動伺服器" class="headerlink" title="啟動伺服器"></a>啟動伺服器</h2><p>預設是 <a href="http://localhost:4000/">http://localhost:4000/</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo s</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="部署三部曲"><a href="#部署三部曲" class="headerlink" title="部署三部曲"></a>部署三部曲</h1><ol>
+<li><p>清除快取檔案 (db.json) 和已產生的靜態檔案 (public)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo cl</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>產生靜態檔案 (部署網站前先產生靜態檔案)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo generate</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署網站</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo deploy</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo d</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="Clone-Run-your-Repository"><a href="#Clone-Run-your-Repository" class="headerlink" title="Clone &amp; Run your Repository"></a>Clone &amp; Run your Repository</h1><h2 id="Repository-跑起來"><a href="#Repository-跑起來" class="headerlink" title="Repository 跑起來"></a>Repository 跑起來</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/bessyhuang/bessyhuang.github.io.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> bessyhuang.github.io/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="備份於-GitHub-Repository-的-backup-分支"><a href="#備份於-GitHub-Repository-的-backup-分支" class="headerlink" title="備份於 GitHub Repository 的 backup 分支"></a>備份於 GitHub Repository 的 <code>backup 分支</code></h2><ul>
+<li>git checkout<ul>
+<li>切換分支。Switch branches or restore working tree files</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git add --all</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commit -m <span class="string">&quot;New function or something modified&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git push --set-upstream origin backup</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://hexo.io/zh-tw/docs/commands.html">Hexo 指令</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10308093">CI&#x2F;CD X Jenkins、CircleCI、Github Action (28)</a></li>
+<li><a href="https://blog.marsen.me/2022/09/26/2022/Hexo_CICD/">[實作筆記] Hexo CI&#x2F;CD 設置</a></li>
+<li><a href="https://anemology.cc/post/hexo-backup/">Hexo 備份至 GitHub</a></li>
+<li><a href="https://afun.tw/blog/20201114-hexo-init-github-page/">Hexo - 基本設定與 GitHub Page 發佈流程</a></li>
+<li><a href="https://op30132.github.io/2019/12/24/hexo-tag-page/">hexo 新增 tag、catagories、about等頁面</a></li>
+</ul>
+]]></content>
       <tags>
-        <tag>Django</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -261,195 +307,15 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo | Getting Started</title>
-    <url>/2024/03/18/Hexo-Getting-Started/</url>
-    <content><![CDATA[<h1 id="建立一個新的-Hexo-網站"><a href="#建立一個新的-Hexo-網站" class="headerlink" title="建立一個新的 Hexo 網站"></a>建立一個新的 Hexo 網站</h1><h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-cli -g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm@10.5.0</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>如果要把 Hexo deploy 到 Github 上面，需要先安裝 <code>hexo-deployer-git</code>。<ul>
-<li>相關設定，請參考 <a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a>。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nano _config.yml</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="網站初始化"><a href="#網站初始化" class="headerlink" title="網站初始化"></a>網站初始化</h2><p>如果沒有設定 folder 的話，Hexo 會在目前的資料夾建立網站。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init myblog</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> myblog/</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="新增一篇-Post"><a href="#新增一篇-Post" class="headerlink" title="新增一篇 Post"></a>新增一篇 Post</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo new <span class="string">&quot;Hexo | Getting Started&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim <span class="built_in">source</span>/_posts/Hexo-Getting-Started.md</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="啟動伺服器"><a href="#啟動伺服器" class="headerlink" title="啟動伺服器"></a>啟動伺服器</h2><p>預設是 <a href="http://localhost:4000/">http://localhost:4000/</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo s</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="部署三部曲"><a href="#部署三部曲" class="headerlink" title="部署三部曲"></a>部署三部曲</h1><ol>
-<li><p>清除快取檔案 (db.json) 和已產生的靜態檔案 (public)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo cl</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>產生靜態檔案 (部署網站前先產生靜態檔案)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo generate</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>部署網站</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo deploy</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo d</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h1 id="Clone-Run-your-Repository"><a href="#Clone-Run-your-Repository" class="headerlink" title="Clone &amp; Run your Repository"></a>Clone &amp; Run your Repository</h1><h2 id="Repository-跑起來"><a href="#Repository-跑起來" class="headerlink" title="Repository 跑起來"></a>Repository 跑起來</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/bessyhuang/bessyhuang.github.io.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> bessyhuang.github.io/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="備份於-GitHub-Repository-的-backup-分支"><a href="#備份於-GitHub-Repository-的-backup-分支" class="headerlink" title="備份於 GitHub Repository 的 backup 分支"></a>備份於 GitHub Repository 的 <code>backup 分支</code></h2><ul>
-<li>git checkout<ul>
-<li>切換分支。Switch branches or restore working tree files</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git add --all</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commit -m <span class="string">&quot;New function or something modified&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git push --set-upstream origin backup</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://hexo.io/zh-tw/docs/commands.html">Hexo 指令</a></li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10308093">CI&#x2F;CD X Jenkins、CircleCI、Github Action (28)</a></li>
-<li><a href="https://blog.marsen.me/2022/09/26/2022/Hexo_CICD/">[實作筆記] Hexo CI&#x2F;CD 設置</a></li>
-<li><a href="https://anemology.cc/post/hexo-backup/">Hexo 備份至 GitHub</a></li>
-<li><a href="https://afun.tw/blog/20201114-hexo-init-github-page/">Hexo - 基本設定與 GitHub Page 發佈流程</a></li>
-<li><a href="https://op30132.github.io/2019/12/24/hexo-tag-page/">hexo 新增 tag、catagories、about等頁面</a></li>
-</ul>
-]]></content>
+    <title>Django</title>
+    <url>/2023/08/16/Django/</url>
+    <content><![CDATA[<blockquote>
+<p><em>“Django makes it easier to build better web apps more quickly and with less code.” — Django Official Website</em></p>
+</blockquote>
+<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It’s free and open source.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>]]></content>
       <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Plotly - Advanced</title>
-    <url>/2023/08/05/Plotly-Advanced/</url>
-    <content><![CDATA[<h1 id="For-Example-Line-Plots"><a href="#For-Example-Line-Plots" class="headerlink" title="For Example: Line Plots"></a>For Example: Line Plots</h1><p>📘 Download <a href="https://www.kaggle.com/datasets/garrickhague/world-earthquake-data-from-1906-2022">World Earthquake Data From 1906-2022</a></p>
-<hr>
-<h2 id="Line-Plots-with-plotly-express"><a href="#Line-Plots-with-plotly-express" class="headerlink" title="Line Plots with plotly.express"></a>Line Plots with <code>plotly.express</code></h2><p><em><font color=royalblue>The plotly.express module (usually imported as px) contains functions that can create entire figures at once.<br>Plotly Express is a built-in part of the plotly library, and is the recommended starting point for creating most common figures.</font></em></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">df = df.query(<span class="string">&quot;2012 &lt;= Year &lt;= 2022&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, title=<span class="string">&#x27;Max magnitude from 2000 to 2022&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Explanation<ul>
-<li><p>Pandas <code>groupby</code> splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group by &#x27;Year&#x27;, and get the maximum of &#x27;mag&#x27; column</span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group by &#x27;Year&#x27;, get the maximum of &#x27;mag&#x27; column, and fit the length of dataframe  </span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query &#x27;2022 &gt;= Year &gt;= 2021&#x27; and get the value of &#x27;Max_mag&#x27; column</span></span><br><span class="line">df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2021&quot;</span>)[<span class="string">&quot;Max_mag&quot;</span>]</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="Line-Plots-with-Column-Encoding-Color"><a href="#Line-Plots-with-Column-Encoding-Color" class="headerlink" title="Line Plots with Column Encoding Color"></a>Line Plots with Column Encoding Color</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">df = df.query(<span class="string">&quot;2012 &lt;= Year &lt;= 2022&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, color=<span class="string">&#x27;magType&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Explanation<ul>
-<li><p>Pandas <code>groupby</code> splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group by &#x27;Year&#x27; and &#x27;magType&#x27;, and get the maximum of &#x27;mag&#x27; column</span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group by &#x27;Year&#x27; and &#x27;magType&#x27;, get the maximum of &#x27;mag&#x27; column, and fit the length of dataframe  </span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query &#x27;2022 &gt;= Year &gt;= 2021&#x27; and get the value of &#x27;Max_mag&#x27; column</span></span><br><span class="line">df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2021&quot;</span>)[<span class="string">&quot;Max_mag&quot;</span>]</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="Basic-Settings"><a href="#Basic-Settings" class="headerlink" title="Basic Settings"></a>Basic Settings</h2><h3 id="Line-charts-with-Markers"><a href="#Line-charts-with-Markers" class="headerlink" title="Line charts with Markers"></a>Line charts with Markers</h3><ul>
-<li><p>Set Title</p>
-<ul>
-<li><code>title = &#39;Max magnitude and Min depth from 2012 to 2022&#39;</code></li>
-</ul>
-</li>
-<li><p>Add one more field on text label</p>
-<ul>
-<li><p><code>text = &quot;Min_depth&quot;</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line">df[<span class="string">&quot;Min_depth&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;depth&#x27;</span>].transform(<span class="built_in">min</span>)</span><br><span class="line"></span><br><span class="line">query_df = df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2012 &amp; magType in [&#x27;mw&#x27;, &#x27;ml&#x27;, &#x27;ms&#x27;, &#x27;mb&#x27;]&quot;</span>)</span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude and Min depth from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, text=<span class="string">&quot;Min_depth&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>Mark data points</p>
-<ul>
-<li><p>Method 1: <code>markers = True</code></p>
-</li>
-<li><p>Method 2: <code>symbol = &quot;magType&quot;</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">query_df = df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2012&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 1: markers</span></span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, markers=<span class="literal">True</span>)</span><br><span class="line">fig.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 2: symbol</span></span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, symbol=<span class="string">&quot;magType&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="Save-a-Plot"><a href="#Save-a-Plot" class="headerlink" title="Save a Plot"></a>Save a Plot</h3><figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"># Install Package</span><br><span class="line">$ pip install -U kaleido</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>Save a Figure in xxx Format: PNG, JPEG, SVG, PDF</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PNG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.png&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JPEG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.jpeg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># SVG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.svg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># PDF</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.pdf&quot;</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Change Image dimension and Scale</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.write_image(<span class="string">&#x27;fig2_scale2.jpeg&#x27;</span>, width=<span class="number">600</span>, height=<span class="number">350</span>, scale=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Interactive HTML export in Plotly Python</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.write_html(<span class="string">&quot;fig1.html&quot;</span>, auto_open=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h2 id="Advanced-Interactive-Custom-Controls"><a href="#Advanced-Interactive-Custom-Controls" class="headerlink" title="Advanced: Interactive Custom Controls"></a>Advanced: Interactive Custom Controls</h2><h3 id="Basic-Range-Slider-and-Range-Selectors"><a href="#Basic-Range-Slider-and-Range-Selectors" class="headerlink" title="Basic Range Slider and Range Selectors"></a>Basic Range Slider and Range Selectors</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load data</span></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query</span></span><br><span class="line">query_df = df.query(<span class="string">&quot;magType == &#x27;mww&#x27;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create figure</span></span><br><span class="line">fig = go.Figure()</span><br><span class="line"></span><br><span class="line">fig.add_trace(</span><br><span class="line">    go.Scatter(x=<span class="built_in">list</span>(query_df.time), y=<span class="built_in">list</span>(query_df.Max_mag)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set title</span></span><br><span class="line">fig.update_layout(</span><br><span class="line">    title_text=<span class="string">&quot;Time series with range slider and selectors&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add range slider</span></span><br><span class="line">fig.update_layout(</span><br><span class="line">    xaxis=<span class="built_in">dict</span>(</span><br><span class="line">        rangeselector=<span class="built_in">dict</span>(</span><br><span class="line">            buttons=<span class="built_in">list</span>([</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;1m&quot;</span>, step=<span class="string">&quot;month&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">6</span>, label=<span class="string">&quot;6m&quot;</span>, step=<span class="string">&quot;month&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;YTD&quot;</span>, step=<span class="string">&quot;year&quot;</span>, stepmode=<span class="string">&quot;todate&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;1y&quot;</span>, step=<span class="string">&quot;year&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(step=<span class="string">&quot;all&quot;</span>)</span><br><span class="line">            ])</span><br><span class="line">        ),</span><br><span class="line">        rangeslider=<span class="built_in">dict</span>( visible=<span class="literal">True</span> ),</span><br><span class="line">        <span class="built_in">type</span>=<span class="string">&quot;date&quot;</span></span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://www.usgs.gov/programs/earthquake-hazards/magnitude-types">USGS - Magnitude Types</a></li>
-<li><a href="https://academic-accelerator.com/encyclopedia/zh/moment-magnitude-scale">矩量級 Moment Magnitude Scale</a></li>
-<li><a href="https://www.facebook.com/momlovestaiwan/photos/a.1076309132504673/1076350115833908/?type=3&locale=zh_TW">Magnitude Type: Mw vs. ML vs. MS vs. mb</a></li>
-<li><a href="https://plotly.com/python/">Plotly Open Source Graphing Library for Python</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Data Visualization</tag>
-        <tag>Python</tag>
-        <tag>Plotly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/01/27/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>從零開始學 Docker - 為何它這麼重要？(Part 2)</title>
-    <url>/2024/02/04/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-2/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
-
-<h1 id="功用二：跨平台部署"><a href="#功用二：跨平台部署" class="headerlink" title="功用二：跨平台部署"></a>功用二：跨平台部署</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>Docker 的強大功能之一是「跨平台部署」！透過把程式及其相依的環境、套件打包成 Docker Image（aka. 程式部署包），你可以輕鬆地在不同作業系統上（Linux、MacOS 或 Windows）運行你的應用程式。</p>
-<p>完成 Docker Image 的製作後，成功上傳至 Docker Hub（aka. 存放 Docker Image 的雲端空間），使其他使用者能夠在全球的任何地方、任何作業系統上輕鬆進行下載。隨後，透過在各自作業系統上安裝 Docker Engine，可以協調作業系統與 Docker 容器之間的運行，而無需擔心環境相容性問題。</p>
-<p>簡言之，Docker 讓跨平台部署變得快速、便捷，確保了一致的部署體驗。</p>
-<hr>
-<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：部署一個 Django Website 於不同作業系統上。<br>藉由撰寫 Dockerfile 來建立 Docker Image，並且將製作好的 Docker Image 上傳至 Docker Hub，以便進行跨平台部署。</p>
-<h2 id="準備-Django-Website"><a href="#準備-Django-Website" class="headerlink" title="準備 Django Website"></a>準備 Django Website</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startproject mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startapp app1</span></span><br></pre></td></tr></table></figure>
-
-<p>網站的階層架構，如下所示。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── mysite/</span><br><span class="line">    ├── app1/</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── admin.py</span><br><span class="line">    │   ├── apps.py</span><br><span class="line">    │   ├── models.py</span><br><span class="line">    │   ├── tests.py</span><br><span class="line">    │   └── views.py</span><br><span class="line">    ├── manage.py</span><br><span class="line">    └── mysite/</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── asgi.py</span><br><span class="line">        ├── settings.py</span><br><span class="line">        ├── urls.py</span><br><span class="line">        └── wsgi.py</span><br></pre></td></tr></table></figure>
-
-<h3 id="mysite-settings-py"><a href="#mysite-settings-py" class="headerlink" title="mysite&#x2F;settings.py"></a>mysite&#x2F;settings.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h3 id="mysite-urls-py"><a href="#mysite-urls-py" class="headerlink" title="mysite&#x2F;urls.py"></a>mysite&#x2F;urls.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    re_path(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h3 id="app1-views-py"><a href="#app1-views-py" class="headerlink" title="app1&#x2F;views.py"></a>app1&#x2F;views.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="撰寫-Dockerfile"><a href="#撰寫-Dockerfile" class="headerlink" title="撰寫 Dockerfile"></a>撰寫 Dockerfile</h2><p>Dockerfile 是用於建置 Docker Image 的腳本。</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.10</span>-alpine</span><br><span class="line"><span class="keyword">ENV</span> myworkdir /home/django_site</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite/ <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk update</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk add vim</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install django</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>, <span class="string">&quot;0.0.0.0:8000&quot;</span>]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="建立-Docker-Image"><a href="#建立-Docker-Image" class="headerlink" title="建立 Docker Image"></a>建立 Docker Image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── site/</span><br><span class="line">   ├── Dockerfile</span><br><span class="line">   └── mysite/</span><br><span class="line">        ├── app1/</span><br><span class="line">        │    ├── ...</span><br><span class="line">        ├── manage.py</span><br><span class="line">        └── mysite/</span><br><span class="line">             ├── ...</span><br></pre></td></tr></table></figure>
-
-<p>cd 到有 <code>Dockerfile</code> 的目錄下。接著，建立名為 <code>django_site</code> 的 Docker Image。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> site/</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker build -t bessyhuang/django_site . --no-cache</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="執行"><a href="#執行" class="headerlink" title="執行"></a>執行</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d -p 8001:8000 django_site</span> </span><br></pre></td></tr></table></figure>
-<p>打開瀏覽器 <a href="http://localhost:8001/hello/">http://localhost:8001/hello/</a></p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>觀念解說</tag>
+        <tag>Django</tag>
       </tags>
   </entry>
   <entry>
@@ -533,6 +399,109 @@
       </tags>
   </entry>
   <entry>
+    <title>Plotly - Advanced</title>
+    <url>/2023/08/05/Plotly-Advanced/</url>
+    <content><![CDATA[<h1 id="For-Example-Line-Plots"><a href="#For-Example-Line-Plots" class="headerlink" title="For Example: Line Plots"></a>For Example: Line Plots</h1><p>📘 Download <a href="https://www.kaggle.com/datasets/garrickhague/world-earthquake-data-from-1906-2022">World Earthquake Data From 1906-2022</a></p>
+<hr>
+<h2 id="Line-Plots-with-plotly-express"><a href="#Line-Plots-with-plotly-express" class="headerlink" title="Line Plots with plotly.express"></a>Line Plots with <code>plotly.express</code></h2><p><em><font color=royalblue>The plotly.express module (usually imported as px) contains functions that can create entire figures at once.<br>Plotly Express is a built-in part of the plotly library, and is the recommended starting point for creating most common figures.</font></em></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">df = df.query(<span class="string">&quot;2012 &lt;= Year &lt;= 2022&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, title=<span class="string">&#x27;Max magnitude from 2000 to 2022&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Explanation<ul>
+<li><p>Pandas <code>groupby</code> splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group by &#x27;Year&#x27;, and get the maximum of &#x27;mag&#x27; column</span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group by &#x27;Year&#x27;, get the maximum of &#x27;mag&#x27; column, and fit the length of dataframe  </span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query &#x27;2022 &gt;= Year &gt;= 2021&#x27; and get the value of &#x27;Max_mag&#x27; column</span></span><br><span class="line">df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2021&quot;</span>)[<span class="string">&quot;Max_mag&quot;</span>]</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Line-Plots-with-Column-Encoding-Color"><a href="#Line-Plots-with-Column-Encoding-Color" class="headerlink" title="Line Plots with Column Encoding Color"></a>Line Plots with Column Encoding Color</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">df = df.query(<span class="string">&quot;2012 &lt;= Year &lt;= 2022&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, color=<span class="string">&#x27;magType&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Explanation<ul>
+<li><p>Pandas <code>groupby</code> splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group by &#x27;Year&#x27; and &#x27;magType&#x27;, and get the maximum of &#x27;mag&#x27; column</span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group by &#x27;Year&#x27; and &#x27;magType&#x27;, get the maximum of &#x27;mag&#x27; column, and fit the length of dataframe  </span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query &#x27;2022 &gt;= Year &gt;= 2021&#x27; and get the value of &#x27;Max_mag&#x27; column</span></span><br><span class="line">df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2021&quot;</span>)[<span class="string">&quot;Max_mag&quot;</span>]</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Basic-Settings"><a href="#Basic-Settings" class="headerlink" title="Basic Settings"></a>Basic Settings</h2><h3 id="Line-charts-with-Markers"><a href="#Line-charts-with-Markers" class="headerlink" title="Line charts with Markers"></a>Line charts with Markers</h3><ul>
+<li><p>Set Title</p>
+<ul>
+<li><code>title = &#39;Max magnitude and Min depth from 2012 to 2022&#39;</code></li>
+</ul>
+</li>
+<li><p>Add one more field on text label</p>
+<ul>
+<li><p><code>text = &quot;Min_depth&quot;</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line">df[<span class="string">&quot;Min_depth&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;depth&#x27;</span>].transform(<span class="built_in">min</span>)</span><br><span class="line"></span><br><span class="line">query_df = df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2012 &amp; magType in [&#x27;mw&#x27;, &#x27;ml&#x27;, &#x27;ms&#x27;, &#x27;mb&#x27;]&quot;</span>)</span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude and Min depth from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, text=<span class="string">&quot;Min_depth&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Mark data points</p>
+<ul>
+<li><p>Method 1: <code>markers = True</code></p>
+</li>
+<li><p>Method 2: <code>symbol = &quot;magType&quot;</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">query_df = df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2012&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 1: markers</span></span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, markers=<span class="literal">True</span>)</span><br><span class="line">fig.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 2: symbol</span></span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, symbol=<span class="string">&quot;magType&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Save-a-Plot"><a href="#Save-a-Plot" class="headerlink" title="Save a Plot"></a>Save a Plot</h3><figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"># Install Package</span><br><span class="line">$ pip install -U kaleido</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Save a Figure in xxx Format: PNG, JPEG, SVG, PDF</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PNG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.png&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JPEG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.jpeg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># SVG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.svg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># PDF</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.pdf&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Change Image dimension and Scale</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.write_image(<span class="string">&#x27;fig2_scale2.jpeg&#x27;</span>, width=<span class="number">600</span>, height=<span class="number">350</span>, scale=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Interactive HTML export in Plotly Python</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.write_html(<span class="string">&quot;fig1.html&quot;</span>, auto_open=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="Advanced-Interactive-Custom-Controls"><a href="#Advanced-Interactive-Custom-Controls" class="headerlink" title="Advanced: Interactive Custom Controls"></a>Advanced: Interactive Custom Controls</h2><h3 id="Basic-Range-Slider-and-Range-Selectors"><a href="#Basic-Range-Slider-and-Range-Selectors" class="headerlink" title="Basic Range Slider and Range Selectors"></a>Basic Range Slider and Range Selectors</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load data</span></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query</span></span><br><span class="line">query_df = df.query(<span class="string">&quot;magType == &#x27;mww&#x27;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create figure</span></span><br><span class="line">fig = go.Figure()</span><br><span class="line"></span><br><span class="line">fig.add_trace(</span><br><span class="line">    go.Scatter(x=<span class="built_in">list</span>(query_df.time), y=<span class="built_in">list</span>(query_df.Max_mag)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set title</span></span><br><span class="line">fig.update_layout(</span><br><span class="line">    title_text=<span class="string">&quot;Time series with range slider and selectors&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add range slider</span></span><br><span class="line">fig.update_layout(</span><br><span class="line">    xaxis=<span class="built_in">dict</span>(</span><br><span class="line">        rangeselector=<span class="built_in">dict</span>(</span><br><span class="line">            buttons=<span class="built_in">list</span>([</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;1m&quot;</span>, step=<span class="string">&quot;month&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">6</span>, label=<span class="string">&quot;6m&quot;</span>, step=<span class="string">&quot;month&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;YTD&quot;</span>, step=<span class="string">&quot;year&quot;</span>, stepmode=<span class="string">&quot;todate&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;1y&quot;</span>, step=<span class="string">&quot;year&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(step=<span class="string">&quot;all&quot;</span>)</span><br><span class="line">            ])</span><br><span class="line">        ),</span><br><span class="line">        rangeslider=<span class="built_in">dict</span>( visible=<span class="literal">True</span> ),</span><br><span class="line">        <span class="built_in">type</span>=<span class="string">&quot;date&quot;</span></span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.usgs.gov/programs/earthquake-hazards/magnitude-types">USGS - Magnitude Types</a></li>
+<li><a href="https://academic-accelerator.com/encyclopedia/zh/moment-magnitude-scale">矩量級 Moment Magnitude Scale</a></li>
+<li><a href="https://www.facebook.com/momlovestaiwan/photos/a.1076309132504673/1076350115833908/?type=3&locale=zh_TW">Magnitude Type: Mw vs. ML vs. MS vs. mb</a></li>
+<li><a href="https://plotly.com/python/">Plotly Open Source Graphing Library for Python</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Data Visualization</tag>
+        <tag>Python</tag>
+        <tag>Plotly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>從零開始學 Docker - 為何它這麼重要？(Part 3)</title>
+    <url>/2024/04/02/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-3/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
+
+<h1 id="功用三：建立乾淨測試環境"><a href="#功用三：建立乾淨測試環境" class="headerlink" title="功用三：建立乾淨測試環境"></a>功用三：建立乾淨測試環境</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><hr>
+<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：建立乾淨的測試環境。<br>利用 Dockerfile 建立一份客製映像檔（Docker Image），並把測試環境跑起來。</p>
+<h2 id="準備-MongoDB-Container"><a href="#準備-MongoDB-Container" class="headerlink" title="準備 MongoDB Container"></a>準備 MongoDB Container</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker network create test_network</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d --name mongodb --network test_network bessyhuang/py3.10_mongo:v1</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker <span class="built_in">exec</span> -it mongodb bash</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="準備-Django-Platform-Container"><a href="#準備-Django-Platform-Container" class="headerlink" title="準備 Django Platform Container"></a>準備 Django Platform Container</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -it -p 8001:8000 -v /Users/bessyhuang/Downloads/TEST_mysite/esiot-platform:/home/ --network test_network --name podman_platform python:3.11.8-slim bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt update</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt install gcc python3-dev -y</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pip install -r py3.11.8_requirements.txt</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">python manage.py runserver 0.0.0.0:8000</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.11</span>.<span class="number">8</span>-slim</span><br><span class="line"><span class="keyword">MAINTAINER</span> Bessy</span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite ./home/</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /home/mysite</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install iproute2 -y &amp;&amp; apt-get install vim -y</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+
+<p>Example</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FROM alpine:latest</span><br><span class="line">ENV myworkdir /var/www/localhost/htdocs/</span><br><span class="line">ARG whoami=Bessy</span><br><span class="line">WORKDIR $&#123;myworkdir&#125;</span><br><span class="line">RUN apk --update add apache2</span><br><span class="line">RUN rm -rf /var/cache/apk/*</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 01&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 02&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 03&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">COPY ./content.txt ./</span><br><span class="line">RUN ls -l ./</span><br><span class="line">RUN cat ./content.txt &gt;&gt; index.html</span><br><span class="line">ENTRYPOINT [&quot;httpd&quot;, &quot;-D&quot;, &quot;FOREGROUND&quot;]</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>觀念解說</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>從零開始學 Docker - 為何它這麼重要？(Part 1)</title>
     <url>/2024/01/30/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-1/</url>
     <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
@@ -575,5 +544,63 @@
         <tag>Docker</tag>
         <tag>觀念解說</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>從零開始學 Docker - 為何它這麼重要？(Part 2)</title>
+    <url>/2024/02/04/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-2/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
+
+<h1 id="功用二：跨平台部署"><a href="#功用二：跨平台部署" class="headerlink" title="功用二：跨平台部署"></a>功用二：跨平台部署</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>Docker 的強大功能之一是「跨平台部署」！透過把程式及其相依的環境、套件打包成 Docker Image（aka. 程式部署包），你可以輕鬆地在不同作業系統上（Linux、MacOS 或 Windows）運行你的應用程式。</p>
+<p>完成 Docker Image 的製作後，成功上傳至 Docker Hub（aka. 存放 Docker Image 的雲端空間），使其他使用者能夠在全球的任何地方、任何作業系統上輕鬆進行下載。隨後，透過在各自作業系統上安裝 Docker Engine，可以協調作業系統與 Docker 容器之間的運行，而無需擔心環境相容性問題。</p>
+<p>簡言之，Docker 讓跨平台部署變得快速、便捷，確保了一致的部署體驗。</p>
+<hr>
+<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：部署一個 Django Website 於不同作業系統上。<br>藉由撰寫 Dockerfile 來建立 Docker Image，並且將製作好的 Docker Image 上傳至 Docker Hub，以便進行跨平台部署。</p>
+<h2 id="準備-Django-Website"><a href="#準備-Django-Website" class="headerlink" title="準備 Django Website"></a>準備 Django Website</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startproject mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startapp app1</span></span><br></pre></td></tr></table></figure>
+
+<p>網站的階層架構，如下所示。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── mysite/</span><br><span class="line">    ├── app1/</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── admin.py</span><br><span class="line">    │   ├── apps.py</span><br><span class="line">    │   ├── models.py</span><br><span class="line">    │   ├── tests.py</span><br><span class="line">    │   └── views.py</span><br><span class="line">    ├── manage.py</span><br><span class="line">    └── mysite/</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── asgi.py</span><br><span class="line">        ├── settings.py</span><br><span class="line">        ├── urls.py</span><br><span class="line">        └── wsgi.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysite-settings-py"><a href="#mysite-settings-py" class="headerlink" title="mysite&#x2F;settings.py"></a>mysite&#x2F;settings.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysite-urls-py"><a href="#mysite-urls-py" class="headerlink" title="mysite&#x2F;urls.py"></a>mysite&#x2F;urls.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    re_path(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="app1-views-py"><a href="#app1-views-py" class="headerlink" title="app1&#x2F;views.py"></a>app1&#x2F;views.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="撰寫-Dockerfile"><a href="#撰寫-Dockerfile" class="headerlink" title="撰寫 Dockerfile"></a>撰寫 Dockerfile</h2><p>Dockerfile 是用於建置 Docker Image 的腳本。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.10</span>-alpine</span><br><span class="line"><span class="keyword">ENV</span> myworkdir /home/django_site</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite/ <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk update</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk add vim</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install django</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>, <span class="string">&quot;0.0.0.0:8000&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="建立-Docker-Image"><a href="#建立-Docker-Image" class="headerlink" title="建立 Docker Image"></a>建立 Docker Image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── site/</span><br><span class="line">   ├── Dockerfile</span><br><span class="line">   └── mysite/</span><br><span class="line">        ├── app1/</span><br><span class="line">        │    ├── ...</span><br><span class="line">        ├── manage.py</span><br><span class="line">        └── mysite/</span><br><span class="line">             ├── ...</span><br></pre></td></tr></table></figure>
+
+<p>cd 到有 <code>Dockerfile</code> 的目錄下。接著，建立名為 <code>django_site</code> 的 Docker Image。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> site/</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker build -t bessyhuang/django_site . --no-cache</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="執行"><a href="#執行" class="headerlink" title="執行"></a>執行</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d -p 8001:8000 django_site</span> </span><br></pre></td></tr></table></figure>
+<p>打開瀏覽器 <a href="http://localhost:8001/hello/">http://localhost:8001/hello/</a></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>觀念解說</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/01/27/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
 </search>

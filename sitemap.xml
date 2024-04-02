@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bessyhuang.github.io/2024/04/02/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-3/</loc>
+    
+    <lastmod>2024-04-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://bessyhuang.github.io/2024/03/18/Hexo-Getting-Started/</loc>
     
     <lastmod>2024-04-02</lastmod>
@@ -172,7 +181,7 @@
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/tags/Django/</loc>
+    <loc>https://bessyhuang.github.io/tags/Hexo/</loc>
     <lastmod>2024-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -200,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/tags/Hexo/</loc>
+    <loc>https://bessyhuang.github.io/tags/Django/</loc>
     <lastmod>2024-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
