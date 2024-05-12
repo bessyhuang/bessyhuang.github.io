@@ -31,32 +31,29 @@
 
 
     <meta property="og:type" content="blog">
-<meta property="og:title" content="Data Visualization - Advanced">
-<meta property="og:url" content="https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/index.html">
+<meta property="og:title" content="Kubernetes | Cluster Architecture">
+<meta property="og:url" content="https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/index.html">
 <meta property="og:site_name" content="Bessy&#39;s Tech Blog">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU">
-<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1400/0*M_5cpWpvfNJzVsqQ">
-<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1400/0*wzDTQBW8wYIev4GC">
-<meta property="og:image" content="https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/Omitting_baseline_and_truncating_scale.jpg">
-<meta property="og:image" content="https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/solution_Omitting_baseline_and_truncating_scale.jpg">
-<meta property="article:published_time" content="2023-08-11T16:18:24.000Z">
-<meta property="article:modified_time" content="2024-01-27T07:33:12.052Z">
+<meta property="og:image" content="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg">
+<meta property="og:image" content="https://kubernetes.io/images/docs/components-of-kubernetes.svg">
+<meta property="article:published_time" content="2024-04-16T15:21:59.000Z">
+<meta property="article:modified_time" content="2024-05-12T17:16:21.386Z">
 <meta property="article:author" content="Bessy">
-<meta property="article:tag" content="Data Visualization">
-<meta property="article:tag" content="Common Mistakes">
+<meta property="article:tag" content="觀念解說">
+<meta property="article:tag" content="Concepts">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU">
+<meta name="twitter:image" content="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg">
 
 
-<link rel="canonical" href="https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/">
+<link rel="canonical" href="https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/","path":"2023/08/12/Data-Visualization-Advanced/","title":"Data Visualization - Advanced"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/","path":"2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/","title":"Kubernetes | Cluster Architecture"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Data Visualization - Advanced | Bessy's Tech Blog</title>
+<title>Kubernetes | Cluster Architecture | Bessy's Tech Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
@@ -160,7 +157,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Common-Data-Visualization-Mistakes"><span class="nav-number">1.</span> <span class="nav-text">Common Data Visualization Mistakes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Misleading-color-contrast"><span class="nav-number">1.1.</span> <span class="nav-text">1. Misleading color contrast</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Overwhelming-charts-with-too-much-data"><span class="nav-number">1.2.</span> <span class="nav-text">2. Overwhelming charts with too much data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Omitting-baseline-and-truncating-scale"><span class="nav-number">1.3.</span> <span class="nav-text">3. Omitting baseline and truncating scale</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">1.4.</span> <span class="nav-text">References</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes-Cluster-Architecture"><span class="nav-number">1.</span> <span class="nav-text">Kubernetes Cluster Architecture</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes-Components"><span class="nav-number">2.</span> <span class="nav-text">Kubernetes Components</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%90-Master-%E3%80%91"><span class="nav-number">2.1.</span> <span class="nav-text">【 Master 】</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-apiserver"><span class="nav-number">2.1.1.</span> <span class="nav-text">kube-apiserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etcd"><span class="nav-number">2.1.2.</span> <span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-scheduler"><span class="nav-number">2.1.3.</span> <span class="nav-text">kube-scheduler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-controller-manager"><span class="nav-number">2.1.4.</span> <span class="nav-text">kube-controller-manager</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%90-Worker-Nodes-%E3%80%91"><span class="nav-number">2.2.</span> <span class="nav-text">【 Worker Nodes 】</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kubelet"><span class="nav-number">2.2.1.</span> <span class="nav-text">kubelet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-proxy"><span class="nav-number">2.2.2.</span> <span class="nav-text">kube-proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container-runtime"><span class="nav-number">2.2.3.</span> <span class="nav-text">Container runtime</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -227,7 +224,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -240,12 +237,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Data Visualization - Advanced | Bessy's Tech Blog">
+      <meta itemprop="name" content="Kubernetes | Cluster Architecture | Bessy's Tech Blog">
       <meta itemprop="description" content=" ">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Data Visualization - Advanced
+          Kubernetes | Cluster Architecture
         </h1>
 
         <div class="post-meta-container">
@@ -256,14 +253,23 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2023-08-12 00:18:24" itemprop="dateCreated datePublished" datetime="2023-08-12T00:18:24+08:00">2023-08-12</time>
+      <time title="Created: 2024-04-16 23:21:59" itemprop="dateCreated datePublished" datetime="2024-04-16T23:21:59+08:00">2024-04-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-27 15:33:12" itemprop="dateModified" datetime="2024-01-27T15:33:12+08:00">2024-01-27</time>
+      <time title="Modified: 2024-05-13 01:16:21" itemprop="dateModified" datetime="2024-05-13T01:16:21+08:00">2024-05-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
     </span>
 
   
@@ -283,36 +289,54 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="Common-Data-Visualization-Mistakes"><a href="#Common-Data-Visualization-Mistakes" class="headerlink" title="Common Data Visualization Mistakes"></a>Common Data Visualization Mistakes</h1><h2 id="1-Misleading-color-contrast"><a href="#1-Misleading-color-contrast" class="headerlink" title="1. Misleading color contrast"></a>1. Misleading color contrast</h2><p>Although using various colors aids in interpreting data visualizations, too much color can confuse the user.<br>It’s crucial to stick to a limited number of unique colors.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU" alt="Bad Example: Misleading color contrast"></p>
+    <div class="post-body" itemprop="articleBody"><p><code>Kubernetes</code></p>
 <ul>
-<li>Solution<ul>
-<li>The simplest way to determine contrast value is to compare contrast colors on greyscale to check if the color you choose displays the difference.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*M_5cpWpvfNJzVsqQ"></li>
+<li>目的是讓容器（Container）的管理變得容易、允許被監控且自動化。</li>
 </ul>
-</li>
-</ul>
-<h2 id="2-Overwhelming-charts-with-too-much-data"><a href="#2-Overwhelming-charts-with-too-much-data" class="headerlink" title="2. Overwhelming charts with too much data"></a>2. Overwhelming charts with too much data</h2><p><img src="https://miro.medium.com/v2/resize:fit:1400/0*wzDTQBW8wYIev4GC" alt="Bad Example: Overwhelming charts with too much data"></p>
+<p><code>Node</code></p>
 <ul>
-<li>Solution<ul>
-<li>Do not put all of your insights into a chart. Multiple visualizations can help you communicate data more effectively.</li>
-<li>It is recommended that no more than 5–6 colors be used in a single visualization.</li>
+<li><code>指的是 Worker Nodes 的部分，不是 Master！</code></li>
+<li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
+<li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
 </ul>
-</li>
-</ul>
-<h2 id="3-Omitting-baseline-and-truncating-scale"><a href="#3-Omitting-baseline-and-truncating-scale" class="headerlink" title="3. Omitting baseline and truncating scale"></a>3. Omitting baseline and truncating scale</h2><img src="/2023/08/12/Data-Visualization-Advanced/Omitting_baseline_and_truncating_scale.jpg" class="" title="Bad Example: Omitting baseline and truncating scale">
-
+<p><code>Container</code></p>
 <ul>
-<li>Solution<ul>
-<li>Concentrate on creating data visualizations with a zero-baseline y-axis.</li>
-<li>If removing the zero makes sense, add a zero-break to communicate that.<img src="/2023/08/12/Data-Visualization-Advanced/solution_Omitting_baseline_and_truncating_scale.jpg" class=""></li>
+<li>輕量級的容器，打包所有必要且相依的套件、程式碼等，提供應用程式一致的運行環境，使應用程式在不同的作業系統上也能夠重建和運行。</li>
 </ul>
-</li>
+<h1 id="Kubernetes-Cluster-Architecture"><a href="#Kubernetes-Cluster-Architecture" class="headerlink" title="Kubernetes Cluster Architecture"></a>Kubernetes Cluster Architecture</h1><p>Kubernetes cluster architecture<br><img src="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg"></p>
+<h1 id="Kubernetes-Components"><a href="#Kubernetes-Components" class="headerlink" title="Kubernetes Components"></a>Kubernetes Components</h1><p>The components of a Kubernetes cluster<br><img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg"></p>
+<h2 id="【-Master-】"><a href="#【-Master-】" class="headerlink" title="【 Master 】"></a><font color=LightCoral>【 Master 】</font></h2><blockquote>
+<p>aka. 【 Control Plane Components 】<br>職責：<code>負責監控與管理容器</code></p>
+</blockquote>
+<p><font color=LightCoral>Purpose: Manage, Plan, Schedule, Monitor Nodes</font></p>
+<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
+<p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
+<p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
+<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.</p>
+<p>📌 負責儲存集群中不同節點的資訊。</p>
+<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
+<p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
+<p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。</p>
+<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>Control plane component that runs controller processes.</p>
+<p>There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller …)</p>
+<p>📌 不同控制器，處理不同的功能。</p>
+<h2 id="【-Worker-Nodes-】"><a href="#【-Worker-Nodes-】" class="headerlink" title="【 Worker Nodes 】"></a><font color=LightCoral>【 Worker Nodes 】</font></h2><blockquote>
+<p>aka. 【 Node Components 】<br>職責：<code>負責裝載容器</code></p>
+</blockquote>
+<p><font color=LightCoral>Purpose: Host Application as Containers</font></p>
+<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.</p>
+<p>📌 相當於船長，是在集群中各個節點（船隻）上運行的代理人，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在節點上部署或銷毀容器。</p>
+<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
+<p>kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.</p>
+<p>📌 負責集群內不同 worker node 之間的通訊。</p>
+<h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.</p>
+<p>Kubernetes supports container runtimes such as containerd, CRI-O, rkt, and any other implementation of the Kubernetes CRI (Container Runtime Interface).</p>
+<p>📌 Container 是運行應用程式的獨立環境。</p>
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/architecture/">Cluster Architecture</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Components</a></li>
 </ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://flourish.studio/blog/common-mistakes-in-data-visualization/">Four data visualization mistakes you’re probably making and how to fix them</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.toptal.com/designers/ux/data-visualization-mistakes">Numbers Shouldn’t Lie: An Overview of Common Data Visualization Mistakes</a></li>
-<li><a target="_blank" rel="noopener" href="https://chartio.com/learn/charts/how-to-choose-data-visualization/">How to Choose the Right Data Visualization</a></li>
-<li><a target="_blank" rel="noopener" href="https://careerfoundry.com/en/tutorials/data-analytics-for-beginners/introduction-to-data-visualization/">Tutorial 4: An Introduction to Data Visualization</a></li>
-</ol>
 
     </div>
 
@@ -330,7 +354,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/" title="Data Visualization - Advanced">https://bessyhuang.github.io/2023/08/12/Data-Visualization-Advanced/</a>
+      <a href="https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/" title="Kubernetes | Cluster Architecture">https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -339,22 +363,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Data-Visualization/" rel="tag"># Data Visualization</a>
-              <a href="/tags/Common-Mistakes/" rel="tag"># Common Mistakes</a>
+              <a href="/tags/%E8%A7%80%E5%BF%B5%E8%A7%A3%E8%AA%AA/" rel="tag"># 觀念解說</a>
+              <a href="/tags/Concepts/" rel="tag"># Concepts</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/08/05/Plotly-Advanced/" rel="prev" title="Plotly - Advanced">
-                  <i class="fa fa-angle-left"></i> Plotly - Advanced
+                <a href="/2024/04/02/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-3/" rel="prev" title="從零開始學 Docker - 為何它這麼重要？(Part 3)">
+                  <i class="fa fa-angle-left"></i> 從零開始學 Docker - 為何它這麼重要？(Part 3)
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/08/16/Django/" rel="next" title="Django">
-                  Django <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
