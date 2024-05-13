@@ -12,7 +12,7 @@ tags:
 - 目的是讓容器（Container）的管理變得容易、允許被監控且自動化。
 
 `Node`
-- `指的是 Worker Nodes 的部分，不是 Master！`
+- `指的是 Worker Nodes 的部分，不是 Master ！`
 - A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. 
 - It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.
 
@@ -47,8 +47,10 @@ The API server is a component of the Kubernetes control plane that exposes the K
 
 ### etcd
 Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
+The official etcd ports are 2379 for client requests and 2380 for peer communication.
 
-📌 負責儲存集群中不同節點的資訊。
+📌 負責儲存關於集群的資訊，包括 Nodes、PODs、Configs、Secrets、Accounts、Roles、Bindings 和 Others。
+📌 ETCD in HA Environment：一個集群（Cluster）中，可以有多個 master。每個 master 裡面都有一個 ETCD。
 
 
 ### kube-scheduler
