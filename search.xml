@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo | Getting Started</title>
+    <url>/2024/03/18/Hexo-Getting-Started/</url>
+    <content><![CDATA[<h1 id="建立一個新的-Hexo-網站"><a href="#建立一個新的-Hexo-網站" class="headerlink" title="建立一個新的 Hexo 網站"></a>建立一個新的 Hexo 網站</h1><h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-cli -g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm@10.5.0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果要把 Hexo deploy 到 Github 上面，需要先安裝 <code>hexo-deployer-git</code>。<ul>
+<li>相關設定，請參考 <a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a>。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nano _config.yml</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="網站初始化"><a href="#網站初始化" class="headerlink" title="網站初始化"></a>網站初始化</h2><p>如果沒有設定 folder 的話，Hexo 會在目前的資料夾建立網站。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init myblog</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> myblog/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="新增一篇-Post"><a href="#新增一篇-Post" class="headerlink" title="新增一篇 Post"></a>新增一篇 Post</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo new <span class="string">&quot;Hexo | Getting Started&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim <span class="built_in">source</span>/_posts/Hexo-Getting-Started.md</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="啟動伺服器"><a href="#啟動伺服器" class="headerlink" title="啟動伺服器"></a>啟動伺服器</h2><p>預設是 <a href="http://localhost:4000/">http://localhost:4000/</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo s</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="部署三部曲"><a href="#部署三部曲" class="headerlink" title="部署三部曲"></a>部署三部曲</h1><ol>
+<li><p>清除快取檔案 (db.json) 和已產生的靜態檔案 (public)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo cl</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>產生靜態檔案 (部署網站前先產生靜態檔案)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo generate</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署網站</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo deploy</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo d</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="Clone-Run-your-Repository"><a href="#Clone-Run-your-Repository" class="headerlink" title="Clone &amp; Run your Repository"></a>Clone &amp; Run your Repository</h1><h2 id="Repository-跑起來"><a href="#Repository-跑起來" class="headerlink" title="Repository 跑起來"></a>Repository 跑起來</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/bessyhuang/bessyhuang.github.io.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> bessyhuang.github.io/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="備份於-GitHub-Repository-的-backup-分支"><a href="#備份於-GitHub-Repository-的-backup-分支" class="headerlink" title="備份於 GitHub Repository 的 backup 分支"></a>備份於 GitHub Repository 的 <code>backup 分支</code></h2><ul>
+<li>git checkout<ul>
+<li>切換分支。Switch branches or restore working tree files</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git add --all</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commit -m <span class="string">&quot;New function or something modified&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git push --set-upstream origin backup</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://hexo.io/zh-tw/docs/commands.html">Hexo 指令</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10308093">CI&#x2F;CD X Jenkins、CircleCI、Github Action (28)</a></li>
+<li><a href="https://blog.marsen.me/2022/09/26/2022/Hexo_CICD/">[實作筆記] Hexo CI&#x2F;CD 設置</a></li>
+<li><a href="https://anemology.cc/post/hexo-backup/">Hexo 備份至 GitHub</a></li>
+<li><a href="https://afun.tw/blog/20201114-hexo-init-github-page/">Hexo - 基本設定與 GitHub Page 發佈流程</a></li>
+<li><a href="https://op30132.github.io/2019/12/24/hexo-tag-page/">hexo 新增 tag、catagories、about等頁面</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2024/01/27/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -103,6 +161,66 @@
       </tags>
   </entry>
   <entry>
+    <title>Kubernetes | Cluster Architecture</title>
+    <url>/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/</url>
+    <content><![CDATA[<p><code>Kubernetes</code></p>
+<ul>
+<li>目的是讓容器（Container）的管理變得容易、允許被監控且自動化。</li>
+</ul>
+<p><code>Node</code></p>
+<ul>
+<li><code>指的是 Worker Nodes 的部分，不是 Master ！</code></li>
+<li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
+<li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
+</ul>
+<p><code>Container</code></p>
+<ul>
+<li>輕量級的容器，打包所有必要且相依的套件、程式碼等，提供應用程式一致的運行環境，使應用程式在不同的作業系統上也能夠重建和運行。</li>
+</ul>
+<h1 id="Kubernetes-Cluster-Architecture"><a href="#Kubernetes-Cluster-Architecture" class="headerlink" title="Kubernetes Cluster Architecture"></a>Kubernetes Cluster Architecture</h1><p>Kubernetes cluster architecture<br><img src="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg"></p>
+<h1 id="Kubernetes-Components"><a href="#Kubernetes-Components" class="headerlink" title="Kubernetes Components"></a>Kubernetes Components</h1><p>The components of a Kubernetes cluster<br><img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg"></p>
+<h2 id="【-Master-】"><a href="#【-Master-】" class="headerlink" title="【 Master 】"></a><font color=LightCoral>【 Master 】</font></h2><blockquote>
+<p>aka. 【 Control Plane Components 】<br>職責：<code>負責監控與管理容器</code></p>
+</blockquote>
+<p><font color=LightCoral>Purpose: Manage, Plan, Schedule, Monitor Nodes</font></p>
+<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
+<p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
+<p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
+<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.<br>The official etcd ports are 2379 for client requests and 2380 for peer communication.</p>
+<p>📌 負責儲存關於集群的資訊，包括 Nodes、PODs、Configs、Secrets、Accounts、Roles、Bindings 和 Others。<br>📌 ETCD in HA Environment：一個集群（Cluster）中，可以有多個 master。每個 master 裡面都有一個 ETCD。</p>
+<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
+<p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
+<p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。</p>
+<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>Control plane component that runs controller processes.</p>
+<p>There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller …)</p>
+<p>📌 不同控制器，處理不同的功能。</p>
+<h2 id="【-Worker-Nodes-】"><a href="#【-Worker-Nodes-】" class="headerlink" title="【 Worker Nodes 】"></a><font color=LightCoral>【 Worker Nodes 】</font></h2><blockquote>
+<p>aka. 【 Node Components 】<br>職責：<code>負責裝載容器</code></p>
+</blockquote>
+<p><font color=LightCoral>Purpose: Host Application as Containers</font></p>
+<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.</p>
+<p>📌 相當於船長，是在集群中各個節點（船隻）上運行的代理人，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在節點上部署或銷毀容器。</p>
+<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
+<p>kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.</p>
+<p>📌 負責集群內不同 worker node 之間的通訊。</p>
+<h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.</p>
+<p>Kubernetes supports container runtimes such as containerd, CRI-O, rkt, and any other implementation of the Kubernetes CRI (Container Runtime Interface).</p>
+<p>📌 Container 是運行應用程式的獨立環境。</p>
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://kubernetes.io/docs/concepts/architecture/">Cluster Architecture</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Components</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Concepts</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>從零開始學 Docker - 為何它這麼重要？(Part 3)</title>
     <url>/2024/04/02/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-3/</url>
     <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
@@ -127,64 +245,6 @@
       <tags>
         <tag>Docker</tag>
         <tag>觀念解說</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo | Getting Started</title>
-    <url>/2024/03/18/Hexo-Getting-Started/</url>
-    <content><![CDATA[<h1 id="建立一個新的-Hexo-網站"><a href="#建立一個新的-Hexo-網站" class="headerlink" title="建立一個新的 Hexo 網站"></a>建立一個新的 Hexo 網站</h1><h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-cli -g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm@10.5.0</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>如果要把 Hexo deploy 到 Github 上面，需要先安裝 <code>hexo-deployer-git</code>。<ul>
-<li>相關設定，請參考 <a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a>。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nano _config.yml</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="網站初始化"><a href="#網站初始化" class="headerlink" title="網站初始化"></a>網站初始化</h2><p>如果沒有設定 folder 的話，Hexo 會在目前的資料夾建立網站。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init myblog</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> myblog/</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="新增一篇-Post"><a href="#新增一篇-Post" class="headerlink" title="新增一篇 Post"></a>新增一篇 Post</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo new <span class="string">&quot;Hexo | Getting Started&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vim <span class="built_in">source</span>/_posts/Hexo-Getting-Started.md</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="啟動伺服器"><a href="#啟動伺服器" class="headerlink" title="啟動伺服器"></a>啟動伺服器</h2><p>預設是 <a href="http://localhost:4000/">http://localhost:4000/</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo s</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="部署三部曲"><a href="#部署三部曲" class="headerlink" title="部署三部曲"></a>部署三部曲</h1><ol>
-<li><p>清除快取檔案 (db.json) 和已產生的靜態檔案 (public)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo cl</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>產生靜態檔案 (部署網站前先產生靜態檔案)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo generate</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo g</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>部署網站</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo deploy</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo d</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h1 id="Clone-Run-your-Repository"><a href="#Clone-Run-your-Repository" class="headerlink" title="Clone &amp; Run your Repository"></a>Clone &amp; Run your Repository</h1><h2 id="Repository-跑起來"><a href="#Repository-跑起來" class="headerlink" title="Repository 跑起來"></a>Repository 跑起來</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/bessyhuang/bessyhuang.github.io.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> bessyhuang.github.io/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo server</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="備份於-GitHub-Repository-的-backup-分支"><a href="#備份於-GitHub-Repository-的-backup-分支" class="headerlink" title="備份於 GitHub Repository 的 backup 分支"></a>備份於 GitHub Repository 的 <code>backup 分支</code></h2><ul>
-<li>git checkout<ul>
-<li>切換分支。Switch branches or restore working tree files</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout backup</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git add --all</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commit -m <span class="string">&quot;New function or something modified&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git push --set-upstream origin backup</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://hexo.io/zh-tw/docs/commands.html">Hexo 指令</a></li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10257569">建立自己Blog系列(三) Hexo next theme 介紹</a></li>
-<li><a href="https://ithelp.ithome.com.tw/articles/10308093">CI&#x2F;CD X Jenkins、CircleCI、Github Action (28)</a></li>
-<li><a href="https://blog.marsen.me/2022/09/26/2022/Hexo_CICD/">[實作筆記] Hexo CI&#x2F;CD 設置</a></li>
-<li><a href="https://anemology.cc/post/hexo-backup/">Hexo 備份至 GitHub</a></li>
-<li><a href="https://afun.tw/blog/20201114-hexo-init-github-page/">Hexo - 基本設定與 GitHub Page 發佈流程</a></li>
-<li><a href="https://op30132.github.io/2019/12/24/hexo-tag-page/">hexo 新增 tag、catagories、about等頁面</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -258,15 +318,116 @@
       </tags>
   </entry>
   <entry>
-    <title>Django</title>
-    <url>/2023/08/16/TempNotes/Django/</url>
-    <content><![CDATA[<blockquote>
-<p><em>“Django makes it easier to build better web apps more quickly and with less code.” — Django Official Website</em></p>
-</blockquote>
-<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It’s free and open source.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>]]></content>
+    <title>Data Visualization - Advanced</title>
+    <url>/2023/08/12/TempNotes/Data-Visualization-Advanced/</url>
+    <content><![CDATA[<h1 id="Common-Data-Visualization-Mistakes"><a href="#Common-Data-Visualization-Mistakes" class="headerlink" title="Common Data Visualization Mistakes"></a>Common Data Visualization Mistakes</h1><h2 id="1-Misleading-color-contrast"><a href="#1-Misleading-color-contrast" class="headerlink" title="1. Misleading color contrast"></a>1. Misleading color contrast</h2><p>Although using various colors aids in interpreting data visualizations, too much color can confuse the user.<br>It’s crucial to stick to a limited number of unique colors.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU" alt="Bad Example: Misleading color contrast"></p>
+<ul>
+<li>Solution<ul>
+<li>The simplest way to determine contrast value is to compare contrast colors on greyscale to check if the color you choose displays the difference.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*M_5cpWpvfNJzVsqQ"></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Overwhelming-charts-with-too-much-data"><a href="#2-Overwhelming-charts-with-too-much-data" class="headerlink" title="2. Overwhelming charts with too much data"></a>2. Overwhelming charts with too much data</h2><p><img src="https://miro.medium.com/v2/resize:fit:1400/0*wzDTQBW8wYIev4GC" alt="Bad Example: Overwhelming charts with too much data"></p>
+<ul>
+<li>Solution<ul>
+<li>Do not put all of your insights into a chart. Multiple visualizations can help you communicate data more effectively.</li>
+<li>It is recommended that no more than 5–6 colors be used in a single visualization.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Omitting-baseline-and-truncating-scale"><a href="#3-Omitting-baseline-and-truncating-scale" class="headerlink" title="3. Omitting baseline and truncating scale"></a>3. Omitting baseline and truncating scale</h2><img src="/2023/08/12/TempNotes/Data-Visualization-Advanced/Omitting_baseline_and_truncating_scale.jpg" class="" title="Bad Example: Omitting baseline and truncating scale">
+
+<ul>
+<li>Solution<ul>
+<li>Concentrate on creating data visualizations with a zero-baseline y-axis.</li>
+<li>If removing the zero makes sense, add a zero-break to communicate that.<img src="/2023/08/12/TempNotes/Data-Visualization-Advanced/solution_Omitting_baseline_and_truncating_scale.jpg" class=""></li>
+</ul>
+</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://flourish.studio/blog/common-mistakes-in-data-visualization/">Four data visualization mistakes you’re probably making and how to fix them</a></li>
+<li><a href="https://www.toptal.com/designers/ux/data-visualization-mistakes">Numbers Shouldn’t Lie: An Overview of Common Data Visualization Mistakes</a></li>
+<li><a href="https://chartio.com/learn/charts/how-to-choose-data-visualization/">How to Choose the Right Data Visualization</a></li>
+<li><a href="https://careerfoundry.com/en/tutorials/data-analytics-for-beginners/introduction-to-data-visualization/">Tutorial 4: An Introduction to Data Visualization</a></li>
+</ol>
+]]></content>
       <tags>
-        <tag>Django</tag>
+        <tag>Data Visualization</tag>
+        <tag>Common Mistakes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Data Visualization - Basics</title>
+    <url>/2023/08/03/TempNotes/Data-Visualization-Basics/</url>
+    <content><![CDATA[<h1 id="What-is-data-visualization"><a href="#What-is-data-visualization" class="headerlink" title="What is data visualization?"></a>What is data visualization?</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Data visualization (資料視覺化) is the graphical or visual representation of data.<br>It helps to highlight the most useful insights from a dataset, making it easier to spot trends, patterns, outliers, and correlations.</p>
+<hr>
+<h1 id="Two-main-types-of-data-visualization"><a href="#Two-main-types-of-data-visualization" class="headerlink" title="Two main types of data visualization"></a>Two main types of data visualization</h1><h2 id="1-Exploration"><a href="#1-Exploration" class="headerlink" title="1. Exploration"></a>1. Exploration</h2><p><em><font color=royalblue>Exploration takes place while you’re still analyzing the data.</font></em></p>
+<ul>
+<li>When faced with a new dataset, one of the first things you’ll do!</li>
+<li>It helps you figure out what’s in your data.<ul>
+<li>Get a sense of what’s in your dataset and to spot any noteworthy trends or anomalies. </li>
+<li>Finding clues as to what the data might be trying to tell you.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Explanation"><a href="#2-Explanation" class="headerlink" title="2. Explanation"></a>2. Explanation</h2><p><em><font color=royalblue>Explanatory visualization helps you to communicate what you’ve found.</font></em></p>
+<ul>
+<li>Once you’ve conducted your analysis and have figured out what the data is telling you, you’ll want to share these insights with others.</li>
+<li>Help you tell the story, and it’s up to you to determine which visualizations will help you to do so most effectively.</li>
+</ul>
+<hr>
+<h1 id="Five-types-of-data-visualization"><a href="#Five-types-of-data-visualization" class="headerlink" title="Five types of data visualization"></a>Five types of data visualization</h1><h2 id="1-Temporal-data-visualizations"><a href="#1-Temporal-data-visualizations" class="headerlink" title="1. Temporal data visualizations"></a>1. Temporal data visualizations</h2><ul>
+<li>Linear and one-dimensional</li>
+<li>e.g. scatterplots, timelines, line graphs</li>
+</ul>
+<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Temporal_data_viz.jpg" class="" title="Temporal data visualizations">
+
+<h2 id="2-Hierarchical-visualizations"><a href="#2-Hierarchical-visualizations" class="headerlink" title="2. Hierarchical visualizations"></a>2. Hierarchical visualizations</h2><ul>
+<li>Organize groups within larger groups</li>
+<li>Often used to display clusters of information</li>
+<li>e.g. tree diagrams, ring charts, sunburst diagrams</li>
+</ul>
+<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Hierarchical_viz.jpg" class="" title="Hierarchical visualizations">
+
+<h2 id="3-Network-visualizations"><a href="#3-Network-visualizations" class="headerlink" title="3. Network visualizations"></a>3. Network visualizations</h2><ul>
+<li>Show the relationships and connections between multiple datasets</li>
+<li>e.g. matrix charts, word clouds, node-link diagrams</li>
+</ul>
+<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Network_viz.jpg" class="" title="Network visualizations">
+
+<h2 id="4-Multidimensional-or-3D-visualizations"><a href="#4-Multidimensional-or-3D-visualizations" class="headerlink" title="4. Multidimensional or 3D visualizations"></a>4. Multidimensional or <a href="https://plotly.com/python/3d-charts/">3D visualizations</a></h2><ul>
+<li>Depict two or more variables</li>
+<li>e.g. pie charts, Venn diagrams, stacked bar graphs, histograms</li>
+</ul>
+<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Multidimensional_viz.jpg" class="" title="Multidimensional visualizations">
+
+<h2 id="5-Geospatial-visualizations"><a href="#5-Geospatial-visualizations" class="headerlink" title="5. Geospatial visualizations"></a>5. Geospatial visualizations</h2><ul>
+<li>Convey various data points in relation to physical, real-world locations</li>
+<li>e.g. heat maps, cartograms, density maps</li>
+</ul>
+<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Geospatial_viz.jpg" class="" title="Geospatial visualizations">
+
+<hr>
+<h1 id="Popular-Python-Libraries-For-Data-Visualization"><a href="#Popular-Python-Libraries-For-Data-Visualization" class="headerlink" title="Popular Python Libraries For Data Visualization"></a>Popular Python Libraries For Data Visualization</h1><h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a><a href="https://matplotlib.org/">Matplotlib</a></h2><p>Matplotlib is an easy-to-use Python library for data visualization which is built on top of NumPy arrays.<br>It is a low-level module and provides a lot of flexibility but at the cost of writing more code. </p>
+<h2 id="Seaborn"><a href="#Seaborn" class="headerlink" title="Seaborn"></a><a href="https://seaborn.pydata.org/">Seaborn</a></h2><p>Seaborn is a high-level library built on the top of Matplotlib which means that it can also use Matplotlib functions and classes.<br>This library provides default styles and color palettes to make a plot more attractive.</p>
+<h2 id="Plotly"><a href="#Plotly" class="headerlink" title="Plotly"></a><a href="https://plotly.com/python/">Plotly</a></h2><p>Plotly has hover tool capabilities that allow us to detect any outliers or anomalies in a large number of data points.<br>It is visually attractive that can be accepted by a wide range of audiences.<br>It allows us for the endless customization of our graphs that makes our plot more meaningful and understandable for others.</p>
+<h2 id="Other-Popular-Python-Libraries"><a href="#Other-Popular-Python-Libraries" class="headerlink" title="Other Popular Python Libraries"></a>Other Popular Python Libraries</h2><ul>
+<li>Altair</li>
+<li>Bokeh</li>
+<li>Folium</li>
+<li>Diagrams</li>
+<li>Wordcloud</li>
+<li>…</li>
+</ul>
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://careerfoundry.com/en/blog/data-analytics/what-is-data-visualization/">What Is Data Visualization and Why Is It Important? A Complete Introduction</a></li>
+<li><a href="https://www.geeksforgeeks.org/python-data-visualization-tutorial/">Python – Data visualization tutorial</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Data Visualization</tag>
+        <tag>Introduction</tag>
       </tags>
   </entry>
   <entry>
@@ -332,105 +493,6 @@
         <tag>MQTT</tag>
         <tag>Redis</tag>
         <tag>Kafka</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes | Cluster Architecture</title>
-    <url>/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/</url>
-    <content><![CDATA[<p><code>Kubernetes</code></p>
-<ul>
-<li>目的是讓容器（Container）的管理變得容易、允許被監控且自動化。</li>
-</ul>
-<p><code>Node</code></p>
-<ul>
-<li><code>指的是 Worker Nodes 的部分，不是 Master！</code></li>
-<li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
-<li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
-</ul>
-<p><code>Container</code></p>
-<ul>
-<li>輕量級的容器，打包所有必要且相依的套件、程式碼等，提供應用程式一致的運行環境，使應用程式在不同的作業系統上也能夠重建和運行。</li>
-</ul>
-<h1 id="Kubernetes-Cluster-Architecture"><a href="#Kubernetes-Cluster-Architecture" class="headerlink" title="Kubernetes Cluster Architecture"></a>Kubernetes Cluster Architecture</h1><p>Kubernetes cluster architecture<br><img src="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg"></p>
-<h1 id="Kubernetes-Components"><a href="#Kubernetes-Components" class="headerlink" title="Kubernetes Components"></a>Kubernetes Components</h1><p>The components of a Kubernetes cluster<br><img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg"></p>
-<h2 id="【-Master-】"><a href="#【-Master-】" class="headerlink" title="【 Master 】"></a><font color=LightCoral>【 Master 】</font></h2><blockquote>
-<p>aka. 【 Control Plane Components 】<br>職責：<code>負責監控與管理容器</code></p>
-</blockquote>
-<p><font color=LightCoral>Purpose: Manage, Plan, Schedule, Monitor Nodes</font></p>
-<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
-<p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
-<p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
-<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.</p>
-<p>📌 負責儲存集群中不同節點的資訊。</p>
-<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
-<p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
-<p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。</p>
-<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>Control plane component that runs controller processes.</p>
-<p>There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller …)</p>
-<p>📌 不同控制器，處理不同的功能。</p>
-<h2 id="【-Worker-Nodes-】"><a href="#【-Worker-Nodes-】" class="headerlink" title="【 Worker Nodes 】"></a><font color=LightCoral>【 Worker Nodes 】</font></h2><blockquote>
-<p>aka. 【 Node Components 】<br>職責：<code>負責裝載容器</code></p>
-</blockquote>
-<p><font color=LightCoral>Purpose: Host Application as Containers</font></p>
-<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.</p>
-<p>📌 相當於船長，是在集群中各個節點（船隻）上運行的代理人，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在節點上部署或銷毀容器。</p>
-<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
-<p>kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.</p>
-<p>📌 負責集群內不同 worker node 之間的通訊。</p>
-<h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.</p>
-<p>Kubernetes supports container runtimes such as containerd, CRI-O, rkt, and any other implementation of the Kubernetes CRI (Container Runtime Interface).</p>
-<p>📌 Container 是運行應用程式的獨立環境。</p>
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://kubernetes.io/docs/concepts/architecture/">Cluster Architecture</a></li>
-<li><a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Components</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>觀念解說</tag>
-        <tag>Concepts</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Data Visualization - Advanced</title>
-    <url>/2023/08/12/TempNotes/Data-Visualization-Advanced/</url>
-    <content><![CDATA[<h1 id="Common-Data-Visualization-Mistakes"><a href="#Common-Data-Visualization-Mistakes" class="headerlink" title="Common Data Visualization Mistakes"></a>Common Data Visualization Mistakes</h1><h2 id="1-Misleading-color-contrast"><a href="#1-Misleading-color-contrast" class="headerlink" title="1. Misleading color contrast"></a>1. Misleading color contrast</h2><p>Although using various colors aids in interpreting data visualizations, too much color can confuse the user.<br>It’s crucial to stick to a limited number of unique colors.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU" alt="Bad Example: Misleading color contrast"></p>
-<ul>
-<li>Solution<ul>
-<li>The simplest way to determine contrast value is to compare contrast colors on greyscale to check if the color you choose displays the difference.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*M_5cpWpvfNJzVsqQ"></li>
-</ul>
-</li>
-</ul>
-<h2 id="2-Overwhelming-charts-with-too-much-data"><a href="#2-Overwhelming-charts-with-too-much-data" class="headerlink" title="2. Overwhelming charts with too much data"></a>2. Overwhelming charts with too much data</h2><p><img src="https://miro.medium.com/v2/resize:fit:1400/0*wzDTQBW8wYIev4GC" alt="Bad Example: Overwhelming charts with too much data"></p>
-<ul>
-<li>Solution<ul>
-<li>Do not put all of your insights into a chart. Multiple visualizations can help you communicate data more effectively.</li>
-<li>It is recommended that no more than 5–6 colors be used in a single visualization.</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-Omitting-baseline-and-truncating-scale"><a href="#3-Omitting-baseline-and-truncating-scale" class="headerlink" title="3. Omitting baseline and truncating scale"></a>3. Omitting baseline and truncating scale</h2><img src="/2023/08/12/TempNotes/Data-Visualization-Advanced/Omitting_baseline_and_truncating_scale.jpg" class="" title="Bad Example: Omitting baseline and truncating scale">
-
-<ul>
-<li>Solution<ul>
-<li>Concentrate on creating data visualizations with a zero-baseline y-axis.</li>
-<li>If removing the zero makes sense, add a zero-break to communicate that.<img src="/2023/08/12/TempNotes/Data-Visualization-Advanced/solution_Omitting_baseline_and_truncating_scale.jpg" class=""></li>
-</ul>
-</li>
-</ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li><a href="https://flourish.studio/blog/common-mistakes-in-data-visualization/">Four data visualization mistakes you’re probably making and how to fix them</a></li>
-<li><a href="https://www.toptal.com/designers/ux/data-visualization-mistakes">Numbers Shouldn’t Lie: An Overview of Common Data Visualization Mistakes</a></li>
-<li><a href="https://chartio.com/learn/charts/how-to-choose-data-visualization/">How to Choose the Right Data Visualization</a></li>
-<li><a href="https://careerfoundry.com/en/tutorials/data-analytics-for-beginners/introduction-to-data-visualization/">Tutorial 4: An Introduction to Data Visualization</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Data Visualization</tag>
-        <tag>Common Mistakes</tag>
       </tags>
   </entry>
   <entry>
@@ -507,6 +569,18 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django</title>
+    <url>/2023/08/16/TempNotes/Django/</url>
+    <content><![CDATA[<blockquote>
+<p><em>“Django makes it easier to build better web apps more quickly and with less code.” — Django Official Website</em></p>
+</blockquote>
+<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It’s free and open source.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>]]></content>
+      <tags>
+        <tag>Django</tag>
       </tags>
   </entry>
   <entry>
@@ -587,80 +661,6 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Data Visualization - Basics</title>
-    <url>/2023/08/03/TempNotes/Data-Visualization-Basics/</url>
-    <content><![CDATA[<h1 id="What-is-data-visualization"><a href="#What-is-data-visualization" class="headerlink" title="What is data visualization?"></a>What is data visualization?</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Data visualization (資料視覺化) is the graphical or visual representation of data.<br>It helps to highlight the most useful insights from a dataset, making it easier to spot trends, patterns, outliers, and correlations.</p>
-<hr>
-<h1 id="Two-main-types-of-data-visualization"><a href="#Two-main-types-of-data-visualization" class="headerlink" title="Two main types of data visualization"></a>Two main types of data visualization</h1><h2 id="1-Exploration"><a href="#1-Exploration" class="headerlink" title="1. Exploration"></a>1. Exploration</h2><p><em><font color=royalblue>Exploration takes place while you’re still analyzing the data.</font></em></p>
-<ul>
-<li>When faced with a new dataset, one of the first things you’ll do!</li>
-<li>It helps you figure out what’s in your data.<ul>
-<li>Get a sense of what’s in your dataset and to spot any noteworthy trends or anomalies. </li>
-<li>Finding clues as to what the data might be trying to tell you.</li>
-</ul>
-</li>
-</ul>
-<h2 id="2-Explanation"><a href="#2-Explanation" class="headerlink" title="2. Explanation"></a>2. Explanation</h2><p><em><font color=royalblue>Explanatory visualization helps you to communicate what you’ve found.</font></em></p>
-<ul>
-<li>Once you’ve conducted your analysis and have figured out what the data is telling you, you’ll want to share these insights with others.</li>
-<li>Help you tell the story, and it’s up to you to determine which visualizations will help you to do so most effectively.</li>
-</ul>
-<hr>
-<h1 id="Five-types-of-data-visualization"><a href="#Five-types-of-data-visualization" class="headerlink" title="Five types of data visualization"></a>Five types of data visualization</h1><h2 id="1-Temporal-data-visualizations"><a href="#1-Temporal-data-visualizations" class="headerlink" title="1. Temporal data visualizations"></a>1. Temporal data visualizations</h2><ul>
-<li>Linear and one-dimensional</li>
-<li>e.g. scatterplots, timelines, line graphs</li>
-</ul>
-<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Temporal_data_viz.jpg" class="" title="Temporal data visualizations">
-
-<h2 id="2-Hierarchical-visualizations"><a href="#2-Hierarchical-visualizations" class="headerlink" title="2. Hierarchical visualizations"></a>2. Hierarchical visualizations</h2><ul>
-<li>Organize groups within larger groups</li>
-<li>Often used to display clusters of information</li>
-<li>e.g. tree diagrams, ring charts, sunburst diagrams</li>
-</ul>
-<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Hierarchical_viz.jpg" class="" title="Hierarchical visualizations">
-
-<h2 id="3-Network-visualizations"><a href="#3-Network-visualizations" class="headerlink" title="3. Network visualizations"></a>3. Network visualizations</h2><ul>
-<li>Show the relationships and connections between multiple datasets</li>
-<li>e.g. matrix charts, word clouds, node-link diagrams</li>
-</ul>
-<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Network_viz.jpg" class="" title="Network visualizations">
-
-<h2 id="4-Multidimensional-or-3D-visualizations"><a href="#4-Multidimensional-or-3D-visualizations" class="headerlink" title="4. Multidimensional or 3D visualizations"></a>4. Multidimensional or <a href="https://plotly.com/python/3d-charts/">3D visualizations</a></h2><ul>
-<li>Depict two or more variables</li>
-<li>e.g. pie charts, Venn diagrams, stacked bar graphs, histograms</li>
-</ul>
-<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Multidimensional_viz.jpg" class="" title="Multidimensional visualizations">
-
-<h2 id="5-Geospatial-visualizations"><a href="#5-Geospatial-visualizations" class="headerlink" title="5. Geospatial visualizations"></a>5. Geospatial visualizations</h2><ul>
-<li>Convey various data points in relation to physical, real-world locations</li>
-<li>e.g. heat maps, cartograms, density maps</li>
-</ul>
-<img src="/2023/08/03/TempNotes/Data-Visualization-Basics/Geospatial_viz.jpg" class="" title="Geospatial visualizations">
-
-<hr>
-<h1 id="Popular-Python-Libraries-For-Data-Visualization"><a href="#Popular-Python-Libraries-For-Data-Visualization" class="headerlink" title="Popular Python Libraries For Data Visualization"></a>Popular Python Libraries For Data Visualization</h1><h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a><a href="https://matplotlib.org/">Matplotlib</a></h2><p>Matplotlib is an easy-to-use Python library for data visualization which is built on top of NumPy arrays.<br>It is a low-level module and provides a lot of flexibility but at the cost of writing more code. </p>
-<h2 id="Seaborn"><a href="#Seaborn" class="headerlink" title="Seaborn"></a><a href="https://seaborn.pydata.org/">Seaborn</a></h2><p>Seaborn is a high-level library built on the top of Matplotlib which means that it can also use Matplotlib functions and classes.<br>This library provides default styles and color palettes to make a plot more attractive.</p>
-<h2 id="Plotly"><a href="#Plotly" class="headerlink" title="Plotly"></a><a href="https://plotly.com/python/">Plotly</a></h2><p>Plotly has hover tool capabilities that allow us to detect any outliers or anomalies in a large number of data points.<br>It is visually attractive that can be accepted by a wide range of audiences.<br>It allows us for the endless customization of our graphs that makes our plot more meaningful and understandable for others.</p>
-<h2 id="Other-Popular-Python-Libraries"><a href="#Other-Popular-Python-Libraries" class="headerlink" title="Other Popular Python Libraries"></a>Other Popular Python Libraries</h2><ul>
-<li>Altair</li>
-<li>Bokeh</li>
-<li>Folium</li>
-<li>Diagrams</li>
-<li>Wordcloud</li>
-<li>…</li>
-</ul>
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://careerfoundry.com/en/blog/data-analytics/what-is-data-visualization/">What Is Data Visualization and Why Is It Important? A Complete Introduction</a></li>
-<li><a href="https://www.geeksforgeeks.org/python-data-visualization-tutorial/">Python – Data visualization tutorial</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Data Visualization</tag>
-        <tag>Introduction</tag>
       </tags>
   </entry>
 </search>

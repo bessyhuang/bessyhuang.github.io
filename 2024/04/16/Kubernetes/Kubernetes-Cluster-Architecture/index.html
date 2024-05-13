@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg">
 <meta property="og:image" content="https://kubernetes.io/images/docs/components-of-kubernetes.svg">
 <meta property="article:published_time" content="2024-04-16T15:21:59.000Z">
-<meta property="article:modified_time" content="2024-05-12T17:16:21.386Z">
+<meta property="article:modified_time" content="2024-05-13T15:32:20.619Z">
 <meta property="article:author" content="Bessy">
 <meta property="article:tag" content="觀念解說">
 <meta property="article:tag" content="Concepts">
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-05-13 01:16:21" itemprop="dateModified" datetime="2024-05-13T01:16:21+08:00">2024-05-13</time>
+      <time title="Modified: 2024-05-13 23:32:20" itemprop="dateModified" datetime="2024-05-13T23:32:20+08:00">2024-05-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -295,7 +295,7 @@
 </ul>
 <p><code>Node</code></p>
 <ul>
-<li><code>指的是 Worker Nodes 的部分，不是 Master！</code></li>
+<li><code>指的是 Worker Nodes 的部分，不是 Master ！</code></li>
 <li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
 <li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
 </ul>
@@ -312,8 +312,8 @@
 <h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
 <p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
 <p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
-<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.</p>
-<p>📌 負責儲存集群中不同節點的資訊。</p>
+<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.<br>The official etcd ports are 2379 for client requests and 2380 for peer communication.</p>
+<p>📌 負責儲存關於集群的資訊，包括 Nodes、PODs、Configs、Secrets、Accounts、Roles、Bindings 和 Others。<br>📌 ETCD in HA Environment：一個集群（Cluster）中，可以有多個 master。每個 master 裡面都有一個 ETCD。</p>
 <h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
 <p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
 <p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。</p>
