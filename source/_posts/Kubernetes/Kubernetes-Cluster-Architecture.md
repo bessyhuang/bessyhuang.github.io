@@ -59,6 +59,7 @@ Control plane component that watches for newly created Pods with no assigned nod
 Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware/software/policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.
 
 📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。
+📌 只負責決定哪個 pod 在哪個 node 上運行，而非實際將 pod 放在 node 上。
 
 
 ### kube-controller-manager
@@ -66,7 +67,7 @@ Control plane component that runs controller processes.
 
 There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller ...)
 
-📌 不同控制器，處理不同的功能。
+📌 不同控制器，處理不同的功能。目的是持續監看容器的狀態、當容器掛掉時採取補救行動。
 
 
 ## <font color=LightCoral>【 Worker Nodes 】</font>
@@ -79,7 +80,7 @@ There are many different types of controllers. (e.g. Node controller, Job contro
 ### kubelet
 An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.
 
-📌 相當於船長，是在集群中各個節點（船隻）上運行的代理人，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在節點上部署或銷毀容器。
+📌 相當於船長，是在集群中各個 worker nodes（船隻）上運行的代理人，負責與 master 溝通、回報 pod 狀態，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在 worker node 上部署或銷毀容器。
 
 
 ### kube-proxy
