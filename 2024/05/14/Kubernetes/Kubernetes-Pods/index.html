@@ -31,23 +31,28 @@
 
 
     <meta property="og:type" content="blog">
-<meta property="og:title" content="Bessy&#39;s Tech Blog">
-<meta property="og:url" content="https://bessyhuang.github.io/tags/MQTT/index.html">
+<meta property="og:title" content="Kubernetes | Pods">
+<meta property="og:url" content="https://bessyhuang.github.io/2024/05/14/Kubernetes/Kubernetes-Pods/index.html">
 <meta property="og:site_name" content="Bessy&#39;s Tech Blog">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://bessyhuang.github.io/2024/05/14/Kubernetes/Kubernetes-Pods/Kubernetes_Pod.jpg">
+<meta property="article:published_time" content="2024-05-14T15:05:37.000Z">
+<meta property="article:modified_time" content="2024-05-19T16:37:56.763Z">
 <meta property="article:author" content="Bessy">
-<meta property="article:tag" content="自學, 心情, 部落格">
+<meta property="article:tag" content="觀念解說">
+<meta property="article:tag" content="Concepts">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bessyhuang.github.io/2024/05/14/Kubernetes/Kubernetes-Pods/Kubernetes_Pod.jpg">
 
 
-<link rel="canonical" href="https://bessyhuang.github.io/tags/MQTT/">
+<link rel="canonical" href="https://bessyhuang.github.io/2024/05/14/Kubernetes/Kubernetes-Pods/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"en","comments":"","permalink":"","path":"tags/MQTT/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2024/05/14/Kubernetes/Kubernetes-Pods/","path":"2024/05/14/Kubernetes/Kubernetes-Pods/","title":"Kubernetes | Pods"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Tag: MQTT | Bessy's Tech Blog</title>
+<title>Kubernetes | Pods | Bessy's Tech Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
@@ -138,7 +143,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -151,6 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pods"><span class="nav-number">1.</span> <span class="nav-text">Pods</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-simplest-case"><span class="nav-number">1.1.</span> <span class="nav-text">The simplest case</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Best-Practice"><span class="nav-number">1.2.</span> <span class="nav-text">Best Practice</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%96%E8%A7%A3-Kubectl-Command"><span class="nav-number">2.</span> <span class="nav-text">圖解 Kubectl Command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YAML-in-Kubernetes"><span class="nav-number">3.</span> <span class="nav-text">YAML in Kubernetes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pods-with-YAML"><span class="nav-number">3.1.</span> <span class="nav-text">Pods with YAML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-with-YAML"><span class="nav-number">3.2.</span> <span class="nav-text">Service with YAML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReplicaSet-with-YAML"><span class="nav-number">3.3.</span> <span class="nav-text">ReplicaSet with YAML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deployment-with-YAML"><span class="nav-number">3.4.</span> <span class="nav-text">Deployment with YAML</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -206,50 +212,169 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">MQTT
-          <small>Tag</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2024/05/14/Kubernetes/Kubernetes-Pods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kubernetes | Pods | Bessy's Tech Blog">
+      <meta itemprop="description" content=" ">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kubernetes | Pods
         </h1>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-05-14 23:05:37" itemprop="dateCreated datePublished" datetime="2024-05-14T23:05:37+08:00">2024-05-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-05-20 00:37:56" itemprop="dateModified" datetime="2024-05-20T00:37:56+08:00">2024-05-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description"> </div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h1><p>📌 Kubernetes doesn’t deploy containers directly on the worker node. The containers are encapsulated into pods.<br>📌 A pod is a single instance of an application. A pod is the smallest object that you can create in Kubernetes.</p>
+<ul>
+<li>Why does Kubernetes use pods? <ul>
+<li>The relationship of pods to clusters is why Kubernetes does not run containers directly, instead running pods to ensure that each container within them <code>shares the same resources and local network</code>.</li>
+<li>Grouping containers in this way allows them to communicate between each other as if they shared the same physical hardware, while still remaining isolated to some degree.</li>
+<li>Same storage, same network, same namespace, same fit as in they will be created together and destroyed together.</li>
+<li>This is a good thing in the long run because your application is now ready to handle future architectural changes and scale.</li>
+</ul>
+</li>
+</ul>
+<h2 id="The-simplest-case"><a href="#The-simplest-case" class="headerlink" title="The simplest case"></a>The simplest case</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">        Big        &gt; ----------- &gt; --- &gt; --------- &gt;    Small</span><br><span class="line">Kubernetes Cluster &gt; Worker Node &gt; Pod &gt; Container &gt; Application</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>A Kubernetes cluster</li>
+<li>A single worker node</li>
+<li>A single pod</li>
+<li>A single container</li>
+<li>A single application</li>
+</ul>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/Kubernetes_Pod.jpg" class="">
+
+
+<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>📌 Pods usually have a one-to-one relationship with (same kind) containers running your application.</p>
+<ul>
+<li><code>1 Pod : 1 (same kind) Container</code></li>
+<li>Multiple containers running in a Pod is a rare use case.</li>
+</ul>
+<p>📌 Don’t add additional (same kind) containers to an existing pod to scale your application!</p>
+<p>📌 當連線到應用程式的使用者增加時，該如何擴展你的應用程式來分攤負載（share the load）？</p>
+<ul>
+<li><code>[ X ]</code> 在同一個 Pod 中，啟動新的 Container。(A cluster, a worker node, two containers in a pod)</li>
+<li><code>[ O ]</code> 新增一個 Pod ，並在其中啟動新的 Container。(A cluster, a worker node, two pods, a container in a pod)</li>
+<li><code>[ O ]</code> 若當前 worker node 沒有足夠容量時，新增一個 worker node，並在該 worker node 上新增一個 Pod，接著在 Pod 上啟動新的 container。(A cluster, two worker nodes, a worker node can have multiple pods)</li>
+</ul>
+<h1 id="圖解-Kubectl-Command"><a href="#圖解-Kubectl-Command" class="headerlink" title="圖解 Kubectl Command"></a>圖解 Kubectl Command</h1><p>📌 Kubectl Command 會自動創建一個 Pod，並在其內部署一個 Container。</p>
+<h1 id="YAML-in-Kubernetes"><a href="#YAML-in-Kubernetes" class="headerlink" title="YAML in Kubernetes"></a>YAML in Kubernetes</h1><h2 id="Pods-with-YAML"><a href="#Pods-with-YAML" class="headerlink" title="Pods with YAML"></a>Pods with YAML</h2><h2 id="Service-with-YAML"><a href="#Service-with-YAML" class="headerlink" title="Service with YAML"></a>Service with YAML</h2><h2 id="ReplicaSet-with-YAML"><a href="#ReplicaSet-with-YAML" class="headerlink" title="ReplicaSet with YAML"></a>ReplicaSet with YAML</h2><h2 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h2><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod">What is a Kubernetes pod?</a></li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-03-18T23:18:19+08:00"
-              content="2024-03-18">
-          03-18
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/03/18/TempNotes/MQTT-vs-Redis-vs-Kafka/" itemprop="url">
-          <span itemprop="name">MQTT vs. Redis vs. Kafka</span>
-        </a>
-      </div>
+    <footer class="post-footer">
+          
 
-      
-    </header>
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2024/05/14/Kubernetes/Kubernetes-Pods/" title="Kubernetes | Pods">https://bessyhuang.github.io/2024/05/14/Kubernetes/Kubernetes-Pods/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%80%E5%BF%B5%E8%A7%A3%E8%AA%AA/" rel="tag"># 觀念解說</a>
+              <a href="/tags/Concepts/" rel="tag"># Concepts</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/" rel="prev" title="Kubernetes | Cluster Architecture">
+                  <i class="fa fa-angle-left"></i> Kubernetes | Cluster Architecture
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
+
 
 </div>
   </main>
