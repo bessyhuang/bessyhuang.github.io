@@ -188,116 +188,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Kubernetes | Cluster Architecture</title>
-    <url>/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/</url>
-    <content><![CDATA[<p><code>Kubernetes</code></p>
-<ul>
-<li>目的是讓容器（Container）的管理變得容易、允許被監控且自動化。</li>
-</ul>
-<p><code>Node</code></p>
-<ul>
-<li><code>指的是 Worker Nodes 的部分，不是 Master ！</code></li>
-<li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
-<li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
-</ul>
-<p><code>Container</code></p>
-<ul>
-<li>輕量級的容器，打包所有必要且相依的套件、程式碼等，提供應用程式一致的運行環境，使應用程式在不同的作業系統上也能夠重建和運行。</li>
-</ul>
-<h1 id="Kubernetes-Cluster-Architecture"><a href="#Kubernetes-Cluster-Architecture" class="headerlink" title="Kubernetes Cluster Architecture"></a>Kubernetes Cluster Architecture</h1><p>Kubernetes cluster architecture<br><img src="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg"></p>
-<h1 id="Kubernetes-Components"><a href="#Kubernetes-Components" class="headerlink" title="Kubernetes Components"></a>Kubernetes Components</h1><p>The components of a Kubernetes cluster<br><img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg"></p>
-<h2 id="【-Master-】"><a href="#【-Master-】" class="headerlink" title="【 Master 】"></a><font color=LightCoral>【 Master 】</font></h2><blockquote>
-<p>aka. 【 Control Plane Components 】<br>職責：<code>負責監控與管理容器</code></p>
-</blockquote>
-<p><font color=LightCoral>Purpose: Manage, Plan, Schedule, Monitor Nodes</font></p>
-<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
-<p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
-<p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
-<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.<br>The official etcd ports are 2379 for client requests and 2380 for peer communication.</p>
-<p>📌 負責儲存關於集群的資訊，包括 Nodes、PODs、Configs、Secrets、Accounts、Roles、Bindings 和 Others。<br>📌 ETCD in HA Environment：一個集群（Cluster）中，可以有多個 master。每個 master 裡面都有一個 ETCD。</p>
-<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
-<p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
-<p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。<br>📌 只負責決定哪個 pod 在哪個 node 上運行，而非實際將 pod 放在 node 上。</p>
-<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>Control plane component that runs controller processes.</p>
-<p>There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller …)</p>
-<p>📌 不同控制器，處理不同的功能。目的是持續監看容器的狀態、當容器掛掉時採取補救行動。</p>
-<h2 id="【-Worker-Nodes-】"><a href="#【-Worker-Nodes-】" class="headerlink" title="【 Worker Nodes 】"></a><font color=LightCoral>【 Worker Nodes 】</font></h2><blockquote>
-<p>aka. 【 Node Components 】<br>職責：<code>負責裝載容器</code></p>
-</blockquote>
-<p><font color=LightCoral>Purpose: Host Application as Containers</font></p>
-<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.</p>
-<p>📌 相當於船長，是在集群中各個 worker nodes（船隻）上運行的代理人，負責與 master 溝通、回報 pod 狀態，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在 worker node 上部署或銷毀容器。</p>
-<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
-<p>kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.</p>
-<p>📌 負責集群內不同 worker node 之間的通訊。</p>
-<h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.</p>
-<p>Kubernetes supports container runtimes such as containerd, CRI-O, rkt, and any other implementation of the Kubernetes CRI (Container Runtime Interface).</p>
-<p>📌 Container 是運行應用程式的獨立環境。</p>
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://kubernetes.io/docs/concepts/architecture/">Cluster Architecture</a></li>
-<li><a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Components</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>觀念解說</tag>
-        <tag>Concepts</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes | Pods</title>
-    <url>/2024/05/14/Kubernetes/Kubernetes-Pods/</url>
-    <content><![CDATA[<h1 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h1><p>📌 Kubernetes doesn’t deploy containers directly on the worker node. The containers are encapsulated into pods.<br>📌 A pod is a single instance of an application. A pod is the smallest object that you can create in Kubernetes.</p>
-<ul>
-<li>Why does Kubernetes use pods? <ul>
-<li>The relationship of pods to clusters is why Kubernetes does not run containers directly, instead running pods to ensure that each container within them <code>shares the same resources and local network</code>.</li>
-<li>Grouping containers in this way allows them to communicate between each other as if they shared the same physical hardware, while still remaining isolated to some degree.</li>
-<li>Same storage, same network, same namespace, same fit as in they will be created together and destroyed together.</li>
-<li>This is a good thing in the long run because your application is now ready to handle future architectural changes and scale.</li>
-</ul>
-</li>
-</ul>
-<h2 id="The-simplest-case"><a href="#The-simplest-case" class="headerlink" title="The simplest case"></a>The simplest case</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">        Big        &gt; ----------- &gt; --- &gt; --------- &gt;    Small</span><br><span class="line">Kubernetes Cluster &gt; Worker Node &gt; Pod &gt; Container &gt; Application</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>A Kubernetes cluster</li>
-<li>A single worker node</li>
-<li>A single pod</li>
-<li>A single container</li>
-<li>A single application</li>
-</ul>
-<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/Kubernetes_Pod.jpg" class="">
-
-
-<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>📌 Pods usually have a one-to-one relationship with (same kind) containers running your application.</p>
-<ul>
-<li><code>1 Pod : 1 (same kind) Container</code></li>
-<li>Multiple containers running in a Pod is a rare use case.</li>
-</ul>
-<p>📌 Don’t add additional (same kind) containers to an existing pod to scale your application!</p>
-<p>📌 當連線到應用程式的使用者增加時，該如何擴展你的應用程式來分攤負載（share the load）？</p>
-<ul>
-<li><code>[ X ]</code> 在同一個 Pod 中，啟動新的 Container。(A cluster, a worker node, two containers in a pod)</li>
-<li><code>[ O ]</code> 新增一個 Pod ，並在其中啟動新的 Container。(A cluster, a worker node, two pods, a container in a pod)</li>
-<li><code>[ O ]</code> 若當前 worker node 沒有足夠容量時，新增一個 worker node，並在該 worker node 上新增一個 Pod，接著在 Pod 上啟動新的 container。(A cluster, two worker nodes, a worker node can have multiple pods)</li>
-</ul>
-<h1 id="圖解-Kubectl-Command"><a href="#圖解-Kubectl-Command" class="headerlink" title="圖解 Kubectl Command"></a>圖解 Kubectl Command</h1><p>📌 Kubectl Command 會自動創建一個 Pod，並在其內部署一個 Container。</p>
-<h1 id="YAML-in-Kubernetes"><a href="#YAML-in-Kubernetes" class="headerlink" title="YAML in Kubernetes"></a>YAML in Kubernetes</h1><h2 id="Pods-with-YAML"><a href="#Pods-with-YAML" class="headerlink" title="Pods with YAML"></a>Pods with YAML</h2><h2 id="Service-with-YAML"><a href="#Service-with-YAML" class="headerlink" title="Service with YAML"></a>Service with YAML</h2><h2 id="ReplicaSet-with-YAML"><a href="#ReplicaSet-with-YAML" class="headerlink" title="ReplicaSet with YAML"></a>ReplicaSet with YAML</h2><h2 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h2><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod">What is a Kubernetes pod?</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>觀念解說</tag>
-        <tag>Concepts</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Amazon S3</title>
     <url>/2023/10/02/TempNotes/Amazon-S3/</url>
     <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><em><font color=royalblue>Infinitely Scaling Storage</font></em></p>
@@ -558,82 +448,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Plotly - Advanced</title>
-    <url>/2023/08/05/TempNotes/Plotly-Advanced/</url>
-    <content><![CDATA[<h1 id="For-Example-Line-Plots"><a href="#For-Example-Line-Plots" class="headerlink" title="For Example: Line Plots"></a>For Example: Line Plots</h1><p>📘 Download <a href="https://www.kaggle.com/datasets/garrickhague/world-earthquake-data-from-1906-2022">World Earthquake Data From 1906-2022</a></p>
-<hr>
-<h2 id="Line-Plots-with-plotly-express"><a href="#Line-Plots-with-plotly-express" class="headerlink" title="Line Plots with plotly.express"></a>Line Plots with <code>plotly.express</code></h2><p><em><font color=royalblue>The plotly.express module (usually imported as px) contains functions that can create entire figures at once.<br>Plotly Express is a built-in part of the plotly library, and is the recommended starting point for creating most common figures.</font></em></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">df = df.query(<span class="string">&quot;2012 &lt;= Year &lt;= 2022&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, title=<span class="string">&#x27;Max magnitude from 2000 to 2022&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Explanation<ul>
-<li><p>Pandas <code>groupby</code> splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group by &#x27;Year&#x27;, and get the maximum of &#x27;mag&#x27; column</span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group by &#x27;Year&#x27;, get the maximum of &#x27;mag&#x27; column, and fit the length of dataframe  </span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query &#x27;2022 &gt;= Year &gt;= 2021&#x27; and get the value of &#x27;Max_mag&#x27; column</span></span><br><span class="line">df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2021&quot;</span>)[<span class="string">&quot;Max_mag&quot;</span>]</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="Line-Plots-with-Column-Encoding-Color"><a href="#Line-Plots-with-Column-Encoding-Color" class="headerlink" title="Line Plots with Column Encoding Color"></a>Line Plots with Column Encoding Color</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">df = df.query(<span class="string">&quot;2012 &lt;= Year &lt;= 2022&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, color=<span class="string">&#x27;magType&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Explanation<ul>
-<li><p>Pandas <code>groupby</code> splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group by &#x27;Year&#x27; and &#x27;magType&#x27;, and get the maximum of &#x27;mag&#x27; column</span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group by &#x27;Year&#x27; and &#x27;magType&#x27;, get the maximum of &#x27;mag&#x27; column, and fit the length of dataframe  </span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query &#x27;2022 &gt;= Year &gt;= 2021&#x27; and get the value of &#x27;Max_mag&#x27; column</span></span><br><span class="line">df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2021&quot;</span>)[<span class="string">&quot;Max_mag&quot;</span>]</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="Basic-Settings"><a href="#Basic-Settings" class="headerlink" title="Basic Settings"></a>Basic Settings</h2><h3 id="Line-charts-with-Markers"><a href="#Line-charts-with-Markers" class="headerlink" title="Line charts with Markers"></a>Line charts with Markers</h3><ul>
-<li><p>Set Title</p>
-<ul>
-<li><code>title = &#39;Max magnitude and Min depth from 2012 to 2022&#39;</code></li>
-</ul>
-</li>
-<li><p>Add one more field on text label</p>
-<ul>
-<li><p><code>text = &quot;Min_depth&quot;</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line">df[<span class="string">&quot;Min_depth&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;depth&#x27;</span>].transform(<span class="built_in">min</span>)</span><br><span class="line"></span><br><span class="line">query_df = df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2012 &amp; magType in [&#x27;mw&#x27;, &#x27;ml&#x27;, &#x27;ms&#x27;, &#x27;mb&#x27;]&quot;</span>)</span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude and Min depth from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, text=<span class="string">&quot;Min_depth&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>Mark data points</p>
-<ul>
-<li><p>Method 1: <code>markers = True</code></p>
-</li>
-<li><p>Method 2: <code>symbol = &quot;magType&quot;</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">query_df = df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2012&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 1: markers</span></span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, markers=<span class="literal">True</span>)</span><br><span class="line">fig.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 2: symbol</span></span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, symbol=<span class="string">&quot;magType&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="Save-a-Plot"><a href="#Save-a-Plot" class="headerlink" title="Save a Plot"></a>Save a Plot</h3><figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"># Install Package</span><br><span class="line">$ pip install -U kaleido</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>Save a Figure in xxx Format: PNG, JPEG, SVG, PDF</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PNG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.png&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JPEG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.jpeg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># SVG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.svg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># PDF</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.pdf&quot;</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Change Image dimension and Scale</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.write_image(<span class="string">&#x27;fig2_scale2.jpeg&#x27;</span>, width=<span class="number">600</span>, height=<span class="number">350</span>, scale=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Interactive HTML export in Plotly Python</p>
-  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.write_html(<span class="string">&quot;fig1.html&quot;</span>, auto_open=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h2 id="Advanced-Interactive-Custom-Controls"><a href="#Advanced-Interactive-Custom-Controls" class="headerlink" title="Advanced: Interactive Custom Controls"></a>Advanced: Interactive Custom Controls</h2><h3 id="Basic-Range-Slider-and-Range-Selectors"><a href="#Basic-Range-Slider-and-Range-Selectors" class="headerlink" title="Basic Range Slider and Range Selectors"></a>Basic Range Slider and Range Selectors</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load data</span></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query</span></span><br><span class="line">query_df = df.query(<span class="string">&quot;magType == &#x27;mww&#x27;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create figure</span></span><br><span class="line">fig = go.Figure()</span><br><span class="line"></span><br><span class="line">fig.add_trace(</span><br><span class="line">    go.Scatter(x=<span class="built_in">list</span>(query_df.time), y=<span class="built_in">list</span>(query_df.Max_mag)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set title</span></span><br><span class="line">fig.update_layout(</span><br><span class="line">    title_text=<span class="string">&quot;Time series with range slider and selectors&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add range slider</span></span><br><span class="line">fig.update_layout(</span><br><span class="line">    xaxis=<span class="built_in">dict</span>(</span><br><span class="line">        rangeselector=<span class="built_in">dict</span>(</span><br><span class="line">            buttons=<span class="built_in">list</span>([</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;1m&quot;</span>, step=<span class="string">&quot;month&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">6</span>, label=<span class="string">&quot;6m&quot;</span>, step=<span class="string">&quot;month&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;YTD&quot;</span>, step=<span class="string">&quot;year&quot;</span>, stepmode=<span class="string">&quot;todate&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;1y&quot;</span>, step=<span class="string">&quot;year&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(step=<span class="string">&quot;all&quot;</span>)</span><br><span class="line">            ])</span><br><span class="line">        ),</span><br><span class="line">        rangeslider=<span class="built_in">dict</span>( visible=<span class="literal">True</span> ),</span><br><span class="line">        <span class="built_in">type</span>=<span class="string">&quot;date&quot;</span></span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://www.usgs.gov/programs/earthquake-hazards/magnitude-types">USGS - Magnitude Types</a></li>
-<li><a href="https://academic-accelerator.com/encyclopedia/zh/moment-magnitude-scale">矩量級 Moment Magnitude Scale</a></li>
-<li><a href="https://www.facebook.com/momlovestaiwan/photos/a.1076309132504673/1076350115833908/?type=3&locale=zh_TW">Magnitude Type: Mw vs. ML vs. MS vs. mb</a></li>
-<li><a href="https://plotly.com/python/">Plotly Open Source Graphing Library for Python</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Data Visualization</tag>
-        <tag>Python</tag>
-        <tag>Plotly</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Plotly - Basics</title>
     <url>/2023/08/03/TempNotes/Plotly-Basics/</url>
     <content><![CDATA[<blockquote>
@@ -711,6 +525,246 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Plotly - Advanced</title>
+    <url>/2023/08/05/TempNotes/Plotly-Advanced/</url>
+    <content><![CDATA[<h1 id="For-Example-Line-Plots"><a href="#For-Example-Line-Plots" class="headerlink" title="For Example: Line Plots"></a>For Example: Line Plots</h1><p>📘 Download <a href="https://www.kaggle.com/datasets/garrickhague/world-earthquake-data-from-1906-2022">World Earthquake Data From 1906-2022</a></p>
+<hr>
+<h2 id="Line-Plots-with-plotly-express"><a href="#Line-Plots-with-plotly-express" class="headerlink" title="Line Plots with plotly.express"></a>Line Plots with <code>plotly.express</code></h2><p><em><font color=royalblue>The plotly.express module (usually imported as px) contains functions that can create entire figures at once.<br>Plotly Express is a built-in part of the plotly library, and is the recommended starting point for creating most common figures.</font></em></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">df = df.query(<span class="string">&quot;2012 &lt;= Year &lt;= 2022&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, title=<span class="string">&#x27;Max magnitude from 2000 to 2022&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Explanation<ul>
+<li><p>Pandas <code>groupby</code> splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group by &#x27;Year&#x27;, and get the maximum of &#x27;mag&#x27; column</span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group by &#x27;Year&#x27;, get the maximum of &#x27;mag&#x27; column, and fit the length of dataframe  </span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query &#x27;2022 &gt;= Year &gt;= 2021&#x27; and get the value of &#x27;Max_mag&#x27; column</span></span><br><span class="line">df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2021&quot;</span>)[<span class="string">&quot;Max_mag&quot;</span>]</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Line-Plots-with-Column-Encoding-Color"><a href="#Line-Plots-with-Column-Encoding-Color" class="headerlink" title="Line Plots with Column Encoding Color"></a>Line Plots with Column Encoding Color</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">df = df.query(<span class="string">&quot;2012 &lt;= Year &lt;= 2022&quot;</span>)</span><br><span class="line">fig = px.line(df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, color=<span class="string">&#x27;magType&#x27;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Explanation<ul>
+<li><p>Pandas <code>groupby</code> splits all the records from your data set into different categories or groups and offers you flexibility to analyze the data by these groups.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Group by &#x27;Year&#x27; and &#x27;magType&#x27;, and get the maximum of &#x27;mag&#x27; column</span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group by &#x27;Year&#x27; and &#x27;magType&#x27;, get the maximum of &#x27;mag&#x27; column, and fit the length of dataframe  </span></span><br><span class="line">df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query &#x27;2022 &gt;= Year &gt;= 2021&#x27; and get the value of &#x27;Max_mag&#x27; column</span></span><br><span class="line">df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2021&quot;</span>)[<span class="string">&quot;Max_mag&quot;</span>]</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Basic-Settings"><a href="#Basic-Settings" class="headerlink" title="Basic Settings"></a>Basic Settings</h2><h3 id="Line-charts-with-Markers"><a href="#Line-charts-with-Markers" class="headerlink" title="Line charts with Markers"></a>Line charts with Markers</h3><ul>
+<li><p>Set Title</p>
+<ul>
+<li><code>title = &#39;Max magnitude and Min depth from 2012 to 2022&#39;</code></li>
+</ul>
+</li>
+<li><p>Add one more field on text label</p>
+<ul>
+<li><p><code>text = &quot;Min_depth&quot;</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line">df[<span class="string">&quot;Min_depth&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;depth&#x27;</span>].transform(<span class="built_in">min</span>)</span><br><span class="line"></span><br><span class="line">query_df = df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2012 &amp; magType in [&#x27;mw&#x27;, &#x27;ml&#x27;, &#x27;ms&#x27;, &#x27;mb&#x27;]&quot;</span>)</span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude and Min depth from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, text=<span class="string">&quot;Min_depth&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Mark data points</p>
+<ul>
+<li><p>Method 1: <code>markers = True</code></p>
+</li>
+<li><p>Method 2: <code>symbol = &quot;magType&quot;</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Country&quot;</span>] = df[<span class="string">&quot;place&quot;</span>].<span class="built_in">str</span>.split(pat=<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">False</span>).<span class="built_in">str</span>.get(-<span class="number">1</span>)</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line">query_df = df.query(<span class="string">&quot;2022 &gt;= Year &gt;= 2012&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 1: markers</span></span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, markers=<span class="literal">True</span>)</span><br><span class="line">fig.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 2: symbol</span></span><br><span class="line">fig = px.line(query_df, x=<span class="string">&quot;Year&quot;</span>, y=<span class="string">&quot;Max_mag&quot;</span>, </span><br><span class="line">  title=<span class="string">&#x27;Max magnitude from 2012 to 2022&#x27;</span>, </span><br><span class="line">  color=<span class="string">&#x27;magType&#x27;</span>, symbol=<span class="string">&quot;magType&quot;</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="Save-a-Plot"><a href="#Save-a-Plot" class="headerlink" title="Save a Plot"></a>Save a Plot</h3><figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"># Install Package</span><br><span class="line">$ pip install -U kaleido</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Save a Figure in xxx Format: PNG, JPEG, SVG, PDF</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PNG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.png&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JPEG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.jpeg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># SVG</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.svg&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># PDF</span></span><br><span class="line">fig.write_image(<span class="string">&quot;fig1.pdf&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Change Image dimension and Scale</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.write_image(<span class="string">&#x27;fig2_scale2.jpeg&#x27;</span>, width=<span class="number">600</span>, height=<span class="number">350</span>, scale=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Interactive HTML export in Plotly Python</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig.write_html(<span class="string">&quot;fig1.html&quot;</span>, auto_open=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="Advanced-Interactive-Custom-Controls"><a href="#Advanced-Interactive-Custom-Controls" class="headerlink" title="Advanced: Interactive Custom Controls"></a>Advanced: Interactive Custom Controls</h2><h3 id="Basic-Range-Slider-and-Range-Selectors"><a href="#Basic-Range-Slider-and-Range-Selectors" class="headerlink" title="Basic Range Slider and Range Selectors"></a>Basic Range Slider and Range Selectors</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load data</span></span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-processing</span></span><br><span class="line">df[<span class="string">&#x27;Year&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;time&#x27;</span>]).dt.year</span><br><span class="line">df[<span class="string">&quot;Max_mag&quot;</span>] = df.groupby([<span class="string">&#x27;Year&#x27;</span>, <span class="string">&#x27;magType&#x27;</span>])[<span class="string">&#x27;mag&#x27;</span>].transform(<span class="built_in">max</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query</span></span><br><span class="line">query_df = df.query(<span class="string">&quot;magType == &#x27;mww&#x27;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create figure</span></span><br><span class="line">fig = go.Figure()</span><br><span class="line"></span><br><span class="line">fig.add_trace(</span><br><span class="line">    go.Scatter(x=<span class="built_in">list</span>(query_df.time), y=<span class="built_in">list</span>(query_df.Max_mag)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set title</span></span><br><span class="line">fig.update_layout(</span><br><span class="line">    title_text=<span class="string">&quot;Time series with range slider and selectors&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add range slider</span></span><br><span class="line">fig.update_layout(</span><br><span class="line">    xaxis=<span class="built_in">dict</span>(</span><br><span class="line">        rangeselector=<span class="built_in">dict</span>(</span><br><span class="line">            buttons=<span class="built_in">list</span>([</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;1m&quot;</span>, step=<span class="string">&quot;month&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">6</span>, label=<span class="string">&quot;6m&quot;</span>, step=<span class="string">&quot;month&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;YTD&quot;</span>, step=<span class="string">&quot;year&quot;</span>, stepmode=<span class="string">&quot;todate&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(count=<span class="number">1</span>, label=<span class="string">&quot;1y&quot;</span>, step=<span class="string">&quot;year&quot;</span>, stepmode=<span class="string">&quot;backward&quot;</span>),</span><br><span class="line">                <span class="built_in">dict</span>(step=<span class="string">&quot;all&quot;</span>)</span><br><span class="line">            ])</span><br><span class="line">        ),</span><br><span class="line">        rangeslider=<span class="built_in">dict</span>( visible=<span class="literal">True</span> ),</span><br><span class="line">        <span class="built_in">type</span>=<span class="string">&quot;date&quot;</span></span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.usgs.gov/programs/earthquake-hazards/magnitude-types">USGS - Magnitude Types</a></li>
+<li><a href="https://academic-accelerator.com/encyclopedia/zh/moment-magnitude-scale">矩量級 Moment Magnitude Scale</a></li>
+<li><a href="https://www.facebook.com/momlovestaiwan/photos/a.1076309132504673/1076350115833908/?type=3&locale=zh_TW">Magnitude Type: Mw vs. ML vs. MS vs. mb</a></li>
+<li><a href="https://plotly.com/python/">Plotly Open Source Graphing Library for Python</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Data Visualization</tag>
+        <tag>Python</tag>
+        <tag>Plotly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes | Pods</title>
+    <url>/2024/05/14/Kubernetes/Kubernetes-Pods/</url>
+    <content><![CDATA[<h1 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h1><p>📌 Kubernetes doesn’t deploy containers directly on the worker node. The containers are encapsulated into “pods”.<br>📌 A pod is a single instance of an application. A pod is the smallest object that you can create in Kubernetes.</p>
+<h2 id="Why-does-Kubernetes-use-pods-🤔"><a href="#Why-does-Kubernetes-use-pods-🤔" class="headerlink" title="Why does Kubernetes use pods? 🤔"></a><a href="https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod">Why does Kubernetes use pods?</a> 🤔</h2><p>Pods are designed to have one (common use case) or more (advanced use cases) containers.</p>
+<p>Grouping containers in this way allows them to communicate with each other, while still remaining isolated to some degree. Containers in a single pod are designed to share common compute resources, such as same storage, same network, same namespace, and be created together and destroyed together. </p>
+<p>This is a good thing in the long run because your application is now ready to handle future architectural changes and scale. Organizing containers into pods allows horizontal scalability of applications. Pods can be replicated across different nodes, enabling resistance to failure. </p>
+<h2 id="The-simplest-case"><a href="#The-simplest-case" class="headerlink" title="The simplest case"></a>The simplest case</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">        Big        &gt; ----------- &gt; --- &gt; --------- &gt;    Small</span><br><span class="line">Kubernetes Cluster &gt; Worker Node &gt; Pod &gt; Container &gt; Application</span><br></pre></td></tr></table></figure>
+
+<p>The image below contains the following components:</p>
+<ul>
+<li>A Kubernetes cluster</li>
+<li>A single worker node</li>
+<li>A single pod</li>
+<li>A single container</li>
+<li>A single application</li>
+</ul>
+<p>Explanation:<br><code>A single-node Kubernetes cluster</code> with <code>a single instance of your application</code> running in <code>a single Docker container</code> encapsulated in <code>a single pod</code>.</p>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/Kubernetes_Pod.jpg" class="">
+
+
+<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>📌 Pods usually have a one-to-one relationship with containers running your application. Multiple containers running in a Pod is a rare use case.</p>
+<p>📌 Don’t add additional (same kind) containers to an existing pod to scale your application!</p>
+<blockquote>
+<p>A Pod contains at most one container of the same type.</p>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/Pod_scale_up_1.jpg" class="">
+</blockquote>
+<p>📌 當連線到應用程式的使用者增加時，該如何擴展你的應用程式來分攤負載（share the load）？</p>
+<blockquote>
+<p><code>[ X ]</code> 在同一個 Pod 中，啟動新的 Container。<br>(A cluster, a worker node, two containers in a pod)</p>
+</blockquote>
+<blockquote>
+<p><code>[ O ]</code> 新增一個 Pod ，並在其中啟動新的 Container。<br>(A cluster, a worker node, two pods, a container in a pod)</p>
+</blockquote>
+<blockquote>
+<p><code>[ O ]</code> 若當前 worker node 沒有足夠容量時，新增一個 worker node，並在該 worker node 上新增一個 Pod，接著在 Pod 上啟動新的 container。<br>(A cluster, two worker nodes, a worker node can have multiple pods, a container in a pod)</p>
+</blockquote>
+<hr>
+<h1 id="圖解-Kubectl-Command"><a href="#圖解-Kubectl-Command" class="headerlink" title="圖解 Kubectl Command"></a>圖解 Kubectl Command</h1><p>📌 Kubectl Command 會自動創建一個 Pod，並在其內部署一個 Container。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run nginx --image nginx</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_run_nginx_1.jpg" class="">
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_run_nginx_2.jpg" class="">
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_get_pods.jpg" class="">
+
+
+<h1 id="YAML-in-Kubernetes"><a href="#YAML-in-Kubernetes" class="headerlink" title="YAML in Kubernetes"></a>YAML in Kubernetes</h1><ul>
+<li>Note: <ul>
+<li>apiVersion: string</li>
+<li>kind: string</li>
+<li>metadata: dictionary</li>
+<li>containers: list&#x2F;array</li>
+</ul>
+</li>
+</ul>
+<p>definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> [<span class="string">v1</span> <span class="string">|</span> <span class="string">apps/v1</span>]</span><br><span class="line"><span class="attr">kind:</span> [<span class="string">Pod</span> <span class="string">|</span> <span class="string">Service</span> <span class="string">|</span> <span class="string">ReplicaSet</span> <span class="string">|</span> <span class="string">Deployment</span>]</span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key_1</span>]<span class="string">:</span> [<span class="string">custom_value_1</span>]</span><br><span class="line">    [<span class="string">custom_key_2</span>]<span class="string">:</span> [<span class="string">custom_value_2</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> [<span class="string">container1_name</span>]</span><br><span class="line">      <span class="attr">image:</span> [<span class="string">image1_name</span>]</span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> [<span class="string">container2_name</span>]</span><br><span class="line">      <span class="attr">image:</span> [<span class="string">image2_name</span>]</span><br><span class="line">    <span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p>👍 Quickly create Kubernetes YAML Templates</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run redis --image=redis --dry-run=client -o yaml &gt; redis_template.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f redis_template.yaml</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Pods-with-YAML"><a href="#Pods-with-YAML" class="headerlink" title="Pods with YAML"></a>Pods with YAML</h2><p>pod-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Run pod-definition.yml</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f pod-definition.yml</span></span><br><span class="line">or</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl apply -f pod-definition.yml</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods -o wide</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_create_pod_1.jpg" class="">
+
+<p>View Pod details</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl describe pod [myapp-pod]</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_create_pod_2.jpg" class="">
+
+<p>Delete Pod</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete pod [myapp-pod]</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Service-with-YAML"><a href="#Service-with-YAML" class="headerlink" title="Service with YAML"></a>Service with YAML</h2><p>service-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="ReplicaSet-with-YAML"><a href="#ReplicaSet-with-YAML" class="headerlink" title="ReplicaSet with YAML"></a>ReplicaSet with YAML</h2><p>replicaset-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h2><p>deployment-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod">What is a Kubernetes pod?</a></li>
+<li><a href="https://www.reddit.com/r/kubernetes/comments/u1xva3/newbie_why_are_pods_needed/">Newbie: Why are pods needed?</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Concepts</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes | Cluster Architecture</title>
+    <url>/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/</url>
+    <content><![CDATA[<p><code>Kubernetes</code></p>
+<ul>
+<li>目的是讓容器（Container）的管理變得容易、允許被監控且自動化。</li>
+</ul>
+<p><code>Node</code></p>
+<ul>
+<li><code>指的是 Worker Nodes 的部分，不是 Master ！</code></li>
+<li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
+<li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
+</ul>
+<p><code>Container</code></p>
+<ul>
+<li>輕量級的容器，打包所有必要且相依的套件、程式碼等，提供應用程式一致的運行環境，使應用程式在不同的作業系統上也能夠重建和運行。</li>
+</ul>
+<h1 id="Kubernetes-Cluster-Architecture"><a href="#Kubernetes-Cluster-Architecture" class="headerlink" title="Kubernetes Cluster Architecture"></a>Kubernetes Cluster Architecture</h1><p>Kubernetes cluster architecture<br><img src="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg"></p>
+<h1 id="Kubernetes-Components"><a href="#Kubernetes-Components" class="headerlink" title="Kubernetes Components"></a>Kubernetes Components</h1><p>The components of a Kubernetes cluster<br><img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg"></p>
+<h2 id="【-Master-】"><a href="#【-Master-】" class="headerlink" title="【 Master 】"></a><font color=LightCoral>【 Master 】</font></h2><blockquote>
+<p>aka. 【 Control Plane Components 】<br>職責：<code>負責監控與管理容器</code></p>
+</blockquote>
+<p><font color=LightCoral>Purpose: Manage, Plan, Schedule, Monitor Nodes</font></p>
+<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
+<p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
+<p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
+<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.<br>The official etcd ports are 2379 for client requests and 2380 for peer communication.</p>
+<p>📌 負責儲存關於集群的資訊，包括 Nodes、PODs、Configs、Secrets、Accounts、Roles、Bindings 和 Others。<br>📌 ETCD in HA Environment：一個集群（Cluster）中，可以有多個 master。每個 master 裡面都有一個 ETCD。</p>
+<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
+<p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
+<p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。<br>📌 只負責決定哪個 pod 在哪個 node 上運行，而非實際將 pod 放在 node 上。</p>
+<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>Control plane component that runs controller processes.</p>
+<p>There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller …)</p>
+<p>📌 不同控制器，處理不同的功能。目的是持續監看容器的狀態、當容器掛掉時採取補救行動。</p>
+<h2 id="【-Worker-Nodes-】"><a href="#【-Worker-Nodes-】" class="headerlink" title="【 Worker Nodes 】"></a><font color=LightCoral>【 Worker Nodes 】</font></h2><blockquote>
+<p>aka. 【 Node Components 】<br>職責：<code>負責裝載容器</code></p>
+</blockquote>
+<p><font color=LightCoral>Purpose: Host Application as Containers</font></p>
+<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.</p>
+<p>📌 相當於船長，是在集群中各個 worker nodes（船隻）上運行的代理人，負責與 master 溝通、回報 pod 狀態，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在 worker node 上部署或銷毀容器。</p>
+<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
+<p>kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.</p>
+<p>📌 負責集群內不同 worker node 之間的通訊。</p>
+<h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.</p>
+<p>Kubernetes supports container runtimes such as containerd, CRI-O, rkt, and any other implementation of the Kubernetes CRI (Container Runtime Interface).</p>
+<p>📌 Container 是運行應用程式的獨立環境。</p>
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://kubernetes.io/docs/concepts/architecture/">Cluster Architecture</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Components</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Concepts</tag>
       </tags>
   </entry>
 </search>
