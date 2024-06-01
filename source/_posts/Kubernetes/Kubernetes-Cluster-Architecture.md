@@ -6,6 +6,7 @@ categories: Kubernetes
 tags:
 - Concepts
 - 觀念解說
+- Architecture
 ---
 
 `Kubernetes`
