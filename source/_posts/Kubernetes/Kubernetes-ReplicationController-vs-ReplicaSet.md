@@ -160,6 +160,9 @@ $ kubectl get pods
 $ kubectl delete rs myapp-replicaset
 or
 $ kubectl delete replicaset myapp-replicaset
+
+$ kubectl edit rs myapp-replicaset
+$ kubectl delete pod [pod_name]
 ```
 ![](Kubernetes-ReplicationController-vs-ReplicaSet/ReplicaSet_commands.jpg)
 

@@ -88,6 +88,10 @@ $ kubectl get pods
   - kind: string
   - metadata: dictionary
   - containers: list/array
+- Check "kind" for pod/replicationcontroller/replicaset/deployment/service
+  ```shell
+  $ kubectl explain [pod | replicationcontroller | replicaset | deployment | service]
+  ```
 
 definition.yml
 ```yaml
