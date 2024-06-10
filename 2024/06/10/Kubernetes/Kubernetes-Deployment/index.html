@@ -31,30 +31,31 @@
 
 
     <meta property="og:type" content="blog">
-<meta property="og:title" content="Kubernetes | Cluster Architecture">
-<meta property="og:url" content="https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/index.html">
+<meta property="og:title" content="Kubernetes | Deployment">
+<meta property="og:url" content="https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/index.html">
 <meta property="og:site_name" content="Bessy&#39;s Tech Blog">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg">
-<meta property="og:image" content="https://kubernetes.io/images/docs/components-of-kubernetes.svg">
-<meta property="article:published_time" content="2024-04-16T15:21:59.000Z">
-<meta property="article:modified_time" content="2024-06-01T04:27:07.526Z">
+<meta property="og:image" content="https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/Kubernetes_Deployment.jpg">
+<meta property="og:image" content="https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_1.jpg">
+<meta property="og:image" content="https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_2.jpg">
+<meta property="article:published_time" content="2024-06-10T05:13:52.000Z">
+<meta property="article:modified_time" content="2024-06-10T07:31:06.391Z">
 <meta property="article:author" content="Bessy">
 <meta property="article:tag" content="觀念解說">
 <meta property="article:tag" content="Concepts">
-<meta property="article:tag" content="Architecture">
+<meta property="article:tag" content="Deployment">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg">
+<meta name="twitter:image" content="https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/Kubernetes_Deployment.jpg">
 
 
-<link rel="canonical" href="https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/">
+<link rel="canonical" href="https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/","path":"2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/","title":"Kubernetes | Cluster Architecture"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/","path":"2024/06/10/Kubernetes/Kubernetes-Deployment/","title":"Kubernetes | Deployment"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Kubernetes | Cluster Architecture | Bessy's Tech Blog</title>
+<title>Kubernetes | Deployment | Bessy's Tech Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
@@ -158,7 +159,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes-Cluster-Architecture"><span class="nav-number">1.</span> <span class="nav-text">Kubernetes Cluster Architecture</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes-Components"><span class="nav-number">2.</span> <span class="nav-text">Kubernetes Components</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%90-Master-%E3%80%91"><span class="nav-number">2.1.</span> <span class="nav-text">【 Master 】</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-apiserver"><span class="nav-number">2.1.1.</span> <span class="nav-text">kube-apiserver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etcd"><span class="nav-number">2.1.2.</span> <span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-scheduler"><span class="nav-number">2.1.3.</span> <span class="nav-text">kube-scheduler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-controller-manager"><span class="nav-number">2.1.4.</span> <span class="nav-text">kube-controller-manager</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%90-Worker-Nodes-%E3%80%91"><span class="nav-number">2.2.</span> <span class="nav-text">【 Worker Nodes 】</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kubelet"><span class="nav-number">2.2.1.</span> <span class="nav-text">kubelet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kube-proxy"><span class="nav-number">2.2.2.</span> <span class="nav-text">kube-proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container-runtime"><span class="nav-number">2.2.3.</span> <span class="nav-text">Container runtime</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deployment"><span class="nav-number">1.</span> <span class="nav-text">Deployment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Key-Reasons-for-Using-a-Deployment"><span class="nav-number">2.</span> <span class="nav-text">Key Reasons for Using a Deployment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deployment-with-YAML"><span class="nav-number">3.</span> <span class="nav-text">Deployment with YAML</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kubectl-create-vs-kubectl-run"><span class="nav-number">3.1.</span> <span class="nav-text">kubectl create vs. kubectl run</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%9D-kubectl-create"><span class="nav-number">3.1.1.</span> <span class="nav-text">📝 kubectl create</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%9D-kubectl-run"><span class="nav-number">3.1.2.</span> <span class="nav-text">📝 kubectl run</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -225,7 +226,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -238,12 +239,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Kubernetes | Cluster Architecture | Bessy's Tech Blog">
+      <meta itemprop="name" content="Kubernetes | Deployment | Bessy's Tech Blog">
       <meta itemprop="description" content=" ">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Kubernetes | Cluster Architecture
+          Kubernetes | Deployment
         </h1>
 
         <div class="post-meta-container">
@@ -253,15 +254,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2024-04-16 23:21:59" itemprop="dateCreated datePublished" datetime="2024-04-16T23:21:59+08:00">2024-04-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-06-01 12:27:07" itemprop="dateModified" datetime="2024-06-01T12:27:07+08:00">2024-06-01</time>
+      <time title="Created: 2024-06-10 13:13:52 / Modified: 15:31:06" itemprop="dateCreated datePublished" datetime="2024-06-10T13:13:52+08:00">2024-06-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -290,53 +285,74 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p><code>Kubernetes</code></p>
-<ul>
-<li>目的是讓容器（Container）的管理變得容易、允許被監控且自動化。</li>
+    <div class="post-body" itemprop="articleBody"><h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>An API object that manages a replicated application, typically by running Pods with no local state.</p>
+<p>📌 A Kubernetes Deployment is a higher-level object that provides capabilities such as <code>seamless rolling updates to underlying instances</code>, <code>the ability to undo changes</code>, and the option to <code>pause and resume changes as required</code>.<br>📌 Kubernetes Deployments are commonly used to deploy and manage multiple instances of applications in a <code>production environment</code>.</p>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Kubernetes_Deployment.jpg" class="">
+
+<h1 id="Key-Reasons-for-Using-a-Deployment"><a href="#Key-Reasons-for-Using-a-Deployment" class="headerlink" title="Key Reasons for Using a Deployment"></a>Key Reasons for Using a Deployment</h1><ol>
+<li><code>Rolling Updates</code>: <ul>
+<li>This allows for seamless updates to the underlying instances (pods) without downtime by gradually replacing the old versions of pods with new ones.</li>
+<li><code>Don&#39;t upgrade all at once</code>, as it may impact users accessing your applications. Instead, upgrade one after the other, using a process called rolling updates.</li>
 </ul>
-<p><code>Node</code></p>
-<ul>
-<li><code>指的是 Worker Nodes 的部分，不是 Master ！</code></li>
-<li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
-<li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
+</li>
+<li><code>Rollback</code>:<ul>
+<li>If something goes wrong during an update, a Deployment can undo changes and revert to a previous stable state.</li>
+<li>Undo the recent change. Roll back the changes that were recently carried out.</li>
 </ul>
-<p><code>Container</code></p>
-<ul>
-<li>輕量級的容器，打包所有必要且相依的套件、程式碼等，提供應用程式一致的運行環境，使應用程式在不同的作業系統上也能夠重建和運行。</li>
+</li>
+<li><code>Pause and Resume</code>: <ul>
+<li>Updates can be paused and resumed, which is useful for controlling the deployment process and debugging issues.</li>
+<li>You don’t want to apply each change immediately after the command is run. Instead, you would like to apply a pause to your environment, make the changes, and then resume so that all the changes are rolled out together.</li>
 </ul>
-<h1 id="Kubernetes-Cluster-Architecture"><a href="#Kubernetes-Cluster-Architecture" class="headerlink" title="Kubernetes Cluster Architecture"></a>Kubernetes Cluster Architecture</h1><p>Kubernetes cluster architecture<br><img src="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg"></p>
-<h1 id="Kubernetes-Components"><a href="#Kubernetes-Components" class="headerlink" title="Kubernetes Components"></a>Kubernetes Components</h1><p>The components of a Kubernetes cluster<br><img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg"></p>
-<h2 id="【-Master-】"><a href="#【-Master-】" class="headerlink" title="【 Master 】"></a><font color=LightCoral>【 Master 】</font></h2><blockquote>
-<p>aka. 【 Control Plane Components 】<br>職責：<code>負責監控與管理容器</code></p>
+</li>
+</ol>
+<hr>
+<h1 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h1><p>Template:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key</span>]<span class="string">:</span> [<span class="string">custom_value</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    [[ <span class="string">POD</span> ]]</span><br><span class="line">  <span class="attr">replicas:</span> [<span class="string">number</span>]</span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      [<span class="string">pod_labels_key</span>]<span class="string">:</span> [<span class="string">pod_labels_value</span>]</span><br></pre></td></tr></table></figure>
+
+<p>deployment-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
+
+<p>RUN commands</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f deployment-definition.yml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get deployments</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get replicaset</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_1.jpg" class="">
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get all</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_2.jpg" class="">
+
+
+<p>👍 Quickly create Kubernetes YAML Templates<br>In k8s version 1.19+, we can specify the –replicas option to create a deployment with 3 replicas.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=httpd:2.4-alpine httpd-frontend --replicas=3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="kubectl-create-vs-kubectl-run"><a href="#kubectl-create-vs-kubectl-run" class="headerlink" title="kubectl create vs. kubectl run"></a>kubectl create vs. kubectl run</h2><h3 id="📝-kubectl-create"><a href="#📝-kubectl-create" class="headerlink" title="📝 kubectl create"></a>📝 kubectl create</h3><blockquote>
+<p>Create a resource from a file or from stdin.<br>JSON and YAML formats are accepted.</p>
 </blockquote>
-<p><font color=LightCoral>Purpose: Manage, Plan, Schedule, Monitor Nodes</font></p>
-<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
-<p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
-<p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
-<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.<br>The official etcd ports are 2379 for client requests and 2380 for peer communication.</p>
-<p>📌 負責儲存關於集群的資訊，包括 Nodes、PODs、Configs、Secrets、Accounts、Roles、Bindings 和 Others。<br>📌 ETCD in HA Environment：一個集群（Cluster）中，可以有多個 master。每個 master 裡面都有一個 ETCD。</p>
-<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
-<p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
-<p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。<br>📌 只負責決定哪個 pod 在哪個 node 上運行，而非實際將 pod 放在 node 上。</p>
-<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>Control plane component that runs controller processes.</p>
-<p>There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller …)</p>
-<p>📌 不同控制器，處理不同的功能。目的是持續監看容器的狀態、當容器掛掉時採取補救行動。</p>
-<h2 id="【-Worker-Nodes-】"><a href="#【-Worker-Nodes-】" class="headerlink" title="【 Worker Nodes 】"></a><font color=LightCoral>【 Worker Nodes 】</font></h2><blockquote>
-<p>aka. 【 Node Components 】<br>職責：<code>負責裝載容器</code></p>
+<p>Create a deployment</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=nginx nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=nginx nginx --dry-run=client -o yaml &gt; nginx-deployment.yaml</span></span><br></pre></td></tr></table></figure>
+
+<p>Make necessary changes to the file (for example, adding more replicas) and then create the deployment.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f nginx-deployment.yaml</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="📝-kubectl-run"><a href="#📝-kubectl-run" class="headerlink" title="📝 kubectl run"></a>📝 kubectl run</h3><blockquote>
+<p>Create and run a particular image in a <code>pod</code>.</p>
 </blockquote>
-<p><font color=LightCoral>Purpose: Host Application as Containers</font></p>
-<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.</p>
-<p>📌 相當於船長，是在集群中各個 worker nodes（船隻）上運行的代理人，負責與 master 溝通、回報 pod 狀態，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在 worker node 上部署或銷毀容器。</p>
-<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
-<p>kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.</p>
-<p>📌 負責集群內不同 worker node 之間的通訊。</p>
-<h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.</p>
-<p>Kubernetes supports container runtimes such as containerd, CRI-O, rkt, and any other implementation of the Kubernetes CRI (Container Runtime Interface).</p>
-<p>📌 Container 是運行應用程式的獨立環境。</p>
+<p>Create an NGINX Pod</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run nginx --image=nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Generate POD Manifest YAML file (-o yaml). Don’t create it (–dry-run) and save it to a file.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run redis --image=redis --dry-run=client -o yaml &gt; redis_template.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f redis_template.yaml</span></span><br></pre></td></tr></table></figure>
+
+
 <hr>
 <h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/architecture/">Cluster Architecture</a></li>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Components</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployment</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/">kubectl create</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/kubectl/generated/kubectl_run/">kubectl run</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/kubectl/conventions/">kubectl Usage Conventions</a> 👍</li>
 </ul>
 
     </div>
@@ -355,7 +371,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/" title="Kubernetes | Cluster Architecture">https://bessyhuang.github.io/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/</a>
+      <a href="https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/" title="Kubernetes | Deployment">https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -366,21 +382,18 @@
           <div class="post-tags">
               <a href="/tags/%E8%A7%80%E5%BF%B5%E8%A7%A3%E8%AA%AA/" rel="tag"># 觀念解說</a>
               <a href="/tags/Concepts/" rel="tag"># Concepts</a>
-              <a href="/tags/Architecture/" rel="tag"># Architecture</a>
+              <a href="/tags/Deployment/" rel="tag"># Deployment</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/04/02/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-3/" rel="prev" title="從零開始學 Docker - 為何它這麼重要？(Part 3)">
-                  <i class="fa fa-angle-left"></i> 從零開始學 Docker - 為何它這麼重要？(Part 3)
+                <a href="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/" rel="prev" title="Kubernetes | ReplicationController vs. ReplicaSet">
+                  <i class="fa fa-angle-left"></i> Kubernetes | ReplicationController vs. ReplicaSet
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/05/14/Kubernetes/Kubernetes-Pods/" rel="next" title="Kubernetes | Pods">
-                  Kubernetes | Pods <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>

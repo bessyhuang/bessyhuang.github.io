@@ -188,157 +188,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Kubernetes | Cluster Architecture</title>
-    <url>/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/</url>
-    <content><![CDATA[<p><code>Kubernetes</code></p>
-<ul>
-<li>目的是讓容器（Container）的管理變得容易、允許被監控且自動化。</li>
-</ul>
-<p><code>Node</code></p>
-<ul>
-<li><code>指的是 Worker Nodes 的部分，不是 Master ！</code></li>
-<li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
-<li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
-</ul>
-<p><code>Container</code></p>
-<ul>
-<li>輕量級的容器，打包所有必要且相依的套件、程式碼等，提供應用程式一致的運行環境，使應用程式在不同的作業系統上也能夠重建和運行。</li>
-</ul>
-<h1 id="Kubernetes-Cluster-Architecture"><a href="#Kubernetes-Cluster-Architecture" class="headerlink" title="Kubernetes Cluster Architecture"></a>Kubernetes Cluster Architecture</h1><p>Kubernetes cluster architecture<br><img src="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg"></p>
-<h1 id="Kubernetes-Components"><a href="#Kubernetes-Components" class="headerlink" title="Kubernetes Components"></a>Kubernetes Components</h1><p>The components of a Kubernetes cluster<br><img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg"></p>
-<h2 id="【-Master-】"><a href="#【-Master-】" class="headerlink" title="【 Master 】"></a><font color=LightCoral>【 Master 】</font></h2><blockquote>
-<p>aka. 【 Control Plane Components 】<br>職責：<code>負責監控與管理容器</code></p>
-</blockquote>
-<p><font color=LightCoral>Purpose: Manage, Plan, Schedule, Monitor Nodes</font></p>
-<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
-<p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
-<p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
-<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.<br>The official etcd ports are 2379 for client requests and 2380 for peer communication.</p>
-<p>📌 負責儲存關於集群的資訊，包括 Nodes、PODs、Configs、Secrets、Accounts、Roles、Bindings 和 Others。<br>📌 ETCD in HA Environment：一個集群（Cluster）中，可以有多個 master。每個 master 裡面都有一個 ETCD。</p>
-<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
-<p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
-<p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。<br>📌 只負責決定哪個 pod 在哪個 node 上運行，而非實際將 pod 放在 node 上。</p>
-<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>Control plane component that runs controller processes.</p>
-<p>There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller …)</p>
-<p>📌 不同控制器，處理不同的功能。目的是持續監看容器的狀態、當容器掛掉時採取補救行動。</p>
-<h2 id="【-Worker-Nodes-】"><a href="#【-Worker-Nodes-】" class="headerlink" title="【 Worker Nodes 】"></a><font color=LightCoral>【 Worker Nodes 】</font></h2><blockquote>
-<p>aka. 【 Node Components 】<br>職責：<code>負責裝載容器</code></p>
-</blockquote>
-<p><font color=LightCoral>Purpose: Host Application as Containers</font></p>
-<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.</p>
-<p>📌 相當於船長，是在集群中各個 worker nodes（船隻）上運行的代理人，負責與 master 溝通、回報 pod 狀態，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在 worker node 上部署或銷毀容器。</p>
-<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
-<p>kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.</p>
-<p>📌 負責集群內不同 worker node 之間的通訊。</p>
-<h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.</p>
-<p>Kubernetes supports container runtimes such as containerd, CRI-O, rkt, and any other implementation of the Kubernetes CRI (Container Runtime Interface).</p>
-<p>📌 Container 是運行應用程式的獨立環境。</p>
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://kubernetes.io/docs/concepts/architecture/">Cluster Architecture</a></li>
-<li><a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Components</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>觀念解說</tag>
-        <tag>Concepts</tag>
-        <tag>Architecture</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes | ReplicationController vs. ReplicaSet</title>
-    <url>/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/</url>
-    <content><![CDATA[<h1 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h1><h2 id="What-are-Kubernetes-Controllers"><a href="#What-are-Kubernetes-Controllers" class="headerlink" title="What are Kubernetes Controllers?"></a>What are Kubernetes Controllers?</h2><ul>
-<li>Brain of Kubernetes: <ul>
-<li>Controllers are essentially the decision-makers within the Kubernetes. </li>
-<li>They are responsible for observing the state of the cluster and taking actions to ensure the desired state is achieved and maintained.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Key-Reasons-for-Using-a-RC"><a href="#Key-Reasons-for-Using-a-RC" class="headerlink" title="Key Reasons for Using a RC"></a>Key Reasons for Using a RC</h2><p>Note: Replication Controller (RC)</p>
-<h3 id="Ensuring-High-Availability"><a href="#Ensuring-High-Availability" class="headerlink" title="Ensuring High Availability"></a>Ensuring High Availability</h3><blockquote>
-<p>場景一：為了避免只有一個 Pod 且又恰巧崩潰而導致使用者無法使用該應用程式，因此會建議同時運行「多個應用程式副本」，並且一個應用程式只會運行於一個 Pod 內。這新生成的 Pod 會依照 Node 資源使用狀況，被分配到原 Node 或新的 Node 上。</p>
-</blockquote>
-<ul>
-<li>By maintaining multiple replicas of a pod, an RC ensures that your application remains available even if individual pods fail or are terminated. This redundancy is crucial for high availability and fault tolerance.</li>
-<li><code>Does that mean you can&#39;t use a Replication Controller if you plan to have a single Pod?</code> 🤔<ul>
-<li><code>No.</code> Even if you have a single pod, the Replication Controller can help by automatically bringing up a new pod when the existing one fails.</li>
-<li>Thus, the Replication Controller ensures that a specified number of pods are running at all times, even if it’s just 1 or 100.</li>
-</ul>
-</li>
-</ul>
-<h3 id="Load-Balancing-Scaling"><a href="#Load-Balancing-Scaling" class="headerlink" title="Load Balancing &amp; Scaling"></a>Load Balancing &amp; Scaling</h3><blockquote>
-<p>場景二：為了建立多個 Pod 來共享它們之間的負載。</p>
-<img src="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/ReplicationController_Load%20Balancing%20&%20Scaling.jpg" class="">
-</blockquote>
-<ul>
-<li>It helps us to share&#x2F;balance the load across multiple pods on different nodes as well as scale our application when the demand increases.</li>
-</ul>
-<h2 id="ReplicationController-vs-ReplicaSet"><a href="#ReplicationController-vs-ReplicaSet" class="headerlink" title="ReplicationController vs. ReplicaSet"></a>ReplicationController vs. ReplicaSet</h2><ol>
-<li>Both have the same purpose, but they are not the same.<ul>
-<li>ReplicaSet is the next-generation ReplicationController that supports the new set-based label selector.</li>
-<li>The two behave similarly, except that a ReplicationController does not support set-based selector requirements as described in the labels user guide.</li>
-</ul>
-</li>
-<li><code>ReplicaSet</code> is preferred over ReplicationController.</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">📌 The selector is one of the major differences between Replication Controller and ReplicaSet.</span><br><span class="line">  - The selector helps the ReplicaSet identify what pods fall under it. ReplicaSet can also manage pods that were not created as part of the ReplicaSet creation.</span><br><span class="line">  - ReplicaSet maintains the desired number of replicas across all pods that fit its criteria (match labels specified in the selector), regardless of whether they were created before (existing pods) or after the ReplicaSet itself.</span><br></pre></td></tr></table></figure>
-<img src="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/ReplicaSet_selector_label.jpg" class="">
-
-
-<h3 id="ReplicationController"><a href="#ReplicationController" class="headerlink" title="ReplicationController"></a>ReplicationController</h3><p>A ReplicationController ensures that a specified number of pod replicas are running at any one time. In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is always up and available.</p>
-<h4 id="ReplicationController-with-YAML"><a href="#ReplicationController-with-YAML" class="headerlink" title="ReplicationController with YAML"></a>ReplicationController with YAML</h4><p>Template:</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key</span>]<span class="string">:</span> [<span class="string">custom_value</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    [[ <span class="string">POD</span> ]]</span><br><span class="line">  <span class="attr">replicas:</span> [<span class="string">number</span>]</span><br></pre></td></tr></table></figure>
-
-<p>rc-definition.yml</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-rc</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<p>RUN commands</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f rc-definition.yml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get replicationcontroller</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete rc myapp-rc</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/ReplicationController_commands.jpg" class="">
-
-
-<h3 id="ReplicaSet-👍"><a href="#ReplicaSet-👍" class="headerlink" title="ReplicaSet 👍"></a>ReplicaSet 👍</h3><p>A ReplicaSet’s purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often used to guarantee the availability of a specified number of identical Pods.</p>
-<p>It’s mainly used by Deployment as a mechanism to orchestrate pod creation, deletion and updates. Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.</p>
-<h4 id="ReplicaSet-with-YAML"><a href="#ReplicaSet-with-YAML" class="headerlink" title="ReplicaSet with YAML"></a>ReplicaSet with YAML</h4><p>Template:</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key</span>]<span class="string">:</span> [<span class="string">custom_value</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    [[ <span class="string">POD</span> ]]</span><br><span class="line">  <span class="attr">replicas:</span> [<span class="string">number</span>]</span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      [<span class="string">pod_labels_key</span>]<span class="string">:</span> [<span class="string">pod_labels_value</span>]</span><br></pre></td></tr></table></figure>
-
-<p>replicaset-definition.yml</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-replicaset</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
-
-<p>RUN commands</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f replicaset-definition.yml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get replicaset</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete rs myapp-replicaset</span></span><br><span class="line">or</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete replicaset myapp-replicaset</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl edit rs myapp-replicaset</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete pod [pod_name]</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/ReplicaSet_commands.jpg" class="">
-
-<h4 id="Scale"><a href="#Scale" class="headerlink" title="Scale"></a>Scale</h4><p>📌 There are also options available for automatically scaling the ReplicaSet based on load!</p>
-<ol>
-<li><p>Method 1: Modify the number of <code>replicas</code> in <code>replicaset-definition.yml</code> and run the following command.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl replace -f replicaset-definition.yml</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Method 2: Run scale up&#x2F;down command</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl scale --replicas=6 -f replicaset-definition.yml</span></span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl scale --replicas=6 [<span class="built_in">type</span>] [name]</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl scale --replicas=6 replicaset myapp-replicaset</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/">ReplicationController</a></li>
-<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a></li>
-<li><a href="https://hackmd.io/@CynthiaChuang/Kubernetes-for-the-Absolute-Beginners-02">【K8S Beginners 筆記】CH 4~6 PODs, YAML, ReplicaSet and Deployments</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>觀念解說</tag>
-        <tag>Concepts</tag>
-        <tag>ReplicationController</tag>
-        <tag>ReplicaSet</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Amazon S3</title>
     <url>/2023/10/02/TempNotes/Amazon-S3/</url>
     <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><em><font color=royalblue>Infinitely Scaling Storage</font></em></p>
@@ -406,114 +255,6 @@
       <tags>
         <tag>S3</tag>
         <tag>★☆★</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes | Pods</title>
-    <url>/2024/05/14/Kubernetes/Kubernetes-Pods/</url>
-    <content><![CDATA[<h1 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h1><p>📌 Kubernetes doesn’t deploy containers directly on the worker node. The containers are encapsulated into “pods”.<br>📌 A pod is a single instance of an application. A pod is the smallest object that you can create in Kubernetes.</p>
-<h2 id="Why-does-Kubernetes-use-pods-🤔"><a href="#Why-does-Kubernetes-use-pods-🤔" class="headerlink" title="Why does Kubernetes use pods? 🤔"></a><a href="https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod">Why does Kubernetes use pods?</a> 🤔</h2><p>Pods are designed to have one (common use case) or more (advanced use cases) containers.</p>
-<p>Grouping containers in this way allows them to communicate with each other, while still remaining isolated to some degree. Containers in a single pod are designed to share common compute resources, such as same storage, same network, same namespace, and be created together and destroyed together. </p>
-<p>This is a good thing in the long run because your application is now ready to handle future architectural changes and scale. Organizing containers into pods allows horizontal scalability of applications. Pods can be replicated across different nodes, enabling resistance to failure. </p>
-<h2 id="The-simplest-case"><a href="#The-simplest-case" class="headerlink" title="The simplest case"></a>The simplest case</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">        Big        &gt; ----------- &gt; --- &gt; --------- &gt;    Small</span><br><span class="line">Kubernetes Cluster &gt; Worker Node &gt; Pod &gt; Container &gt; Application</span><br></pre></td></tr></table></figure>
-
-<p>The image below contains the following components:</p>
-<ul>
-<li>A Kubernetes cluster</li>
-<li>A single worker node</li>
-<li>A single pod</li>
-<li>A single container</li>
-<li>A single application</li>
-</ul>
-<p>Explanation:<br><code>A single-node Kubernetes cluster</code> with <code>a single instance of your application</code> running in <code>a single Docker container</code> encapsulated in <code>a single pod</code>.</p>
-<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/Kubernetes_Pod.jpg" class="">
-
-
-<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>📌 Pods usually have a one-to-one relationship with containers running your application. Multiple containers running in a Pod is a rare use case.</p>
-<p>📌 Don’t add additional (same kind) containers to an existing pod to scale your application!</p>
-<blockquote>
-<p>A Pod contains at most one container of the same type.</p>
-<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/Pod_scale_up_1.jpg" class="">
-</blockquote>
-<p>📌 當連線到應用程式的使用者增加時，該如何擴展你的應用程式來分攤負載（share the load）？</p>
-<blockquote>
-<p><code>[ X ]</code> 在同一個 Pod 中，啟動新的 Container。<br>(A cluster, a worker node, two containers in a pod)</p>
-</blockquote>
-<blockquote>
-<p><code>[ O ]</code> 新增一個 Pod ，並在其中啟動新的 Container。<br>(A cluster, a worker node, two pods, a container in a pod)</p>
-</blockquote>
-<blockquote>
-<p><code>[ O ]</code> 若當前 worker node 沒有足夠容量時，新增一個 worker node，並在該 worker node 上新增一個 Pod，接著在 Pod 上啟動新的 container。<br>(A cluster, two worker nodes, a worker node can have multiple pods, a container in a pod)</p>
-</blockquote>
-<hr>
-<h1 id="圖解-Kubectl-Command"><a href="#圖解-Kubectl-Command" class="headerlink" title="圖解 Kubectl Command"></a>圖解 Kubectl Command</h1><p>📌 Kubectl Command 會自動創建一個 Pod，並在其內部署一個 Container。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run nginx --image nginx</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_run_nginx_1.jpg" class="">
-<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_run_nginx_2.jpg" class="">
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_get_pods.jpg" class="">
-
-
-<h1 id="YAML-in-Kubernetes"><a href="#YAML-in-Kubernetes" class="headerlink" title="YAML in Kubernetes"></a>YAML in Kubernetes</h1><ul>
-<li>Note: <ul>
-<li>apiVersion: string</li>
-<li>kind: string</li>
-<li>metadata: dictionary</li>
-<li>containers: list&#x2F;array</li>
-</ul>
-</li>
-<li>Check “kind” for pod&#x2F;replicationcontroller&#x2F;replicaset&#x2F;deployment&#x2F;service<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl explain [pod | replicationcontroller | replicaset | deployment | service]</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>definition.yml</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> [<span class="string">v1</span> <span class="string">|</span> <span class="string">apps/v1</span>]</span><br><span class="line"><span class="attr">kind:</span> [<span class="string">Pod</span> <span class="string">|</span> <span class="string">Service</span> <span class="string">|</span> <span class="string">ReplicaSet</span> <span class="string">|</span> <span class="string">Deployment</span>]</span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key_1</span>]<span class="string">:</span> [<span class="string">custom_value_1</span>]</span><br><span class="line">    [<span class="string">custom_key_2</span>]<span class="string">:</span> [<span class="string">custom_value_2</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> [<span class="string">container1_name</span>]</span><br><span class="line">      <span class="attr">image:</span> [<span class="string">image1_name</span>]</span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> [<span class="string">container2_name</span>]</span><br><span class="line">      <span class="attr">image:</span> [<span class="string">image2_name</span>]</span><br><span class="line">    <span class="string">...</span></span><br></pre></td></tr></table></figure>
-
-<p>👍 Quickly create Kubernetes YAML Templates</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run redis --image=redis --dry-run=client -o yaml &gt; redis_template.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f redis_template.yaml</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Pods-with-YAML"><a href="#Pods-with-YAML" class="headerlink" title="Pods with YAML"></a>Pods with YAML</h2><p>pod-definition.yml</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure>
-
-<p>Run pod-definition.yml</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f pod-definition.yml</span></span><br><span class="line">or</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl apply -f pod-definition.yml</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods -o wide</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_create_pod_1.jpg" class="">
-
-<p>View Pod details</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl describe pod [myapp-pod]</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_create_pod_2.jpg" class="">
-
-<p>Delete Pod</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete pod [myapp-pod]</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Service-with-YAML"><a href="#Service-with-YAML" class="headerlink" title="Service with YAML"></a>Service with YAML</h2><p>service-definition.yml</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="ReplicaSet-with-YAML"><a href="#ReplicaSet-with-YAML" class="headerlink" title="ReplicaSet with YAML"></a>ReplicaSet with YAML</h2><p>replicaset-definition.yml</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-replicaset</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h2><p>deployment-definition.yml</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod">What is a Kubernetes pod?</a></li>
-<li><a href="https://www.reddit.com/r/kubernetes/comments/u1xva3/newbie_why_are_pods_needed/">Newbie: Why are pods needed?</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>觀念解說</tag>
-        <tag>Concepts</tag>
-        <tag>Pods</tag>
-        <tag>Kubectl</tag>
-        <tag>YAML</tag>
       </tags>
   </entry>
   <entry>
@@ -860,6 +601,348 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes | Cluster Architecture</title>
+    <url>/2024/04/16/Kubernetes/Kubernetes-Cluster-Architecture/</url>
+    <content><![CDATA[<p><code>Kubernetes</code></p>
+<ul>
+<li>目的是讓容器（Container）的管理變得容易、允許被監控且自動化。</li>
+</ul>
+<p><code>Node</code></p>
+<ul>
+<li><code>指的是 Worker Nodes 的部分，不是 Master ！</code></li>
+<li>A node is a worker machine in Kubernetes. A worker node may be a VM or physical machine, depending on the cluster. </li>
+<li>It has local daemons or services necessary to run Pods and is managed by the control plane. The daemons on a node include kubelet, kube-proxy, and a container runtime implementing the CRI such as Docker.</li>
+</ul>
+<p><code>Container</code></p>
+<ul>
+<li>輕量級的容器，打包所有必要且相依的套件、程式碼等，提供應用程式一致的運行環境，使應用程式在不同的作業系統上也能夠重建和運行。</li>
+</ul>
+<h1 id="Kubernetes-Cluster-Architecture"><a href="#Kubernetes-Cluster-Architecture" class="headerlink" title="Kubernetes Cluster Architecture"></a>Kubernetes Cluster Architecture</h1><p>Kubernetes cluster architecture<br><img src="https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg"></p>
+<h1 id="Kubernetes-Components"><a href="#Kubernetes-Components" class="headerlink" title="Kubernetes Components"></a>Kubernetes Components</h1><p>The components of a Kubernetes cluster<br><img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg"></p>
+<h2 id="【-Master-】"><a href="#【-Master-】" class="headerlink" title="【 Master 】"></a><font color=LightCoral>【 Master 】</font></h2><blockquote>
+<p>aka. 【 Control Plane Components 】<br>職責：<code>負責監控與管理容器</code></p>
+</blockquote>
+<p><font color=LightCoral>Purpose: Manage, Plan, Schedule, Monitor Nodes</font></p>
+<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>Also known as: API server</p>
+<p>The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
+<p>📌 K8s 最高層次的管理介面，負責協調集群中的所有操作。</p>
+<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.<br>The official etcd ports are 2379 for client requests and 2380 for peer communication.</p>
+<p>📌 負責儲存關於集群的資訊，包括 Nodes、PODs、Configs、Secrets、Accounts、Roles、Bindings 和 Others。<br>📌 ETCD in HA Environment：一個集群（Cluster）中，可以有多個 master。每個 master 裡面都有一個 ETCD。</p>
+<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
+<p>Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware&#x2F;software&#x2F;policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</p>
+<p>📌 負責調度節點上的容器或應用程序。基於容器的資源需求、Worker Node 容量、任何其他策略或約束，來識別正確的節點以放置容器。<br>📌 只負責決定哪個 pod 在哪個 node 上運行，而非實際將 pod 放在 node 上。</p>
+<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>Control plane component that runs controller processes.</p>
+<p>There are many different types of controllers. (e.g. Node controller, Job controller, EndpointSlice controller, ServiceAccount controller …)</p>
+<p>📌 不同控制器，處理不同的功能。目的是持續監看容器的狀態、當容器掛掉時採取補救行動。</p>
+<h2 id="【-Worker-Nodes-】"><a href="#【-Worker-Nodes-】" class="headerlink" title="【 Worker Nodes 】"></a><font color=LightCoral>【 Worker Nodes 】</font></h2><blockquote>
+<p>aka. 【 Node Components 】<br>職責：<code>負責裝載容器</code></p>
+</blockquote>
+<p><font color=LightCoral>Purpose: Host Application as Containers</font></p>
+<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>An agent that runs on each node in the cluster. It makes sure that containers are running (and healthy) in a Pod.</p>
+<p>📌 相當於船長，是在集群中各個 worker nodes（船隻）上運行的代理人，負責與 master 溝通、回報 pod 狀態，聽從 kube-apiserver 的指令來管理容器。例如：根據需要在 worker node 上部署或銷毀容器。</p>
+<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
+<p>kube-proxy maintains network rules on nodes. These network rules allow network communication to your Pods from network sessions inside or outside of your cluster.</p>
+<p>📌 負責集群內不同 worker node 之間的通訊。</p>
+<h3 id="Container-runtime"><a href="#Container-runtime" class="headerlink" title="Container runtime"></a>Container runtime</h3><p>A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.</p>
+<p>Kubernetes supports container runtimes such as containerd, CRI-O, rkt, and any other implementation of the Kubernetes CRI (Container Runtime Interface).</p>
+<p>📌 Container 是運行應用程式的獨立環境。</p>
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://kubernetes.io/docs/concepts/architecture/">Cluster Architecture</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/overview/components/">Kubernetes Components</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Concepts</tag>
+        <tag>Architecture</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes | Deployment</title>
+    <url>/2024/06/10/Kubernetes/Kubernetes-Deployment/</url>
+    <content><![CDATA[<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>An API object that manages a replicated application, typically by running Pods with no local state.</p>
+<p>📌 A Kubernetes Deployment is a higher-level object that provides capabilities such as <code>seamless rolling updates to underlying instances</code>, <code>the ability to undo changes</code>, and the option to <code>pause and resume changes as required</code>.<br>📌 Kubernetes Deployments are commonly used to deploy and manage multiple instances of applications in a <code>production environment</code>.</p>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Kubernetes_Deployment.jpg" class="">
+
+<h1 id="Key-Reasons-for-Using-a-Deployment"><a href="#Key-Reasons-for-Using-a-Deployment" class="headerlink" title="Key Reasons for Using a Deployment"></a>Key Reasons for Using a Deployment</h1><ol>
+<li><code>Rolling Updates</code>: <ul>
+<li>This allows for seamless updates to the underlying instances (pods) without downtime by gradually replacing the old versions of pods with new ones.</li>
+<li><code>Don&#39;t upgrade all at once</code>, as it may impact users accessing your applications. Instead, upgrade one after the other, using a process called rolling updates.</li>
+</ul>
+</li>
+<li><code>Rollback</code>:<ul>
+<li>If something goes wrong during an update, a Deployment can undo changes and revert to a previous stable state.</li>
+<li>Undo the recent change. Roll back the changes that were recently carried out.</li>
+</ul>
+</li>
+<li><code>Pause and Resume</code>: <ul>
+<li>Updates can be paused and resumed, which is useful for controlling the deployment process and debugging issues.</li>
+<li>You don’t want to apply each change immediately after the command is run. Instead, you would like to apply a pause to your environment, make the changes, and then resume so that all the changes are rolled out together.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h1><p>Template:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key</span>]<span class="string">:</span> [<span class="string">custom_value</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    [[ <span class="string">POD</span> ]]</span><br><span class="line">  <span class="attr">replicas:</span> [<span class="string">number</span>]</span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      [<span class="string">pod_labels_key</span>]<span class="string">:</span> [<span class="string">pod_labels_value</span>]</span><br></pre></td></tr></table></figure>
+
+<p>deployment-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
+
+<p>RUN commands</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f deployment-definition.yml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get deployments</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get replicaset</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_1.jpg" class="">
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get all</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_2.jpg" class="">
+
+
+<p>👍 Quickly create Kubernetes YAML Templates<br>In k8s version 1.19+, we can specify the –replicas option to create a deployment with 3 replicas.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=httpd:2.4-alpine httpd-frontend --replicas=3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="kubectl-create-vs-kubectl-run"><a href="#kubectl-create-vs-kubectl-run" class="headerlink" title="kubectl create vs. kubectl run"></a>kubectl create vs. kubectl run</h2><h3 id="📝-kubectl-create"><a href="#📝-kubectl-create" class="headerlink" title="📝 kubectl create"></a>📝 kubectl create</h3><blockquote>
+<p>Create a resource from a file or from stdin.<br>JSON and YAML formats are accepted.</p>
+</blockquote>
+<p>Create a deployment</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=nginx nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=nginx nginx --dry-run=client -o yaml &gt; nginx-deployment.yaml</span></span><br></pre></td></tr></table></figure>
+
+<p>Make necessary changes to the file (for example, adding more replicas) and then create the deployment.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f nginx-deployment.yaml</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="📝-kubectl-run"><a href="#📝-kubectl-run" class="headerlink" title="📝 kubectl run"></a>📝 kubectl run</h3><blockquote>
+<p>Create and run a particular image in a <code>pod</code>.</p>
+</blockquote>
+<p>Create an NGINX Pod</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run nginx --image=nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Generate POD Manifest YAML file (-o yaml). Don’t create it (–dry-run) and save it to a file.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run redis --image=redis --dry-run=client -o yaml &gt; redis_template.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f redis_template.yaml</span></span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployment</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/">kubectl create</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/generated/kubectl_run/">kubectl run</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/conventions/">kubectl Usage Conventions</a> 👍</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Concepts</tag>
+        <tag>Deployment</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes | Pods</title>
+    <url>/2024/05/14/Kubernetes/Kubernetes-Pods/</url>
+    <content><![CDATA[<h1 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h1><p>📌 Kubernetes doesn’t deploy containers directly on the worker node. The containers are encapsulated into “pods”.<br>📌 A pod is a single instance of an application. A pod is the smallest object that you can create in Kubernetes.</p>
+<h2 id="Why-does-Kubernetes-use-pods-🤔"><a href="#Why-does-Kubernetes-use-pods-🤔" class="headerlink" title="Why does Kubernetes use pods? 🤔"></a><a href="https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod">Why does Kubernetes use pods?</a> 🤔</h2><p>Pods are designed to have one (common use case) or more (advanced use cases) containers.</p>
+<p>Grouping containers in this way allows them to communicate with each other, while still remaining isolated to some degree. Containers in a single pod are designed to share common compute resources, such as same storage, same network, same namespace, and be created together and destroyed together. </p>
+<p>This is a good thing in the long run because your application is now ready to handle future architectural changes and scale. Organizing containers into pods allows horizontal scalability of applications. Pods can be replicated across different nodes, enabling resistance to failure. </p>
+<h2 id="The-simplest-case"><a href="#The-simplest-case" class="headerlink" title="The simplest case"></a>The simplest case</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">        Big        &gt; ----------- &gt; --- &gt; --------- &gt;    Small</span><br><span class="line">Kubernetes Cluster &gt; Worker Node &gt; Pod &gt; Container &gt; Application</span><br></pre></td></tr></table></figure>
+
+<p>The image below contains the following components:</p>
+<ul>
+<li>A Kubernetes cluster</li>
+<li>A single worker node</li>
+<li>A single pod</li>
+<li>A single container</li>
+<li>A single application</li>
+</ul>
+<p>Explanation:<br><code>A single-node Kubernetes cluster</code> with <code>a single instance of your application</code> running in <code>a single Docker container</code> encapsulated in <code>a single pod</code>.</p>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/Kubernetes_Pod.jpg" class="">
+
+
+<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>📌 Pods usually have a one-to-one relationship with containers running your application. Multiple containers running in a Pod is a rare use case.</p>
+<p>📌 Don’t add additional (same kind) containers to an existing pod to scale your application!</p>
+<blockquote>
+<p>A Pod contains at most one container of the same type.</p>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/Pod_scale_up_1.jpg" class="">
+</blockquote>
+<p>📌 當連線到應用程式的使用者增加時，該如何擴展你的應用程式來分攤負載（share the load）？</p>
+<blockquote>
+<p><code>[ X ]</code> 在同一個 Pod 中，啟動新的 Container。<br>(A cluster, a worker node, two containers in a pod)</p>
+</blockquote>
+<blockquote>
+<p><code>[ O ]</code> 新增一個 Pod ，並在其中啟動新的 Container。<br>(A cluster, a worker node, two pods, a container in a pod)</p>
+</blockquote>
+<blockquote>
+<p><code>[ O ]</code> 若當前 worker node 沒有足夠容量時，新增一個 worker node，並在該 worker node 上新增一個 Pod，接著在 Pod 上啟動新的 container。<br>(A cluster, two worker nodes, a worker node can have multiple pods, a container in a pod)</p>
+</blockquote>
+<hr>
+<h1 id="圖解-Kubectl-Command"><a href="#圖解-Kubectl-Command" class="headerlink" title="圖解 Kubectl Command"></a>圖解 Kubectl Command</h1><p>📌 Kubectl Command 會自動創建一個 Pod，並在其內部署一個 Container。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run nginx --image nginx</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_run_nginx_1.jpg" class="">
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_run_nginx_2.jpg" class="">
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_get_pods.jpg" class="">
+
+
+<h1 id="YAML-in-Kubernetes"><a href="#YAML-in-Kubernetes" class="headerlink" title="YAML in Kubernetes"></a>YAML in Kubernetes</h1><ul>
+<li>Note: <ul>
+<li>apiVersion: string</li>
+<li>kind: string</li>
+<li>metadata: dictionary</li>
+<li>containers: list&#x2F;array</li>
+</ul>
+</li>
+<li>Check “kind” for pod&#x2F;replicationcontroller&#x2F;replicaset&#x2F;deployment&#x2F;service<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl explain [pod | replicationcontroller | replicaset | deployment | service]</span></span><br></pre></td></tr></table></figure></li>
+<li>Help<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --<span class="built_in">help</span></span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> [<span class="string">v1</span> <span class="string">|</span> <span class="string">apps/v1</span>]</span><br><span class="line"><span class="attr">kind:</span> [<span class="string">Pod</span> <span class="string">|</span> <span class="string">Service</span> <span class="string">|</span> <span class="string">ReplicaSet</span> <span class="string">|</span> <span class="string">Deployment</span>]</span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key_1</span>]<span class="string">:</span> [<span class="string">custom_value_1</span>]</span><br><span class="line">    [<span class="string">custom_key_2</span>]<span class="string">:</span> [<span class="string">custom_value_2</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> [<span class="string">container1_name</span>]</span><br><span class="line">      <span class="attr">image:</span> [<span class="string">image1_name</span>]</span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> [<span class="string">container2_name</span>]</span><br><span class="line">      <span class="attr">image:</span> [<span class="string">image2_name</span>]</span><br><span class="line">    <span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p>👍 Quickly create Kubernetes YAML Templates</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run redis --image=redis --dry-run=client -o yaml &gt; redis_template.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f redis_template.yaml</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Pods-with-YAML"><a href="#Pods-with-YAML" class="headerlink" title="Pods with YAML"></a>Pods with YAML</h2><p>pod-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Run pod-definition.yml</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f pod-definition.yml</span></span><br><span class="line">or</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl apply -f pod-definition.yml</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods -o wide</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_create_pod_1.jpg" class="">
+
+<p>View Pod details</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl describe pod [myapp-pod]</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/05/14/Kubernetes/Kubernetes-Pods/kubectl_create_pod_2.jpg" class="">
+
+<p>Delete Pod</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete pod [myapp-pod]</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Service-with-YAML"><a href="#Service-with-YAML" class="headerlink" title="Service with YAML"></a>Service with YAML</h2><p>service-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="ReplicaSet-with-YAML"><a href="#ReplicaSet-with-YAML" class="headerlink" title="ReplicaSet with YAML"></a>ReplicaSet with YAML</h2><p>replicaset-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-replicaset</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h2><p>deployment-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod">What is a Kubernetes pod?</a></li>
+<li><a href="https://www.reddit.com/r/kubernetes/comments/u1xva3/newbie_why_are_pods_needed/">Newbie: Why are pods needed?</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Concepts</tag>
+        <tag>Pods</tag>
+        <tag>Kubectl</tag>
+        <tag>YAML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes | ReplicationController vs. ReplicaSet</title>
+    <url>/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/</url>
+    <content><![CDATA[<h1 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h1><h2 id="What-are-Kubernetes-Controllers"><a href="#What-are-Kubernetes-Controllers" class="headerlink" title="What are Kubernetes Controllers?"></a>What are Kubernetes Controllers?</h2><ul>
+<li>Brain of Kubernetes: <ul>
+<li>Controllers are essentially the decision-makers within the Kubernetes. </li>
+<li>They are responsible for observing the state of the cluster and taking actions to ensure the desired state is achieved and maintained.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Key-Reasons-for-Using-a-RC"><a href="#Key-Reasons-for-Using-a-RC" class="headerlink" title="Key Reasons for Using a RC"></a>Key Reasons for Using a RC</h2><p>Note: Replication Controller (RC)</p>
+<h3 id="Ensuring-High-Availability"><a href="#Ensuring-High-Availability" class="headerlink" title="Ensuring High Availability"></a>Ensuring High Availability</h3><blockquote>
+<p>場景一：為了避免只有一個 Pod 且又恰巧崩潰而導致使用者無法使用該應用程式，因此會建議同時運行「多個應用程式副本」，並且一個應用程式只會運行於一個 Pod 內。這新生成的 Pod 會依照 Node 資源使用狀況，被分配到原 Node 或新的 Node 上。</p>
+</blockquote>
+<ul>
+<li>By maintaining multiple replicas of a pod, an RC ensures that your application remains available even if individual pods fail or are terminated. This redundancy is crucial for high availability and fault tolerance.</li>
+<li><code>Does that mean you can&#39;t use a Replication Controller if you plan to have a single Pod?</code> 🤔<ul>
+<li><code>No.</code> Even if you have a single pod, the Replication Controller can help by automatically bringing up a new pod when the existing one fails.</li>
+<li>Thus, the Replication Controller ensures that a specified number of pods are running at all times, even if it’s just 1 or 100.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Load-Balancing-Scaling"><a href="#Load-Balancing-Scaling" class="headerlink" title="Load Balancing &amp; Scaling"></a>Load Balancing &amp; Scaling</h3><blockquote>
+<p>場景二：為了建立多個 Pod 來共享它們之間的負載。</p>
+<img src="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/ReplicationController_Load%20Balancing%20&%20Scaling.jpg" class="">
+</blockquote>
+<ul>
+<li>It helps us to share&#x2F;balance the load across multiple pods on different nodes as well as scale our application when the demand increases.</li>
+</ul>
+<h2 id="ReplicationController-vs-ReplicaSet"><a href="#ReplicationController-vs-ReplicaSet" class="headerlink" title="ReplicationController vs. ReplicaSet"></a>ReplicationController vs. ReplicaSet</h2><ol>
+<li>Both have the same purpose, but they are not the same.<ul>
+<li>ReplicaSet is the next-generation ReplicationController that supports the new set-based label selector.</li>
+<li>The two behave similarly, except that a ReplicationController does not support set-based selector requirements as described in the labels user guide.</li>
+</ul>
+</li>
+<li><code>ReplicaSet</code> is preferred over ReplicationController.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">📌 The selector is one of the major differences between Replication Controller and ReplicaSet.</span><br><span class="line">  - The selector helps the ReplicaSet identify what pods fall under it. ReplicaSet can also manage pods that were not created as part of the ReplicaSet creation.</span><br><span class="line">  - ReplicaSet maintains the desired number of replicas across all pods that fit its criteria (match labels specified in the selector), regardless of whether they were created before (existing pods) or after the ReplicaSet itself.</span><br></pre></td></tr></table></figure>
+<img src="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/ReplicaSet_selector_label.jpg" class="">
+
+
+<h3 id="ReplicationController"><a href="#ReplicationController" class="headerlink" title="ReplicationController"></a>ReplicationController</h3><p>A ReplicationController ensures that a specified number of pod replicas are running at any one time. In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is always up and available.</p>
+<h4 id="ReplicationController-with-YAML"><a href="#ReplicationController-with-YAML" class="headerlink" title="ReplicationController with YAML"></a>ReplicationController with YAML</h4><p>Template:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key</span>]<span class="string">:</span> [<span class="string">custom_value</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    [[ <span class="string">POD</span> ]]</span><br><span class="line">  <span class="attr">replicas:</span> [<span class="string">number</span>]</span><br></pre></td></tr></table></figure>
+
+<p>rc-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-rc</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>RUN commands</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f rc-definition.yml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get replicationcontroller</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete rc myapp-rc</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/ReplicationController_commands.jpg" class="">
+
+
+<h3 id="ReplicaSet-👍"><a href="#ReplicaSet-👍" class="headerlink" title="ReplicaSet 👍"></a>ReplicaSet 👍</h3><p>A ReplicaSet’s purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often used to guarantee the availability of a specified number of identical Pods.</p>
+<p>It’s mainly used by Deployment as a mechanism to orchestrate pod creation, deletion and updates. Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.</p>
+<h4 id="ReplicaSet-with-YAML"><a href="#ReplicaSet-with-YAML" class="headerlink" title="ReplicaSet with YAML"></a>ReplicaSet with YAML</h4><p>Template:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key</span>]<span class="string">:</span> [<span class="string">custom_value</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    [[ <span class="string">POD</span> ]]</span><br><span class="line">  <span class="attr">replicas:</span> [<span class="string">number</span>]</span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      [<span class="string">pod_labels_key</span>]<span class="string">:</span> [<span class="string">pod_labels_value</span>]</span><br></pre></td></tr></table></figure>
+
+<p>replicaset-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-replicaset</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
+
+<p>RUN commands</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f replicaset-definition.yml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get replicaset</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete rs myapp-replicaset</span></span><br><span class="line">or</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete replicaset myapp-replicaset</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl edit rs myapp-replicaset</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete pod [pod_name]</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/06/01/Kubernetes/Kubernetes-ReplicationController-vs-ReplicaSet/ReplicaSet_commands.jpg" class="">
+
+<h4 id="Scale"><a href="#Scale" class="headerlink" title="Scale"></a>Scale</h4><p>📌 There are also options available for automatically scaling the ReplicaSet based on load!</p>
+<ol>
+<li><p>Method 1: Modify the number of <code>replicas</code> in <code>replicaset-definition.yml</code> and run the following command.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl replace -f replicaset-definition.yml</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Method 2: Run scale up&#x2F;down command</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl scale --replicas=6 -f replicaset-definition.yml</span></span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl scale --replicas=6 [<span class="built_in">type</span>] [name]</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl scale --replicas=6 replicaset myapp-replicaset</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/">ReplicationController</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a></li>
+<li><a href="https://hackmd.io/@CynthiaChuang/Kubernetes-for-the-Absolute-Beginners-02">【K8S Beginners 筆記】CH 4~6 PODs, YAML, ReplicaSet and Deployments</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Concepts</tag>
+        <tag>ReplicationController</tag>
+        <tag>ReplicaSet</tag>
       </tags>
   </entry>
 </search>
