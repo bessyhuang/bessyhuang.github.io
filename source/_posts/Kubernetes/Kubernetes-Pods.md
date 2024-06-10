@@ -92,6 +92,10 @@ $ kubectl get pods
   ```shell
   $ kubectl explain [pod | replicationcontroller | replicaset | deployment | service]
   ```
+- Help
+  ```shell
+  $ kubectl create deployment --help
+  ```
 
 definition.yml
 ```yaml
@@ -204,13 +208,29 @@ deployment-definition.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
 spec:
-
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
 ```
 
 
-
+---
 # References
 - [What is a Kubernetes pod?](https://www.redhat.com/en/topics/containers/what-is-kubernetes-pod)
 - [Newbie: Why are pods needed?](https://www.reddit.com/r/kubernetes/comments/u1xva3/newbie_why_are_pods_needed/)
