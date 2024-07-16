@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bessyhuang.github.io/2024/07/16/Workplace/ChatGPT-%E8%81%B7%E5%A0%B4%E9%9D%A9%E5%91%BD%EF%BC%9APM-%E4%B8%8D%E9%9C%80%E7%A8%8B%E5%BC%8F%E6%8A%80%E8%83%BD%E4%B9%9F%E8%83%BD%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C/</loc>
+    
+    <lastmod>2024-07-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://bessyhuang.github.io/2024/06/10/Kubernetes/Kubernetes-Deployment/</loc>
     
     <lastmod>2024-07-16</lastmod>
@@ -224,7 +233,7 @@
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/tags/Introduction/</loc>
+    <loc>https://bessyhuang.github.io/tags/Common-Mistakes/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -238,7 +247,7 @@
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/tags/Common-Mistakes/</loc>
+    <loc>https://bessyhuang.github.io/tags/Introduction/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -294,6 +303,20 @@
   </url>
   
   <url>
+    <loc>https://bessyhuang.github.io/tags/ReplicationController/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/ReplicaSet/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://bessyhuang.github.io/tags/Pods/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -315,21 +338,28 @@
   </url>
   
   <url>
+    <loc>https://bessyhuang.github.io/tags/ChatGPT/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/%E5%AF%A6%E9%9A%9B%E6%A1%88%E4%BE%8B/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/%E5%BF%83%E5%BE%97/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://bessyhuang.github.io/tags/Deployment/</loc>
-    <lastmod>2024-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/ReplicationController/</loc>
-    <lastmod>2024-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/ReplicaSet/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -353,6 +383,13 @@
   
   <url>
     <loc>https://bessyhuang.github.io/categories/Kubernetes/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/categories/%E8%81%B7%E5%A0%B4%E9%9A%A8%E7%AD%86/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
