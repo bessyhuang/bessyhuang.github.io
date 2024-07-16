@@ -302,6 +302,9 @@
 <p>Example</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine:latest</span><br><span class="line">ENV myworkdir /var/www/localhost/htdocs/</span><br><span class="line">ARG whoami=Bessy</span><br><span class="line">WORKDIR $&#123;myworkdir&#125;</span><br><span class="line">RUN apk --update add apache2</span><br><span class="line">RUN rm -rf /var/cache/apk/*</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 01&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 02&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 03&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">COPY ./content.txt ./</span><br><span class="line">RUN ls -l ./</span><br><span class="line">RUN cat ./content.txt &gt;&gt; index.html</span><br><span class="line">ENTRYPOINT [&quot;httpd&quot;, &quot;-D&quot;, &quot;FOREGROUND&quot;]</span><br></pre></td></tr></table></figure>
 
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
     </div>
 
     
@@ -354,6 +357,8 @@
 
 
 
+
+    <div class="comments utterances-container"></div>
 </div>
   </main>
 
@@ -453,6 +458,8 @@ if (window.darkmode && !window.darkmode.isActivated()) {
   }
 }
 </script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>

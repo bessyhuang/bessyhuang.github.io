@@ -258,45 +258,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Data Visualization - Advanced</title>
-    <url>/2023/08/12/TempNotes/Data-Visualization-Advanced/</url>
-    <content><![CDATA[<h1 id="Common-Data-Visualization-Mistakes"><a href="#Common-Data-Visualization-Mistakes" class="headerlink" title="Common Data Visualization Mistakes"></a>Common Data Visualization Mistakes</h1><h2 id="1-Misleading-color-contrast"><a href="#1-Misleading-color-contrast" class="headerlink" title="1. Misleading color contrast"></a>1. Misleading color contrast</h2><p>Although using various colors aids in interpreting data visualizations, too much color can confuse the user.<br>It’s crucial to stick to a limited number of unique colors.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU" alt="Bad Example: Misleading color contrast"></p>
-<ul>
-<li>Solution<ul>
-<li>The simplest way to determine contrast value is to compare contrast colors on greyscale to check if the color you choose displays the difference.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*M_5cpWpvfNJzVsqQ"></li>
-</ul>
-</li>
-</ul>
-<h2 id="2-Overwhelming-charts-with-too-much-data"><a href="#2-Overwhelming-charts-with-too-much-data" class="headerlink" title="2. Overwhelming charts with too much data"></a>2. Overwhelming charts with too much data</h2><p><img src="https://miro.medium.com/v2/resize:fit:1400/0*wzDTQBW8wYIev4GC" alt="Bad Example: Overwhelming charts with too much data"></p>
-<ul>
-<li>Solution<ul>
-<li>Do not put all of your insights into a chart. Multiple visualizations can help you communicate data more effectively.</li>
-<li>It is recommended that no more than 5–6 colors be used in a single visualization.</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-Omitting-baseline-and-truncating-scale"><a href="#3-Omitting-baseline-and-truncating-scale" class="headerlink" title="3. Omitting baseline and truncating scale"></a>3. Omitting baseline and truncating scale</h2><img src="/2023/08/12/TempNotes/Data-Visualization-Advanced/Omitting_baseline_and_truncating_scale.jpg" class="" title="Bad Example: Omitting baseline and truncating scale">
-
-<ul>
-<li>Solution<ul>
-<li>Concentrate on creating data visualizations with a zero-baseline y-axis.</li>
-<li>If removing the zero makes sense, add a zero-break to communicate that.<img src="/2023/08/12/TempNotes/Data-Visualization-Advanced/solution_Omitting_baseline_and_truncating_scale.jpg" class=""></li>
-</ul>
-</li>
-</ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li><a href="https://flourish.studio/blog/common-mistakes-in-data-visualization/">Four data visualization mistakes you’re probably making and how to fix them</a></li>
-<li><a href="https://www.toptal.com/designers/ux/data-visualization-mistakes">Numbers Shouldn’t Lie: An Overview of Common Data Visualization Mistakes</a></li>
-<li><a href="https://chartio.com/learn/charts/how-to-choose-data-visualization/">How to Choose the Right Data Visualization</a></li>
-<li><a href="https://careerfoundry.com/en/tutorials/data-analytics-for-beginners/introduction-to-data-visualization/">Tutorial 4: An Introduction to Data Visualization</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Data Visualization</tag>
-        <tag>Common Mistakes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Data Visualization - Basics</title>
     <url>/2023/08/03/TempNotes/Data-Visualization-Basics/</url>
     <content><![CDATA[<h1 id="What-is-data-visualization"><a href="#What-is-data-visualization" class="headerlink" title="What is data visualization?"></a>What is data visualization?</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>Data visualization (資料視覺化) is the graphical or visual representation of data.<br>It helps to highlight the most useful insights from a dataset, making it easier to spot trends, patterns, outliers, and correlations.</p>
@@ -380,6 +341,45 @@
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>]]></content>
       <tags>
         <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Data Visualization - Advanced</title>
+    <url>/2023/08/12/TempNotes/Data-Visualization-Advanced/</url>
+    <content><![CDATA[<h1 id="Common-Data-Visualization-Mistakes"><a href="#Common-Data-Visualization-Mistakes" class="headerlink" title="Common Data Visualization Mistakes"></a>Common Data Visualization Mistakes</h1><h2 id="1-Misleading-color-contrast"><a href="#1-Misleading-color-contrast" class="headerlink" title="1. Misleading color contrast"></a>1. Misleading color contrast</h2><p>Although using various colors aids in interpreting data visualizations, too much color can confuse the user.<br>It’s crucial to stick to a limited number of unique colors.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*jl2BBj1gHt3qoTXU" alt="Bad Example: Misleading color contrast"></p>
+<ul>
+<li>Solution<ul>
+<li>The simplest way to determine contrast value is to compare contrast colors on greyscale to check if the color you choose displays the difference.<br><img src="https://miro.medium.com/v2/resize:fit:1400/0*M_5cpWpvfNJzVsqQ"></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Overwhelming-charts-with-too-much-data"><a href="#2-Overwhelming-charts-with-too-much-data" class="headerlink" title="2. Overwhelming charts with too much data"></a>2. Overwhelming charts with too much data</h2><p><img src="https://miro.medium.com/v2/resize:fit:1400/0*wzDTQBW8wYIev4GC" alt="Bad Example: Overwhelming charts with too much data"></p>
+<ul>
+<li>Solution<ul>
+<li>Do not put all of your insights into a chart. Multiple visualizations can help you communicate data more effectively.</li>
+<li>It is recommended that no more than 5–6 colors be used in a single visualization.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Omitting-baseline-and-truncating-scale"><a href="#3-Omitting-baseline-and-truncating-scale" class="headerlink" title="3. Omitting baseline and truncating scale"></a>3. Omitting baseline and truncating scale</h2><img src="/2023/08/12/TempNotes/Data-Visualization-Advanced/Omitting_baseline_and_truncating_scale.jpg" class="" title="Bad Example: Omitting baseline and truncating scale">
+
+<ul>
+<li>Solution<ul>
+<li>Concentrate on creating data visualizations with a zero-baseline y-axis.</li>
+<li>If removing the zero makes sense, add a zero-break to communicate that.<img src="/2023/08/12/TempNotes/Data-Visualization-Advanced/solution_Omitting_baseline_and_truncating_scale.jpg" class=""></li>
+</ul>
+</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://flourish.studio/blog/common-mistakes-in-data-visualization/">Four data visualization mistakes you’re probably making and how to fix them</a></li>
+<li><a href="https://www.toptal.com/designers/ux/data-visualization-mistakes">Numbers Shouldn’t Lie: An Overview of Common Data Visualization Mistakes</a></li>
+<li><a href="https://chartio.com/learn/charts/how-to-choose-data-visualization/">How to Choose the Right Data Visualization</a></li>
+<li><a href="https://careerfoundry.com/en/tutorials/data-analytics-for-beginners/introduction-to-data-visualization/">Tutorial 4: An Introduction to Data Visualization</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Data Visualization</tag>
+        <tag>Common Mistakes</tag>
       </tags>
   </entry>
   <entry>
@@ -665,88 +665,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Kubernetes | Deployment</title>
-    <url>/2024/06/10/Kubernetes/Kubernetes-Deployment/</url>
-    <content><![CDATA[<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>An API object that manages a replicated application, typically by running Pods with no local state.</p>
-<p>📌 A Kubernetes Deployment is a higher-level object that provides capabilities such as <code>seamless rolling updates to underlying instances</code>, <code>the ability to undo changes</code>, and the option to <code>pause and resume changes as required</code>.<br>📌 Kubernetes Deployments are commonly used to deploy and manage multiple instances of applications in a <code>production environment</code>.</p>
-<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Kubernetes_Deployment.jpg" class="">
-
-<h1 id="Key-Reasons-for-Using-a-Deployment"><a href="#Key-Reasons-for-Using-a-Deployment" class="headerlink" title="Key Reasons for Using a Deployment"></a>Key Reasons for Using a Deployment</h1><ol>
-<li><code>Rolling Updates</code>: <ul>
-<li>This allows for seamless updates to the underlying instances (pods) without downtime by gradually replacing the old versions of pods with new ones.</li>
-<li><code>Don&#39;t upgrade all at once</code>, as it may impact users accessing your applications. Instead, upgrade one after the other, using a process called rolling updates.</li>
-</ul>
-</li>
-<li><code>Rollback</code>:<ul>
-<li>If something goes wrong during an update, a Deployment can undo changes and revert to a previous stable state.</li>
-<li>Undo the recent change. Roll back the changes that were recently carried out.</li>
-</ul>
-</li>
-<li><code>Pause and Resume</code>: <ul>
-<li>Updates can be paused and resumed, which is useful for controlling the deployment process and debugging issues.</li>
-<li>You don’t want to apply each change immediately after the command is run. Instead, you would like to apply a pause to your environment, make the changes, and then resume so that all the changes are rolled out together.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h1 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h1><p>Template:</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key</span>]<span class="string">:</span> [<span class="string">custom_value</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    [[ <span class="string">POD</span> ]]</span><br><span class="line">  <span class="attr">replicas:</span> [<span class="string">number</span>]</span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      [<span class="string">pod_labels_key</span>]<span class="string">:</span> [<span class="string">pod_labels_value</span>]</span><br></pre></td></tr></table></figure>
-
-<p>deployment-definition.yml</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
-
-<p>RUN commands</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f deployment-definition.yml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get deployments</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get replicaset</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_1.jpg" class="">
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get all</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_2.jpg" class="">
-
-
-<p>👍 Quickly create Kubernetes YAML Templates<br>In k8s version 1.19+, we can specify the –replicas option to create a deployment with 3 replicas.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=httpd:2.4-alpine httpd-frontend --replicas=3</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="kubectl-create-vs-kubectl-run"><a href="#kubectl-create-vs-kubectl-run" class="headerlink" title="kubectl create vs. kubectl run"></a>kubectl create vs. kubectl run</h2><h3 id="📝-kubectl-create"><a href="#📝-kubectl-create" class="headerlink" title="📝 kubectl create"></a>📝 kubectl create</h3><blockquote>
-<p>Create a resource from a file or from stdin.<br>JSON and YAML formats are accepted.</p>
-</blockquote>
-<p>Create a deployment</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=nginx nginx</span></span><br></pre></td></tr></table></figure>
-
-<p>Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=nginx nginx --dry-run=client -o yaml &gt; nginx-deployment.yaml</span></span><br></pre></td></tr></table></figure>
-
-<p>Make necessary changes to the file (for example, adding more replicas) and then create the deployment.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f nginx-deployment.yaml</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="📝-kubectl-run"><a href="#📝-kubectl-run" class="headerlink" title="📝 kubectl run"></a>📝 kubectl run</h3><blockquote>
-<p>Create and run a particular image in a <code>pod</code>.</p>
-</blockquote>
-<p>Create an NGINX Pod</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run nginx --image=nginx</span></span><br></pre></td></tr></table></figure>
-
-<p>Generate POD Manifest YAML file (-o yaml). Don’t create it (–dry-run) and save it to a file.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run redis --image=redis --dry-run=client -o yaml &gt; redis_template.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f redis_template.yaml</span></span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployment</a></li>
-<li><a href="https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/">kubectl create</a></li>
-<li><a href="https://kubernetes.io/docs/reference/kubectl/generated/kubectl_run/">kubectl run</a></li>
-<li><a href="https://kubernetes.io/docs/reference/kubectl/conventions/">kubectl Usage Conventions</a> 👍</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>觀念解說</tag>
-        <tag>Concepts</tag>
-        <tag>Deployment</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Kubernetes | Pods</title>
     <url>/2024/05/14/Kubernetes/Kubernetes-Pods/</url>
     <content><![CDATA[<h1 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h1><p>📌 Kubernetes doesn’t deploy containers directly on the worker node. The containers are encapsulated into “pods”.<br>📌 A pod is a single instance of an application. A pod is the smallest object that you can create in Kubernetes.</p>
@@ -853,6 +771,88 @@
         <tag>Pods</tag>
         <tag>Kubectl</tag>
         <tag>YAML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes | Deployment</title>
+    <url>/2024/06/10/Kubernetes/Kubernetes-Deployment/</url>
+    <content><![CDATA[<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>An API object that manages a replicated application, typically by running Pods with no local state.</p>
+<p>📌 A Kubernetes Deployment is a higher-level object that provides capabilities such as <code>seamless rolling updates to underlying instances</code>, <code>the ability to undo changes</code>, and the option to <code>pause and resume changes as required</code>.<br>📌 Kubernetes Deployments are commonly used to deploy and manage multiple instances of applications in a <code>production environment</code>.</p>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Kubernetes_Deployment.jpg" class="">
+
+<h1 id="Key-Reasons-for-Using-a-Deployment"><a href="#Key-Reasons-for-Using-a-Deployment" class="headerlink" title="Key Reasons for Using a Deployment"></a>Key Reasons for Using a Deployment</h1><ol>
+<li><code>Rolling Updates</code>: <ul>
+<li>This allows for seamless updates to the underlying instances (pods) without downtime by gradually replacing the old versions of pods with new ones.</li>
+<li><code>Don&#39;t upgrade all at once</code>, as it may impact users accessing your applications. Instead, upgrade one after the other, using a process called rolling updates.</li>
+</ul>
+</li>
+<li><code>Rollback</code>:<ul>
+<li>If something goes wrong during an update, a Deployment can undo changes and revert to a previous stable state.</li>
+<li>Undo the recent change. Roll back the changes that were recently carried out.</li>
+</ul>
+</li>
+<li><code>Pause and Resume</code>: <ul>
+<li>Updates can be paused and resumed, which is useful for controlling the deployment process and debugging issues.</li>
+<li>You don’t want to apply each change immediately after the command is run. Instead, you would like to apply a pause to your environment, make the changes, and then resume so that all the changes are rolled out together.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="Deployment-with-YAML"><a href="#Deployment-with-YAML" class="headerlink" title="Deployment with YAML"></a>Deployment with YAML</h1><p>Template:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> [<span class="string">custom_name</span>]</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    [<span class="string">custom_key</span>]<span class="string">:</span> [<span class="string">custom_value</span>]</span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    [[ <span class="string">POD</span> ]]</span><br><span class="line">  <span class="attr">replicas:</span> [<span class="string">number</span>]</span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      [<span class="string">pod_labels_key</span>]<span class="string">:</span> [<span class="string">pod_labels_value</span>]</span><br></pre></td></tr></table></figure>
+
+<p>deployment-definition.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">front-end</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">front-end</span></span><br></pre></td></tr></table></figure>
+
+<p>RUN commands</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f deployment-definition.yml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get deployments</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get replicaset</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_1.jpg" class="">
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get all</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/06/10/Kubernetes/Kubernetes-Deployment/Deployment_commands_2.jpg" class="">
+
+
+<p>👍 Quickly create Kubernetes YAML Templates<br>In k8s version 1.19+, we can specify the –replicas option to create a deployment with 3 replicas.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=httpd:2.4-alpine httpd-frontend --replicas=3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="kubectl-create-vs-kubectl-run"><a href="#kubectl-create-vs-kubectl-run" class="headerlink" title="kubectl create vs. kubectl run"></a>kubectl create vs. kubectl run</h2><h3 id="📝-kubectl-create"><a href="#📝-kubectl-create" class="headerlink" title="📝 kubectl create"></a>📝 kubectl create</h3><blockquote>
+<p>Create a resource from a file or from stdin.<br>JSON and YAML formats are accepted.</p>
+</blockquote>
+<p>Create a deployment</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=nginx nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create deployment --image=nginx nginx --dry-run=client -o yaml &gt; nginx-deployment.yaml</span></span><br></pre></td></tr></table></figure>
+
+<p>Make necessary changes to the file (for example, adding more replicas) and then create the deployment.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f nginx-deployment.yaml</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="📝-kubectl-run"><a href="#📝-kubectl-run" class="headerlink" title="📝 kubectl run"></a>📝 kubectl run</h3><blockquote>
+<p>Create and run a particular image in a <code>pod</code>.</p>
+</blockquote>
+<p>Create an NGINX Pod</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run nginx --image=nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>Generate POD Manifest YAML file (-o yaml). Don’t create it (–dry-run) and save it to a file.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run redis --image=redis --dry-run=client -o yaml &gt; redis_template.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f redis_template.yaml</span></span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployment</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/">kubectl create</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/generated/kubectl_run/">kubectl run</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/conventions/">kubectl Usage Conventions</a> 👍</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Concepts</tag>
+        <tag>Deployment</tag>
       </tags>
   </entry>
   <entry>
