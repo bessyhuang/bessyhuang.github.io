@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="檢查 Kubernetes API Server 憑證細節與 ETCD 日誌的實務操作筆記，適用於 K8s 運維與安全排查">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="K8s Security | 憑證檢查與 ETCD 日誌診斷實務">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/07/K8s-Advanced/K8s-Security-%E6%86%91%E8%AD%89%E6%AA%A2%E6%9F%A5%E8%88%87ETCD%E6%97%A5%E8%AA%8C%E8%A8%BA%E6%96%B7%E5%AF%A6%E5%8B%99/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="檢查 Kubernetes API Server 憑證細節與 ETCD 日誌的實務操作筆記，適用於 K8s 運維與安全排查">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-06T23:54:22.000Z">
+<meta property="article:modified_time" content="2025-07-07T00:49:32.896Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="Certificate">
+<meta property="article:tag" content="openssl">
+<meta property="article:tag" content="logs">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/07/K8s-Advanced/K8s-Security-%E6%86%91%E8%AD%89%E6%AA%A2%E6%9F%A5%E8%88%87ETCD%E6%97%A5%E8%AA%8C%E8%A8%BA%E6%96%B7%E5%AF%A6%E5%8B%99/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/07/K8s-Advanced/K8s-Security-%E6%86%91%E8%AD%89%E6%AA%A2%E6%9F%A5%E8%88%87ETCD%E6%97%A5%E8%AA%8C%E8%A8%BA%E6%96%B7%E5%AF%A6%E5%8B%99/","path":"2025/07/07/K8s-Advanced/K8s-Security-憑證檢查與ETCD日誌診斷實務/","title":"K8s Security | 憑證檢查與 ETCD 日誌診斷實務"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>K8s Security | 憑證檢查與 ETCD 日誌診斷實務 | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">35</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">20</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#View-Certificate-Details"><span class="nav-number">1.</span> <span class="nav-text">View Certificate Details</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%A2%E8%A6%96-K8s-API-Server-%E6%86%91%E8%AD%89%E8%A9%B3%E7%B4%B0%E8%B3%87%E8%A8%8A"><span class="nav-number">1.1.</span> <span class="nav-text">檢視 K8s API Server 憑證詳細資訊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E8%A7%A3%E6%9E%90%E6%AC%84%E4%BD%8D%EF%BC%88%E5%BE%9E-openssl-%E8%BC%B8%E5%87%BA%E4%B8%AD%E6%8F%90%E5%8F%96%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">範例解析欄位（從 openssl 輸出中提取）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inspect-Service-Logs"><span class="nav-number">2.</span> <span class="nav-text">Inspect Service Logs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-etcd-%E6%9C%8D%E5%8B%99%E7%8B%80%E6%85%8B%E8%88%87%E6%97%A5%E8%AA%8C"><span class="nav-number">2.1.</span> <span class="nav-text">查看 etcd 服務狀態與日誌</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#View-etcd-Logs%EF%BC%88%E4%BE%9D%E9%83%A8%E7%BD%B2%E6%96%B9%E5%BC%8F%E8%80%8C%E5%AE%9A%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">View etcd Logs（依部署方式而定）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8B%A5-etcd-%E7%82%BA-Kubernetes-static-Pod%EF%BC%88%E9%A0%90%E8%A8%AD%E6%83%85%E6%B3%81%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">若 etcd 為 Kubernetes static Pod（預設情況）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8B%A5-etcd-%E6%98%AF%E4%BB%A5-Docker-container-%E9%81%8B%E8%A1%8C"><span class="nav-number">3.2.</span> <span class="nav-text">若 etcd 是以 Docker container 運行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%AF%A6%E7%94%A8%E6%AA%A2%E6%9F%A5%E6%8C%87%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">其他實用檢查指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5-kube-apiserver-%E7%9A%84%E8%AD%89%E6%9B%B8%E8%88%87%E5%AF%86%E9%91%B0%E6%98%AF%E5%90%A6%E9%85%8D%E5%B0%8D"><span class="nav-number">4.1.</span> <span class="nav-text">檢查 kube-apiserver 的證書與密鑰是否配對</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%97%E8%AD%89-etcd-%E9%80%9A%E8%A8%8A%E5%8A%A0%E5%AF%86%EF%BC%88%E5%A6%82%E4%BD%BF%E7%94%A8%E8%87%AA%E7%B0%BD%E6%86%91%E8%AD%89%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">驗證 etcd 通訊加密（如使用自簽憑證）</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/07/K8s-Advanced/K8s-Security-%E6%86%91%E8%AD%89%E6%AA%A2%E6%9F%A5%E8%88%87ETCD%E6%97%A5%E8%AA%8C%E8%A8%BA%E6%96%B7%E5%AF%A6%E5%8B%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="K8s Security | 憑證檢查與 ETCD 日誌診斷實務 | Bessy's Tech Blog">
+      <meta itemprop="description" content="檢查 Kubernetes API Server 憑證細節與 ETCD 日誌的實務操作筆記，適用於 K8s 運維與安全排查">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          K8s Security | 憑證檢查與 ETCD 日誌診斷實務
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-07-07 09:54:22 / Modified: 10:49:32" itemprop="dateCreated datePublished" datetime="2025-07-07T09:54:22+10:00">2025-07-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">檢查 Kubernetes API Server 憑證細節與 ETCD 日誌的實務操作筆記，適用於 K8s 運維與安全排查</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="View-Certificate-Details"><a href="#View-Certificate-Details" class="headerlink" title="View Certificate Details"></a>View Certificate Details</h1><h2 id="檢視-K8s-API-Server-憑證詳細資訊"><a href="#檢視-K8s-API-Server-憑證詳細資訊" class="headerlink" title="檢視 K8s API Server 憑證詳細資訊"></a>檢視 K8s API Server 憑證詳細資訊</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看憑證內容</span></span><br><span class="line">openssl x509 -<span class="keyword">in</span> /etc/kubernetes/pki/apiserver.crt -text -noout</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Certificate Path</strong></td>
+<td><code>/etc/kubernetes/pki/apiserver.crt</code> 檔案位置</td>
+</tr>
+<tr>
+<td><strong>CN Name</strong></td>
+<td><code>Subject: CN=</code>，常見為 <code>kube-apiserver</code> 或主機名稱</td>
+</tr>
+<tr>
+<td><strong>ALT Names</strong></td>
+<td><code>X509v3 Subject Alternative Name</code>，列出支援的 DNS&#x2F;IP</td>
+</tr>
+<tr>
+<td><strong>Organization</strong></td>
+<td><code>Subject: O=</code>，通常是 <code>system:masters</code></td>
+</tr>
+<tr>
+<td><strong>Issuer</strong></td>
+<td>憑證簽發者，來自 CA 的 CN</td>
+</tr>
+<tr>
+<td><strong>Expiration</strong></td>
+<td><code>Not After</code> 欄位表示的憑證過期時間</td>
+</tr>
+</tbody></table>
+<h2 id="範例解析欄位（從-openssl-輸出中提取）"><a href="#範例解析欄位（從-openssl-輸出中提取）" class="headerlink" title="範例解析欄位（從 openssl 輸出中提取）"></a>範例解析欄位（從 openssl 輸出中提取）</h2><ol>
+<li><p>Subject:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Subject: O=system:masters, CN=kube-apiserver</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Subject Alternative Name:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X509v3 Subject Alternative Name:</span><br><span class="line">    DNS:kubernetes, DNS:kubernetes.default, IP Address:10.96.0.1, ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Validity - Not After:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Not After : Jul  5 10:33:24 2025 GMT</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Issuer:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Issuer: CN=kubernetes-ca</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="Inspect-Service-Logs"><a href="#Inspect-Service-Logs" class="headerlink" title="Inspect Service Logs"></a>Inspect Service Logs</h1><h2 id="查看-etcd-服務狀態與日誌"><a href="#查看-etcd-服務狀態與日誌" class="headerlink" title="查看 etcd 服務狀態與日誌"></a>查看 etcd 服務狀態與日誌</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 journalctl 查看 systemd 啟動日誌</span></span><br><span class="line">journalctl -u etcd.service -l</span><br><span class="line">journalctl -u etcd.service -l --no-pager</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>--no-pager</code>：可避免分頁輸出。<br><code>-l</code>（long&#x2F;full）：顯示不被截斷的完整日誌內容。</p>
+</blockquote>
+<hr>
+<h1 id="View-etcd-Logs（依部署方式而定）"><a href="#View-etcd-Logs（依部署方式而定）" class="headerlink" title="View etcd Logs（依部署方式而定）"></a>View etcd Logs（依部署方式而定）</h1><h2 id="若-etcd-為-Kubernetes-static-Pod（預設情況）"><a href="#若-etcd-為-Kubernetes-static-Pod（預設情況）" class="headerlink" title="若 etcd 為 Kubernetes static Pod（預設情況）"></a>若 etcd 為 Kubernetes static Pod（預設情況）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 靜態 Pod 名稱通常為 etcd-[node-name]，可用以下指令查詢</span></span><br><span class="line">kubectl get pods -n kube-system -o wide</span><br><span class="line">kubectl logs etcd-[node-name] -n kube-system</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <code>kubectl get pods -n kube-system</code> 確認實際 Pod 名稱</p>
+</blockquote>
+<h2 id="若-etcd-是以-Docker-container-運行"><a href="#若-etcd-是以-Docker-container-運行" class="headerlink" title="若 etcd 是以 Docker container 運行"></a>若 etcd 是以 Docker container 運行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a  <span class="comment"># 找出 etcd container ID 或名稱</span></span><br><span class="line">docker logs [container_id or container_name]</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="其他實用檢查指令"><a href="#其他實用檢查指令" class="headerlink" title="其他實用檢查指令"></a>其他實用檢查指令</h1><h2 id="檢查-kube-apiserver-的證書與密鑰是否配對"><a href="#檢查-kube-apiserver-的證書與密鑰是否配對" class="headerlink" title="檢查 kube-apiserver 的證書與密鑰是否配對"></a>檢查 kube-apiserver 的證書與密鑰是否配對</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -noout -modulus -<span class="keyword">in</span> /etc/kubernetes/pki/apiserver.crt | openssl md5</span><br><span class="line">openssl rsa -noout -modulus -<span class="keyword">in</span> /etc/kubernetes/pki/apiserver.key | openssl md5</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>兩者輸出應一致，否則代表證書與密鑰不配對。</p>
+</blockquote>
+<h2 id="驗證-etcd-通訊加密（如使用自簽憑證）"><a href="#驗證-etcd-通訊加密（如使用自簽憑證）" class="headerlink" title="驗證 etcd 通訊加密（如使用自簽憑證）"></a>驗證 etcd 通訊加密（如使用自簽憑證）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openssl s_client -connect 127.0.0.1:2379 \</span><br><span class="line">  -cert /etc/kubernetes/pki/etcd/server.crt \</span><br><span class="line">  -key /etc/kubernetes/pki/etcd/server.key \</span><br><span class="line">  -CAfile /etc/kubernetes/pki/etcd/ca.crt</span><br></pre></td></tr></table></figure>
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/07/K8s-Advanced/K8s-Security-%E6%86%91%E8%AD%89%E6%AA%A2%E6%9F%A5%E8%88%87ETCD%E6%97%A5%E8%AA%8C%E8%A8%BA%E6%96%B7%E5%AF%A6%E5%8B%99/" title="K8s Security | 憑證檢查與 ETCD 日誌診斷實務">https://bessyhuang.github.io/2025/07/07/K8s-Advanced/K8s-Security-憑證檢查與ETCD日誌診斷實務/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Certificate/" rel="tag"># Certificate</a>
+              <a href="/tags/openssl/" rel="tag"># openssl</a>
+              <a href="/tags/logs/" rel="tag"># logs</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/06/21/K8s-Advanced/K8s-Security-1/" rel="prev" title="K8s | Security - 1">
+                  <i class="fa fa-angle-left"></i> K8s | Security - 1
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
