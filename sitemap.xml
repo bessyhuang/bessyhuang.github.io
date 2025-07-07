@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bessyhuang.github.io/2025/07/07/K8s-Advanced/K8s-Security-CA/</loc>
+    
+    <lastmod>2025-07-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://bessyhuang.github.io/2025/07/07/K8s-Advanced/K8s-Security-%E6%86%91%E8%AD%89%E6%AA%A2%E6%9F%A5%E8%88%87ETCD%E6%97%A5%E8%AA%8C%E8%A8%BA%E6%96%B7%E5%AF%A6%E5%8B%99/</loc>
     
     <lastmod>2025-07-07</lastmod>
@@ -225,97 +234,6 @@
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/tags/Docker/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/%E8%A7%80%E5%BF%B5%E8%A7%A3%E8%AA%AA/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/Concepts/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/Architecture/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/Deployment/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/Pods/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/Kubectl/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/YAML/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/ReplicationController/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/ReplicaSet/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/ChatGPT/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/%E5%AF%A6%E9%9A%9B%E6%A1%88%E4%BE%8B/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/%E5%BF%83%E5%BE%97/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://bessyhuang.github.io/tags/S3/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -338,13 +256,6 @@
   
   <url>
     <loc>https://bessyhuang.github.io/tags/Common-Mistakes/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://bessyhuang.github.io/tags/Introduction/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -393,6 +304,13 @@
   </url>
   
   <url>
+    <loc>https://bessyhuang.github.io/tags/Introduction/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://bessyhuang.github.io/tags/OS-Upgrades/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -408,6 +326,27 @@
   
   <url>
     <loc>https://bessyhuang.github.io/tags/Restore/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/Certificate/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/openssl/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/logs/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -442,21 +381,112 @@
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/tags/Certificate/</loc>
+    <loc>https://bessyhuang.github.io/tags/Concepts/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/tags/openssl/</loc>
+    <loc>https://bessyhuang.github.io/tags/%E8%A7%80%E5%BF%B5%E8%A7%A3%E8%AA%AA/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/tags/logs/</loc>
+    <loc>https://bessyhuang.github.io/tags/Architecture/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/CA/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/CSR/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/kube-controller-manager/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/Pods/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/Kubectl/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/YAML/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/Deployment/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/ReplicationController/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/ReplicaSet/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/Docker/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/ChatGPT/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/%E5%AF%A6%E9%9A%9B%E6%A1%88%E4%BE%8B/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bessyhuang.github.io/tags/%E5%BF%83%E5%BE%97/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -465,7 +495,7 @@
 
   
   <url>
-    <loc>https://bessyhuang.github.io/categories/Docker/</loc>
+    <loc>https://bessyhuang.github.io/categories/Pub-Sub-Messaging/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -479,14 +509,14 @@
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/categories/%E8%81%B7%E5%A0%B4%E9%9A%A8%E7%AD%86/</loc>
+    <loc>https://bessyhuang.github.io/categories/Docker/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://bessyhuang.github.io/categories/Pub-Sub-Messaging/</loc>
+    <loc>https://bessyhuang.github.io/categories/%E8%81%B7%E5%A0%B4%E9%9A%A8%E7%AD%86/</loc>
     <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
