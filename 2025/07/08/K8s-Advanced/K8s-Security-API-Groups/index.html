@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="K8s API Groups 與路徑架構解析，理解核心與進階資源的分離">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="K8s Security | API Groups">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="K8s API Groups 與路徑架構解析，理解核心與進階資源的分離">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/core_group.jpg">
+<meta property="og:image" content="https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/named_group.jpg">
+<meta property="article:published_time" content="2025-07-08T00:52:42.000Z">
+<meta property="article:modified_time" content="2025-07-08T01:57:01.568Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="apiserver">
+<meta property="article:tag" content="api-groups">
+<meta property="article:tag" content="kubectl">
+<meta property="article:tag" content="curl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/core_group.jpg">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/","path":"2025/07/08/K8s-Advanced/K8s-Security-API-Groups/","title":"K8s Security | API Groups"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>K8s Security | API Groups | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">23</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes-API-Groups-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">Kubernetes API Groups 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API-%E5%88%86%E7%B5%84%E8%A9%B3%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">API 分組詳解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#api%EF%BC%9ACore-Group%EF%BC%88%E6%A0%B8%E5%BF%83%E8%B3%87%E6%BA%90%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">&#x2F;api：Core Group（核心資源）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apis%EF%BC%9ANamed-Groups%EF%BC%88%E5%91%BD%E5%90%8D%E8%B3%87%E6%BA%90%E7%B5%84%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">&#x2F;apis：Named Groups（命名資源組）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API-Server-%E6%B8%AC%E8%A9%A6%E7%AF%84%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">API Server 測試範例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-curl-%E7%9B%B4%E6%8E%A5%E9%80%A3%E7%B7%9A-API-Server"><span class="nav-number">3.1.</span> <span class="nav-text">使用 curl 直接連線 API Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%A8%8A%E8%B7%AF%E5%BE%91%E6%95%B4%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">通訊路徑整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-User-%E2%86%92-Kube-API-Server%EF%BC%88%E7%9B%B4%E6%8E%A5%EF%BC%89"><span class="nav-number">3.2.1.</span> <span class="nav-text">1. User → Kube API Server（直接）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-User-%E2%86%92-kubectl-proxy-%E2%86%92-Kube-API-Server"><span class="nav-number">3.2.2.</span> <span class="nav-text">2. User → kubectl proxy → Kube API Server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">3.3.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kubectl-explain"><span class="nav-number">3.3.1.</span> <span class="nav-text">kubectl explain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kubectl-api-resources"><span class="nav-number">3.3.2.</span> <span class="nav-text">kubectl api-resources</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E%E6%8A%80%E5%B7%A7%EF%BC%9A%E6%9F%A5%E8%A9%A2%E7%89%B9%E5%AE%9A%E8%B3%87%E6%BA%90%E7%9A%84-REST-API-URL"><span class="nav-number">3.3.3.</span> <span class="nav-text">進階技巧：查詢特定資源的 REST API URL</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">4.</span> <span class="nav-text">小結</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="K8s Security | API Groups | Bessy's Tech Blog">
+      <meta itemprop="description" content="K8s API Groups 與路徑架構解析，理解核心與進階資源的分離">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          K8s Security | API Groups
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-07-08 10:52:42 / Modified: 11:57:01" itemprop="dateCreated datePublished" datetime="2025-07-08T10:52:42+10:00">2025-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">K8s API Groups 與路徑架構解析，理解核心與進階資源的分離</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Kubernetes-API-Groups-概述"><a href="#Kubernetes-API-Groups-概述" class="headerlink" title="Kubernetes API Groups 概述"></a>Kubernetes API Groups 概述</h1><p>Kubernetes API Server 對外提供的 REST API，會依據不同資源類型，劃分為不同的 API Group。</p>
+<p>常見的 API 路徑如下：</p>
+<table>
+<thead>
+<tr>
+<th>路徑</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/version</code></td>
+<td>顯示 API Server 的版本資訊</td>
+</tr>
+<tr>
+<td><code>/healthz</code></td>
+<td>健康檢查端點</td>
+</tr>
+<tr>
+<td><code>/metrics</code></td>
+<td>叢集監控指標，Prometheus 等可存取此路徑</td>
+</tr>
+<tr>
+<td><code>/api</code></td>
+<td>代表 <strong>Core Group (無名稱)</strong> 的資源</td>
+</tr>
+<tr>
+<td><code>/apis</code></td>
+<td>代表 <strong>Named Groups</strong>，用於延伸資源</td>
+</tr>
+</tbody></table>
+<h1 id="API-分組詳解"><a href="#API-分組詳解" class="headerlink" title="API 分組詳解"></a>API 分組詳解</h1><h2 id="api：Core-Group（核心資源）"><a href="#api：Core-Group（核心資源）" class="headerlink" title="/api：Core Group（核心資源）"></a><code>/api</code>：Core Group（核心資源）</h2><p>屬於 Kubernetes 內建的核心資源，API Group 為空（””）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/api/v1/namespaces</span><br><span class="line">/api/v1/pods</span><br><span class="line">/api/v1/services</span><br><span class="line">/api/v1/nodes</span><br><span class="line">/api/v1/configmaps</span><br><span class="line">/api/v1/secrets</span><br><span class="line">/api/v1/persistentvolumes (PV)</span><br><span class="line">/api/v1/persistentvolumeclaims (PVC)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<img src="/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/core_group.jpg" class="">
+
+<h2 id="apis：Named-Groups（命名資源組）"><a href="#apis：Named-Groups（命名資源組）" class="headerlink" title="/apis：Named Groups（命名資源組）"></a><code>/apis</code>：Named Groups（命名資源組）</h2><p>Kubernetes 為了支援 <code>擴充性與版本管理</code>，將某些資源拆分為獨立的 Group，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/apis/apps/v1/deployments</span><br><span class="line">/apis/batch/v1/jobs</span><br><span class="line">/apis/extensions/v1beta1/ingresses</span><br><span class="line">/apis/rbac.authorization.k8s.io/v1/roles</span><br><span class="line">/apis/networking.k8s.io/v1/networkpolicies</span><br></pre></td></tr></table></figure>
+
+<p>你可以透過下列指令列出所有可用的 API Groups：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://kube-master:6443/apis \</span><br><span class="line">  --key admin.key \</span><br><span class="line">  --cert admin.crt \</span><br><span class="line">  --cacert ca.crt | grep <span class="string">&quot;name&quot;</span></span><br></pre></td></tr></table></figure>
+<img src="/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/named_group.jpg" class="">
+
+<hr>
+<h1 id="API-Server-測試範例"><a href="#API-Server-測試範例" class="headerlink" title="API Server 測試範例"></a>API Server 測試範例</h1><h2 id="使用-curl-直接連線-API-Server"><a href="#使用-curl-直接連線-API-Server" class="headerlink" title="使用 curl 直接連線 API Server"></a>使用 curl 直接連線 API Server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl https://kube-master:6443/version \</span><br><span class="line">  --key admin.key \</span><br><span class="line">  --cert admin.crt \</span><br><span class="line">  --cacert ca.crt</span><br><span class="line"></span><br><span class="line">curl https://kube-master:6443/api/v1/pods \</span><br><span class="line">  --key admin.key \</span><br><span class="line">  --cert admin.crt \</span><br><span class="line">  --cacert ca.crt</span><br></pre></td></tr></table></figure>
+
+<h2 id="通訊路徑整理"><a href="#通訊路徑整理" class="headerlink" title="通訊路徑整理"></a>通訊路徑整理</h2><h3 id="1-User-→-Kube-API-Server（直接）"><a href="#1-User-→-Kube-API-Server（直接）" class="headerlink" title="1. User → Kube API Server（直接）"></a>1. User → Kube API Server（直接）</h3><p>適合 debug 或憑證驗證測試：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl https://localhost:6443 \</span><br><span class="line">  --key admin.key \</span><br><span class="line">  --cert admin.crt \</span><br><span class="line">  --cacert ca.crt</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-User-→-kubectl-proxy-→-Kube-API-Server"><a href="#2-User-→-kubectl-proxy-→-Kube-API-Server" class="headerlink" title="2. User → kubectl proxy → Kube API Server"></a>2. User → <code>kubectl proxy</code> → Kube API Server</h3><p>若不方便操作憑證，可使用 kubectl proxy 轉發連線（本機起 proxy，無需 TLS 驗證）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl proxy</span><br><span class="line"><span class="comment"># Starting to serve on 127.0.0.1:8001</span></span><br><span class="line"></span><br><span class="line">curl http://localhost:8001/api/v1/pods</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>kubectl proxy</code> 適合開發者快速測試 K8s API，無需手動處理 TLS 憑證，不適合暴露在 production 環境。</p>
+</blockquote>
+<div class="note info"><p><strong>Kube Proxy ≠ Kubectl Proxy</strong></p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>kubectl proxy</code></td>
+<td>CLI 工具，將本地 8001 port 對應到 K8s API Server，無需 TLS 驗證</td>
+</tr>
+<tr>
+<td><code>kube-proxy</code></td>
+<td>Kubernetes 元件之一，負責轉送 Service 網路流量到後端 Pod</td>
+</tr>
+</tbody></table>
+</div>
+
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><h3 id="kubectl-explain"><a href="#kubectl-explain" class="headerlink" title="kubectl explain"></a>kubectl explain</h3><p>查詢資源對應的 API Group（開發與 RBAC 常用）</p>
+<blockquote>
+<p>快速查詢某資源對應的 API Group 與版本。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl explain deployment</span><br><span class="line"><span class="comment"># NAME:         deployment.apps</span></span><br><span class="line"><span class="comment"># API Version:  apps/v1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查詢子欄位</span></span><br><span class="line">kubectl explain deployment.spec.template.spec.containers</span><br></pre></td></tr></table></figure>
+
+<h3 id="kubectl-api-resources"><a href="#kubectl-api-resources" class="headerlink" title="kubectl api-resources"></a>kubectl api-resources</h3><p>查看所有可用資源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 顯示當前 kube-apiserver 所支援的資源清單及其對應 API Group。</span></span><br><span class="line">kubectl api-resources</span><br></pre></td></tr></table></figure>
+<h3 id="進階技巧：查詢特定資源的-REST-API-URL"><a href="#進階技巧：查詢特定資源的-REST-API-URL" class="headerlink" title="進階技巧：查詢特定資源的 REST API URL"></a>進階技巧：查詢特定資源的 REST API URL</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get --raw /apis/apps/v1/deployments</span><br></pre></td></tr></table></figure>
+<p>或列出所有 core 資源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get --raw /api/v1</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>幫助使用者理解 kubectl 背後實際呼叫的 API 是哪一條路徑。</p>
+</blockquote>
+<hr>
+<h1 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h1><ul>
+<li>Kubernetes API 分為兩大類型：<ul>
+<li><strong>Core Group</strong>：路徑為 <code>/api</code>，如 pods、services、nodes</li>
+<li><strong>Named Groups</strong>：路徑為 <code>/apis</code>，如 deployments、roles、jobs 等</li>
+</ul>
+</li>
+<li>API Server 介面可透過 <code>curl</code> 進行憑證驗證測試，也可透過 <code>kubectl proxy</code> 進行開發端本機 proxy 測試<ul>
+<li>使用 <code>curl</code> + TLS 憑證測試 API Server 安全連線</li>
+<li>使用 <code>kubectl proxy</code> 在本地啟動 HTTP 代理，可省略 TLS 憑證，適合開發階段</li>
+</ul>
+</li>
+<li>開發與權限設定常用工具：<ul>
+<li><code>kubectl explain &lt;資源&gt;</code>：查詢資源所屬的 API Group 與 version</li>
+<li><code>kubectl api-resources</code>：查看所有可用的資源與所屬 Group</li>
+<li><code>kubectl get --raw</code>：可查詢原始 API 路徑資料</li>
+</ul>
+</li>
+<li>自訂資源（CRD）也會掛載於 <code>/apis</code>，屬於 Named Group</li>
+<li>注意區分 <code>kubectl proxy</code> (本地 HTTP proxy) 與 <code>kube-proxy</code> (cluster service 網路元件)</li>
+</ul>
+<p>📌 下一步建議學習：<br>RBAC 權限控制中 <code>apiGroups</code>, <code>resources</code>, <code>verbs</code> 如何對應這些 API 分組</p>
+
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/" title="K8s Security | API Groups">https://bessyhuang.github.io/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/apiserver/" rel="tag"># apiserver</a>
+              <a href="/tags/api-groups/" rel="tag"># api-groups</a>
+              <a href="/tags/kubectl/" rel="tag"># kubectl</a>
+              <a href="/tags/curl/" rel="tag"># curl</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/08/K8s-Advanced/K8s-Security-KubeConfig/" rel="prev" title="K8s Security | KubeConfig">
+                  <i class="fa fa-angle-left"></i> K8s Security | KubeConfig
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
