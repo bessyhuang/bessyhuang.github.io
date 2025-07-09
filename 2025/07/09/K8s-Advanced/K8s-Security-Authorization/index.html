@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="K8s 授權機制完整教學，包含 Node Authorizer、ABAC、RBAC、Webhook，搭配 YAML 實作與實務場景說明。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="K8s Security | Authorization">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="K8s 授權機制完整教學，包含 Node Authorizer、ABAC、RBAC、Webhook，搭配 YAML 實作與實務場景說明。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_1.jpg">
+<meta property="og:image" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_2.jpg">
+<meta property="article:published_time" content="2025-07-08T22:43:52.000Z">
+<meta property="article:modified_time" content="2025-07-09T01:13:31.017Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="Authorization">
+<meta property="article:tag" content="ABAC">
+<meta property="article:tag" content="RBAC">
+<meta property="article:tag" content="Webhook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_1.jpg">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/","path":"2025/07/09/K8s-Advanced/K8s-Security-Authorization/","title":"K8s Security | Authorization"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>K8s Security | Authorization | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">49</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">24</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Why-Authorization"><span class="nav-number">1.</span> <span class="nav-text">Why Authorization?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Authorization-Mechanisms"><span class="nav-number">1.1.</span> <span class="nav-text">Authorization Mechanisms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-Authorizer"><span class="nav-number">1.1.1.</span> <span class="nav-text">Node Authorizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ABAC"><span class="nav-number">1.1.2.</span> <span class="nav-text">ABAC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ABAC-%E5%AF%A6%E4%BE%8B%E8%AA%AA%E6%98%8E"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">ABAC 實例說明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RBAC%EF%BC%88Role-Based-Access-Control%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">RBAC（Role-Based Access Control）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AC%8A%E9%99%90%E7%AF%84%E4%BE%8B%E8%A7%92%E8%89%B2%E8%A8%AD%E8%A8%88"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">權限範例角色設計</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webhook-OPA"><span class="nav-number">1.1.4.</span> <span class="nav-text">Webhook (OPA)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%88%E6%AC%8A%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">授權流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authorization-Mode%EF%BC%88%E6%8E%88%E6%AC%8A%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">Authorization Mode（授權模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API-Server-%E5%95%9F%E5%8B%95%E5%8F%83%E6%95%B8%E7%AF%84%E4%BE%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">API Server 啟動參數範例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RBAC"><span class="nav-number">2.</span> <span class="nav-text">RBAC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#API-Group-%E8%88%87-RBAC-%E5%B0%8D%E6%87%89%E9%97%9C%E4%BF%82"><span class="nav-number">2.1.</span> <span class="nav-text">API Group 與 RBAC 對應關係</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Role-%E5%AE%9A%E7%BE%A9%E7%AF%84%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">Role 定義範例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RoleBinding-%E7%B6%81%E5%AE%9A%E4%BD%BF%E7%94%A8%E8%80%85"><span class="nav-number">2.3.</span> <span class="nav-text">RoleBinding 綁定使用者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E6%93%8D%E4%BD%9C"><span class="nav-number">2.4.</span> <span class="nav-text">指令操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-Role"><span class="nav-number">2.4.1.</span> <span class="nav-text">Create Role</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#developer-role-yaml"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">developer-role.yaml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kubectl-Command"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">Kubectl Command</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binding-role-and-users"><span class="nav-number">2.4.2.</span> <span class="nav-text">Binding role and users</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#developer-role-yaml-1"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">developer-role.yaml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#devuser-developer-binding-yaml"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">devuser-developer-binding.yaml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kubectl-Command-1"><span class="nav-number">2.4.2.3.</span> <span class="nav-text">Kubectl Command</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#View-RBAC"><span class="nav-number">3.1.</span> <span class="nav-text">View RBAC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-Access"><span class="nav-number">3.2.</span> <span class="nav-text">Check Access</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">4.</span> <span class="nav-text">小結</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="K8s Security | Authorization | Bessy's Tech Blog">
+      <meta itemprop="description" content="K8s 授權機制完整教學，包含 Node Authorizer、ABAC、RBAC、Webhook，搭配 YAML 實作與實務場景說明。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          K8s Security | Authorization
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-07-09 08:43:52 / Modified: 11:13:31" itemprop="dateCreated datePublished" datetime="2025-07-09T08:43:52+10:00">2025-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">K8s 授權機制完整教學，包含 Node Authorizer、ABAC、RBAC、Webhook，搭配 YAML 實作與實務場景說明。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Why-Authorization"><a href="#Why-Authorization" class="headerlink" title="Why Authorization?"></a>Why Authorization?</h1><p>在 K8s 中，不同類型的實體（例如 Admins、Developers、Bots）執行的操作權限應有所區隔，以維護叢集的安全性與資源隔離。因此，我們需要使用 <code>授權機制（Authorization Mechanisms）</code> 來精細控管誰可以做什麼。</p>
+<h2 id="Authorization-Mechanisms"><a href="#Authorization-Mechanisms" class="headerlink" title="Authorization Mechanisms"></a>Authorization Mechanisms</h2><h3 id="Node-Authorizer"><a href="#Node-Authorizer" class="headerlink" title="Node Authorizer"></a>Node Authorizer</h3><p>Node Authorizer 是一種專門授權給 Kubernetes <strong>kubelet（節點代理程式）</strong> 的機制，允許它只能存取與其自身相關的資源。</p>
+<blockquote>
+<p>這是一種特殊的授權方式，僅適用於節點自身，與一般使用者授權不同。</p>
+</blockquote>
+<p>📌 補充：kubelet 還能讀取其所在節點的 ConfigMap 和 Secrets（如果 pod 有 mount）。</p>
+<ul>
+<li>認證方式：<ul>
+<li><code>Kube API Server</code> 通過 <strong>user identity</strong> 與 <strong>TLS certificate</strong> 判斷請求來源是否為節點。</li>
+</ul>
+</li>
+<li>適用對象：<ul>
+<li><code>kubelet</code>（節點）</li>
+</ul>
+</li>
+<li>節點允許操作的資源範圍如下：<ul>
+<li>Read: Services、Endpoints、Nodes（僅限自身資訊）、Pods（僅限指派給該 Node 的 Pods）</li>
+<li>Write: Node status、Pod status、events</li>
+</ul>
+</li>
+</ul>
+<h3 id="ABAC"><a href="#ABAC" class="headerlink" title="ABAC"></a>ABAC</h3><p>ABAC 是早期 Kubernetes 所支援的授權機制之一，透過靜態 JSON policy 檔案控制每個使用者對資源的操作權限。</p>
+<ul>
+<li>缺點：<ul>
+<li>無法細緻管理</li>
+<li>權限定義採靜態設定，不易維護</li>
+<li>無法動態調整：無法根據動態條件做出授權決策</li>
+<li>無法做到角色抽象（Role-based grouping）</li>
+<li>設定變更需重新啟動 API Server</li>
+</ul>
+</li>
+<li>實務現況：<ul>
+<li><mark>已被 RBAC 取代，Kubernetes 1.8+ 預設啟用 RBAC。</mark></li>
+</ul>
+</li>
+</ul>
+<h4 id="ABAC-實例說明"><a href="#ABAC-實例說明" class="headerlink" title="ABAC 實例說明"></a>ABAC 實例說明</h4><table>
+<thead>
+<tr>
+<th>使用者 &#x2F; 群組</th>
+<th>權限內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>dev-user</code></td>
+<td>可檢視、建立、刪除 Pods</td>
+</tr>
+<tr>
+<td><code>dev-user-2</code></td>
+<td>可檢視、建立、刪除 Pods</td>
+</tr>
+<tr>
+<td><code>dev-users</code></td>
+<td>（群組）可檢視、建立、刪除 Pods</td>
+</tr>
+<tr>
+<td><code>security-1</code></td>
+<td>可檢視與核准 CSR（憑證簽署請求）</td>
+</tr>
+</tbody></table>
+<p>完整 ABAC Policy（單一使用者範例）(e.g. dev-user)</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;abac.authorization.kubernetes.io/v1beta1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Policy&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;user&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dev-user&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;namespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pods&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;apiGroup&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;verb&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>多筆簡化 ABAC Policy（陣列格式）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span><span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Policy&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;user&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dev-user&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;namespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pods&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;apiGroup&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span><span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Policy&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;user&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dev-user-2&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;namespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pods&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;apiGroup&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span><span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Policy&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;group&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dev-users&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;namespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pods&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;apiGroup&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#123;</span><span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Policy&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;user&quot;</span><span class="punctuation">:</span> <span class="string">&quot;security-1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;namespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;resource&quot;</span><span class="punctuation">:</span> <span class="string">&quot;csr&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;apiGroup&quot;</span><span class="punctuation">:</span> <span class="string">&quot;*&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="RBAC（Role-Based-Access-Control）"><a href="#RBAC（Role-Based-Access-Control）" class="headerlink" title="RBAC（Role-Based Access Control）"></a>RBAC（Role-Based Access Control）</h3><p>RBAC 是目前 Kubernetes 預設且推薦使用的授權機制，透過角色與綁定來控制使用者與資源間的權限關係。</p>
+<ul>
+<li>設計理念<ul>
+<li>Role&#x2F;ClusterRole：定義一組權限（verbs + resources）</li>
+<li>RoleBinding&#x2F;ClusterRoleBinding：將角色賦予給特定的使用者、群組或 ServiceAccount</li>
+</ul>
+</li>
+</ul>
+<h4 id="權限範例角色設計"><a href="#權限範例角色設計" class="headerlink" title="權限範例角色設計"></a>權限範例角色設計</h4><ul>
+<li>Developer 角色<ul>
+<li>✓ Can view PODs</li>
+<li>✓ Can create PODs</li>
+<li>✓ Can Delete PODs</li>
+<li>✓ Can Create ConfigMaps</li>
+<li>對應使用者／群組：dev-user, dev-user-2, dev-users</li>
+</ul>
+</li>
+<li>Security 角色<ul>
+<li>✓ Can view CSR（CertificateSigningRequest, 憑證簽署流程資源）</li>
+<li>✓ Can approve CSR</li>
+<li>對應使用者： security-1</li>
+</ul>
+</li>
+</ul>
+<h3 id="Webhook-OPA"><a href="#Webhook-OPA" class="headerlink" title="Webhook (OPA)"></a>Webhook (OPA)</h3><p>Webhook 模式允許 K8s 把授權判斷交由外部系統決策，最常見的實作是 <a target="_blank" rel="noopener" href="https://www.openpolicyagent.org/">OPA - Open Policy Agent</a>。</p>
+<blockquote>
+<p><code>Gatekeeper</code> 是實作 OPA 的常用工具。</p>
+</blockquote>
+<h4 id="授權流程"><a href="#授權流程" class="headerlink" title="授權流程"></a>授權流程</h4><ol>
+<li>使用者（例如 <code>dev-user</code>）發送操作請求，例如建立 Pod。</li>
+<li>API Server 傳送請求至 OPA webhook：API Server 根據 –authorization-mode&#x3D;Webhook 設定，呼叫外部 Webhook 伺服器。</li>
+<li>Webhook（如 OPA）根據 Rego Policy 檢查是否允許（allow）該操作。</li>
+<li>Webhook 回傳 JSON 結果：<ul>
+<li>HTTP 200 OK</li>
+<li><code>allowed: true</code>（或 false） <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;authorization.k8s.io/v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SubjectAccessReview&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;allowed&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="Authorization-Mode（授權模式）"><a href="#Authorization-Mode（授權模式）" class="headerlink" title="Authorization Mode（授權模式）"></a>Authorization Mode（授權模式）</h2><p>Kubernetes 支援多種授權模式，可同時啟用、並依照順序判斷：</p>
+<table>
+<thead>
+<tr>
+<th>模式類型</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Node</code></td>
+<td>僅授權 kubelet 對自己相關資源進行操作</td>
+</tr>
+<tr>
+<td><code>ABAC</code></td>
+<td>靜態 JSON-based 授權（已不建議）</td>
+</tr>
+<tr>
+<td><code>RBAC</code></td>
+<td>推薦使用的角色型授權，支援群組、角色綁定等</td>
+</tr>
+<tr>
+<td><code>Webhook</code></td>
+<td>呼叫外部系統（如 OPA）進行決策</td>
+</tr>
+<tr>
+<td><code>AlwaysAllow</code></td>
+<td>所有請求都允許（不安全，僅用於測試）</td>
+</tr>
+<tr>
+<td><code>AlwaysDeny</code></td>
+<td>所有請求都拒絕（不實用）</td>
+</tr>
+</tbody></table>
+
+
+<h3 id="API-Server-啟動參數範例"><a href="#API-Server-啟動參數範例" class="headerlink" title="API Server 啟動參數範例"></a>API Server 啟動參數範例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ExecStart=/usr/local/bin/kube-apiserver \</span><br><span class="line">  --advertise-address=<span class="variable">$&#123;INTERNAL_IP&#125;</span> \</span><br><span class="line">  --allow-privileged=<span class="literal">true</span> \</span><br><span class="line">  --apiserver-count=3 \</span><br><span class="line">  --authorization-mode=Node,RBAC,Webhook \</span><br><span class="line">  <span class="comment"># 其他參數略 ...</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可同時啟用多種授權機制，<strong>系統會依序進行授權檢查</strong>。</p>
+</blockquote>
+
+
+<div class="note info"><p><code>--authorization-mode=Node,RBAC,Webhook</code> 的授權順序如下：<br><code>**Node → RBAC → Webhook**</code><br>一旦任一授權模式允許該請求，API Server 即允許此操作。</p>
+<p>⚠ ABAC 與 RBAC 無法同時混用，需在啟動參數中選擇要用哪一個，且 ABAC 修改 policy 後需重啟 API Server。</p>
+</div>
+
+<hr>
+<h1 id="RBAC"><a href="#RBAC" class="headerlink" title="RBAC"></a>RBAC</h1><h2 id="API-Group-與-RBAC-對應關係"><a href="#API-Group-與-RBAC-對應關係" class="headerlink" title="API Group 與 RBAC 對應關係"></a>API Group 與 RBAC 對應關係</h2><table>
+<thead>
+<tr>
+<th>資源</th>
+<th>API Group</th>
+<th>RBAC 設定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pods</td>
+<td><code>&quot;&quot;</code> (core group)</td>
+<td><code>apiGroups: [&quot;&quot;]</code></td>
+</tr>
+<tr>
+<td>deployments</td>
+<td><code>apps</code> (apps group)</td>
+<td><code>apiGroups: [&quot;apps&quot;]</code></td>
+</tr>
+<tr>
+<td>RBAC 相關資源（roles, rolebindings）</td>
+<td><code>rbac.authorization.k8s.io</code></td>
+<td><code>apiGroups: [&quot;rbac.authorization.k8s.io&quot;]</code></td>
+</tr>
+</tbody></table>
+<h2 id="Role-定義範例"><a href="#Role-定義範例" class="headerlink" title="Role 定義範例"></a>Role 定義範例</h2><ul>
+<li>Role 是 namespace 級別的權限設定。</li>
+<li>developer role 允許對 pods 做常用操作，並可建立 configmaps。</li>
+<li>可限制特定資源名稱（resourceNames）來細化權限。</li>
+</ul>
+<h2 id="RoleBinding-綁定使用者"><a href="#RoleBinding-綁定使用者" class="headerlink" title="RoleBinding 綁定使用者"></a>RoleBinding 綁定使用者</h2><ul>
+<li>RoleBinding 將 Role 角色授權給特定 user 或 group。</li>
+<li>可綁定 User、Group 兩種 kind，方便配合 AD&#x2F;LDAP 使用。</li>
+</ul>
+<div class="note info"><p><strong>補充：Role&#x2F;RoleBinding vs ClusterRole&#x2F;ClusterRoleBinding</strong></p>
+<table>
+<thead>
+<tr>
+<th>角色類型</th>
+<th>使用範圍</th>
+<th>適用場景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Role&#x2F;RoleBinding</td>
+<td>單一 namespace</td>
+<td>需限制在某 namespace</td>
+</tr>
+<tr>
+<td>ClusterRole&#x2F;ClusterRoleBinding</td>
+<td>全 cluster 或跨 namespace</td>
+<td>跨 namespace 或需存取 cluster-wide 資源如 nodes、secrets</td>
+</tr>
+</tbody></table>
+<p>⚠ 補充：「若你需讓一個 ServiceAccount 存取不同 namespace 的資源，應使用 <code>ClusterRole</code> + <code>RoleBinding</code> 在各命名空間分別綁定」。</p>
+<br>
+
+<p><strong>補充：ClusterRoleBinding</strong></p>
+<ul>
+<li>將 ClusterRole 授權給特定使用者，作用範圍為整個 cluster 或跨 namespace。</li>
+</ul>
+<br>
+
+<p><strong>實務場景應用建議</strong></p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>建議方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>單 Namespace 權限控制</td>
+<td>使用 <code>Role + RoleBinding</code></td>
+</tr>
+<tr>
+<td>跨 Namespace 或叢集資源</td>
+<td>使用 <code>ClusterRole + ClusterRoleBinding</code></td>
+</tr>
+<tr>
+<td>外部政策控制</td>
+<td>整合 OPA + Gatekeeper</td>
+</tr>
+<tr>
+<td>動態用戶群管理</td>
+<td>搭配 AD&#x2F;LDAP group</td>
+</tr>
+</tbody></table>
+</div>
+
+<h2 id="指令操作"><a href="#指令操作" class="headerlink" title="指令操作"></a>指令操作</h2><h3 id="Create-Role"><a href="#Create-Role" class="headerlink" title="Create Role"></a>Create Role</h3><img src="/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_1.jpg" class="">
+
+<h4 id="developer-role-yaml"><a href="#developer-role-yaml" class="headerlink" title="developer-role.yaml"></a>developer-role.yaml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;list&quot;</span>, <span class="string">&quot;get&quot;</span>, <span class="string">&quot;create&quot;</span>, <span class="string">&quot;update&quot;</span>, <span class="string">&quot;delete&quot;</span>]</span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;configmaps&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;create&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<details class="note default"><summary><p><code>developer-role.yaml</code> 補充：Resource Names</p>
+</summary>
+<p>限制只能使用哪些 resourceNames (“blue”, “orange”)</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># developer-role.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;create&quot;</span>, <span class="string">&quot;update&quot;</span>]</span><br><span class="line">  <span class="attr">resourceNames:</span> [<span class="string">&quot;blue&quot;</span>, <span class="string">&quot;orange&quot;</span>]</span><br></pre></td></tr></table></figure>
+</details>
+
+<details class="note default"><summary><p>RBAC 的 subjects 支援 3 種 kind</p>
+</summary>
+<p>RBAC 的 subjects 支援 3 種 kind：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dev-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">Group</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dev-team</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">backend</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">app-ns</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>📌 當你的 cluster 使用 AD&#x2F;LDAP 整合，group 綁定會非常常見。</p>
+</blockquote>
+
+</details>
+
+<h4 id="Kubectl-Command"><a href="#Kubectl-Command" class="headerlink" title="Kubectl Command"></a>Kubectl Command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f developer-role.yaml</span><br></pre></td></tr></table></figure>
+
+<h3 id="Binding-role-and-users"><a href="#Binding-role-and-users" class="headerlink" title="Binding role and users"></a>Binding role and users</h3><img src="/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_2.jpg" class="">
+
+<h4 id="developer-role-yaml-1"><a href="#developer-role-yaml-1" class="headerlink" title="developer-role.yaml"></a>developer-role.yaml</h4><p>同上</p>
+<h4 id="devuser-developer-binding-yaml"><a href="#devuser-developer-binding-yaml" class="headerlink" title="devuser-developer-binding.yaml"></a>devuser-developer-binding.yaml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">devuser-developer-binding</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev-ns</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dev-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Kubectl-Command-1"><a href="#Kubectl-Command-1" class="headerlink" title="Kubectl Command"></a>Kubectl Command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f devuser-developer-binding.yaml</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h2 id="View-RBAC"><a href="#View-RBAC" class="headerlink" title="View RBAC"></a>View RBAC</h2><p>查看角色與綁定</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get roles</span><br><span class="line"></span><br><span class="line">kubectl get rolebindings</span><br></pre></td></tr></table></figure>
+
+<p>針對角色詳細資訊</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe role [role_name]</span><br><span class="line">kubectl describe role developer</span><br><span class="line"></span><br><span class="line">kubectl describe rolebinding [rolebinding_name]</span><br><span class="line">kubectl describe rolebinding devuser-developer-binding</span><br></pre></td></tr></table></figure>
+
+<h2 id="Check-Access"><a href="#Check-Access" class="headerlink" title="Check Access"></a>Check Access</h2><p>權限檢查</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">kubectl auth can-i [verb] [resource] --as [user] --namespace [ns]</span><br><span class="line"></span><br><span class="line">kubectl auth can-i create deployments</span><br><span class="line">kubectl auth can-i create deployments --as dev-user</span><br><span class="line">kubectl auth can-i create pods        --as dev-user</span><br><span class="line">kubectl auth can-i create pods        --as dev-user --namespace <span class="built_in">test</span></span><br><span class="line">kubectl auth can-i create pods        --as system:serviceaccount:app-ns:backend</span><br><span class="line"></span><br><span class="line">kubectl auth can-i delete nodes</span><br><span class="line"></span><br><span class="line">kubectl auth can-i get secrets --as dev-user</span><br><span class="line"><span class="comment"># → no</span></span><br></pre></td></tr></table></figure>
+
+<p>若是 ClusterRole，記得補上 <code>--all-namespaces</code> 或 <code>--namespace</code> 以驗證生效範圍。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl auth can-i get pods --as dev-user --namespace default</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h1><ul>
+<li>Kubernetes 提供多種授權模式：<ul>
+<li><strong>Node Authorizer</strong>：授權 kubelet 等 node 元件存取必要資源</li>
+<li><strong>ABAC</strong>：透過靜態 JSON Policy 授權（已較少使用）</li>
+<li><strong>RBAC</strong>：最常見，透過 Role&#x2F;ClusterRole 與 RoleBinding 控管權限</li>
+<li><strong>Webhook</strong>：交由外部系統如 OPA 決策授權</li>
+</ul>
+</li>
+<li><code>--authorization-mode</code> 可同時啟用多種授權機制（Node, RBAC, Webhook）</li>
+<li>RBAC 基本結構：<ul>
+<li><code>Role/ClusterRole</code> 定義權限</li>
+<li><code>RoleBinding/ClusterRoleBinding</code> 指派權限給 User&#x2F;Group&#x2F;ServiceAccount</li>
+</ul>
+</li>
+<li>開發常用工具：<ul>
+<li><code>kubectl auth can-i</code></li>
+<li><code>kubectl get roles</code>、<code>rolebindings</code></li>
+<li><code>kubectl describe role</code> 快速 debug 權限</li>
+</ul>
+</li>
+</ul>
+<p>📌 下一步建議：<br>了解 <strong>ServiceAccount 與 RoleBinding 搭配 Pod 運行身份</strong>，進入實務應用場景。</p>
+
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/" title="K8s Security | Authorization">https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Authorization/" rel="tag"># Authorization</a>
+              <a href="/tags/ABAC/" rel="tag"># ABAC</a>
+              <a href="/tags/RBAC/" rel="tag"># RBAC</a>
+              <a href="/tags/Webhook/" rel="tag"># Webhook</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/08/K8s-Advanced/K8s-Security-API-Groups/" rel="prev" title="K8s Security | API Groups">
+                  <i class="fa fa-angle-left"></i> K8s Security | API Groups
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
