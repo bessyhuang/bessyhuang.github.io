@@ -227,23 +227,6 @@ rules:
 ```
 {% endnote %}
 
-{% note default "RBAC 的 subjects 支援 3 種 kind" %}
-RBAC 的 subjects 支援 3 種 kind：
-```yaml
-subjects:
-- kind: User
-  name: dev-user
-  apiGroup: rbac.authorization.k8s.io
-- kind: Group
-  name: dev-team
-  apiGroup: rbac.authorization.k8s.io
-- kind: ServiceAccount
-  name: backend
-  namespace: app-ns
-```
-> 📌 當你的 cluster 使用 AD/LDAP 整合，group 綁定會非常常見。
-{% endnote %}
-
 #### Kubectl Command
 ```bash
 kubectl create -f developer-role.yaml
@@ -271,6 +254,23 @@ roleRef:
   name: developer
   apiGroup: rbac.authorization.k8s.io
 ```
+
+{% note default "RBAC 的 subjects 支援 3 種 kind" %}
+RBAC 的 subjects 支援 3 種 kind：
+```yaml
+subjects:
+- kind: User
+  name: dev-user
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: dev-team
+  apiGroup: rbac.authorization.k8s.io
+- kind: ServiceAccount
+  name: backend
+  namespace: app-ns
+```
+> 📌 當你的 cluster 使用 AD/LDAP 整合，group 綁定會非常常見。
+{% endnote %}
 
 #### Kubectl Command
 ```bash
