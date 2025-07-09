@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2024/01/27/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Hexo | Getting Started</title>
     <url>/2024/03/18/Hexo-Getting-Started/</url>
     <content><![CDATA[<h1 id="建立一個新的-Hexo-網站"><a href="#建立一個新的-Hexo-網站" class="headerlink" title="建立一個新的 Hexo 網站"></a>建立一個新的 Hexo 網站</h1><h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-cli -g</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm@10.5.0</span></span><br></pre></td></tr></table></figure>
@@ -56,135 +74,6 @@
 ]]></content>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/01/27/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>從零開始學 Docker - 為何它這麼重要？(Part 1)</title>
-    <url>/2024/01/30/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-1/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
-
-<h1 id="功用一：簡化部署流程"><a href="#功用一：簡化部署流程" class="headerlink" title="功用一：簡化部署流程"></a>功用一：簡化部署流程</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>如果沒有使用 Docker，當你需要將應用程式部署到多台伺服器上時，必須逐一輸入指令進行設定。這不僅在環境安裝階段耗費大量時間且枯燥乏味，還容易因人為失誤而輸入錯誤指令。更重要的是，若需要在不同環境中進行部署，還得應對各種環境變數和配置的複雜性。</p>
-<p>Docker 的推出為我們提供了一套強大的容器化解決方案。</p>
-<p>透過使用 Docker，我們能夠將應用程式及其相依的環境、套件等打包成一個獨立、可攜帶的容器。這樣一來，無論在何處都能確保應用程式以相同的方式運行，避免受到不同環境的影響。</p>
-<p>這種容器化的方法使得應用程式的部署和管理變得更加靈活、簡便，同時提供了更高度的一致性和可攜性。</p>
-<hr>
-<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><h2 id="建立一個映像檔（Docker-Image）"><a href="#建立一個映像檔（Docker-Image）" class="headerlink" title="建立一個映像檔（Docker Image）"></a>建立一個映像檔（Docker Image）</h2><p>Docker Image 就像是一個獨立、可攜帶的程式部署包，其中包含了應用程式（在這個範例中是 Django 網站）以及它所需要的環境、套件等資源，都被一併打包在一起。</p>
-<h3 id="Start-a-Docker-Container"><a href="#Start-a-Docker-Container" class="headerlink" title="Start a Docker Container"></a>Start a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker pull python:3.12-alpine</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite -it -p 8000:8000 python:3.12-alpine /bin/sh</span></span><br><span class="line">/ #</span><br></pre></td></tr></table></figure>
-
-<h3 id="Install-packages-in-a-Docker-Container"><a href="#Install-packages-in-a-Docker-Container" class="headerlink" title="Install packages in a Docker Container"></a>Install packages in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/ # apk update</span><br><span class="line">/ # apk add vim</span><br><span class="line">/ # pip install django</span><br></pre></td></tr></table></figure>
-
-<h3 id="Create-a-Django-website-in-a-Docker-Container"><a href="#Create-a-Django-website-in-a-Docker-Container" class="headerlink" title="Create a Django website in a Docker Container"></a>Create a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/     # cd /home/</span><br><span class="line">/home # django-admin startproject mysite</span><br><span class="line">/home # cd mysite/</span><br><span class="line">/home/mysite # django-admin startapp app1</span><br></pre></td></tr></table></figure>
-
-<h3 id="Django-Settings"><a href="#Django-Settings" class="headerlink" title="Django Settings"></a>Django Settings</h3><ul>
-<li><code>mysite/settings.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li><code>mysite/urls.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path <span class="keyword">as</span> url</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       url(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
-<li><code>app1/views.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">       <span class="keyword">return</span> HttpResponse(<span class="string">&#x27;Hello, World.&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Run-a-Django-website-in-a-Docker-Container"><a href="#Run-a-Django-website-in-a-Docker-Container" class="headerlink" title="Run a Django website in a Docker Container"></a>Run a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Open your browser: <a href="http://localhost:8000/hello/">http://localhost:8000/hello/</a></p>
-<img src="/2024/01/30/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-1/hello_world.jpg" class="" title="Hello, World.">
-</blockquote>
-<h3 id="Create-a-new-image-from-a-container’s-changes"><a href="#Create-a-new-image-from-a-container’s-changes" class="headerlink" title="Create a new image from a container’s changes"></a>Create a new image from a container’s changes</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker container <span class="built_in">ls</span> -a</span></span><br><span class="line">CONTAINER ID   IMAGE                COMMAND     CREATED          STATUS                      PORTS     NAMES</span><br><span class="line">dbd03d68bf0d   python:3.12-alpine   &quot;/bin/sh&quot;   32 minutes ago   Exited (0) 10 seconds ago             mysite</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker commit dbd03d68bf0d  django_site:v1</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker images</span></span><br><span class="line">REPOSITORY    TAG           IMAGE ID       CREATED         SIZE</span><br><span class="line">django_site   v1            5499518614d6   2 seconds ago   136MB</span><br><span class="line">python        3.12-alpine   d2cfe5300063   5 weeks ago     56.4MB</span><br></pre></td></tr></table></figure>
-
-<h2 id="部署一個-Django-網站"><a href="#部署一個-Django-網站" class="headerlink" title="部署一個 Django 網站"></a>部署一個 Django 網站</h2><h3 id="Use-a-Docker-Image-to-create-a-Docker-Container"><a href="#Use-a-Docker-Image-to-create-a-Docker-Container" class="headerlink" title="Use a Docker Image to create a Docker Container"></a>Use a Docker Image to create a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite_002 -it -p 8000:8000 django_site:v1 /bin/sh</span></span><br><span class="line">/ # cd home/mysite/</span><br><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>哇！只要三行指令，就能把事先打包好的 Django 網站建立起來了～<br>Open your browser: <a href="http://localhost:8000/hello/">http://localhost:8000/hello/</a><br>PS. 後續還有更進階的部署作法，像是 Dockerfile、Docker Compose 喔！</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>觀念解說</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>從零開始學 Docker - 為何它這麼重要？(Part 2)</title>
-    <url>/2024/02/04/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-2/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
-
-<h1 id="功用二：跨平台部署"><a href="#功用二：跨平台部署" class="headerlink" title="功用二：跨平台部署"></a>功用二：跨平台部署</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>Docker 的強大功能之一是「跨平台部署」！透過把程式及其相依的環境、套件打包成 Docker Image（aka. 程式部署包），你可以輕鬆地在不同作業系統上（Linux、MacOS 或 Windows）運行你的應用程式。</p>
-<p>完成 Docker Image 的製作後，成功上傳至 Docker Hub（aka. 存放 Docker Image 的雲端空間），使其他使用者能夠在全球的任何地方、任何作業系統上輕鬆進行下載。隨後，透過在各自作業系統上安裝 Docker Engine，可以協調作業系統與 Docker 容器之間的運行，而無需擔心環境相容性問題。</p>
-<p>簡言之，Docker 讓跨平台部署變得快速、便捷，確保了一致的部署體驗。</p>
-<hr>
-<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：部署一個 Django Website 於不同作業系統上。<br>藉由撰寫 Dockerfile 來建立 Docker Image，並且將製作好的 Docker Image 上傳至 Docker Hub，以便進行跨平台部署。</p>
-<h2 id="準備-Django-Website"><a href="#準備-Django-Website" class="headerlink" title="準備 Django Website"></a>準備 Django Website</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startproject mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startapp app1</span></span><br></pre></td></tr></table></figure>
-
-<p>網站的階層架構，如下所示。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── mysite/</span><br><span class="line">    ├── app1/</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── admin.py</span><br><span class="line">    │   ├── apps.py</span><br><span class="line">    │   ├── models.py</span><br><span class="line">    │   ├── tests.py</span><br><span class="line">    │   └── views.py</span><br><span class="line">    ├── manage.py</span><br><span class="line">    └── mysite/</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── asgi.py</span><br><span class="line">        ├── settings.py</span><br><span class="line">        ├── urls.py</span><br><span class="line">        └── wsgi.py</span><br></pre></td></tr></table></figure>
-
-<h3 id="mysite-settings-py"><a href="#mysite-settings-py" class="headerlink" title="mysite&#x2F;settings.py"></a>mysite&#x2F;settings.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h3 id="mysite-urls-py"><a href="#mysite-urls-py" class="headerlink" title="mysite&#x2F;urls.py"></a>mysite&#x2F;urls.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    re_path(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h3 id="app1-views-py"><a href="#app1-views-py" class="headerlink" title="app1&#x2F;views.py"></a>app1&#x2F;views.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="撰寫-Dockerfile"><a href="#撰寫-Dockerfile" class="headerlink" title="撰寫 Dockerfile"></a>撰寫 Dockerfile</h2><p>Dockerfile 是用於建置 Docker Image 的腳本。</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.10</span>-alpine</span><br><span class="line"><span class="keyword">ENV</span> myworkdir /home/django_site</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite/ <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk update</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk add vim</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install django</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>, <span class="string">&quot;0.0.0.0:8000&quot;</span>]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="建立-Docker-Image"><a href="#建立-Docker-Image" class="headerlink" title="建立 Docker Image"></a>建立 Docker Image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── site/</span><br><span class="line">   ├── Dockerfile</span><br><span class="line">   └── mysite/</span><br><span class="line">        ├── app1/</span><br><span class="line">        │    ├── ...</span><br><span class="line">        ├── manage.py</span><br><span class="line">        └── mysite/</span><br><span class="line">             ├── ...</span><br></pre></td></tr></table></figure>
-
-<p>cd 到有 <code>Dockerfile</code> 的目錄下。接著，建立名為 <code>django_site</code> 的 Docker Image。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> site/</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker build -t bessyhuang/django_site . --no-cache</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="執行"><a href="#執行" class="headerlink" title="執行"></a>執行</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d -p 8001:8000 django_site</span> </span><br></pre></td></tr></table></figure>
-<p>打開瀏覽器 <a href="http://localhost:8001/hello/">http://localhost:8001/hello/</a></p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>觀念解說</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>從零開始學 Docker - 為何它這麼重要？(Part 3)</title>
-    <url>/2024/04/02/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-3/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
-
-<h1 id="功用三：建立乾淨測試環境"><a href="#功用三：建立乾淨測試環境" class="headerlink" title="功用三：建立乾淨測試環境"></a>功用三：建立乾淨測試環境</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><hr>
-<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：建立乾淨的測試環境。<br>利用 Dockerfile 建立一份客製映像檔（Docker Image），並把測試環境跑起來。</p>
-<h2 id="準備-MongoDB-Container"><a href="#準備-MongoDB-Container" class="headerlink" title="準備 MongoDB Container"></a>準備 MongoDB Container</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker network create test_network</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d --name mongodb --network test_network bessyhuang/py3.10_mongo:v1</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker <span class="built_in">exec</span> -it mongodb bash</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="準備-Django-Platform-Container"><a href="#準備-Django-Platform-Container" class="headerlink" title="準備 Django Platform Container"></a>準備 Django Platform Container</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -it -p 8001:8000 -v /Users/bessyhuang/Downloads/TEST_mysite/esiot-platform:/home/ --network test_network --name podman_platform python:3.11.8-slim bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt update</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt install gcc python3-dev -y</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pip install -r py3.11.8_requirements.txt</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">python manage.py runserver 0.0.0.0:8000</span></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.11</span>.<span class="number">8</span>-slim</span><br><span class="line"><span class="keyword">MAINTAINER</span> Bessy</span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite ./home/</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /home/mysite</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install iproute2 -y &amp;&amp; apt-get install vim -y</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>]</span></span><br></pre></td></tr></table></figure>
-
-
-<p>Example</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FROM alpine:latest</span><br><span class="line">ENV myworkdir /var/www/localhost/htdocs/</span><br><span class="line">ARG whoami=Bessy</span><br><span class="line">WORKDIR $&#123;myworkdir&#125;</span><br><span class="line">RUN apk --update add apache2</span><br><span class="line">RUN rm -rf /var/cache/apk/*</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 01&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 02&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 03&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">COPY ./content.txt ./</span><br><span class="line">RUN ls -l ./</span><br><span class="line">RUN cat ./content.txt &gt;&gt; index.html</span><br><span class="line">ENTRYPOINT [&quot;httpd&quot;, &quot;-D&quot;, &quot;FOREGROUND&quot;]</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>觀念解說</tag>
       </tags>
   </entry>
   <entry>
@@ -264,8 +153,8 @@
         <category>Kubernetes</category>
       </categories>
       <tags>
-        <tag>觀念解說</tag>
         <tag>Concepts</tag>
+        <tag>觀念解說</tag>
         <tag>Deployment</tag>
       </tags>
   </entry>
@@ -325,8 +214,8 @@
         <category>Kubernetes</category>
       </categories>
       <tags>
-        <tag>觀念解說</tag>
         <tag>Concepts</tag>
+        <tag>觀念解說</tag>
         <tag>Architecture</tag>
       </tags>
   </entry>
@@ -432,81 +321,95 @@
         <category>Kubernetes</category>
       </categories>
       <tags>
-        <tag>觀念解說</tag>
         <tag>Concepts</tag>
+        <tag>觀念解說</tag>
         <tag>Pods</tag>
         <tag>Kubectl</tag>
         <tag>YAML</tag>
       </tags>
   </entry>
   <entry>
-    <title>Amazon S3</title>
-    <url>/2023/10/02/TempNotes/Amazon-S3/</url>
-    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><em><font color=royalblue>Infinitely Scaling Storage</font></em></p>
-<h1 id="Amazon-S3-Components"><a href="#Amazon-S3-Components" class="headerlink" title="Amazon S3 - Components"></a>Amazon S3 - Components</h1><p>Amazon S3 allows people to store objects (files) in buckets (directories).</p>
-<h2 id="Buckets"><a href="#Buckets" class="headerlink" title="Buckets"></a>Buckets</h2><p><em><font color=red>S3 looks like a global service but buckets are created in a region</font></em></p>
-<ul>
-<li>Buckets must have a globally unique name (across all regions all accounts)</li>
-<li>Buckets are defined at the region level</li>
-<li>Name Convention<ul>
-<li>No uppercase, No underscore</li>
-<li>3-63 characters long</li>
-<li>Not an IP</li>
-<li>Must start with lowercase letter or number</li>
-<li>Must NOT start with the prefix <code>xn--</code></li>
-<li>Must NOT end with the suffix <code>-s3alias</code></li>
+    <title>從零開始學 Docker - 為何它這麼重要？(Part 1)</title>
+    <url>/2024/01/30/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-1/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
+
+<h1 id="功用一：簡化部署流程"><a href="#功用一：簡化部署流程" class="headerlink" title="功用一：簡化部署流程"></a>功用一：簡化部署流程</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>如果沒有使用 Docker，當你需要將應用程式部署到多台伺服器上時，必須逐一輸入指令進行設定。這不僅在環境安裝階段耗費大量時間且枯燥乏味，還容易因人為失誤而輸入錯誤指令。更重要的是，若需要在不同環境中進行部署，還得應對各種環境變數和配置的複雜性。</p>
+<p>Docker 的推出為我們提供了一套強大的容器化解決方案。</p>
+<p>透過使用 Docker，我們能夠將應用程式及其相依的環境、套件等打包成一個獨立、可攜帶的容器。這樣一來，無論在何處都能確保應用程式以相同的方式運行，避免受到不同環境的影響。</p>
+<p>這種容器化的方法使得應用程式的部署和管理變得更加靈活、簡便，同時提供了更高度的一致性和可攜性。</p>
+<hr>
+<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><h2 id="建立一個映像檔（Docker-Image）"><a href="#建立一個映像檔（Docker-Image）" class="headerlink" title="建立一個映像檔（Docker Image）"></a>建立一個映像檔（Docker Image）</h2><p>Docker Image 就像是一個獨立、可攜帶的程式部署包，其中包含了應用程式（在這個範例中是 Django 網站）以及它所需要的環境、套件等資源，都被一併打包在一起。</p>
+<h3 id="Start-a-Docker-Container"><a href="#Start-a-Docker-Container" class="headerlink" title="Start a Docker Container"></a>Start a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker pull python:3.12-alpine</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite -it -p 8000:8000 python:3.12-alpine /bin/sh</span></span><br><span class="line">/ #</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install-packages-in-a-Docker-Container"><a href="#Install-packages-in-a-Docker-Container" class="headerlink" title="Install packages in a Docker Container"></a>Install packages in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/ # apk update</span><br><span class="line">/ # apk add vim</span><br><span class="line">/ # pip install django</span><br></pre></td></tr></table></figure>
+
+<h3 id="Create-a-Django-website-in-a-Docker-Container"><a href="#Create-a-Django-website-in-a-Docker-Container" class="headerlink" title="Create a Django website in a Docker Container"></a>Create a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/     # cd /home/</span><br><span class="line">/home # django-admin startproject mysite</span><br><span class="line">/home # cd mysite/</span><br><span class="line">/home/mysite # django-admin startapp app1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Django-Settings"><a href="#Django-Settings" class="headerlink" title="Django Settings"></a>Django Settings</h3><ul>
+<li><code>mysite/settings.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+<li><code>mysite/urls.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path <span class="keyword">as</span> url</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">       <span class="comment">#...</span></span><br><span class="line">       url(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
+<li><code>app1/views.py</code>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">       <span class="keyword">return</span> HttpResponse(<span class="string">&#x27;Hello, World.&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
 </ul>
-</li>
-</ul>
-<h2 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h2><p><em><font color=red>Objects (files) have a Key. Key with very long names that contain slashes (“&#x2F;“).</font></em><br><em><font color=red>There is no concept of “directories” within buckets</font></em></p>
-<ul>
-<li>The key is the FULL path:<ul>
-<li>s3:&#x2F;&#x2F;my-bucket&#x2F;my_folder&#x2F;another_folder&#x2F;my_file.txt</li>
-</ul>
-</li>
-<li>The key is composed of <font color=red>prefix</font> + <font color=green>object name</font><ul>
-<li>s3:&#x2F;&#x2F;my-bucket&#x2F;<font color=red>my_folder&#x2F;another_folder&#x2F;</font><font color=green>my_file.txt</font></li>
-</ul>
-</li>
-<li>Object values are the content of the body:<ul>
-<li>Max. Object Size is 5 TB (5000 GB)</li>
-<li>If uploading more than 5 GB, must use “multi-part upload”.</li>
-</ul>
-</li>
-<li>Metadata<ul>
-<li>List of text key&#x2F;value pairs</li>
-<li>System or user metadata</li>
-</ul>
-</li>
-<li>Tags<ul>
-<li>Unicode key&#x2F;value pair</li>
-<li>Up to 10</li>
-<li>Useful for security&#x2F;lifecycle</li>
-</ul>
-</li>
-<li>Version ID<ul>
-<li>If versioning is enabled</li>
-</ul>
-</li>
-</ul>
-<h1 id="Use-Cases"><a href="#Use-Cases" class="headerlink" title="Use Cases"></a>Use Cases</h1><ul>
-<li>Backup &amp; Storage</li>
-<li>Disaster Recovery</li>
-<li>Archive</li>
-<li>Hybrid Cloud Storage</li>
-<li>Application&#x2F;Media Hosting</li>
-<li>Data Lakes &amp; Big Data Analytics</li>
-<li>Software Delivery</li>
-<li>Static Website</li>
-</ul>
-<h2 id="Business-Use-Cases"><a href="#Business-Use-Cases" class="headerlink" title="Business Use Cases"></a>Business Use Cases</h2><ul>
-<li>Nasdaq stores 7 years of data into Glacier</li>
-<li>Sysco runs analytics on its data and gain business insights</li>
-</ul>
-<h1 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h1>]]></content>
+<h3 id="Run-a-Django-website-in-a-Docker-Container"><a href="#Run-a-Django-website-in-a-Docker-Container" class="headerlink" title="Run a Django website in a Docker Container"></a>Run a Django website in a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Open your browser: <a href="http://localhost:8000/hello/">http://localhost:8000/hello/</a></p>
+<img src="/2024/01/30/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-1/hello_world.jpg" class="" title="Hello, World.">
+</blockquote>
+<h3 id="Create-a-new-image-from-a-container’s-changes"><a href="#Create-a-new-image-from-a-container’s-changes" class="headerlink" title="Create a new image from a container’s changes"></a>Create a new image from a container’s changes</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker container <span class="built_in">ls</span> -a</span></span><br><span class="line">CONTAINER ID   IMAGE                COMMAND     CREATED          STATUS                      PORTS     NAMES</span><br><span class="line">dbd03d68bf0d   python:3.12-alpine   &quot;/bin/sh&quot;   32 minutes ago   Exited (0) 10 seconds ago             mysite</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker commit dbd03d68bf0d  django_site:v1</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker images</span></span><br><span class="line">REPOSITORY    TAG           IMAGE ID       CREATED         SIZE</span><br><span class="line">django_site   v1            5499518614d6   2 seconds ago   136MB</span><br><span class="line">python        3.12-alpine   d2cfe5300063   5 weeks ago     56.4MB</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署一個-Django-網站"><a href="#部署一個-Django-網站" class="headerlink" title="部署一個 Django 網站"></a>部署一個 Django 網站</h2><h3 id="Use-a-Docker-Image-to-create-a-Docker-Container"><a href="#Use-a-Docker-Image-to-create-a-Docker-Container" class="headerlink" title="Use a Docker Image to create a Docker Container"></a>Use a Docker Image to create a Docker Container</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name mysite_002 -it -p 8000:8000 django_site:v1 /bin/sh</span></span><br><span class="line">/ # cd home/mysite/</span><br><span class="line">/home/mysite # python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>哇！只要三行指令，就能把事先打包好的 Django 網站建立起來了～<br>Open your browser: <a href="http://localhost:8000/hello/">http://localhost:8000/hello/</a><br>PS. 後續還有更進階的部署作法，像是 Dockerfile、Docker Compose 喔！</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
       <tags>
-        <tag>S3</tag>
-        <tag>★☆★</tag>
+        <tag>觀念解說</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>從零開始學 Docker - 為何它這麼重要？(Part 2)</title>
+    <url>/2024/02/04/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-2/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
+
+<h1 id="功用二：跨平台部署"><a href="#功用二：跨平台部署" class="headerlink" title="功用二：跨平台部署"></a>功用二：跨平台部署</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><p>Docker 的強大功能之一是「跨平台部署」！透過把程式及其相依的環境、套件打包成 Docker Image（aka. 程式部署包），你可以輕鬆地在不同作業系統上（Linux、MacOS 或 Windows）運行你的應用程式。</p>
+<p>完成 Docker Image 的製作後，成功上傳至 Docker Hub（aka. 存放 Docker Image 的雲端空間），使其他使用者能夠在全球的任何地方、任何作業系統上輕鬆進行下載。隨後，透過在各自作業系統上安裝 Docker Engine，可以協調作業系統與 Docker 容器之間的運行，而無需擔心環境相容性問題。</p>
+<p>簡言之，Docker 讓跨平台部署變得快速、便捷，確保了一致的部署體驗。</p>
+<hr>
+<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：部署一個 Django Website 於不同作業系統上。<br>藉由撰寫 Dockerfile 來建立 Docker Image，並且將製作好的 Docker Image 上傳至 Docker Hub，以便進行跨平台部署。</p>
+<h2 id="準備-Django-Website"><a href="#準備-Django-Website" class="headerlink" title="準備 Django Website"></a>準備 Django Website</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startproject mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> mysite</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">django-admin startapp app1</span></span><br></pre></td></tr></table></figure>
+
+<p>網站的階層架構，如下所示。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── mysite/</span><br><span class="line">    ├── app1/</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── admin.py</span><br><span class="line">    │   ├── apps.py</span><br><span class="line">    │   ├── models.py</span><br><span class="line">    │   ├── tests.py</span><br><span class="line">    │   └── views.py</span><br><span class="line">    ├── manage.py</span><br><span class="line">    └── mysite/</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── asgi.py</span><br><span class="line">        ├── settings.py</span><br><span class="line">        ├── urls.py</span><br><span class="line">        └── wsgi.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysite-settings-py"><a href="#mysite-settings-py" class="headerlink" title="mysite&#x2F;settings.py"></a>mysite&#x2F;settings.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    <span class="string">&#x27;app1&#x27;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysite-urls-py"><a href="#mysite-urls-py" class="headerlink" title="mysite&#x2F;urls.py"></a>mysite&#x2F;urls.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> re_path</span><br><span class="line"><span class="keyword">from</span> app1.views <span class="keyword">import</span> hello_world</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    re_path(<span class="string">r&#x27;^hello/$&#x27;</span>, hello_world),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="app1-views-py"><a href="#app1-views-py" class="headerlink" title="app1&#x2F;views.py"></a>app1&#x2F;views.py</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="撰寫-Dockerfile"><a href="#撰寫-Dockerfile" class="headerlink" title="撰寫 Dockerfile"></a>撰寫 Dockerfile</h2><p>Dockerfile 是用於建置 Docker Image 的腳本。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.10</span>-alpine</span><br><span class="line"><span class="keyword">ENV</span> myworkdir /home/django_site</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite/ <span class="variable">$&#123;myworkdir&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk update</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk add vim</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install django</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>, <span class="string">&quot;0.0.0.0:8000&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="建立-Docker-Image"><a href="#建立-Docker-Image" class="headerlink" title="建立 Docker Image"></a>建立 Docker Image</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">└── site/</span><br><span class="line">   ├── Dockerfile</span><br><span class="line">   └── mysite/</span><br><span class="line">        ├── app1/</span><br><span class="line">        │    ├── ...</span><br><span class="line">        ├── manage.py</span><br><span class="line">        └── mysite/</span><br><span class="line">             ├── ...</span><br></pre></td></tr></table></figure>
+
+<p>cd 到有 <code>Dockerfile</code> 的目錄下。接著，建立名為 <code>django_site</code> 的 Docker Image。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> site/</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker build -t bessyhuang/django_site . --no-cache</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="執行"><a href="#執行" class="headerlink" title="執行"></a>執行</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d -p 8001:8000 django_site</span> </span><br></pre></td></tr></table></figure>
+<p>打開瀏覽器 <a href="http://localhost:8001/hello/">http://localhost:8001/hello/</a></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -593,10 +496,107 @@
         <category>Kubernetes</category>
       </categories>
       <tags>
-        <tag>觀念解說</tag>
         <tag>Concepts</tag>
+        <tag>觀念解說</tag>
         <tag>ReplicationController</tag>
         <tag>ReplicaSet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Amazon S3</title>
+    <url>/2023/10/02/TempNotes/Amazon-S3/</url>
+    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><em><font color=royalblue>Infinitely Scaling Storage</font></em></p>
+<h1 id="Amazon-S3-Components"><a href="#Amazon-S3-Components" class="headerlink" title="Amazon S3 - Components"></a>Amazon S3 - Components</h1><p>Amazon S3 allows people to store objects (files) in buckets (directories).</p>
+<h2 id="Buckets"><a href="#Buckets" class="headerlink" title="Buckets"></a>Buckets</h2><p><em><font color=red>S3 looks like a global service but buckets are created in a region</font></em></p>
+<ul>
+<li>Buckets must have a globally unique name (across all regions all accounts)</li>
+<li>Buckets are defined at the region level</li>
+<li>Name Convention<ul>
+<li>No uppercase, No underscore</li>
+<li>3-63 characters long</li>
+<li>Not an IP</li>
+<li>Must start with lowercase letter or number</li>
+<li>Must NOT start with the prefix <code>xn--</code></li>
+<li>Must NOT end with the suffix <code>-s3alias</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h2><p><em><font color=red>Objects (files) have a Key. Key with very long names that contain slashes (“&#x2F;“).</font></em><br><em><font color=red>There is no concept of “directories” within buckets</font></em></p>
+<ul>
+<li>The key is the FULL path:<ul>
+<li>s3:&#x2F;&#x2F;my-bucket&#x2F;my_folder&#x2F;another_folder&#x2F;my_file.txt</li>
+</ul>
+</li>
+<li>The key is composed of <font color=red>prefix</font> + <font color=green>object name</font><ul>
+<li>s3:&#x2F;&#x2F;my-bucket&#x2F;<font color=red>my_folder&#x2F;another_folder&#x2F;</font><font color=green>my_file.txt</font></li>
+</ul>
+</li>
+<li>Object values are the content of the body:<ul>
+<li>Max. Object Size is 5 TB (5000 GB)</li>
+<li>If uploading more than 5 GB, must use “multi-part upload”.</li>
+</ul>
+</li>
+<li>Metadata<ul>
+<li>List of text key&#x2F;value pairs</li>
+<li>System or user metadata</li>
+</ul>
+</li>
+<li>Tags<ul>
+<li>Unicode key&#x2F;value pair</li>
+<li>Up to 10</li>
+<li>Useful for security&#x2F;lifecycle</li>
+</ul>
+</li>
+<li>Version ID<ul>
+<li>If versioning is enabled</li>
+</ul>
+</li>
+</ul>
+<h1 id="Use-Cases"><a href="#Use-Cases" class="headerlink" title="Use Cases"></a>Use Cases</h1><ul>
+<li>Backup &amp; Storage</li>
+<li>Disaster Recovery</li>
+<li>Archive</li>
+<li>Hybrid Cloud Storage</li>
+<li>Application&#x2F;Media Hosting</li>
+<li>Data Lakes &amp; Big Data Analytics</li>
+<li>Software Delivery</li>
+<li>Static Website</li>
+</ul>
+<h2 id="Business-Use-Cases"><a href="#Business-Use-Cases" class="headerlink" title="Business Use Cases"></a>Business Use Cases</h2><ul>
+<li>Nasdaq stores 7 years of data into Glacier</li>
+<li>Sysco runs analytics on its data and gain business insights</li>
+</ul>
+<h1 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h1>]]></content>
+      <tags>
+        <tag>S3</tag>
+        <tag>★☆★</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>從零開始學 Docker - 為何它這麼重要？(Part 3)</title>
+    <url>/2024/04/02/Docker/%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E5%AD%B8-Docker-%E7%82%BA%E4%BD%95%E5%AE%83%E9%80%99%E9%BA%BC%E9%87%8D%E8%A6%81%EF%BC%9F-Part-3/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Docker 的三大功用：</span><br><span class="line">1. 簡化部署流程</span><br><span class="line">2. 跨平台部署</span><br><span class="line">3. 建立乾淨測試環境</span><br></pre></td></tr></table></figure>
+
+<h1 id="功用三：建立乾淨測試環境"><a href="#功用三：建立乾淨測試環境" class="headerlink" title="功用三：建立乾淨測試環境"></a>功用三：建立乾淨測試環境</h1><h2 id="觀念解說"><a href="#觀念解說" class="headerlink" title="觀念解說"></a>觀念解說</h2><hr>
+<h1 id="實作示範"><a href="#實作示範" class="headerlink" title="實作示範"></a>實作示範</h1><p>本章節示範內容：建立乾淨的測試環境。<br>利用 Dockerfile 建立一份客製映像檔（Docker Image），並把測試環境跑起來。</p>
+<h2 id="準備-MongoDB-Container"><a href="#準備-MongoDB-Container" class="headerlink" title="準備 MongoDB Container"></a>準備 MongoDB Container</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker network create test_network</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -d --name mongodb --network test_network bessyhuang/py3.10_mongo:v1</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker <span class="built_in">exec</span> -it mongodb bash</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="準備-Django-Platform-Container"><a href="#準備-Django-Platform-Container" class="headerlink" title="準備 Django Platform Container"></a>準備 Django Platform Container</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -it -p 8001:8000 -v /Users/bessyhuang/Downloads/TEST_mysite/esiot-platform:/home/ --network test_network --name podman_platform python:3.11.8-slim bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt update</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt install gcc python3-dev -y</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pip install -r py3.11.8_requirements.txt</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">python manage.py runserver 0.0.0.0:8000</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.11</span>.<span class="number">8</span>-slim</span><br><span class="line"><span class="keyword">MAINTAINER</span> Bessy</span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./mysite ./home/</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /home/mysite</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install iproute2 -y &amp;&amp; apt-get install vim -y</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+
+<p>Example</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FROM alpine:latest</span><br><span class="line">ENV myworkdir /var/www/localhost/htdocs/</span><br><span class="line">ARG whoami=Bessy</span><br><span class="line">WORKDIR $&#123;myworkdir&#125;</span><br><span class="line">RUN apk --update add apache2</span><br><span class="line">RUN rm -rf /var/cache/apk/*</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 01&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 02&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">RUN echo &quot;&lt;h3&gt;I am $&#123;whoami&#125;. I am taking this great Docker Course. Round 03&lt;/h3&gt;&quot; &gt;&gt; index.html</span><br><span class="line">COPY ./content.txt ./</span><br><span class="line">RUN ls -l ./</span><br><span class="line">RUN cat ./content.txt &gt;&gt; index.html</span><br><span class="line">ENTRYPOINT [&quot;httpd&quot;, &quot;-D&quot;, &quot;FOREGROUND&quot;]</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>觀念解說</tag>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -722,71 +722,6 @@
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1>]]></content>
       <tags>
         <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MQTT vs. Redis vs. Kafka</title>
-    <url>/2024/03/18/TempNotes/MQTT-vs-Redis-vs-Kafka/</url>
-    <content><![CDATA[<h1 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h1><blockquote>
-<p>Message Queueing Telemetry Transport</p>
-</blockquote>
-<p>It is a lightweight communication protocol for IoT devices and networks. MQTT is well-suited for use in low-bandwidth, high-latency networks, and is often used for real-time data transfer in applications such as home automation and energy management.</p>
-<p>MQTT (Message Queuing Telemetry Transport) is a publish&#x2F;subscribe messaging protocol designed for resource-constrained devices and low-bandwidth networks. It provides a lightweight and efficient messaging infrastructure for microservices, making it ideal for IoT and mobile applications.</p>
-<ul>
-<li>物聯網(IoT) 通訊協議，專為資源受限的設備設計，提供了可靠的、有序的、低延遲的訊息傳輸</li>
-<li>適用於物聯網設備間的訊息通訊</li>
-</ul>
-<h2 id="Advantages"><a href="#Advantages" class="headerlink" title="Advantages"></a>Advantages</h2><ol>
-<li>Lightweight and efficient</li>
-<li>Ideal for IoT and mobile applications</li>
-<li>Publish&#x2F;subscribe model for easy scalability</li>
-<li>Widely supported and well-documented API</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Quality of Service (QoS)</span><br><span class="line">Retained Messages</span><br><span class="line">Last Will and Testament (LWT)</span><br><span class="line"></span><br><span class="line">Scalability and Reliability</span><br></pre></td></tr></table></figure>
-
-<h2 id="Disadvantages"><a href="#Disadvantages" class="headerlink" title="Disadvantages"></a>Disadvantages</h2><ol>
-<li>Limited security options compared to other protocols</li>
-<li>May not be suitable for high-volume or complex data transfers</li>
-</ol>
-<h2 id="Best-Use-Case"><a href="#Best-Use-Case" class="headerlink" title="Best Use Case"></a>Best Use Case</h2><p>MQTT is best for low-volume, resource-constrained, and scalable communication between microservices, especially in IoT and mobile applications.<br>It’s well-suited for environments with limited bandwidth or unreliable networks, and devices with low computational resources.</p>
-<p>Choose: You need to ensure message delivery over unreliable or bandwidth-constrained networks. You are dealing with a large number of distributed devices or sensors.</p>
-<hr>
-<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><blockquote>
-<p>Remote Dictionary Server</p>
-</blockquote>
-<p>It is an in-memory data structure store that can be used as a database, cache, and message broker. Redis can be used for real-time communication between services, where messages are stored and retrieved using Redis pub&#x2F;sub.</p>
-<p>Redis is an open-source, in-memory data structure store that can be used as a database, cache, and message broker. It provides fast and flexible access to data, making it well-suited for use as a cache and message broker in microservices.</p>
-<ul>
-<li>適用於需要高效能、在短時間內處理大量訊息的場景</li>
-</ul>
-<h2 id="Advantages-1"><a href="#Advantages-1" class="headerlink" title="Advantages"></a>Advantages</h2><ol>
-<li>Fast in-memory access to data</li>
-<li>Flexible data storage options</li>
-<li>Publish&#x2F;subscribe model for easy scalability</li>
-<li>Widely supported and well-documented API</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">high performance and low latency (Performance: Excellent for high-performance computing scenarios where rapid access to data is required.)</span><br><span class="line"></span><br><span class="line">Pub/Sub System</span><br><span class="line">Data Persistence</span><br><span class="line">Advanced Data Structures</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="Disadvantages-1"><a href="#Disadvantages-1" class="headerlink" title="Disadvantages"></a>Disadvantages</h2><ol>
-<li>Limited durability compared to other protocols</li>
-<li>May not be suitable for high-volume or complex data transfers</li>
-<li>May require additional setup and configuration</li>
-</ol>
-<h2 id="Best-Use-Case-1"><a href="#Best-Use-Case-1" class="headerlink" title="Best Use Case"></a>Best Use Case</h2><p>Redis is best for fast, flexible, and scalable communication between microservices, especially as a cache or message broker.<br>It is also used for message brokering but in more data-centric applications like web applications, gaming, and real-time analytics.</p>
-<p>Choose: You are developing applications that need rapid access to data with minimal latency. Your use case involves real-time analytics, gaming, or session management in web applications.</p>
-<hr>
-<h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><hr>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://blog.nonstopio.com/comparison-of-tcp-rmq-mqtt-redis-and-grpc-transport-layers-in-nest-js-microservices-2c10a2a98a6f">Comparison of TCP, (RMQ), MQTT, Redis, and gRPC transport layers in Nest.js microservices</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Pub/Sub Messaging</category>
-      </categories>
-      <tags>
-        <tag>MQTT</tag>
-        <tag>Redis</tag>
-        <tag>Kafka</tag>
       </tags>
   </entry>
   <entry>
@@ -943,6 +878,284 @@
         <tag>Data Visualization</tag>
         <tag>Python</tag>
         <tag>Plotly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>K8s | Security - 1</title>
+    <url>/2025/06/21/K8s-Advanced/K8s-Security-1/</url>
+    <content><![CDATA[<h1 id="K8s-Security-Primitives"><a href="#K8s-Security-Primitives" class="headerlink" title="K8s Security Primitives"></a>K8s Security Primitives</h1><h2 id="Secure-K8s"><a href="#Secure-K8s" class="headerlink" title="Secure K8s"></a>Secure K8s</h2><h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><div class="note info"><p><mark>What is kube-apiserver?</mark><br>kube-apiserver 是 Kubernetes 控制平面的核心組件之一，扮演整個叢集的大腦與出入口。<br>它提供一個 HTTP REST API，所有的內部元件（如 kubelet、controller-manager）與外部工具（如 kubectl、CI&#x2F;CD pipeline）都透過它來與 Kubernetes 互動。</p>
+<p><mark>🔐 常見安全設定</mark></p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>範例設定方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>認證</td>
+<td>Token、憑證、HTTP Basic、OIDC、Webhook</td>
+</tr>
+<tr>
+<td>授權</td>
+<td>RBAC、ABAC、Webhook</td>
+</tr>
+<tr>
+<td>傳輸加密</td>
+<td>HTTPS、TLS 憑證</td>
+</tr>
+<tr>
+<td>請求限制</td>
+<td>Audit Policy、Rate Limiting、Webhook 驗證器</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><mark>✅ 小提醒</mark></p>
+<ul>
+<li>kube-apiserver 是無狀態的（stateless），可橫向擴展以提高高可用性。</li>
+<li>狀態都存放在 etcd。</li>
+<li>若 apiserver 掛掉，只要 etcd 還在，叢集狀態不會遺失。</li>
+</ul>
+</div>
+
+<p>Authentication (驗證): Who can access?</p>
+<ol>
+<li>Files – Username and Passwords</li>
+<li>Files – Username and Tokens</li>
+<li>Certificates</li>
+<li>External Authentication providers - LDAP</li>
+<li>Service Accounts</li>
+</ol>
+<p>Authorization (授權): What can they do?</p>
+<ol>
+<li>RBAC Authorization</li>
+<li>ABAC Authorization</li>
+<li>Node Authorization</li>
+<li>Webhook Mode</li>
+</ol>
+<h2 id="TLS-Certificates"><a href="#TLS-Certificates" class="headerlink" title="TLS Certificates"></a>TLS Certificates</h2><p>Kube ApiServer (Master)</p>
+<ul>
+<li>ETCD CLUSTER (Master)</li>
+<li>Kube Scheduler (Master)</li>
+<li>Kube Controller Manager (Master)</li>
+<li>Kubelet (Worker Nodes)</li>
+<li>Kube Proxy (Worker Nodes)</li>
+</ul>
+<h2 id="Network-Policies"><a href="#Network-Policies" class="headerlink" title="Network Policies"></a>Network Policies</h2><hr>
+<h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><p>Kubernetes <code>本身</code> 的確 <code>「不主動管理帳號（account）」</code>，但它提供帳號的概念與機制，讓外部系統或管理者進行 <code>身份驗證與授權整合</code>。</p>
+<p>✅ 結論：K8s 不管理帳號，但提供「授權架構」</p>
+<table>
+<thead>
+<tr>
+<th>功能面向</th>
+<th>Kubernetes 做的事</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>帳號管理</td>
+<td>❌ 不管理 User 帳號，需依賴外部系統驗證</td>
+</tr>
+<tr>
+<td>認證機制</td>
+<td>✅ 提供多種身份驗證接口</td>
+</tr>
+<tr>
+<td>授權（RBAC）</td>
+<td>✅ 控制誰能對什麼資源做什麼操作</td>
+</tr>
+<tr>
+<td>Service Account</td>
+<td>✅ 自動建立與管理，供 Pod 使用</td>
+</tr>
+</tbody></table>
+<h2 id="Accounts"><a href="#Accounts" class="headerlink" title="Accounts"></a>Accounts</h2><p>User (使用者帳號) 會先經過 kube-apiserver (Authenticate User) 驗證後，才 Process request。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Admins      --- kubectl                              -</span><br><span class="line">                                                      |---&gt; kube-apiserver ---&gt; Process request</span><br><span class="line">Developers  --- curl https://kube-server-ip:6443/    -</span><br></pre></td></tr></table></figure>
+
+<h3 id="Authentication-流程圖"><a href="#Authentication-流程圖" class="headerlink" title="Authentication 流程圖"></a>Authentication 流程圖</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[kubectl]      [curl / script]    [Pod / Controller]</span><br><span class="line">   │                 │                       │</span><br><span class="line">   └──────┐     ┌────┴────────┐       ┌──────┘</span><br><span class="line">          ▼     ▼             ▼       ▼</span><br><span class="line">             [ kube-apiserver ]</span><br><span class="line">                     │</span><br><span class="line">            [ AuthN → AuthZ → Admission → etcd ]</span><br></pre></td></tr></table></figure>
+
+<p>Accounts 類型比較</p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>說明</th>
+<th>Kubernetes 是否自動管理？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>User Account（使用者帳號）</strong></td>
+<td>給人類使用者（例如 Admin、DevOps）</td>
+<td>❌ 不會管理，也不儲存在 K8s 中</td>
+</tr>
+<tr>
+<td><strong>Service Account（服務帳號）</strong></td>
+<td>給 Pod 或內部控制器使用</td>
+<td>✅ 由 K8s 管理與建立</td>
+</tr>
+</tbody></table>
+<h3 id="User-使用者帳號"><a href="#User-使用者帳號" class="headerlink" title="User (使用者帳號)"></a>User (使用者帳號)</h3><blockquote>
+<p>例如：Admins, Developers</p>
+</blockquote>
+<ul>
+<li>K8s <code>不會建立、儲存或驗證</code> User 帳號。</li>
+<li>常見身份驗證來源（通常透過外部系統提供。需由管理者或 DevOps 架設）：<ul>
+<li>X.509 憑證（最常見，kubectl 預設方式）</li>
+<li>OIDC &#x3D; OpenID Connect（例如與 Google、GitHub、Keycloak 整合）</li>
+<li>LDAP &#x2F; Active Directory (AD)</li>
+<li>Webhook Token Auth（自定 API）</li>
+</ul>
+</li>
+<li>雖然身份驗證交由外部處理，K8s 仍可用 RBAC 對這些使用者進行授權（例如管控這個 user 可否 get pod）。</li>
+</ul>
+<h3 id="Service-Accounts-服務帳號"><a href="#Service-Accounts-服務帳號" class="headerlink" title="Service Accounts (服務帳號)"></a>Service Accounts (服務帳號)</h3><blockquote>
+<p>例如：CI&#x2F;CD Bots</p>
+</blockquote>
+<ul>
+<li>K8s 每個 namespace 會預設建立一個名為 <code>default</code> 的 service account (SA)。</li>
+<li>若 Pod 未指定 SA，會自動綁定 <code>default</code>。</li>
+<li>Pod 會透過 SA 的 Token Secret 自動掛載存取 kube-apiserver。（例如：與 etcd 同步、看其他資源）</li>
+<li>可使用 RBAC 控制其存取權限。</li>
+<li>常用指令：  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 建立 ServiceAccount</span></span><br><span class="line">kubectl create serviceaccount &lt;sa_name&gt; -n &lt;namespace&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查詢</span></span><br><span class="line">kubectl get serviceaccounts -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="kube-apiserver-的-Auth-Mechanisms"><a href="#kube-apiserver-的-Auth-Mechanisms" class="headerlink" title="kube-apiserver 的 Auth Mechanisms"></a>kube-apiserver 的 Auth Mechanisms</h2><table>
+<thead>
+<tr>
+<th>類型</th>
+<th>說明</th>
+<th>建議使用？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Static Password File</td>
+<td>使用 CSV 格式帳號密碼</td>
+<td>🚫 不建議（不安全、不易擴展）</td>
+</tr>
+<tr>
+<td>Static Token File</td>
+<td>使用 Token 存放在檔案中</td>
+<td>🚫 不建議（實驗、測試用途）</td>
+</tr>
+<tr>
+<td>X.509 憑證</td>
+<td>使用 client cert 登入 API（kubectl 預設）</td>
+<td>✅ 建議（成熟且穩定）</td>
+</tr>
+<tr>
+<td>OIDC（OpenID Connect）</td>
+<td>OAuth2 相容身份系統（如 Google）</td>
+<td>✅ 建議（支援 SSO）</td>
+</tr>
+<tr>
+<td>Webhook Token Auth</td>
+<td>將請求導向自定 API 做身份驗證</td>
+<td>✅ 建議（彈性高）</td>
+</tr>
+</tbody></table>
+<details class="note default"><summary><p>補充說明：Static File Auth</p>
+</summary>
+<p>在 kubeadm 安裝環境中，如果使用 static token&#x2F;password 認證方式，需透過 Volume 將檔案掛載進 kube-apiserver。<br>⚠️  生產環境不建議使用 static file authentication，請優先使用憑證或 OIDC。</p>
+
+</details>
+
+<hr>
+<h1 id="TLS-Basics-PRE-REQ"><a href="#TLS-Basics-PRE-REQ" class="headerlink" title="TLS Basics (PRE-REQ)"></a>TLS Basics (PRE-REQ)</h1><h2 id="TLS-Certificates-1"><a href="#TLS-Certificates-1" class="headerlink" title="TLS Certificates"></a>TLS Certificates</h2><p>TLS（Transport Layer Security）是用來加密兩端通訊的重要技術 (網路通訊加密協定)，常見於 HTTPS、Kubernetes、SSH 等場景。<br>TLS 憑證基於 <code>公開金鑰加密（Public Key Cryptography）</code> 和 <code>PKI 架構</code>。</p>
+<h3 id="Symmetric-Encryption（對稱式加密）"><a href="#Symmetric-Encryption（對稱式加密）" class="headerlink" title="Symmetric Encryption（對稱式加密）"></a>Symmetric Encryption（對稱式加密）</h3><ul>
+<li>雙方共用 <code>同一把密鑰</code> 來加解密。</li>
+<li>加密快速，但 <code>密鑰分發困難、不安全</code> (密鑰交換困難)。</li>
+<li>適合資料傳輸，但不適合建立安全連線。</li>
+</ul>
+<h3 id="Asymmetric-Encryption（非對稱式加密）"><a href="#Asymmetric-Encryption（非對稱式加密）" class="headerlink" title="Asymmetric Encryption（非對稱式加密）"></a>Asymmetric Encryption（非對稱式加密）</h3><ul>
+<li>一對金鑰：<code>Private Key（私鑰）</code> 與 <code>Public Key（公開鑰 / 公開鎖, aka. Public Lock）</code></li>
+<li>加密與解密由不同金鑰完成：<ul>
+<li>公鑰加密 → 私鑰解密</li>
+<li>私鑰簽名 → 公鑰驗證</li>
+</ul>
+</li>
+<li>✅ 適用於建立安全連線與身分驗證<br><mark>Public Key &#x3D; 公開鎖，只有私鑰才能解開它。</mark></li>
+</ul>
+<h3 id="金鑰與憑證範例"><a href="#金鑰與憑證範例" class="headerlink" title="金鑰與憑證範例"></a>金鑰與憑證範例</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 產生 SSH 金鑰對（與 TLS 相似邏輯）</span></span><br><span class="line">ssh-keygen</span><br><span class="line"></span><br><span class="line"><span class="comment"># 預設產出兩個檔案：</span></span><br><span class="line"><span class="comment"># 1. 私鑰 (Private Key): ~/.ssh/id_rsa    → 對應 TLS 中的 *.key 或 *-key.pem</span></span><br><span class="line"><span class="comment"># 2. 公鑰 (Public Key): ~/.ssh/id_rsa.pub → 對應 TLS 中的 *.crt 或 *.pem</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 登入使用 SSH 私鑰</span></span><br><span class="line">ssh -i id_rsa user1@server1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看伺服器上允許的公鑰</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<h3 id="Certificate-Authority-CA"><a href="#Certificate-Authority-CA" class="headerlink" title="Certificate Authority (CA)"></a>Certificate Authority (CA)</h3><ul>
+<li>CA 是受信任的憑證簽發單位，用來簽署憑證以證明身份真實性。</li>
+<li>憑證中包含：<ul>
+<li>公鑰</li>
+<li>實體資訊（如：CN、OU、DNS name）</li>
+<li>CA 的簽名</li>
+</ul>
+</li>
+<li>TLS 憑證是由 CA 簽發（或自簽）後，附上「公鑰 + 身份資訊」的檔案。</li>
+<li>常見格式：.crt、.pem</li>
+</ul>
+<h3 id="Public-Key-Infrastructure-PKI"><a href="#Public-Key-Infrastructure-PKI" class="headerlink" title="Public Key Infrastructure (PKI)"></a>Public Key Infrastructure (PKI)</h3><blockquote>
+<p>建立、簽署與管理憑證(公私鑰 + 憑證)的信任架構</p>
+</blockquote>
+<p>PKI 架構包含：</p>
+<ul>
+<li>憑證簽署請求（CSR）：由持有私鑰者發出，請求 CA 簽名</li>
+<li>CA 簽發憑證：根據 CSR 回傳正式憑證</li>
+<li>憑證鏈（Chain of Trust）：Root Certificates、Server Certificates、Client Certificates 串接</li>
+<li>憑證有效性檢查（OCSP、CRL）：憑證撤銷機制</li>
+</ul>
+<h3 id="TLS-運作核心概念（整合）"><a href="#TLS-運作核心概念（整合）" class="headerlink" title="TLS 運作核心概念（整合）"></a>TLS 運作核心概念（整合）</h3><table>
+<thead>
+<tr>
+<th>元件</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Private Key</td>
+<td>自己保管，負責解密資料或產生數位簽章</td>
+</tr>
+<tr>
+<td>Public Key</td>
+<td>發給對方，讓對方對資料加密或驗證簽章</td>
+</tr>
+<tr>
+<td>Certificate（憑證）</td>
+<td>公鑰 + 身份資訊（如 CN、OU），經 CA 簽章</td>
+</tr>
+<tr>
+<td>TLS 通訊</td>
+<td>初始階段使用 <code>非對稱加密</code> 交換對稱密鑰 → 後續資料交換使用 <code>對稱加密</code></td>
+</tr>
+</tbody></table>
+<p>Server Certificates for Servers</p>
+<ul>
+<li>kube-api server</li>
+<li>etcd server</li>
+<li>kubelet server</li>
+</ul>
+<p>Client Certificates for Clients</p>
+<ul>
+<li>admin</li>
+<li>kube-scheduler</li>
+<li>kube-controller-manager</li>
+<li>kube-proxy</li>
+</ul>
+<h3 id="Generate-Certificates"><a href="#Generate-Certificates" class="headerlink" title="Generate Certificates"></a>Generate Certificates</h3><p>Tools:</p>
+<ol>
+<li>EASYRSA</li>
+<li>OPENSSL</li>
+<li>CFSSL</li>
+</ol>
+<p>Certificate Authority (CA)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Generate Keys</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"></span><br><span class="line"><span class="comment"># Certificate Signing Request</span></span><br><span class="line">openssl req -new -key ca.key -subj <span class="string">&quot;/CN=KUBERNETES-CA&quot;</span> -out ca.csr</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sign Certificates</span></span><br><span class="line">openssl x509 -req -<span class="keyword">in</span> ca.csr -signkey ca.key -out ca.crt</span><br></pre></td></tr></table></figure>
+
+
+<p>View Certificate Details</p>
+<p>Certificate Workflow &amp; API</p>
+<p>KUBECONFIG</p>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>K8s Security Primitives</tag>
+        <tag>Authentication</tag>
+        <tag>TLS Certificates for Cluster Components</tag>
+        <tag>Secure Persistent Key Value Store</tag>
       </tags>
   </entry>
   <entry>
@@ -1266,284 +1479,6 @@
       </tags>
   </entry>
   <entry>
-    <title>K8s | Security - 1</title>
-    <url>/2025/06/21/K8s-Advanced/K8s-Security-1/</url>
-    <content><![CDATA[<h1 id="K8s-Security-Primitives"><a href="#K8s-Security-Primitives" class="headerlink" title="K8s Security Primitives"></a>K8s Security Primitives</h1><h2 id="Secure-K8s"><a href="#Secure-K8s" class="headerlink" title="Secure K8s"></a>Secure K8s</h2><h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><div class="note info"><p><mark>What is kube-apiserver?</mark><br>kube-apiserver 是 Kubernetes 控制平面的核心組件之一，扮演整個叢集的大腦與出入口。<br>它提供一個 HTTP REST API，所有的內部元件（如 kubelet、controller-manager）與外部工具（如 kubectl、CI&#x2F;CD pipeline）都透過它來與 Kubernetes 互動。</p>
-<p><mark>🔐 常見安全設定</mark></p>
-<table>
-<thead>
-<tr>
-<th>類型</th>
-<th>範例設定方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>認證</td>
-<td>Token、憑證、HTTP Basic、OIDC、Webhook</td>
-</tr>
-<tr>
-<td>授權</td>
-<td>RBAC、ABAC、Webhook</td>
-</tr>
-<tr>
-<td>傳輸加密</td>
-<td>HTTPS、TLS 憑證</td>
-</tr>
-<tr>
-<td>請求限制</td>
-<td>Audit Policy、Rate Limiting、Webhook 驗證器</td>
-</tr>
-</tbody></table>
-<br>
-
-<p><mark>✅ 小提醒</mark></p>
-<ul>
-<li>kube-apiserver 是無狀態的（stateless），可橫向擴展以提高高可用性。</li>
-<li>狀態都存放在 etcd。</li>
-<li>若 apiserver 掛掉，只要 etcd 還在，叢集狀態不會遺失。</li>
-</ul>
-</div>
-
-<p>Authentication (驗證): Who can access?</p>
-<ol>
-<li>Files – Username and Passwords</li>
-<li>Files – Username and Tokens</li>
-<li>Certificates</li>
-<li>External Authentication providers - LDAP</li>
-<li>Service Accounts</li>
-</ol>
-<p>Authorization (授權): What can they do?</p>
-<ol>
-<li>RBAC Authorization</li>
-<li>ABAC Authorization</li>
-<li>Node Authorization</li>
-<li>Webhook Mode</li>
-</ol>
-<h2 id="TLS-Certificates"><a href="#TLS-Certificates" class="headerlink" title="TLS Certificates"></a>TLS Certificates</h2><p>Kube ApiServer (Master)</p>
-<ul>
-<li>ETCD CLUSTER (Master)</li>
-<li>Kube Scheduler (Master)</li>
-<li>Kube Controller Manager (Master)</li>
-<li>Kubelet (Worker Nodes)</li>
-<li>Kube Proxy (Worker Nodes)</li>
-</ul>
-<h2 id="Network-Policies"><a href="#Network-Policies" class="headerlink" title="Network Policies"></a>Network Policies</h2><hr>
-<h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><p>Kubernetes <code>本身</code> 的確 <code>「不主動管理帳號（account）」</code>，但它提供帳號的概念與機制，讓外部系統或管理者進行 <code>身份驗證與授權整合</code>。</p>
-<p>✅ 結論：K8s 不管理帳號，但提供「授權架構」</p>
-<table>
-<thead>
-<tr>
-<th>功能面向</th>
-<th>Kubernetes 做的事</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>帳號管理</td>
-<td>❌ 不管理 User 帳號，需依賴外部系統驗證</td>
-</tr>
-<tr>
-<td>認證機制</td>
-<td>✅ 提供多種身份驗證接口</td>
-</tr>
-<tr>
-<td>授權（RBAC）</td>
-<td>✅ 控制誰能對什麼資源做什麼操作</td>
-</tr>
-<tr>
-<td>Service Account</td>
-<td>✅ 自動建立與管理，供 Pod 使用</td>
-</tr>
-</tbody></table>
-<h2 id="Accounts"><a href="#Accounts" class="headerlink" title="Accounts"></a>Accounts</h2><p>User (使用者帳號) 會先經過 kube-apiserver (Authenticate User) 驗證後，才 Process request。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Admins      --- kubectl                              -</span><br><span class="line">                                                      |---&gt; kube-apiserver ---&gt; Process request</span><br><span class="line">Developers  --- curl https://kube-server-ip:6443/    -</span><br></pre></td></tr></table></figure>
-
-<h3 id="Authentication-流程圖"><a href="#Authentication-流程圖" class="headerlink" title="Authentication 流程圖"></a>Authentication 流程圖</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[kubectl]      [curl / script]    [Pod / Controller]</span><br><span class="line">   │                 │                       │</span><br><span class="line">   └──────┐     ┌────┴────────┐       ┌──────┘</span><br><span class="line">          ▼     ▼             ▼       ▼</span><br><span class="line">             [ kube-apiserver ]</span><br><span class="line">                     │</span><br><span class="line">            [ AuthN → AuthZ → Admission → etcd ]</span><br></pre></td></tr></table></figure>
-
-<p>Accounts 類型比較</p>
-<table>
-<thead>
-<tr>
-<th>類型</th>
-<th>說明</th>
-<th>Kubernetes 是否自動管理？</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>User Account（使用者帳號）</strong></td>
-<td>給人類使用者（例如 Admin、DevOps）</td>
-<td>❌ 不會管理，也不儲存在 K8s 中</td>
-</tr>
-<tr>
-<td><strong>Service Account（服務帳號）</strong></td>
-<td>給 Pod 或內部控制器使用</td>
-<td>✅ 由 K8s 管理與建立</td>
-</tr>
-</tbody></table>
-<h3 id="User-使用者帳號"><a href="#User-使用者帳號" class="headerlink" title="User (使用者帳號)"></a>User (使用者帳號)</h3><blockquote>
-<p>例如：Admins, Developers</p>
-</blockquote>
-<ul>
-<li>K8s <code>不會建立、儲存或驗證</code> User 帳號。</li>
-<li>常見身份驗證來源（通常透過外部系統提供。需由管理者或 DevOps 架設）：<ul>
-<li>X.509 憑證（最常見，kubectl 預設方式）</li>
-<li>OIDC &#x3D; OpenID Connect（例如與 Google、GitHub、Keycloak 整合）</li>
-<li>LDAP &#x2F; Active Directory (AD)</li>
-<li>Webhook Token Auth（自定 API）</li>
-</ul>
-</li>
-<li>雖然身份驗證交由外部處理，K8s 仍可用 RBAC 對這些使用者進行授權（例如管控這個 user 可否 get pod）。</li>
-</ul>
-<h3 id="Service-Accounts-服務帳號"><a href="#Service-Accounts-服務帳號" class="headerlink" title="Service Accounts (服務帳號)"></a>Service Accounts (服務帳號)</h3><blockquote>
-<p>例如：CI&#x2F;CD Bots</p>
-</blockquote>
-<ul>
-<li>K8s 每個 namespace 會預設建立一個名為 <code>default</code> 的 service account (SA)。</li>
-<li>若 Pod 未指定 SA，會自動綁定 <code>default</code>。</li>
-<li>Pod 會透過 SA 的 Token Secret 自動掛載存取 kube-apiserver。（例如：與 etcd 同步、看其他資源）</li>
-<li>可使用 RBAC 控制其存取權限。</li>
-<li>常用指令：  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 建立 ServiceAccount</span></span><br><span class="line">kubectl create serviceaccount &lt;sa_name&gt; -n &lt;namespace&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查詢</span></span><br><span class="line">kubectl get serviceaccounts -n &lt;namespace&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="kube-apiserver-的-Auth-Mechanisms"><a href="#kube-apiserver-的-Auth-Mechanisms" class="headerlink" title="kube-apiserver 的 Auth Mechanisms"></a>kube-apiserver 的 Auth Mechanisms</h2><table>
-<thead>
-<tr>
-<th>類型</th>
-<th>說明</th>
-<th>建議使用？</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Static Password File</td>
-<td>使用 CSV 格式帳號密碼</td>
-<td>🚫 不建議（不安全、不易擴展）</td>
-</tr>
-<tr>
-<td>Static Token File</td>
-<td>使用 Token 存放在檔案中</td>
-<td>🚫 不建議（實驗、測試用途）</td>
-</tr>
-<tr>
-<td>X.509 憑證</td>
-<td>使用 client cert 登入 API（kubectl 預設）</td>
-<td>✅ 建議（成熟且穩定）</td>
-</tr>
-<tr>
-<td>OIDC（OpenID Connect）</td>
-<td>OAuth2 相容身份系統（如 Google）</td>
-<td>✅ 建議（支援 SSO）</td>
-</tr>
-<tr>
-<td>Webhook Token Auth</td>
-<td>將請求導向自定 API 做身份驗證</td>
-<td>✅ 建議（彈性高）</td>
-</tr>
-</tbody></table>
-<details class="note default"><summary><p>補充說明：Static File Auth</p>
-</summary>
-<p>在 kubeadm 安裝環境中，如果使用 static token&#x2F;password 認證方式，需透過 Volume 將檔案掛載進 kube-apiserver。<br>⚠️  生產環境不建議使用 static file authentication，請優先使用憑證或 OIDC。</p>
-
-</details>
-
-<hr>
-<h1 id="TLS-Basics-PRE-REQ"><a href="#TLS-Basics-PRE-REQ" class="headerlink" title="TLS Basics (PRE-REQ)"></a>TLS Basics (PRE-REQ)</h1><h2 id="TLS-Certificates-1"><a href="#TLS-Certificates-1" class="headerlink" title="TLS Certificates"></a>TLS Certificates</h2><p>TLS（Transport Layer Security）是用來加密兩端通訊的重要技術 (網路通訊加密協定)，常見於 HTTPS、Kubernetes、SSH 等場景。<br>TLS 憑證基於 <code>公開金鑰加密（Public Key Cryptography）</code> 和 <code>PKI 架構</code>。</p>
-<h3 id="Symmetric-Encryption（對稱式加密）"><a href="#Symmetric-Encryption（對稱式加密）" class="headerlink" title="Symmetric Encryption（對稱式加密）"></a>Symmetric Encryption（對稱式加密）</h3><ul>
-<li>雙方共用 <code>同一把密鑰</code> 來加解密。</li>
-<li>加密快速，但 <code>密鑰分發困難、不安全</code> (密鑰交換困難)。</li>
-<li>適合資料傳輸，但不適合建立安全連線。</li>
-</ul>
-<h3 id="Asymmetric-Encryption（非對稱式加密）"><a href="#Asymmetric-Encryption（非對稱式加密）" class="headerlink" title="Asymmetric Encryption（非對稱式加密）"></a>Asymmetric Encryption（非對稱式加密）</h3><ul>
-<li>一對金鑰：<code>Private Key（私鑰）</code> 與 <code>Public Key（公開鑰 / 公開鎖, aka. Public Lock）</code></li>
-<li>加密與解密由不同金鑰完成：<ul>
-<li>公鑰加密 → 私鑰解密</li>
-<li>私鑰簽名 → 公鑰驗證</li>
-</ul>
-</li>
-<li>✅ 適用於建立安全連線與身分驗證<br><mark>Public Key &#x3D; 公開鎖，只有私鑰才能解開它。</mark></li>
-</ul>
-<h3 id="金鑰與憑證範例"><a href="#金鑰與憑證範例" class="headerlink" title="金鑰與憑證範例"></a>金鑰與憑證範例</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 產生 SSH 金鑰對（與 TLS 相似邏輯）</span></span><br><span class="line">ssh-keygen</span><br><span class="line"></span><br><span class="line"><span class="comment"># 預設產出兩個檔案：</span></span><br><span class="line"><span class="comment"># 1. 私鑰 (Private Key): ~/.ssh/id_rsa    → 對應 TLS 中的 *.key 或 *-key.pem</span></span><br><span class="line"><span class="comment"># 2. 公鑰 (Public Key): ~/.ssh/id_rsa.pub → 對應 TLS 中的 *.crt 或 *.pem</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 登入使用 SSH 私鑰</span></span><br><span class="line">ssh -i id_rsa user1@server1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看伺服器上允許的公鑰</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-
-<h3 id="Certificate-Authority-CA"><a href="#Certificate-Authority-CA" class="headerlink" title="Certificate Authority (CA)"></a>Certificate Authority (CA)</h3><ul>
-<li>CA 是受信任的憑證簽發單位，用來簽署憑證以證明身份真實性。</li>
-<li>憑證中包含：<ul>
-<li>公鑰</li>
-<li>實體資訊（如：CN、OU、DNS name）</li>
-<li>CA 的簽名</li>
-</ul>
-</li>
-<li>TLS 憑證是由 CA 簽發（或自簽）後，附上「公鑰 + 身份資訊」的檔案。</li>
-<li>常見格式：.crt、.pem</li>
-</ul>
-<h3 id="Public-Key-Infrastructure-PKI"><a href="#Public-Key-Infrastructure-PKI" class="headerlink" title="Public Key Infrastructure (PKI)"></a>Public Key Infrastructure (PKI)</h3><blockquote>
-<p>建立、簽署與管理憑證(公私鑰 + 憑證)的信任架構</p>
-</blockquote>
-<p>PKI 架構包含：</p>
-<ul>
-<li>憑證簽署請求（CSR）：由持有私鑰者發出，請求 CA 簽名</li>
-<li>CA 簽發憑證：根據 CSR 回傳正式憑證</li>
-<li>憑證鏈（Chain of Trust）：Root Certificates、Server Certificates、Client Certificates 串接</li>
-<li>憑證有效性檢查（OCSP、CRL）：憑證撤銷機制</li>
-</ul>
-<h3 id="TLS-運作核心概念（整合）"><a href="#TLS-運作核心概念（整合）" class="headerlink" title="TLS 運作核心概念（整合）"></a>TLS 運作核心概念（整合）</h3><table>
-<thead>
-<tr>
-<th>元件</th>
-<th>內容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Private Key</td>
-<td>自己保管，負責解密資料或產生數位簽章</td>
-</tr>
-<tr>
-<td>Public Key</td>
-<td>發給對方，讓對方對資料加密或驗證簽章</td>
-</tr>
-<tr>
-<td>Certificate（憑證）</td>
-<td>公鑰 + 身份資訊（如 CN、OU），經 CA 簽章</td>
-</tr>
-<tr>
-<td>TLS 通訊</td>
-<td>初始階段使用 <code>非對稱加密</code> 交換對稱密鑰 → 後續資料交換使用 <code>對稱加密</code></td>
-</tr>
-</tbody></table>
-<p>Server Certificates for Servers</p>
-<ul>
-<li>kube-api server</li>
-<li>etcd server</li>
-<li>kubelet server</li>
-</ul>
-<p>Client Certificates for Clients</p>
-<ul>
-<li>admin</li>
-<li>kube-scheduler</li>
-<li>kube-controller-manager</li>
-<li>kube-proxy</li>
-</ul>
-<h3 id="Generate-Certificates"><a href="#Generate-Certificates" class="headerlink" title="Generate Certificates"></a>Generate Certificates</h3><p>Tools:</p>
-<ol>
-<li>EASYRSA</li>
-<li>OPENSSL</li>
-<li>CFSSL</li>
-</ol>
-<p>Certificate Authority (CA)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Generate Keys</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"></span><br><span class="line"><span class="comment"># Certificate Signing Request</span></span><br><span class="line">openssl req -new -key ca.key -subj <span class="string">&quot;/CN=KUBERNETES-CA&quot;</span> -out ca.csr</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sign Certificates</span></span><br><span class="line">openssl x509 -req -<span class="keyword">in</span> ca.csr -signkey ca.key -out ca.crt</span><br></pre></td></tr></table></figure>
-
-
-<p>View Certificate Details</p>
-<p>Certificate Workflow &amp; API</p>
-<p>KUBECONFIG</p>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>K8s Security Primitives</tag>
-        <tag>Authentication</tag>
-        <tag>TLS Certificates for Cluster Components</tag>
-        <tag>Secure Persistent Key Value Store</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>K8s Security | Authorization</title>
     <url>/2025/07/09/K8s-Advanced/K8s-Security-Authorization/</url>
     <content><![CDATA[<h1 id="Why-Authorization"><a href="#Why-Authorization" class="headerlink" title="Why Authorization?"></a>Why Authorization?</h1><p>在 K8s 中，不同類型的實體（例如 Admins、Developers、Bots）執行的操作權限應有所區隔，以維護叢集的安全性與資源隔離。因此，我們需要使用 <code>授權機制（Authorization Mechanisms）</code> 來精細控管誰可以做什麼。</p>
@@ -1795,6 +1730,13 @@
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># developer-role.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;create&quot;</span>, <span class="string">&quot;update&quot;</span>]</span><br><span class="line">  <span class="attr">resourceNames:</span> [<span class="string">&quot;blue&quot;</span>, <span class="string">&quot;orange&quot;</span>]</span><br></pre></td></tr></table></figure>
 </details>
 
+<h4 id="Kubectl-Command"><a href="#Kubectl-Command" class="headerlink" title="Kubectl Command"></a>Kubectl Command</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f developer-role.yaml</span><br></pre></td></tr></table></figure>
+
+<h3 id="Binding-role-and-users"><a href="#Binding-role-and-users" class="headerlink" title="Binding role and users"></a>Binding role and users</h3><img src="/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_2.jpg" class="">
+
+<h4 id="developer-role-yaml-1"><a href="#developer-role-yaml-1" class="headerlink" title="developer-role.yaml"></a>developer-role.yaml</h4><p>同上</p>
+<h4 id="devuser-developer-binding-yaml"><a href="#devuser-developer-binding-yaml" class="headerlink" title="devuser-developer-binding.yaml"></a>devuser-developer-binding.yaml</h4><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">devuser-developer-binding</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev-ns</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dev-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
 <details class="note default"><summary><p>RBAC 的 subjects 支援 3 種 kind</p>
 </summary>
 <p>RBAC 的 subjects 支援 3 種 kind：</p>
@@ -1804,13 +1746,6 @@
 </blockquote>
 
 </details>
-
-<h4 id="Kubectl-Command"><a href="#Kubectl-Command" class="headerlink" title="Kubectl Command"></a>Kubectl Command</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f developer-role.yaml</span><br></pre></td></tr></table></figure>
-
-<h3 id="Binding-role-and-users"><a href="#Binding-role-and-users" class="headerlink" title="Binding role and users"></a>Binding role and users</h3><img src="/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_2.jpg" class="">
-
-<h4 id="developer-role-yaml-1"><a href="#developer-role-yaml-1" class="headerlink" title="developer-role.yaml"></a>developer-role.yaml</h4><p>同上</p>
-<h4 id="devuser-developer-binding-yaml"><a href="#devuser-developer-binding-yaml" class="headerlink" title="devuser-developer-binding.yaml"></a>devuser-developer-binding.yaml</h4><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">devuser-developer-binding</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev-ns</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dev-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="Kubectl-Command-1"><a href="#Kubectl-Command-1" class="headerlink" title="Kubectl Command"></a>Kubectl Command</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f devuser-developer-binding.yaml</span><br></pre></td></tr></table></figure>
 
@@ -1981,6 +1916,71 @@
         <tag>api-groups</tag>
         <tag>kubectl</tag>
         <tag>curl</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MQTT vs. Redis vs. Kafka</title>
+    <url>/2024/03/18/TempNotes/MQTT-vs-Redis-vs-Kafka/</url>
+    <content><![CDATA[<h1 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h1><blockquote>
+<p>Message Queueing Telemetry Transport</p>
+</blockquote>
+<p>It is a lightweight communication protocol for IoT devices and networks. MQTT is well-suited for use in low-bandwidth, high-latency networks, and is often used for real-time data transfer in applications such as home automation and energy management.</p>
+<p>MQTT (Message Queuing Telemetry Transport) is a publish&#x2F;subscribe messaging protocol designed for resource-constrained devices and low-bandwidth networks. It provides a lightweight and efficient messaging infrastructure for microservices, making it ideal for IoT and mobile applications.</p>
+<ul>
+<li>物聯網(IoT) 通訊協議，專為資源受限的設備設計，提供了可靠的、有序的、低延遲的訊息傳輸</li>
+<li>適用於物聯網設備間的訊息通訊</li>
+</ul>
+<h2 id="Advantages"><a href="#Advantages" class="headerlink" title="Advantages"></a>Advantages</h2><ol>
+<li>Lightweight and efficient</li>
+<li>Ideal for IoT and mobile applications</li>
+<li>Publish&#x2F;subscribe model for easy scalability</li>
+<li>Widely supported and well-documented API</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Quality of Service (QoS)</span><br><span class="line">Retained Messages</span><br><span class="line">Last Will and Testament (LWT)</span><br><span class="line"></span><br><span class="line">Scalability and Reliability</span><br></pre></td></tr></table></figure>
+
+<h2 id="Disadvantages"><a href="#Disadvantages" class="headerlink" title="Disadvantages"></a>Disadvantages</h2><ol>
+<li>Limited security options compared to other protocols</li>
+<li>May not be suitable for high-volume or complex data transfers</li>
+</ol>
+<h2 id="Best-Use-Case"><a href="#Best-Use-Case" class="headerlink" title="Best Use Case"></a>Best Use Case</h2><p>MQTT is best for low-volume, resource-constrained, and scalable communication between microservices, especially in IoT and mobile applications.<br>It’s well-suited for environments with limited bandwidth or unreliable networks, and devices with low computational resources.</p>
+<p>Choose: You need to ensure message delivery over unreliable or bandwidth-constrained networks. You are dealing with a large number of distributed devices or sensors.</p>
+<hr>
+<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><blockquote>
+<p>Remote Dictionary Server</p>
+</blockquote>
+<p>It is an in-memory data structure store that can be used as a database, cache, and message broker. Redis can be used for real-time communication between services, where messages are stored and retrieved using Redis pub&#x2F;sub.</p>
+<p>Redis is an open-source, in-memory data structure store that can be used as a database, cache, and message broker. It provides fast and flexible access to data, making it well-suited for use as a cache and message broker in microservices.</p>
+<ul>
+<li>適用於需要高效能、在短時間內處理大量訊息的場景</li>
+</ul>
+<h2 id="Advantages-1"><a href="#Advantages-1" class="headerlink" title="Advantages"></a>Advantages</h2><ol>
+<li>Fast in-memory access to data</li>
+<li>Flexible data storage options</li>
+<li>Publish&#x2F;subscribe model for easy scalability</li>
+<li>Widely supported and well-documented API</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">high performance and low latency (Performance: Excellent for high-performance computing scenarios where rapid access to data is required.)</span><br><span class="line"></span><br><span class="line">Pub/Sub System</span><br><span class="line">Data Persistence</span><br><span class="line">Advanced Data Structures</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Disadvantages-1"><a href="#Disadvantages-1" class="headerlink" title="Disadvantages"></a>Disadvantages</h2><ol>
+<li>Limited durability compared to other protocols</li>
+<li>May not be suitable for high-volume or complex data transfers</li>
+<li>May require additional setup and configuration</li>
+</ol>
+<h2 id="Best-Use-Case-1"><a href="#Best-Use-Case-1" class="headerlink" title="Best Use Case"></a>Best Use Case</h2><p>Redis is best for fast, flexible, and scalable communication between microservices, especially as a cache or message broker.<br>It is also used for message brokering but in more data-centric applications like web applications, gaming, and real-time analytics.</p>
+<p>Choose: You are developing applications that need rapid access to data with minimal latency. Your use case involves real-time analytics, gaming, or session management in web applications.</p>
+<hr>
+<h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><hr>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://blog.nonstopio.com/comparison-of-tcp-rmq-mqtt-redis-and-grpc-transport-layers-in-nest-js-microservices-2c10a2a98a6f">Comparison of TCP, (RMQ), MQTT, Redis, and gRPC transport layers in Nest.js microservices</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Pub/Sub Messaging</category>
+      </categories>
+      <tags>
+        <tag>MQTT</tag>
+        <tag>Redis</tag>
+        <tag>Kafka</tag>
       </tags>
   </entry>
   <entry>
@@ -2155,32 +2155,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ChatGPT 職場革命：PM 不需程式技能也能高效工作</title>
-    <url>/2024/07/16/Workplace/ChatGPT-%E8%81%B7%E5%A0%B4%E9%9D%A9%E5%91%BD%EF%BC%9APM-%E4%B8%8D%E9%9C%80%E7%A8%8B%E5%BC%8F%E6%8A%80%E8%83%BD%E4%B9%9F%E8%83%BD%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C/</url>
-    <content><![CDATA[<p>最近工作上發生了一件事，讓我對於 ChatGPT 的應用有了不一樣的想法，也在工作流程中感受到其帶來的好處與潛在的衝擊。</p>
-<h1 id="【-前情提要-】"><a href="#【-前情提要-】" class="headerlink" title="【 前情提要 】"></a>【 前情提要 】</h1><p>我是一位雲端系統工程師，除了負責雲端平台的維運及開發、資料庫建置與管理（尤其是資料庫 service 掛掉，光是找原因和修復 Replica Set 就快搞死我了 T _ T ）之外，還要配合其他部門不定期的&#x2F;異想天開的&#x2F;快要火燒屁股的需求要處理。</p>
-<h1 id="【-真人真事-】"><a href="#【-真人真事-】" class="headerlink" title="【 真人真事 】"></a>【 真人真事 】</h1><p>回到正題，由於最近公司接了一些政府標案，目標是建置一個平台顯示 IoT 設備的即時數據、歷史數據，還要針對這些設備顯示其狀態（判斷設備異常、運作狀態，甚至 GPS 定位）以及各種功能。</p>
-<p>可想而知，過程是重重的挑戰與艱辛（心酸血淚史XD 特別是溝通、取得和整理成標準化的資料，常常讓人感到心累 😱 Orz），更別說開發時程短（要在短時間內於不同環境下測試 Development -&gt; Testing -&gt; Staging -&gt; Production）、處理細項雜（不只串接 API 資料、MQTT 傳送資料，還要檢核資料的合理性…），根本忙到炸掉啊！</p>
-<p>當然，我都這麼忙了，我們的 PM 也好不到哪裡去，根本是被科長、承辦、各種報告追殺。<br>嗚呼哀哉！看著 PM 幾乎每天在加班中度過，每天想盡辦法、絞盡腦汁地想要提高工作效率。<br>而最終，PM 把腦筋動到了 ChatGPT 上。</p>
-<p>有處理過很大量且髒亂資料的人就會知道，如果要讓人去手動處理並不是不行，但會非常的耗時且容易人為出錯，而且這種事情都有一定的重複性、不是那麼容易寫成規則用程式執行（例外狀況很多，依舊無法免除人工判斷）。</p>
-<p>這位 PM 跟我分享，他拿著我匯出給他的 Excel，花了兩個小時 ChatGPT 訓練了八次，才讓 ChatGPT 瞭解要整理成什麼樣的格式。其餘的部分，才交由人工判斷和調整。</p>
-<h1 id="【-心得-】"><a href="#【-心得-】" class="headerlink" title="【 心得 】"></a>【 心得 】</h1><p>說到這裡，不覺得 ChatGPT 這個工具很好用，但同時又有點可怕嗎？🤔</p>
-<blockquote>
-<p>它讓一個完全不懂寫 code 的 PM 能夠用口語教導 ChatGPT 應該輸出怎樣的格式，而不用勞煩一位忙到處於崩潰邊緣的工程師。<br>可怕的是，它減輕了工程師工作量的同時，也取代了初階工程師的一部分工作內容。</p>
-</blockquote>
-<p>因此，我覺得未來的人才（不只是工程師），首先要 open-minded 接受新技術、新觀念，再者懂得定義問題（對於複雜問題有抽絲剝繭的能力）也非常關鍵且重要，最後善用 ChatGPT 這類工具有效率地達成目標。<br>我預測未來的工程師，飯碗應該會越來越不好捧了，被預期要學更多技能，要嘛更深入，要嘛更廣泛（前提是知道為何使用、如何應用）。</p>
-<h1 id="【-與-PM-對話續集-】"><a href="#【-與-PM-對話續集-】" class="headerlink" title="【 與 PM 對話續集 】"></a>【 與 PM 對話續集 】</h1><p>後來，PM 說他曾試圖看 ChatGPT 的 code，不過看不懂、就算有錯也看不出來（儘管下方有補充說明寫法與為何這樣使用）。<br>我就回他：「你若看懂，就可以取代工程師了。加油！搞不好，改行離你不遠了😎」</p>
-]]></content>
-      <categories>
-        <category>職場隨筆</category>
-      </categories>
-      <tags>
-        <tag>ChatGPT</tag>
-        <tag>實際案例</tag>
-        <tag>心得</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>K8s Security | KubeConfig</title>
     <url>/2025/07/08/K8s-Advanced/K8s-Security-KubeConfig/</url>
     <content><![CDATA[<h1 id="KubeConfig-概述"><a href="#KubeConfig-概述" class="headerlink" title="KubeConfig 概述"></a>KubeConfig 概述</h1><p>KubeConfig 是 K8s 客戶端（kubectl）與 API Server 通訊所依賴的設定檔。它包含：</p>
@@ -2270,6 +2244,32 @@
         <tag>kubeconfig</tag>
         <tag>client-certificate</tag>
         <tag>context</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ChatGPT 職場革命：PM 不需程式技能也能高效工作</title>
+    <url>/2024/07/16/Workplace/ChatGPT-%E8%81%B7%E5%A0%B4%E9%9D%A9%E5%91%BD%EF%BC%9APM-%E4%B8%8D%E9%9C%80%E7%A8%8B%E5%BC%8F%E6%8A%80%E8%83%BD%E4%B9%9F%E8%83%BD%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C/</url>
+    <content><![CDATA[<p>最近工作上發生了一件事，讓我對於 ChatGPT 的應用有了不一樣的想法，也在工作流程中感受到其帶來的好處與潛在的衝擊。</p>
+<h1 id="【-前情提要-】"><a href="#【-前情提要-】" class="headerlink" title="【 前情提要 】"></a>【 前情提要 】</h1><p>我是一位雲端系統工程師，除了負責雲端平台的維運及開發、資料庫建置與管理（尤其是資料庫 service 掛掉，光是找原因和修復 Replica Set 就快搞死我了 T _ T ）之外，還要配合其他部門不定期的&#x2F;異想天開的&#x2F;快要火燒屁股的需求要處理。</p>
+<h1 id="【-真人真事-】"><a href="#【-真人真事-】" class="headerlink" title="【 真人真事 】"></a>【 真人真事 】</h1><p>回到正題，由於最近公司接了一些政府標案，目標是建置一個平台顯示 IoT 設備的即時數據、歷史數據，還要針對這些設備顯示其狀態（判斷設備異常、運作狀態，甚至 GPS 定位）以及各種功能。</p>
+<p>可想而知，過程是重重的挑戰與艱辛（心酸血淚史XD 特別是溝通、取得和整理成標準化的資料，常常讓人感到心累 😱 Orz），更別說開發時程短（要在短時間內於不同環境下測試 Development -&gt; Testing -&gt; Staging -&gt; Production）、處理細項雜（不只串接 API 資料、MQTT 傳送資料，還要檢核資料的合理性…），根本忙到炸掉啊！</p>
+<p>當然，我都這麼忙了，我們的 PM 也好不到哪裡去，根本是被科長、承辦、各種報告追殺。<br>嗚呼哀哉！看著 PM 幾乎每天在加班中度過，每天想盡辦法、絞盡腦汁地想要提高工作效率。<br>而最終，PM 把腦筋動到了 ChatGPT 上。</p>
+<p>有處理過很大量且髒亂資料的人就會知道，如果要讓人去手動處理並不是不行，但會非常的耗時且容易人為出錯，而且這種事情都有一定的重複性、不是那麼容易寫成規則用程式執行（例外狀況很多，依舊無法免除人工判斷）。</p>
+<p>這位 PM 跟我分享，他拿著我匯出給他的 Excel，花了兩個小時 ChatGPT 訓練了八次，才讓 ChatGPT 瞭解要整理成什麼樣的格式。其餘的部分，才交由人工判斷和調整。</p>
+<h1 id="【-心得-】"><a href="#【-心得-】" class="headerlink" title="【 心得 】"></a>【 心得 】</h1><p>說到這裡，不覺得 ChatGPT 這個工具很好用，但同時又有點可怕嗎？🤔</p>
+<blockquote>
+<p>它讓一個完全不懂寫 code 的 PM 能夠用口語教導 ChatGPT 應該輸出怎樣的格式，而不用勞煩一位忙到處於崩潰邊緣的工程師。<br>可怕的是，它減輕了工程師工作量的同時，也取代了初階工程師的一部分工作內容。</p>
+</blockquote>
+<p>因此，我覺得未來的人才（不只是工程師），首先要 open-minded 接受新技術、新觀念，再者懂得定義問題（對於複雜問題有抽絲剝繭的能力）也非常關鍵且重要，最後善用 ChatGPT 這類工具有效率地達成目標。<br>我預測未來的工程師，飯碗應該會越來越不好捧了，被預期要學更多技能，要嘛更深入，要嘛更廣泛（前提是知道為何使用、如何應用）。</p>
+<h1 id="【-與-PM-對話續集-】"><a href="#【-與-PM-對話續集-】" class="headerlink" title="【 與 PM 對話續集 】"></a>【 與 PM 對話續集 】</h1><p>後來，PM 說他曾試圖看 ChatGPT 的 code，不過看不懂、就算有錯也看不出來（儘管下方有補充說明寫法與為何這樣使用）。<br>我就回他：「你若看懂，就可以取代工程師了。加油！搞不好，改行離你不遠了😎」</p>
+]]></content>
+      <categories>
+        <category>職場隨筆</category>
+      </categories>
+      <tags>
+        <tag>ChatGPT</tag>
+        <tag>實際案例</tag>
+        <tag>心得</tag>
       </tags>
   </entry>
 </search>

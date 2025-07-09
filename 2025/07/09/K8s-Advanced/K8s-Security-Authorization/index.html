@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_1.jpg">
 <meta property="og:image" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_2.jpg">
 <meta property="article:published_time" content="2025-07-08T22:43:52.000Z">
-<meta property="article:modified_time" content="2025-07-09T01:13:31.017Z">
+<meta property="article:modified_time" content="2025-07-09T01:26:01.944Z">
 <meta property="article:author" content="Bessy">
 <meta property="article:tag" content="Authorization">
 <meta property="article:tag" content="ABAC">
@@ -258,7 +258,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2025-07-09 08:43:52 / Modified: 11:13:31" itemprop="dateCreated datePublished" datetime="2025-07-09T08:43:52+10:00">2025-07-09</time>
+      <time title="Created: 2025-07-09 08:43:52 / Modified: 11:26:01" itemprop="dateCreated datePublished" datetime="2025-07-09T08:43:52+10:00">2025-07-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -536,6 +536,13 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># developer-role.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;create&quot;</span>, <span class="string">&quot;update&quot;</span>]</span><br><span class="line">  <span class="attr">resourceNames:</span> [<span class="string">&quot;blue&quot;</span>, <span class="string">&quot;orange&quot;</span>]</span><br></pre></td></tr></table></figure>
 </details>
 
+<h4 id="Kubectl-Command"><a href="#Kubectl-Command" class="headerlink" title="Kubectl Command"></a>Kubectl Command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f developer-role.yaml</span><br></pre></td></tr></table></figure>
+
+<h3 id="Binding-role-and-users"><a href="#Binding-role-and-users" class="headerlink" title="Binding role and users"></a>Binding role and users</h3><img src="/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_2.jpg" class="">
+
+<h4 id="developer-role-yaml-1"><a href="#developer-role-yaml-1" class="headerlink" title="developer-role.yaml"></a>developer-role.yaml</h4><p>同上</p>
+<h4 id="devuser-developer-binding-yaml"><a href="#devuser-developer-binding-yaml" class="headerlink" title="devuser-developer-binding.yaml"></a>devuser-developer-binding.yaml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">devuser-developer-binding</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev-ns</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dev-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
 <details class="note default"><summary><p>RBAC 的 subjects 支援 3 種 kind</p>
 </summary>
 <p>RBAC 的 subjects 支援 3 種 kind：</p>
@@ -545,13 +552,6 @@
 </blockquote>
 
 </details>
-
-<h4 id="Kubectl-Command"><a href="#Kubectl-Command" class="headerlink" title="Kubectl Command"></a>Kubectl Command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f developer-role.yaml</span><br></pre></td></tr></table></figure>
-
-<h3 id="Binding-role-and-users"><a href="#Binding-role-and-users" class="headerlink" title="Binding role and users"></a>Binding role and users</h3><img src="/2025/07/09/K8s-Advanced/K8s-Security-Authorization/RBAC_2.jpg" class="">
-
-<h4 id="developer-role-yaml-1"><a href="#developer-role-yaml-1" class="headerlink" title="developer-role.yaml"></a>developer-role.yaml</h4><p>同上</p>
-<h4 id="devuser-developer-binding-yaml"><a href="#devuser-developer-binding-yaml" class="headerlink" title="devuser-developer-binding.yaml"></a>devuser-developer-binding.yaml</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">devuser-developer-binding</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">dev-ns</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dev-user</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">developer</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="Kubectl-Command-1"><a href="#Kubectl-Command-1" class="headerlink" title="Kubectl Command"></a>Kubectl Command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f devuser-developer-binding.yaml</span><br></pre></td></tr></table></figure>
 
