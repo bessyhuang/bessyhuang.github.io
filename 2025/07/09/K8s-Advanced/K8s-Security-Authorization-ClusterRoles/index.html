@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="ClusterRole 與 ClusterRoleBinding 的實作教學，範例涵蓋對 node 的 cluster-wide 權限控制。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="K8s Security | Authorization - ClusterRoles">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="ClusterRole 與 ClusterRoleBinding 的實作教學，範例涵蓋對 node 的 cluster-wide 權限控制。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/Namespaced_ClusterScoped.jpg">
+<meta property="article:published_time" content="2025-07-09T01:28:26.000Z">
+<meta property="article:modified_time" content="2025-07-09T02:49:31.297Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="ClusterRoles">
+<meta property="article:tag" content="ClusterRoleBinding">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/Namespaced_ClusterScoped.jpg">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/","path":"2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/","title":"K8s Security | Authorization - ClusterRoles"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>K8s Security | Authorization - ClusterRoles | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">51</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">25</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ClusterRoles"><span class="nav-number">1.</span> <span class="nav-text">ClusterRoles</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Namespaced-vs-Cluster-Scoped"><span class="nav-number">2.</span> <span class="nav-text">Namespaced vs Cluster Scoped</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Namespaced-%E8%88%87-Cluster-scoped-%E8%B3%87%E6%BA%90%E7%AF%84%E4%BE%8B"><span class="nav-number">2.1.</span> <span class="nav-text">Namespaced 與 Cluster-scoped 資源範例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RBAC-%E8%88%87%E8%B3%87%E6%BA%90%E7%AF%84%E5%9C%8D%E5%B0%8D%E6%87%89"><span class="nav-number">2.2.</span> <span class="nav-text">RBAC 與資源範圍對應</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%AF%94%E5%B0%8D%E8%A1%A8"><span class="nav-number">2.3.</span> <span class="nav-text">範例比對表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%88%87%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">建立與操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-ClusterRole"><span class="nav-number">3.1.</span> <span class="nav-text">建立 ClusterRole</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cluster-admin-role-yaml"><span class="nav-number">3.1.1.</span> <span class="nav-text">cluster-admin-role.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubectl-%E5%BB%BA%E7%AB%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">3.1.2.</span> <span class="nav-text">Kubectl 建立指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-ClusterRoleBinding"><span class="nav-number">3.2.</span> <span class="nav-text">建立 ClusterRoleBinding</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cluster-admin-role-yaml-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">cluster-admin-role.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cluster-admin-role-binding-yaml"><span class="nav-number">3.2.2.</span> <span class="nav-text">cluster-admin-role-binding.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubectl-%E5%BB%BA%E7%AB%8B%E6%8C%87%E4%BB%A4-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">Kubectl 建立指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A3%9C%E5%85%85%EF%BC%9AServiceAccount-%E7%B6%81%E5%AE%9A%E7%AF%84%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">補充：ServiceAccount 綁定範例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AC%8A%E9%99%90%E9%A9%97%E8%AD%89%E8%88%87%E5%81%B5%E9%8C%AF"><span class="nav-number">5.</span> <span class="nav-text">權限驗證與偵錯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%A9%A2%E7%8F%BE%E6%9C%89-ClusterRole-ClusterRoleBinding"><span class="nav-number">5.1.</span> <span class="nav-text">查詢現有 ClusterRole &#x2F; ClusterRoleBinding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%97%E8%AD%89%E4%BD%BF%E7%94%A8%E8%80%85%E6%98%AF%E5%90%A6%E6%9C%89%E6%AC%8A%E9%99%90"><span class="nav-number">5.2.</span> <span class="nav-text">驗證使用者是否有權限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%A9%A2%E8%B3%87%E6%BA%90%E7%AF%84%E5%9C%8D%E5%B1%AC%E6%80%A7-%F0%9F%91%8D"><span class="nav-number">5.3.</span> <span class="nav-text">查詢資源範圍屬性 👍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">6.</span> <span class="nav-text">小結</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="K8s Security | Authorization - ClusterRoles | Bessy's Tech Blog">
+      <meta itemprop="description" content="ClusterRole 與 ClusterRoleBinding 的實作教學，範例涵蓋對 node 的 cluster-wide 權限控制。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          K8s Security | Authorization - ClusterRoles
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-07-09 11:28:26 / Modified: 12:49:31" itemprop="dateCreated datePublished" datetime="2025-07-09T11:28:26+10:00">2025-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">ClusterRole 與 ClusterRoleBinding 的實作教學，範例涵蓋對 node 的 cluster-wide 權限控制。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="ClusterRoles"><a href="#ClusterRoles" class="headerlink" title="ClusterRoles"></a>ClusterRoles</h1><p><code>ClusterRole</code> 和 <code>ClusterRoleBinding</code> 是 <strong>Cluster Scoped 資源</strong>，不屬於任何單一 namespace，可授權跨命名空間或整個叢集的資源，例如：</p>
+<ul>
+<li><code>nodes</code>、<code>namespaces</code>、<code>clusterroles</code>、<code>persistentvolumes</code> 等全域資源</li>
+<li>可搭配 <code>RoleBinding</code> 使用於多個 namespace，達到重複授權</li>
+</ul>
+<h1 id="Namespaced-vs-Cluster-Scoped"><a href="#Namespaced-vs-Cluster-Scoped" class="headerlink" title="Namespaced vs Cluster Scoped"></a>Namespaced vs Cluster Scoped</h1><p>在 K8s 中，資源的作用範圍可分為兩大類：<strong>Namespaced（命名空間資源）</strong> 與 <strong>Cluster-scoped（叢集資源）</strong>。這個區分在設定權限（RBAC）、部署應用、管理資源時非常重要。</p>
+<img src="/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/Namespaced_ClusterScoped.jpg" class="">
+
+<table>
+<thead>
+<tr>
+<th>授權類型</th>
+<th>資源作用範圍</th>
+<th>適用情境與實例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Role</code> &#x2F; <code>RoleBinding</code></td>
+<td>單一 namespace</td>
+<td>一般應用程式權限（如 CRUD Pod）</td>
+</tr>
+<tr>
+<td><code>ClusterRole</code> &#x2F; <code>RoleBinding</code></td>
+<td>多個 namespace</td>
+<td>ServiceAccount 跨命名空間權限</td>
+</tr>
+<tr>
+<td><code>ClusterRole</code> &#x2F; <code>ClusterRoleBinding</code></td>
+<td>全叢集（含全域資源）</td>
+<td>管理 cluster-wide 資源，如 <code>nodes</code>、CRDs 等</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>📌 <code>ClusterRole</code> 可以透過 <code>RoleBinding</code> 授權給特定 namespace 中的使用者或 ServiceAccount。<br>✅ 這讓你可以重複使用同一個 <code>ClusterRole</code>，並以多個 <code>RoleBinding</code> 授權給不同命名空間，避免重複定義權限。</p>
+</blockquote>
+<h2 id="Namespaced-與-Cluster-scoped-資源範例"><a href="#Namespaced-與-Cluster-scoped-資源範例" class="headerlink" title="Namespaced 與 Cluster-scoped 資源範例"></a>Namespaced 與 Cluster-scoped 資源範例</h2><table>
+<thead>
+<tr>
+<th>分類</th>
+<th>說明</th>
+<th>常見資源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Namespaced</strong></td>
+<td>僅存在於某個 namespace，適用於多租戶或資源隔離需求</td>
+<td><code>pods</code>、<code>services</code>、<code>configmaps</code>、<code>secrets</code>、<code>role</code>、<code>rolebinding</code></td>
+</tr>
+<tr>
+<td><strong>Cluster-scoped</strong></td>
+<td>作用於整個叢集，<strong>不屬於任何 namespace</strong>，多用於核心管理資源</td>
+<td><code>nodes</code>、<code>namespaces</code>、<code>persistentvolumes</code>、<code>clusterrole</code>、<code>clusterrolebinding</code>、<code>customresourcedefinition</code></td>
+</tr>
+</tbody></table>
+<h2 id="RBAC-與資源範圍對應"><a href="#RBAC-與資源範圍對應" class="headerlink" title="RBAC 與資源範圍對應"></a>RBAC 與資源範圍對應</h2><table>
+<thead>
+<tr>
+<th>權限組合</th>
+<th>適用資源類型</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Role</code> + <code>RoleBinding</code></td>
+<td>Namespaced 資源</td>
+<td>精細控制單一 namespace 權限</td>
+</tr>
+<tr>
+<td><code>ClusterRole</code> + <code>RoleBinding</code></td>
+<td>Cluster &#x2F; Namespaced</td>
+<td>跨 namespace 重用 ClusterRole 權限</td>
+</tr>
+<tr>
+<td><code>ClusterRole</code> + <code>ClusterRoleBinding</code></td>
+<td>Cluster-scoped 資源</td>
+<td>適用於 cluster-wide 資源授權</td>
+</tr>
+</tbody></table>
+<h2 id="範例比對表"><a href="#範例比對表" class="headerlink" title="範例比對表"></a>範例比對表</h2><table>
+<thead>
+<tr>
+<th>資源</th>
+<th>作用範圍</th>
+<th>需使用哪種角色控制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pods</code></td>
+<td>Namespaced</td>
+<td>Role &#x2F; RoleBinding</td>
+</tr>
+<tr>
+<td><code>nodes</code></td>
+<td>Cluster-scoped</td>
+<td>ClusterRole &#x2F; ClusterRoleBinding</td>
+</tr>
+<tr>
+<td><code>configmaps</code></td>
+<td>Namespaced</td>
+<td>Role</td>
+</tr>
+<tr>
+<td><code>namespaces</code></td>
+<td>Cluster-scoped</td>
+<td>ClusterRole</td>
+</tr>
+<tr>
+<td><code>secrets</code></td>
+<td>Namespaced</td>
+<td>Role</td>
+</tr>
+<tr>
+<td><code>customresourcedefinitions</code></td>
+<td>Cluster-scoped</td>
+<td>ClusterRole</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="建立與操作指令"><a href="#建立與操作指令" class="headerlink" title="建立與操作指令"></a>建立與操作指令</h1><h2 id="建立-ClusterRole"><a href="#建立-ClusterRole" class="headerlink" title="建立 ClusterRole"></a>建立 ClusterRole</h2><h3 id="cluster-admin-role-yaml"><a href="#cluster-admin-role-yaml" class="headerlink" title="cluster-admin-role.yaml"></a>cluster-admin-role.yaml</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-administrator</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;nodes&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;list&quot;</span>, <span class="string">&quot;get&quot;</span>, <span class="string">&quot;create&quot;</span>, <span class="string">&quot;update&quot;</span>, <span class="string">&quot;delete&quot;</span>, <span class="string">&quot;watch&quot;</span>]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>watch</code>：用於監控資源變化，常見於 Controller &#x2F; Operator</p>
+</blockquote>
+<h3 id="Kubectl-建立指令"><a href="#Kubectl-建立指令" class="headerlink" title="Kubectl 建立指令"></a>Kubectl 建立指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f cluster-admin-role.yaml</span><br></pre></td></tr></table></figure>
+
+<h2 id="建立-ClusterRoleBinding"><a href="#建立-ClusterRoleBinding" class="headerlink" title="建立 ClusterRoleBinding"></a>建立 ClusterRoleBinding</h2><blockquote>
+<p>⚠️ 使用 <code>ClusterRoleBinding</code> 時會影響整個叢集資源，<strong>一旦授權過寬，可能導致重大安全風險</strong>，請務必審慎評估。<br>✅ 可搭配 OPA&#x2F;Gatekeeper 實施「限制性授權政策」（如禁止 * verbs 或 * resources）。<br>💡 <mark>若只需授權特定 namespace 的權限，請優先使用 <code>RoleBinding + ClusterRole</code> 即可。</mark></p>
+</blockquote>
+<h3 id="cluster-admin-role-yaml-1"><a href="#cluster-admin-role-yaml-1" class="headerlink" title="cluster-admin-role.yaml"></a>cluster-admin-role.yaml</h3><p>同上</p>
+<h3 id="cluster-admin-role-binding-yaml"><a href="#cluster-admin-role-binding-yaml" class="headerlink" title="cluster-admin-role-binding.yaml"></a>cluster-admin-role-binding.yaml</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-admin-role-binding</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">User</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-admin</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-administrator</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Kubectl-建立指令-1"><a href="#Kubectl-建立指令-1" class="headerlink" title="Kubectl 建立指令"></a>Kubectl 建立指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f cluster-admin-role-binding.yaml</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="補充：ServiceAccount-綁定範例"><a href="#補充：ServiceAccount-綁定範例" class="headerlink" title="補充：ServiceAccount 綁定範例"></a>補充：ServiceAccount 綁定範例</h1><p>若你希望某個 Pod 所使用的 ServiceAccount 擁有跨 namespace 的權限，可以這樣建立：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cluster-role-binding-serviceaccount.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">backend-access-nodes</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">backend</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">app-ns</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-administrator</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="權限驗證與偵錯"><a href="#權限驗證與偵錯" class="headerlink" title="權限驗證與偵錯"></a>權限驗證與偵錯</h1><h2 id="查詢現有-ClusterRole-ClusterRoleBinding"><a href="#查詢現有-ClusterRole-ClusterRoleBinding" class="headerlink" title="查詢現有 ClusterRole &#x2F; ClusterRoleBinding"></a>查詢現有 ClusterRole &#x2F; ClusterRoleBinding</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get clusterroles</span><br><span class="line">kubectl get clusterrolebindings</span><br></pre></td></tr></table></figure>
+
+<h2 id="驗證使用者是否有權限"><a href="#驗證使用者是否有權限" class="headerlink" title="驗證使用者是否有權限"></a>驗證使用者是否有權限</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl auth can-i [verb] [resource] --as [user] --namespace [ns]</span><br><span class="line"></span><br><span class="line">kubectl auth can-i create nodes --as cluster-admin</span><br><span class="line">kubectl auth can-i get    nodes --as system:serviceaccount:app-ns:backend</span><br><span class="line"><span class="comment"># 回傳 &quot;yes&quot; 表示有權限，&quot;no&quot; 表示被拒絕</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="查詢資源範圍屬性-👍"><a href="#查詢資源範圍屬性-👍" class="headerlink" title="查詢資源範圍屬性 👍"></a>查詢資源範圍屬性 👍</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl api-resources --namespaced=<span class="literal">true</span>   <span class="comment"># 顯示所有 namespaced 資源</span></span><br><span class="line">kubectl api-resources --namespaced=<span class="literal">false</span>  <span class="comment"># 顯示所有 cluster-scoped 資源</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h1><ul>
+<li><code>ClusterRole</code> 適用於授權跨 namespace 或 cluster-wide 資源存取。</li>
+<li><code>ClusterRoleBinding</code> 是全叢集生效，需謹慎授權。</li>
+<li>若使用者只需在 namespace 操作，建議使用 <code>RoleBinding + ClusterRole</code>。</li>
+<li>若有跨 namespace 需求：<ul>
+<li><code>ClusterRole + RoleBinding</code>：適用於 <code>跨 namespace</code> 重複授權相同權限</li>
+<li><code>ClusterRole + ClusterRoleBinding</code>（統一授權全域資源）：適用於需要 <code>全叢集資源控制的管理者</code></li>
+</ul>
+</li>
+<li>常搭配 <code>kubectl auth can-i</code> 指令驗證權限，避免授權錯誤。</li>
+</ul>
+
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/" title="K8s Security | Authorization - ClusterRoles">https://bessyhuang.github.io/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ClusterRoles/" rel="tag"># ClusterRoles</a>
+              <a href="/tags/ClusterRoleBinding/" rel="tag"># ClusterRoleBinding</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/09/K8s-Advanced/K8s-Security-Authorization/" rel="prev" title="K8s Security | Authorization">
+                  <i class="fa fa-angle-left"></i> K8s Security | Authorization
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
