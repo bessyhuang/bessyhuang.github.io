@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="K8s Image 安全性、Security Context 與 Docker 安全模型介紹，對應 CKA 考點與實務操作整理">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="K8s Security | Image Security &amp; SecurityContext">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Image-SecurityContext/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="K8s Image 安全性、Security Context 與 Docker 安全模型介紹，對應 CKA 考點與實務操作整理">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-10T12:28:17.000Z">
+<meta property="article:modified_time" content="2025-07-10T14:47:18.054Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="CKA">
+<meta property="article:tag" content="ImageSecurity">
+<meta property="article:tag" content="SecurityContext">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Image-SecurityContext/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Image-SecurityContext/","path":"2025/07/10/K8s-Advanced/K8s-Security-Image-SecurityContext/","title":"K8s Security | Image Security & SecurityContext"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>K8s Security | Image Security & SecurityContext | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">27</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9C%85-%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AD%98%E8%88%87%E8%A7%80%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">✅ 背景知識與觀念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Image-Security-%E8%A7%80%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">Image Security 觀念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-Container-%E5%AE%89%E5%85%A8%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">Linux Container 安全模型核心概念</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Image-Security"><span class="nav-number">2.</span> <span class="nav-text">Image Security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-%E4%BD%BF%E7%94%A8%E7%A7%81%E6%9C%89%E6%98%A0%E5%83%8F%E6%AA%94%EF%BC%88Private-Image%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">✅ 使用私有映像檔（Private Image）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#imagePullPolicy-%E8%A1%8C%E7%82%BA%E6%AF%94%E8%BC%83"><span class="nav-number">2.2.</span> <span class="nav-text">imagePullPolicy 行為比較</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Security-%E5%AF%A6%E5%8B%99"><span class="nav-number">3.</span> <span class="nav-text">Docker Security 實務</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-%E4%BD%BF%E7%94%A8%E9%9D%9E-root-user"><span class="nav-number">3.1.</span> <span class="nav-text">✅ 使用非 root user</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-%E4%BD%BF%E7%94%A8-capabilities-%E9%99%90%E5%88%B6%E6%AC%8A%E9%99%90"><span class="nav-number">3.2.</span> <span class="nav-text">✅ 使用 capabilities &#x2F; 限制權限</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Security-Context"><span class="nav-number">4.</span> <span class="nav-text">Security Context</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-Pod-Level-%E8%A8%AD%E5%AE%9A"><span class="nav-number">4.1.</span> <span class="nav-text">✅ Pod Level 設定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-Container-Level-%E8%A8%AD%E5%AE%9A"><span class="nav-number">4.2.</span> <span class="nav-text">✅ Container Level 設定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CKA-%E8%80%83%E9%A1%8C%E5%8F%AF%E8%83%BD%E6%80%8E%E9%BA%BC%E5%87%BA%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">CKA 考題可能怎麼出？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">6.</span> <span class="nav-text">小結</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Image-SecurityContext/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="K8s Security | Image Security & SecurityContext | Bessy's Tech Blog">
+      <meta itemprop="description" content="K8s Image 安全性、Security Context 與 Docker 安全模型介紹，對應 CKA 考點與實務操作整理">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          K8s Security | Image Security & SecurityContext
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-10 22:28:17" itemprop="dateCreated datePublished" datetime="2025-07-10T22:28:17+10:00">2025-07-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-11 00:47:18" itemprop="dateModified" datetime="2025-07-11T00:47:18+10:00">2025-07-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">K8s Image 安全性、Security Context 與 Docker 安全模型介紹，對應 CKA 考點與實務操作整理</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="✅-背景知識與觀念"><a href="#✅-背景知識與觀念" class="headerlink" title="✅ 背景知識與觀念"></a>✅ 背景知識與觀念</h1><h2 id="Image-Security-觀念"><a href="#Image-Security-觀念" class="headerlink" title="Image Security 觀念"></a>Image Security 觀念</h2><ul>
+<li>避免使用 <code>latest</code> tag → <strong>不可預測、風險高</strong></li>
+<li>指定明確版本號（如 <code>nginx:1.24.2</code>）</li>
+<li>儘量選擇：<ul>
+<li>可信來源（官方、企業內部 registry）</li>
+<li>已簽署 &#x2F; 掃描過的映像檔（搭配 Notary、Cosign）</li>
+</ul>
+</li>
+<li>配合 <code>imagePullPolicy</code> 控制 image 更新策略</li>
+<li>可搭配 Admission Controller 實作政策限制<ul>
+<li>如：Gatekeeper + OPA、ImagePolicyWebhook</li>
+</ul>
+</li>
+</ul>
+<h2 id="Linux-Container-安全模型核心概念"><a href="#Linux-Container-安全模型核心概念" class="headerlink" title="Linux Container 安全模型核心概念"></a>Linux Container 安全模型核心概念</h2><ul>
+<li><strong>Namespaces</strong>：隔離資源（PID、網路、Mount 等）</li>
+<li><strong>cgroups</strong>：限制資源（CPU、Memory）</li>
+<li><strong>Capabilities</strong>：限制容器能使用哪些權限</li>
+<li><strong>seccomp</strong>：限制能呼叫哪些 system calls</li>
+</ul>
+<blockquote>
+<p>Kubernetes 為了安全性，<strong>不建議容器以 root 身份執行</strong>，應使用 non-root user。</p>
+</blockquote>
+<hr>
+<h1 id="Image-Security"><a href="#Image-Security" class="headerlink" title="Image Security"></a>Image Security</h1><h2 id="✅-使用私有映像檔（Private-Image）"><a href="#✅-使用私有映像檔（Private-Image）" class="headerlink" title="✅ 使用私有映像檔（Private Image）"></a>✅ 使用私有映像檔（Private Image）</h2><p>登入私有 Registry 並使用 image</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker login private-registry.io</span><br><span class="line">docker run private-registry.io/apps/internal-app</span><br></pre></td></tr></table></figure>
+
+<p>建立可供 K8s 使用的 image pull secret</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl create secret docker-registry regcred \</span><br><span class="line">  --docker-server=private-registry.io \</span><br><span class="line">  --docker-username=registry-user \</span><br><span class="line">  --docker-password=registry-password \</span><br><span class="line">  --docker-email=registry-user@org.com</span><br></pre></td></tr></table></figure>
+
+<p>Pod 使用 imagePullSecrets 指定 Secret</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx-pod.yaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">private-registry.io/apps/internal-app:v1.2.3</span></span><br><span class="line">      <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">  <span class="attr">imagePullSecrets:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">regcred</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="imagePullPolicy-行為比較"><a href="#imagePullPolicy-行為比較" class="headerlink" title="imagePullPolicy 行為比較"></a>imagePullPolicy 行為比較</h2><p><code>imagePullPolicy</code> 是 Kubernetes Pod 中 container 的一個欄位，用來控制 Kubelet 什麼時候去拉（pull）image。它在部署與調試階段非常重要，尤其當你使用自建 image 或開發中頻繁更新的 image。</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>行為說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Always</code></td>
+<td><strong>每次 Pod 啟動都會重新拉 image</strong>（不管本地有沒有）<br>通常用於 <code>:latest</code> image 或確保更新拉到最新</td>
+</tr>
+<tr>
+<td><code>IfNotPresent</code></td>
+<td><strong>只有當本地沒有對應 image 才會去拉</strong>（節省頻寬與啟動時間）</td>
+</tr>
+<tr>
+<td><code>Never</code></td>
+<td><strong>永遠不會去拉 image</strong>，只使用本地已有的 image，拉不到就會失敗（CI&#x2F;CD、測試環境有時會用）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>預設值會依據 image 是否使用 <code>latest</code> 而變化：  </p>
+<ul>
+<li>使用 <code>:latest</code> → 預設為 <code>Always</code>  </li>
+<li>指定其他 tag → 預設為 <code>IfNotPresent</code><br>✅ 為了可預測性，強烈建議永遠明確設定 <code>imagePullPolicy</code>。</li>
+</ul>
+</blockquote>
+<p>查看 Pod 使用的 Image</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod mypod | grep Image</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Docker-Security-實務"><a href="#Docker-Security-實務" class="headerlink" title="Docker Security 實務"></a>Docker Security 實務</h1><h2 id="✅-使用非-root-user"><a href="#✅-使用非-root-user" class="headerlink" title="✅ 使用非 root user"></a>✅ 使用非 root user</h2><p>Dockerfile 中加入</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">USER</span> <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+
+<p>手動測試時也可以用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --user=1001 ubuntu <span class="built_in">sleep</span> 3600</span><br></pre></td></tr></table></figure>
+
+<h2 id="✅-使用-capabilities-限制權限"><a href="#✅-使用-capabilities-限制權限" class="headerlink" title="✅ 使用 capabilities &#x2F; 限制權限"></a>✅ 使用 capabilities &#x2F; 限制權限</h2><p>添加特權能力（如 MAC_ADMIN）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --cap-add=MAC_ADMIN ubuntu</span><br></pre></td></tr></table></figure>
+
+<p>移除某些能力（如 KILL）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --cap-drop=KILL ubuntu</span><br></pre></td></tr></table></figure>
+
+<p>開啟完全特權模式（⚠️ 極高風險）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --privileged ubuntu</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>✅ 實務中，僅當應用需特殊權限（如操作網路 interface 或系統層設定）時才會加 capability，否則建議盡量精簡</p>
+</blockquote>
+<hr>
+<h1 id="Security-Context"><a href="#Security-Context" class="headerlink" title="Security Context"></a>Security Context</h1><h2 id="✅-Pod-Level-設定"><a href="#✅-Pod-Level-設定" class="headerlink" title="✅ Pod Level 設定"></a>✅ Pod Level 設定</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">web-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">securityContext:</span></span><br><span class="line">    <span class="attr">runAsUser:</span> <span class="number">1000</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ubuntu</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">ubuntu</span></span><br><span class="line">      <span class="attr">command:</span> [<span class="string">&quot;sleep&quot;</span>, <span class="string">&quot;3600&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="✅-Container-Level-設定"><a href="#✅-Container-Level-設定" class="headerlink" title="✅ Container Level 設定"></a>✅ Container Level 設定</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">web-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ubuntu</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">ubuntu</span></span><br><span class="line">      <span class="attr">command:</span> [<span class="string">&quot;sleep&quot;</span>, <span class="string">&quot;3600&quot;</span>]</span><br><span class="line">      <span class="attr">securityContext:</span></span><br><span class="line">        <span class="attr">runAsUser:</span> <span class="number">1000</span></span><br><span class="line">        <span class="attr">capabilities:</span></span><br><span class="line">          <span class="attr">add:</span> [<span class="string">&quot;MAC_ADMIN&quot;</span>]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><mark>若在 Pod 與 Container 都有設定 <code>runAsUser</code>，以 Container 層級為主</mark></p>
+</blockquote>
+<div class="note info"><p>⚠️ 常見錯誤與實務注意事項</p>
+<ul>
+<li>若容器使用非 root 使用者，掛載 volume 時需確認目錄權限是否能寫入<ul>
+<li>例：<code>/data</code> 目錄應設為 UID:1000 可寫</li>
+</ul>
+</li>
+<li>建議 base image 本身已建立非 root 使用者<ul>
+<li>例：<code>node:slim</code>, <code>nginx:alpine</code> 常已內建 user</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">securityContext:</span></span><br><span class="line">  <span class="attr">runAsUser:</span> <span class="number">1000</span></span><br><span class="line">  <span class="attr">runAsGroup:</span> <span class="number">3000</span></span><br><span class="line">  <span class="attr">fsGroup:</span> <span class="number">2000</span>  <span class="comment"># ✅ 掛載 volume 的群組權限自動對應</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>fsGroup</code> 可協助解決 volume 權限問題，尤其當容器非 root 且需寫入掛載目錄時</p>
+</blockquote>
+</div>
+
+<hr>
+<h1 id="CKA-考題可能怎麼出？"><a href="#CKA-考題可能怎麼出？" class="headerlink" title="CKA 考題可能怎麼出？"></a>CKA 考題可能怎麼出？</h1><p>☑️ 指定明確的 image tag（避免 latest）<br>☑️ 設定正確的 <code>imagePullPolicy</code><br>☑️ 處理 CrashLoopBackOff（image 拉不到）<br>☑️ Pod 運行失敗 → 判斷是否權限錯誤（non-root user 無法寫入）<br>☑️ 修改 YAML，設定 <code>securityContext</code>、指定 user、capabilities</p>
+<blockquote>
+<p>❗Dockerfile 本身不會考，但會用錯誤的 YAML 模擬出問題讓你 debug<br>💡 若 Pod CrashLoopBackOff，可使用 <code>kubectl logs</code> 與 <code>kubectl describe pod</code> 搭配排查</p>
+</blockquote>
+<hr>
+<h1 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h1><ul>
+<li>使用非 root 容器 + 明確 image tag 是安全基本原則</li>
+<li>搭配 RBAC 與 Admission Controller 強化政策落實</li>
+<li>熟悉 <code>securityContext</code> 在 Pod&#x2F;Container 不同層級的效果</li>
+<li>CKA 考試更重視<strong>實作錯誤排查與安全配置能力</strong></li>
+</ul>
+
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Image-SecurityContext/" title="K8s Security | Image Security &amp; SecurityContext">https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Image-SecurityContext/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/CKA/" rel="tag"># CKA</a>
+              <a href="/tags/ImageSecurity/" rel="tag"># ImageSecurity</a>
+              <a href="/tags/SecurityContext/" rel="tag"># SecurityContext</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/10/K8s-Advanced/K8s-Security-Service-Accounts/" rel="prev" title="K8s Security | Service Accounts">
+                  <i class="fa fa-angle-left"></i> K8s Security | Service Accounts
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
