@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="K8s ServiceAccount 概念與 CKA 考題實作教學，涵蓋 token 掛載機制、RBAC 綁定與 v1.24 新版行為">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="K8s Security | Service Accounts">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Service-Accounts/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="K8s ServiceAccount 概念與 CKA 考題實作教學，涵蓋 token 掛載機制、RBAC 綁定與 v1.24 新版行為">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-10T10:44:22.000Z">
+<meta property="article:modified_time" content="2025-07-10T12:14:28.625Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="RBAC">
+<meta property="article:tag" content="CKA">
+<meta property="article:tag" content="ServiceAccount">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Service-Accounts/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Service-Accounts/","path":"2025/07/10/K8s-Advanced/K8s-Security-Service-Accounts/","title":"K8s Security | Service Accounts"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>K8s Security | Service Accounts | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">54</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">26</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Service-Accounts"><span class="nav-number">1.</span> <span class="nav-text">Service Accounts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AD%98%E8%88%87%E8%A7%80%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">✅ 背景知識與觀念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">常用操作指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-YAML"><span class="nav-number">1.3.</span> <span class="nav-text">常用 YAML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pod-%E6%8C%87%E5%AE%9A-ServiceAccount-%E8%88%87%E9%A9%97%E8%AD%89-token-%E6%8E%9B%E8%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">Pod 指定 ServiceAccount 與驗證 token 掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-%E8%88%87-RBAC-%E7%B5%90%E5%90%88%EF%BC%9A%E6%8E%88%E6%AC%8A-ServiceAccount-%E6%AC%8A%E9%99%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">✅ 與 RBAC 結合：授權 ServiceAccount 權限</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ServiceAccount-vs-User-Account"><span class="nav-number">2.</span> <span class="nav-text">ServiceAccount vs User Account</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#v1-22-vs-v1-24"><span class="nav-number">3.</span> <span class="nav-text">v1.22 vs. v1.24</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%90-v1-22-ServiceAccount-Token-%E5%AE%89%E5%85%A8%E6%80%A7%E6%94%B9%E9%80%B2"><span class="nav-number">3.1.</span> <span class="nav-text">🔐 v1.22+ ServiceAccount Token 安全性改進</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%90-v1-24-%E6%B8%9B%E5%B0%91-Secret-based-Token-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">🔐 v1.24+ 減少 Secret-based Token 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E7%94%A2%E7%94%9F%E6%B8%AC%E8%A9%A6%E8%A7%92%E8%89%B2%E8%88%87%E7%B6%81%E5%AE%9A"><span class="nav-number">3.3.</span> <span class="nav-text">快速產生測試角色與綁定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E5%8B%99%E7%AF%84%E4%BE%8B%EF%BC%9A%E6%89%8B%E5%8B%95%E4%BD%BF%E7%94%A8-Token-%E5%91%BC%E5%8F%AB-API-Server"><span class="nav-number">3.4.</span> <span class="nav-text">實務範例：手動使用 Token 呼叫 API Server</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CKA-%E6%80%8E%E9%BA%BC%E8%80%83%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">CKA 怎麼考？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">小結</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Service-Accounts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="K8s Security | Service Accounts | Bessy's Tech Blog">
+      <meta itemprop="description" content="K8s ServiceAccount 概念與 CKA 考題實作教學，涵蓋 token 掛載機制、RBAC 綁定與 v1.24 新版行為">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          K8s Security | Service Accounts
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-07-10 20:44:22 / Modified: 22:14:28" itemprop="dateCreated datePublished" datetime="2025-07-10T20:44:22+10:00">2025-07-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">K8s ServiceAccount 概念與 CKA 考題實作教學，涵蓋 token 掛載機制、RBAC 綁定與 v1.24 新版行為</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Service-Accounts"><a href="#Service-Accounts" class="headerlink" title="Service Accounts"></a>Service Accounts</h1><h2 id="✅-背景知識與觀念"><a href="#✅-背景知識與觀念" class="headerlink" title="✅ 背景知識與觀念"></a>✅ 背景知識與觀念</h2><ul>
+<li>K8s 中的每個 Pod，<strong>預設都會掛載一個 ServiceAccount</strong>（<code>default</code>），除非在 pod spec 中另行指定。</li>
+<li>ServiceAccount 是 K8s 為工作負載（如 Pod）提供的身份識別方式，用來與 Kubernetes API Server 通訊。</li>
+<li>可透過 <strong>RBAC</strong> 為 ServiceAccount 綁定適當的權限（<code>Role</code> &#x2F; <code>ClusterRole</code>）。</li>
+<li>舊版中，<strong>ServiceAccount token 會以 Secret 形式自動掛載</strong>到 <code>/var/run/secrets/kubernetes.io/serviceaccount/token</code>，可直接透過此 token 與 API Server 溝通。</li>
+</ul>
+<div class="note info"><ul>
+<li>Pod 與其使用的 ServiceAccount 是一對一綁定，但多個 Pod 可共用同一個 ServiceAccount。</li>
+<li>舊版（v1.24 前）會自動建立一個 Secret token 並掛載；新版（v1.24+）則需透過 <code>kubectl create token</code> 明確建立。</li>
+<li>Token 是以 JWT 格式存在，可用來模擬 API 認證呼叫。</li>
+</ul>
+</div>
+
+<h2 id="常用操作指令"><a href="#常用操作指令" class="headerlink" title="常用操作指令"></a>常用操作指令</h2><p>查詢目前 namespace 中的所有 ServiceAccount</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get serviceaccounts</span><br></pre></td></tr></table></figure>
+
+<p>建立 ServiceAccount</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create serviceaccount dashboard-sa</span><br></pre></td></tr></table></figure>
+
+<p>檢視 ServiceAccount 詳細資訊（包含關聯 Secret）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe serviceaccount dashboard-sa</span><br></pre></td></tr></table></figure>
+
+<p>進階驗證 token 掛載內容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 SA 對應的 Secret（僅限 &lt; v1.24）</span></span><br><span class="line">kubectl describe secret $(kubectl get secret | grep dashboard-sa | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 Pod 掛載的 SA token 路徑</span></span><br><span class="line">kubectl describe pod my-kubernetes-dashboard</span><br><span class="line"></span><br><span class="line"><span class="comment"># 驗證 token 是否正確掛載</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -it my-kubernetes-dashboard -- <span class="built_in">ls</span> /var/run/secrets/kubernetes.io/serviceaccount</span><br><span class="line">kubectl <span class="built_in">exec</span> -it my-kubernetes-dashboard -- <span class="built_in">cat</span> /var/run/secrets/kubernetes.io/serviceaccount/token</span><br><span class="line"><span class="comment"># ca.crt  namespace   token</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常用-YAML"><a href="#常用-YAML" class="headerlink" title="常用 YAML"></a>常用 YAML</h2><h3 id="Pod-指定-ServiceAccount-與驗證-token-掛載"><a href="#Pod-指定-ServiceAccount-與驗證-token-掛載" class="headerlink" title="Pod 指定 ServiceAccount 與驗證 token 掛載"></a>Pod 指定 ServiceAccount 與驗證 token 掛載</h3><p>✅ 指定 ServiceAccount 給 Pod</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-kubernetes-dashboard</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">dashboard</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">my-kubernetes-dashboard</span></span><br><span class="line">  <span class="attr">serviceAccountName:</span> <span class="string">dashboard-sa</span></span><br></pre></td></tr></table></figure>
+
+<p>❌ 若不想自動掛載 token</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-kubernetes-dashboard</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">dashboard</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">my-kubernetes-dashboard</span></span><br><span class="line">  <span class="attr">automountServiceAccountToken:</span> <span class="literal">false</span>  <span class="comment"># 用來停用自動掛載 SA token（常用於強化安全性）</span></span><br></pre></td></tr></table></figure>
+
+<p>✅ 驗證 token 是否掛載</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it my-kubernetes-dashboard -- <span class="built_in">ls</span> /var/run/secrets/kubernetes.io/serviceaccount</span><br><span class="line">kubectl <span class="built_in">exec</span> -it my-kubernetes-dashboard -- <span class="built_in">cat</span> /var/run/secrets/kubernetes.io/serviceaccount/token</span><br></pre></td></tr></table></figure>
+
+<h3 id="✅-與-RBAC-結合：授權-ServiceAccount-權限"><a href="#✅-與-RBAC-結合：授權-ServiceAccount-權限" class="headerlink" title="✅ 與 RBAC 結合：授權 ServiceAccount 權限"></a>✅ 與 RBAC 結合：授權 ServiceAccount 權限</h3><p>YAML 範例：為特定 ServiceAccount 綁定 ClusterRole</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dashboard-sa-binding</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">dashboard-sa</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">view</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="ServiceAccount-vs-User-Account"><a href="#ServiceAccount-vs-User-Account" class="headerlink" title="ServiceAccount vs User Account"></a>ServiceAccount vs User Account</h1><p>K8s 有兩種 account。</p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>使用對象</th>
+<th>身份用途</th>
+<th>建立方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>User Account</td>
+<td>實體使用者（如 admin、developer）</td>
+<td>與外部系統整合（如 OIDC 認證）</td>
+<td>不由 K8s 管理</td>
+</tr>
+<tr>
+<td>Service Account</td>
+<td>工作負載（如 Pod、CronJob、Prometheus、Jenkins 等）</td>
+<td>提供內部 API 認證身份</td>
+<td>由 K8s 自動建立與管理</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="v1-22-vs-v1-24"><a href="#v1-22-vs-v1-24" class="headerlink" title="v1.22 vs. v1.24"></a>v1.22 vs. v1.24</h1><h2 id="🔐-v1-22-ServiceAccount-Token-安全性改進"><a href="#🔐-v1-22-ServiceAccount-Token-安全性改進" class="headerlink" title="🔐 v1.22+ ServiceAccount Token 安全性改進"></a>🔐 v1.22+ ServiceAccount Token 安全性改進</h2><p>KEP-1205: Bound Service Account Tokens</p>
+<ul>
+<li>預設 token 為短期有效（time-bound）</li>
+<li>token 綁定於特定 audience（audience-bound）</li>
+<li>不能被移作他用（object-bound）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod my-kubernetes-dashboard -o yaml</span><br></pre></td></tr></table></figure>
+
+<p>你可以在 Pod Spec 中看到</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serviceAccountToken:</span><br><span class="line">  expirationSeconds: 3600</span><br></pre></td></tr></table></figure>
+
+<h2 id="🔐-v1-24-減少-Secret-based-Token-的使用"><a href="#🔐-v1-24-減少-Secret-based-Token-的使用" class="headerlink" title="🔐 v1.24+ 減少 Secret-based Token 的使用"></a>🔐 v1.24+ 減少 Secret-based Token 的使用</h2><p>KEP-2799: ServiceAccount 不再自動產生 Secret-based Token<br>Kubernetes v1.24 起，ServiceAccount 預設不再自動建立 Secret-based token，取而代之的是：</p>
+<ul>
+<li>使用 <strong>TokenRequest API</strong> 動態取得短期有效的 Token</li>
+<li>Secret 型 token 僅在需要長期掛載時手動建立</li>
+<li>減少長效憑證洩漏風險</li>
+</ul>
+<p>✅ 動態建立短期有效 token（推薦方式）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create token dashboard-sa</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>預設有效期限為 1 小時（可使用 <code>--duration=2h</code> 調整）</p>
+</blockquote>
+<p>✅ 若仍需手動建立 Secret-based Token（不推薦，但必要時可用）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Secret</span><br><span class="line"><span class="built_in">type</span>: kubernetes.io/service-account-token</span><br><span class="line">metadata:</span><br><span class="line">  name: mysecretname</span><br><span class="line">  annotations:</span><br><span class="line">    kubernetes.io/service-account.name: dashboard-sa</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>⚠️ 建立後 Kubernetes 會自動填入 token 與 ca.crt，但這個方式只適用於特定場景（如某些外部整合），不建議一般使用者使用。</p>
+</blockquote>
+<div class="note info"><p>v1.22 與 v1.24 差異補充說明</p>
+<table>
+<thead>
+<tr>
+<th>Kubernetes 版本</th>
+<th>Token 行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>v1.21 以下</td>
+<td>預設建立長效 Secret token 並掛載</td>
+</tr>
+<tr>
+<td>v1.22</td>
+<td>引入 Bound Token，可控制存活時間 &#x2F; 使用對象</td>
+</tr>
+<tr>
+<td>v1.24 起</td>
+<td>預設 <strong>不再建立 Secret token</strong>，必須用 <code>kubectl create token</code> 動態請求</td>
+</tr>
+</tbody></table>
+<p>ServiceAccount Token 使用流程（文字流程圖）</p>
+<ol>
+<li>Pod 啟動後 → 掛載綁定的 ServiceAccount</li>
+<li>若版本 &lt; v1.24 → 自動掛載 Secret Token</li>
+<li>若版本 &gt;&#x3D; v1.24 → 建議用 <code>kubectl create token</code> 動態取得</li>
+<li>使用 Token → 向 API Server 發送帶有 Bearer Token 的請求</li>
+</ol>
+</div>
+
+<h2 id="快速產生測試角色與綁定"><a href="#快速產生測試角色與綁定" class="headerlink" title="快速產生測試角色與綁定"></a>快速產生測試角色與綁定</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立允許讀取 Pod 的角色</span></span><br><span class="line">kubectl create role pod-reader \</span><br><span class="line">  --verb=get,list,watch \</span><br><span class="line">  --resource=pods \</span><br><span class="line">  --namespace=default</span><br><span class="line"></span><br><span class="line"><span class="comment"># 綁定角色給 serviceaccount</span></span><br><span class="line">kubectl create rolebinding pod-reader-binding \</span><br><span class="line">  --role=pod-reader \</span><br><span class="line">  --serviceaccount=default:dashboard-sa \</span><br><span class="line">  --namespace=default</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>用這個方式可快速在 CKA 考試中為特定 ServiceAccount 授權對資源（如 pods）的讀取權限，省下寫 YAML 的時間。</p>
+</blockquote>
+<h2 id="實務範例：手動使用-Token-呼叫-API-Server"><a href="#實務範例：手動使用-Token-呼叫-API-Server" class="headerlink" title="實務範例：手動使用 Token 呼叫 API Server"></a>實務範例：手動使用 Token 呼叫 API Server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl https://&lt;api-server&gt;:6443/api \</span><br><span class="line">  --insecure \</span><br><span class="line">  --header <span class="string">&quot;Authorization: Bearer &lt;YOUR_TOKEN&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="CKA-怎麼考？"><a href="#CKA-怎麼考？" class="headerlink" title="CKA 怎麼考？"></a>CKA 怎麼考？</h1><p>題目通常給你一個情境，例如：</p>
+<ul>
+<li>建立一個 ServiceAccount</li>
+<li>建立 Role &#x2F; ClusterRole（ex: 讀取某資源）</li>
+<li>建立對應的 Binding</li>
+<li>建立 Pod 並使用該 ServiceAccount</li>
+<li>驗證是否能成功使用 API Token 存取資源</li>
+</ul>
+<p>重點技巧：</p>
+<ul>
+<li>快速使用 <code>kubectl create</code> 建立 SA &#x2F; Role &#x2F; RoleBinding</li>
+<li>熟悉修改 Pod yaml 並套用</li>
+<li>驗證 token 掛載與權限（可用 <code>curl</code> + <code>Bearer</code>）</li>
+</ul>
+<hr>
+<h1 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h1><ul>
+<li>ServiceAccount 是工作負載與 API Server 通訊的核心機制</li>
+<li>建議搭配 RBAC 精確授權</li>
+<li>注意 token 掛載行為在 v1.22 &#x2F; v1.24 有重大變更</li>
+<li>CKA 考題會實作 SA + RBAC + Pod 驗證整合能力</li>
+</ul>
+
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Service-Accounts/" title="K8s Security | Service Accounts">https://bessyhuang.github.io/2025/07/10/K8s-Advanced/K8s-Security-Service-Accounts/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/RBAC/" rel="tag"># RBAC</a>
+              <a href="/tags/CKA/" rel="tag"># CKA</a>
+              <a href="/tags/ServiceAccount/" rel="tag"># ServiceAccount</a>
+              <a href="/tags/Security/" rel="tag"># Security</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/09/K8s-Advanced/K8s-Security-Authorization-ClusterRoles/" rel="prev" title="K8s Security | Authorization - ClusterRoles">
+                  <i class="fa fa-angle-left"></i> K8s Security | Authorization - ClusterRoles
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
