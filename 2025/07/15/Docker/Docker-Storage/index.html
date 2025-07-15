@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="Docker 中的儲存架構與常見儲存技術，包含 Volume、Bind Mount、Storage Driver 與 CSI 介面簡介">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Docker Storage">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/15/Docker/Docker-Storage/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="Docker 中的儲存架構與常見儲存技術，包含 Volume、Bind Mount、Storage Driver 與 CSI 介面簡介">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-14T22:26:52.000Z">
+<meta property="article:modified_time" content="2025-07-15T00:11:10.373Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Storage">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/15/Docker/Docker-Storage/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/15/Docker/Docker-Storage/","path":"2025/07/15/Docker/Docker-Storage/","title":"Docker Storage"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Docker Storage | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">60</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">29</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Storage-Architecture%EF%BC%88%E5%84%B2%E5%AD%98%E6%9E%B6%E6%A7%8B%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Docker Storage Architecture（儲存架構）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Layered-Architecture-%E5%88%86%E5%B1%A4%E6%9E%B6%E6%A7%8B"><span class="nav-number">1.1.</span> <span class="nav-text">Layered Architecture (分層架構)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Storage-Drivers"><span class="nav-number">2.</span> <span class="nav-text">Storage Drivers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Volume-Drivers"><span class="nav-number">3.</span> <span class="nav-text">Volume Drivers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Volume-Driver-%E7%AF%84%E4%BE%8B%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">使用 Volume Driver 範例：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Volume-Driver-%E5%AF%A6%E5%8B%99%E8%A3%9C%E5%85%85"><span class="nav-number">3.2.</span> <span class="nav-text">Volume Driver 實務補充</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Volumes%EF%BC%88%E8%B3%87%E6%96%99%E5%8D%B7%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">Docker Volumes（資料卷）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Volume-Mounting%EF%BC%88%E8%B3%87%E6%96%99%E5%8D%B7%E6%8E%9B%E8%BC%89%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">Volume Mounting（資料卷掛載）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bind-Mounting%EF%BC%88%E7%9B%AE%E9%8C%84%E7%B6%81%E5%AE%9A%E6%8E%9B%E8%BC%89%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">Bind Mounting（目錄綁定掛載）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%AE%E7%95%B0%E6%AF%94%E8%BC%83"><span class="nav-number">4.3.</span> <span class="nav-text">差異比較</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Container-Storage-Interface-CSI"><span class="nav-number">5.</span> <span class="nav-text">Container Storage Interface (CSI)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSI-%E5%B0%8D%E6%87%89%E7%9A%84%E5%AE%B9%E5%99%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.1.</span> <span class="nav-text">CSI 對應的容器接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSI-%E5%8A%9F%E8%83%BD%E8%A6%81%E6%B1%82"><span class="nav-number">5.2.</span> <span class="nav-text">CSI 功能要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSI-%E5%BA%95%E5%B1%A4%E9%81%8B%E4%BD%9C%E5%8D%94%E5%AE%9A"><span class="nav-number">5.3.</span> <span class="nav-text">CSI 底層運作協定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%9C%E5%85%85-CLI-%E5%B7%A5%E5%85%B7%E8%88%87-YAML-%E4%BE%8B%E5%AD%90%EF%BC%88%E9%80%B2%E5%85%A5-Kubernetes-%E5%AF%A6%E4%BD%9C%EF%BC%89"><span class="nav-number">5.4.</span> <span class="nav-text">補充 CLI 工具與 YAML 例子（進入 Kubernetes 實作）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">6.</span> <span class="nav-text">總結</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/15/Docker/Docker-Storage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Docker Storage | Bessy's Tech Blog">
+      <meta itemprop="description" content="Docker 中的儲存架構與常見儲存技術，包含 Volume、Bind Mount、Storage Driver 與 CSI 介面簡介">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker Storage
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-07-15 08:26:52 / Modified: 10:11:10" itemprop="dateCreated datePublished" datetime="2025-07-15T08:26:52+10:00">2025-07-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">Docker 中的儲存架構與常見儲存技術，包含 Volume、Bind Mount、Storage Driver 與 CSI 介面簡介</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Docker-Storage-Architecture（儲存架構）"><a href="#Docker-Storage-Architecture（儲存架構）" class="headerlink" title="Docker Storage Architecture（儲存架構）"></a>Docker Storage Architecture（儲存架構）</h1><h2 id="Layered-Architecture-分層架構"><a href="#Layered-Architecture-分層架構" class="headerlink" title="Layered Architecture (分層架構)"></a>Layered Architecture (分層架構)</h2><p>每個 Docker 容器都是由唯讀映像層（image layer）和一個可寫容器層（container layer）組成。</p>
+<ul>
+<li>Image Layers<ul>
+<li>Read Only</li>
+</ul>
+</li>
+<li>Container Layers<ul>
+<li>Read Write</li>
+<li>Copy-on-Write（寫入時複製）<blockquote>
+<p>當容器對檔案進行修改時，Docker 並不會直接修改映像層(唯讀層)的檔案，而是複製該檔案到容器層(可寫層)再修改，這稱為 Copy-on-Write。<br>這樣可保持映像層不變，保證容器隔離性與一致性。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Storage-Drivers"><a href="#Storage-Drivers" class="headerlink" title="Storage Drivers"></a>Storage Drivers</h1><p>Docker 使用不同的儲存驅動來管理容器層的檔案系統。</p>
+<blockquote>
+<p>Overlay2 是目前最建議使用的主流驅動（除非有特別需求）。</p>
+</blockquote>
+<p>不同的作業系統與需求會對應不同的驅動：</p>
+<ul>
+<li><strong>AUFS</strong>（Ubuntu 常見，支援多層）</li>
+<li><strong>Overlay &#x2F; Overlay2</strong>（現代 Linux 發行版的預設）</li>
+<li><strong>ZFS</strong>（支援壓縮與快照）</li>
+<li><strong>Btrfs</strong>（支援子卷與快照）</li>
+<li><strong>Device Mapper</strong>（早期 CentOS &#x2F; RHEL 使用）</li>
+<li><strong>VFS</strong>（開發&#x2F;除錯用途，不使用 Copy-on-Write）</li>
+</ul>
+<p>Overlay2 建議搭配 xfs 或 ext4 檔案系統，並支援 SELinux。<br>可以使用以下指令確認目前使用的 Storage Driver：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info | grep Storage</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Volume-Drivers"><a href="#Volume-Drivers" class="headerlink" title="Volume Drivers"></a>Volume Drivers</h1><p>Volume 是容器外部的持久化儲存方式，支援許多第三方儲存解決方案：</p>
+<ul>
+<li><strong>local</strong>（預設、儲存在本地 <code>/var/lib/docker/volumes</code>）</li>
+<li><strong>Azure File Storage</strong></li>
+<li><strong>DigitalOcean Block Storage</strong></li>
+<li><strong>gce-docker</strong>（Google Cloud）</li>
+<li><strong>GlusterFS</strong></li>
+<li><strong>NetApp</strong></li>
+<li><strong>Portworx</strong></li>
+<li><strong>RexRay</strong>（支援 AWS EBS、EMC 等）</li>
+<li><strong>Convoy</strong></li>
+<li><strong>Flocker</strong></li>
+<li><strong>VMware vSphere Storage</strong></li>
+</ul>
+<h2 id="使用-Volume-Driver-範例："><a href="#使用-Volume-Driver-範例：" class="headerlink" title="使用 Volume Driver 範例："></a>使用 Volume Driver 範例：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">  --name mysql \</span><br><span class="line">  --volume-driver rexray/ebs \</span><br><span class="line">  --mount src=ebs-vol,target=/var/lib/mysql \</span><br><span class="line">  mysql</span><br></pre></td></tr></table></figure>
+
+<h2 id="Volume-Driver-實務補充"><a href="#Volume-Driver-實務補充" class="headerlink" title="Volume Driver 實務補充"></a>Volume Driver 實務補充</h2><p>如何列出與移除 volume</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker volume <span class="built_in">ls</span></span><br><span class="line">docker volume inspect data_volume</span><br><span class="line">docker volume <span class="built_in">rm</span> data_volume</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Docker-Volumes（資料卷）"><a href="#Docker-Volumes（資料卷）" class="headerlink" title="Docker Volumes（資料卷）"></a>Docker Volumes（資料卷）</h1><h2 id="Volume-Mounting（資料卷掛載）"><a href="#Volume-Mounting（資料卷掛載）" class="headerlink" title="Volume Mounting（資料卷掛載）"></a>Volume Mounting（資料卷掛載）</h2><p>儲存於 <code>/var/lib/docker/volumes</code> 內部目錄，由 Docker 管理。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker volume create data_volume</span><br><span class="line">docker run -v data_volume:/var/lib/mysql mysql</span><br></pre></td></tr></table></figure>
+
+<p>或用另一個 volume：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -v data_volume2:/var/lib/mysql mysql</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bind-Mounting（目錄綁定掛載）"><a href="#Bind-Mounting（目錄綁定掛載）" class="headerlink" title="Bind Mounting（目錄綁定掛載）"></a>Bind Mounting（目錄綁定掛載）</h2><p>綁定主機檔案系統的特定目錄 (e.g. <code>/data</code>)，適合需要直接存取主機檔案的場景。</p>
+<blockquote>
+<p>⚠️ 使用 Bind Mount 時，要特別小心主機路徑的權限與 SELinux&#x2F;AppArmor 安全設定，以免造成容器存取主機敏感檔案。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -v /data/mysql:/var/lib/mysql mysql</span><br></pre></td></tr></table></figure>
+
+<p>或使用 <code>--mount</code>（較新且推薦）語法：👍</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/data/mysql,target=/var/lib/mysql mysql</span><br></pre></td></tr></table></figure>
+
+<h2 id="差異比較"><a href="#差異比較" class="headerlink" title="差異比較"></a>差異比較</h2><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>Volume Mount</th>
+<th>Bind Mount</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定義方式</td>
+<td>由 Docker 管理</td>
+<td>綁定主機目錄</td>
+</tr>
+<tr>
+<td>可攜性</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>高（Docker 控制）</td>
+<td>較低（直接操作主機，主機目錄直接存取）</td>
+</tr>
+<tr>
+<td>備份與復原</td>
+<td>容易</td>
+<td>需自定義腳本&#x2F;工具</td>
+</tr>
+<tr>
+<td>SELinux 相容性</td>
+<td>有良好支援</td>
+<td>須手動調整對應標籤</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="Container-Storage-Interface-CSI"><a href="#Container-Storage-Interface-CSI" class="headerlink" title="Container Storage Interface (CSI)"></a>Container Storage Interface (CSI)</h1><p>Container Storage Interface 是 K8s 等容器編排系統與儲存解決方案之間的標準接口協定，讓各種儲存供應商能以一致方式整合。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">      App (Pod)</span><br><span class="line">	  |</span><br><span class="line">	  v</span><br><span class="line">     [ Kubelet ]</span><br><span class="line">	  |</span><br><span class="line">	  v</span><br><span class="line">    [ CSI Plugin ]</span><br><span class="line">	  |</span><br><span class="line">	  v</span><br><span class="line">[ Storage Provider (e.g. AWS EBS, Ceph) ]</span><br></pre></td></tr></table></figure>
+
+<h2 id="CSI-對應的容器接口"><a href="#CSI-對應的容器接口" class="headerlink" title="CSI 對應的容器接口"></a>CSI 對應的容器接口</h2><ul>
+<li>CRI (Container Runtime Interface)：容器運行時介面，對接 Docker、containerd、CRI-O 等。</li>
+<li>CNI (Container Network Interface)：容器網路介面，對接 Flannel、Cilium、Calico 等。</li>
+<li>CSI (Container Storage Interface)：容器儲存介面，對接各種儲存供應商。<ul>
+<li>常見支援 CSI 的儲存方案：<ul>
+<li>AWS EBS</li>
+<li>Azure Disk</li>
+<li>Google Persistent Disk</li>
+<li>Dell EMC</li>
+<li>Portworx</li>
+<li>GlusterFS</li>
+<li>Ceph</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="CSI-功能要求"><a href="#CSI-功能要求" class="headerlink" title="CSI 功能要求"></a>CSI 功能要求</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>RPC 名稱</th>
+<th>說明</th>
+<th>執行端</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>建立 Volume</td>
+<td><code>CreateVolume</code></td>
+<td>建立新的儲存資源（PV 對應）</td>
+<td>Controller</td>
+</tr>
+<tr>
+<td>刪除 Volume</td>
+<td><code>DeleteVolume</code></td>
+<td>刪除儲存資源</td>
+<td>Controller</td>
+</tr>
+<tr>
+<td>附加 Volume 到節點</td>
+<td><code>ControllerPublishVolume</code></td>
+<td>將 volume attach 至 node</td>
+<td>Controller</td>
+</tr>
+<tr>
+<td>從節點移除 Volume</td>
+<td><code>ControllerUnpublishVolume</code></td>
+<td>detach volume from node</td>
+<td>Controller</td>
+</tr>
+<tr>
+<td>掛載 Volume 給容器使用</td>
+<td><code>NodePublishVolume</code></td>
+<td>將 volume 掛載到節點目錄供 Pod 使用</td>
+<td>Node</td>
+</tr>
+<tr>
+<td>卸載 Volume</td>
+<td><code>NodeUnpublishVolume</code></td>
+<td>將 volume 從節點目錄卸載</td>
+<td>Node</td>
+</tr>
+</tbody></table>
+<h2 id="CSI-底層運作協定"><a href="#CSI-底層運作協定" class="headerlink" title="CSI 底層運作協定"></a>CSI 底層運作協定</h2><ul>
+<li>使用 gRPC 與容器平台通訊<blockquote>
+<p>CSI 使用 gRPC 作為通訊協定，能支援多語言、雙向串流與高效能序列化，適合跨平台的容器架構。</p>
+</blockquote>
+</li>
+<li>定義 RPC 方法：CreateVolume、DeleteVolume、ControllerPublishVolume、NodePublishVolume 等</li>
+</ul>
+<h2 id="補充-CLI-工具與-YAML-例子（進入-Kubernetes-實作）"><a href="#補充-CLI-工具與-YAML-例子（進入-Kubernetes-實作）" class="headerlink" title="補充 CLI 工具與 YAML 例子（進入 Kubernetes 實作）"></a>補充 CLI 工具與 YAML 例子（進入 Kubernetes 實作）</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PersistentVolumeClaim YAML 例子（K8s）</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mypvc</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">gp2</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">5Gi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PersistentVolume (PV) YAML 例子（K8s）</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mypv</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">5Gi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">hostPath:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/data/mysql</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>技術</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>儲存格式</td>
+<td>Copy-on-Write</td>
+<td>容器層讀寫原理</td>
+</tr>
+<tr>
+<td>儲存驅動</td>
+<td>Overlay2 等</td>
+<td>控制容器檔案系統</td>
+</tr>
+<tr>
+<td>資料卷</td>
+<td>Volume &#x2F; Bind Mount</td>
+<td>持久化儲存</td>
+</tr>
+<tr>
+<td>跨平台儲存</td>
+<td>Volume Driver</td>
+<td>整合外部儲存解決方案</td>
+</tr>
+<tr>
+<td>標準儲存協定</td>
+<td>CSI</td>
+<td>容器與儲存供應商之間的接口</td>
+</tr>
+</tbody></table>
+
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/15/Docker/Docker-Storage/" title="Docker Storage">https://bessyhuang.github.io/2025/07/15/Docker/Docker-Storage/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/Storage/" rel="tag"># Storage</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/11/K8s-Advanced/K8s-Security-Network-Policy/" rel="prev" title="K8s Security | Network Policy">
+                  <i class="fa fa-angle-left"></i> K8s Security | Network Policy
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
