@@ -6,8 +6,8 @@ categories: Docker
 tags:
 - Docker
 - Storage
+- Volume
 ---
-
 
 # Docker Storage Architecture（儲存架構）
 
@@ -56,7 +56,7 @@ Volume 是容器外部的持久化儲存方式，支援許多第三方儲存解�
 - **Flocker**
 - **VMware vSphere Storage**
 
-## 使用 Volume Driver 範例：
+## 使用 Volume Driver 指令範例
 ```bash
 docker run -it \
   --name mysql \
@@ -180,7 +180,7 @@ spec:
   capacity:
     storage: 5Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce  # ReadOnlyMany, ReadWriteOnce, ReadWriteMany
   hostPath:
     path: /data/mysql
 ```
