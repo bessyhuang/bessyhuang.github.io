@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="深入解析 Kubernetes 網路基礎與 CNI（Container Network Interface）運作方式，透過 veth 與 netns 實作模擬容器網路連線，協助理解 CNI Plugin 如何建立 Pod-to-Pod 通訊，為 CKA 考試打下基礎。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="K8s | Networking - PreRequisites">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/24/K8s-Advanced/K8s-Networking-PreRequisites/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="深入解析 Kubernetes 網路基礎與 CNI（Container Network Interface）運作方式，透過 veth 與 netns 實作模擬容器網路連線，協助理解 CNI Plugin 如何建立 Pod-to-Pod 通訊，為 CKA 考試打下基礎。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-23T23:28:00.000Z">
+<meta property="article:modified_time" content="2025-07-28T14:45:36.037Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="Networking">
+<meta property="article:tag" content="Pre-Requisites">
+<meta property="article:tag" content="CNI">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/24/K8s-Advanced/K8s-Networking-PreRequisites/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/24/K8s-Advanced/K8s-Networking-PreRequisites/","path":"2025/07/24/K8s-Advanced/K8s-Networking-PreRequisites/","title":"K8s | Networking - PreRequisites"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>K8s | Networking - PreRequisites | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">67</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">31</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pre-Requisites-%E2%80%93-Network-Switching-Routing-Tools"><span class="nav-number">1.</span> <span class="nav-text">Pre-Requisites – Network, Switching, Routing, Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Switching%EF%BC%88%E4%BA%A4%E6%8F%9B%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">Switching（交換）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Routing%EF%BC%88%E8%B7%AF%E7%94%B1%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">Routing（路由）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Default-Gateway%EF%BC%88%E9%A0%90%E8%A8%AD%E9%96%98%E9%81%93%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">Default Gateway（預設閘道）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT%EF%BC%88Network-Address-Translation%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">NAT（Network Address Translation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90%E6%AF%94%E8%BC%83%E8%A1%A8"><span class="nav-number">1.5.</span> <span class="nav-text">總結比較表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes-%E5%AF%A6%E5%8B%99%E9%97%9C%E8%81%AF%E8%AA%AA%E6%98%8E"><span class="nav-number">1.6.</span> <span class="nav-text">Kubernetes 實務關聯說明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS"><span class="nav-number">1.7.</span> <span class="nav-text">DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8D%E7%A8%B1%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%EF%BC%88Name-Resolution%EF%BC%89"><span class="nav-number">1.7.1.</span> <span class="nav-text">名稱解析流程（Name Resolution）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-%E6%9F%A5%E8%A9%A2%E6%B5%81%E7%A8%8B%E7%AF%84%E4%BE%8B"><span class="nav-number">1.7.2.</span> <span class="nav-text">DNS 查詢流程範例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-Record-Types"><span class="nav-number">1.7.3.</span> <span class="nav-text">DNS Record Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-%E6%9F%A5%E8%A9%A2%E5%B7%A5%E5%85%B7%E8%A3%9C%E5%85%85"><span class="nav-number">1.7.4.</span> <span class="nav-text">DNS 查詢工具補充</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pre-Requisites-%E2%80%93-Network-Namespaces"><span class="nav-number">2.</span> <span class="nav-text">Pre-Requisites – Network Namespaces</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Network-Namespace%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">什麼是 Network Namespace？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">2.2.</span> <span class="nav-text">核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-Network-Namespace"><span class="nav-number">2.3.</span> <span class="nav-text">建立 Network Namespace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-veth-pair-%E5%BB%BA%E7%AB%8B%E5%85%A9%E5%80%8B-namespace-%E7%9A%84%E9%80%A3%E7%B7%9A%EF%BC%88%E5%BB%BA%E7%AB%8B-Peer-%E6%8E%A5%E5%8F%A3%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">使用 veth pair 建立兩個 namespace 的連線（建立 Peer 接口）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Linux-Bridge-%E6%A8%A1%E6%93%AC%E8%99%9B%E6%93%AC%E4%BA%A4%E6%8F%9B%E5%99%A8%EF%BC%88%E6%A9%8B%E6%8E%A5%E5%A4%9A%E5%80%8B-namespace%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">使用 Linux Bridge 模擬虛擬交換器（橋接多個 namespace）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%88%87-Host-%E9%80%9A%E8%A8%8A-%E6%A8%A1%E6%93%AC-NAT-%E5%87%BA%E7%B6%B2%EF%BC%88%E6%A8%A1%E6%93%AC-Internet%EF%BC%89"><span class="nav-number">2.6.</span> <span class="nav-text">與 Host 通訊 + 模擬 NAT 出網（模擬 Internet）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B6%B2%E8%B7%AF%E8%A8%BA%E6%96%B7%E8%88%87%E6%8E%92%E9%8C%AF%E5%B7%A5%E5%85%B7"><span class="nav-number">2.7.</span> <span class="nav-text">網路診斷與排錯工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E9%8C%AF%E8%AA%A4%E8%88%87%E6%8E%92%E9%8C%AF%E6%8F%90%E7%A4%BA"><span class="nav-number">2.8.</span> <span class="nav-text">常見錯誤與排錯提示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CKA-%E8%80%83%E8%A9%A6%E6%87%89%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="nav-number">2.9.</span> <span class="nav-text">CKA 考試應用場景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E%E8%A3%9C%E5%85%85%EF%BC%9ADNAT%E3%80%81%E9%9D%9C%E6%85%8B%E8%B7%AF%E7%94%B1"><span class="nav-number">2.10.</span> <span class="nav-text">進階補充：DNAT、靜態路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E8%88%87-Namespace-%E7%9A%84%E9%97%9C%E4%BF%82"><span class="nav-number">2.11.</span> <span class="nav-text">Docker 與 Namespace 的關係</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pre-Requisites-%E2%80%93-Networking-in-Docker"><span class="nav-number">3.</span> <span class="nav-text">Pre-Requisites – Networking in Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Networking-Modes"><span class="nav-number">3.1.</span> <span class="nav-text">Docker Networking Modes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#network-none"><span class="nav-number">3.1.1.</span> <span class="nav-text">--network none</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#network-host"><span class="nav-number">3.1.2.</span> <span class="nav-text">--network host</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#network-bridge%EF%BC%88%E9%A0%90%E8%A8%AD%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="nav-number">3.1.3.</span> <span class="nav-text">--network bridge（預設模式）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Network-%E6%AA%A2%E6%9F%A5%E6%8C%87%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">Docker Network 檢查指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Network-Namespace-%E8%88%87-Bridge"><span class="nav-number">3.2.1.</span> <span class="nav-text">Linux Network Namespace 與 Bridge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables-NAT%EF%BC%88Docker-Port-Mapping-%E5%8E%9F%E7%90%86%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">iptables + NAT（Docker Port Mapping 原理）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E4%B8%89%E7%A8%AE%E7%B6%B2%E8%B7%AF%E6%A8%A1%E5%BC%8F%E7%B8%BD%E6%95%B4%E7%90%86"><span class="nav-number">3.2.3.</span> <span class="nav-text">Docker 三種網路模式總整理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pre-Requisites-%E2%80%93-Container-Networking-Interface-CNI"><span class="nav-number">4.</span> <span class="nav-text">Pre-Requisites – Container Networking Interface (CNI)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-CNI%EF%BC%9F"><span class="nav-number">4.1.</span> <span class="nav-text">什麼是 CNI？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8B%95%E6%A8%A1%E6%93%AC-CNI-Plugin-%E8%A1%8C%E7%82%BA%EF%BC%88%E4%BD%BF%E7%94%A8-Docker%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">手動模擬 CNI Plugin 行為（使用 Docker）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E6%8F%90%E9%86%92%E8%88%87%E8%A3%9C%E5%85%85"><span class="nav-number">4.3.</span> <span class="nav-text">小提醒與補充</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/24/K8s-Advanced/K8s-Networking-PreRequisites/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="K8s | Networking - PreRequisites | Bessy's Tech Blog">
+      <meta itemprop="description" content="深入解析 Kubernetes 網路基礎與 CNI（Container Network Interface）運作方式，透過 veth 與 netns 實作模擬容器網路連線，協助理解 CNI Plugin 如何建立 Pod-to-Pod 通訊，為 CKA 考試打下基礎。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          K8s | Networking - PreRequisites
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-24 09:28:00" itemprop="dateCreated datePublished" datetime="2025-07-24T09:28:00+10:00">2025-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-29 00:45:36" itemprop="dateModified" datetime="2025-07-29T00:45:36+10:00">2025-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">深入解析 Kubernetes 網路基礎與 CNI（Container Network Interface）運作方式，透過 veth 與 netns 實作模擬容器網路連線，協助理解 CNI Plugin 如何建立 Pod-to-Pod 通訊，為 CKA 考試打下基礎。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Pre-Requisites-–-Network-Switching-Routing-Tools"><a href="#Pre-Requisites-–-Network-Switching-Routing-Tools" class="headerlink" title="Pre-Requisites – Network, Switching, Routing, Tools"></a>Pre-Requisites – Network, Switching, Routing, Tools</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[PC1]---(Switch)---[PC2]        # Switching</span><br><span class="line">[LAN]---(Router)---[Internet]   # Routing &amp; NAT</span><br></pre></td></tr></table></figure>
+
+<h2 id="Switching（交換）"><a href="#Switching（交換）" class="headerlink" title="Switching（交換）"></a>Switching（交換）</h2><ul>
+<li>功能：在<strong>同一個區域網路（LAN）內</strong>傳送資料。</li>
+<li>設備：Switch（交換器）</li>
+<li>工作層級：OSI 第 2 層（Data Link Layer）</li>
+<li>根據什麼來轉發資料？ ➤ 根據 <strong>MAC 位址</strong></li>
+<li>常見用途：<ul>
+<li>建立<strong>多個主機之間</strong>的區域網路連線。</li>
+<li>每個埠都有獨立帶寬，減少碰撞（collision domain 獨立）。</li>
+</ul>
+</li>
+<li>MAC Address Table（MAC 位址表）：<ul>
+<li>Switch 會學習每個 MAC 位址來自哪個 port，根據此表轉發封包。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">範例：PC1 要傳資料給 PC2，交換器查詢 MAC 表決定送出方向。</span><br><span class="line"></span><br><span class="line">[PC1:192.168.1.10] &lt;--&gt; [PC2:192.168.1.11]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 顯示系統中所有網路裝置，例如 eth0, lo（loopback）。顯示裝置狀態（UP/DOWN）、MAC 位址等。</span></span><br><span class="line">ip <span class="built_in">link</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 顯示每個網路介面（interface）的 IP 設定。</span></span><br><span class="line">ip addr</span><br><span class="line">ifconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># 給 eth0 指定一個靜態 IP：192.168.1.10，子網路為 /24。 /24 代表子網路遮罩是 255.255.255.0。</span></span><br><span class="line">ip addr add 192.168.1.10/24 dev eth0</span><br><span class="line"><span class="comment"># 同樣方法設定第二台機器的 IP</span></span><br><span class="line">ip addr add 192.168.1.11/24 dev eth0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 驗證是否可以從 192.168.1.10 ping 通對方，證明交換器或虛擬橋接正常運作。這是在同一網段下，不經過路由的傳送。</span></span><br><span class="line">ping 192.168.1.11</span><br></pre></td></tr></table></figure>
+
+<h2 id="Routing（路由）"><a href="#Routing（路由）" class="headerlink" title="Routing（路由）"></a>Routing（路由）</h2><ul>
+<li>功能：在<strong>不同網路之間</strong>轉送資料。</li>
+<li>設備：Router（路由器）</li>
+<li>工作層級：OSI 第 3 層（Network Layer）</li>
+<li>根據什麼來轉發資料？ ➤ 根據 <strong>IP 位址</strong></li>
+<li>常見用途：<ul>
+<li>公司網路<strong>連接外部網際網路</strong>。</li>
+<li>家用路由器將家中多設備連上網際網路。</li>
+<li>在<strong>多子網之間</strong>傳遞資料。</li>
+<li>將 LAN、WAN 之間的資料傳送到正確的網段。</li>
+</ul>
+</li>
+<li>路由表（Routing Table）：<ul>
+<li>儲存目的網段與下一跳（next hop）關係。</li>
+<li>可設定靜態路由或啟用動態路由協定（如 OSPF、BGP 等）。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">範例：家中路由器連接兩個內網子網段（192.168.1.0/24 與 192.168.2.0/24），路由器負責轉發這兩個子網之間的流量。</span><br><span class="line"></span><br><span class="line">[PC1:192.168.1.10] &lt;--&gt; [Router: 192.168.1.1 | 192.168.2.1] &lt;--&gt; [PC2:192.168.2.20]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 顯示目前系統的路由表。列出 default gateway、直連路由（connected routes）等資訊。</span></span><br><span class="line">ip route</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入靜態路由規則</span></span><br><span class="line"><span class="comment"># 表示：「若要前往 192.168.2.0/24，下一跳是 192.168.1.1」。注意：設定要通往整個 192.168.2.0/24 子網的路由規則</span></span><br><span class="line">ip route add 192.168.2.0/24 via 192.168.1.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刪除路由規則</span></span><br><span class="line">ip route del 192.168.2.0/24</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模擬兩個子網的路由器功能（實驗環境）</span></span><br><span class="line"><span class="comment"># 如果你在本機使用 network namespace 模擬環境，可建立一個充當路由器的節點：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 開啟 IP forwarding（Linux 預設關閉）</span></span><br><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure>
+
+<h2 id="Default-Gateway（預設閘道）"><a href="#Default-Gateway（預設閘道）" class="headerlink" title="Default Gateway（預設閘道）"></a>Default Gateway（預設閘道）</h2><ul>
+<li>功能：主機在無法找到目的 IP 所在網段時，將封包送到「預設閘道（Default Gateway）」處理，讓路由器決定後續的傳送路徑。</li>
+<li>常見設定：<ul>
+<li>每台主機通常只設一個 Default Gateway。</li>
+<li>預設閘道的 IP 通常是路由器的 IP（例如：192.168.1.1）。</li>
+<li>若無設置預設閘道，主機將無法存取其他網段（包括上網）。</li>
+</ul>
+</li>
+<li>當資料要送往 Google 或其他外部網站時，封包會先被送往 Default Gateway，由路由器轉發到下一跳或網際網路。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 範例：你的電腦（192.168.1.10）要連到 Google（8.8.8.8），因為 8.8.8.8 不在 192.168.1.0/24 網段內，</span></span><br><span class="line"><span class="comment"># 所以電腦會把封包送到 Default Gateway（192.168.1.1），讓路由器幫忙找到 Google 的 IP 路徑。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看目前設定的預設路由（即 default gateway）。</span></span><br><span class="line">ip route show default</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 若已有預設路由，需先刪除原本的。注意：Linux 中只允許一條主要的 default route（可以有多條但要設定優先順序 metric）。</span></span><br><span class="line">ip route del default</span><br><span class="line"><span class="comment"># 新增一條預設路由規則，透過 192.168.2.1 作為下一跳。</span></span><br><span class="line">ip route add default via 192.168.2.1</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>功能說明</th>
+<th>指令範例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Default Route</td>
+<td>處理所有不在路由表中的目的 IP</td>
+<td><code>ip route add default via &lt;IP&gt;</code></td>
+</tr>
+<tr>
+<td>Static Route</td>
+<td>處理特定目的網段的封包</td>
+<td><code>ip route add 10.0.0.0/24 via &lt;IP&gt;</code></td>
+</tr>
+</tbody></table>
+<h2 id="NAT（Network-Address-Translation）"><a href="#NAT（Network-Address-Translation）" class="headerlink" title="NAT（Network Address Translation）"></a>NAT（Network Address Translation）</h2><ul>
+<li>功能：將內部私有 IP 和外部公有 IP 互相轉換。</li>
+<li>用途：<ul>
+<li>讓多台內部設備共用一個公有 IP。</li>
+<li>強化安全性，避免內部 IP 直接暴露。</li>
+</ul>
+</li>
+<li>常見類型：<ul>
+<li>SNAT（Source NAT）：轉換來源 IP（內 → 外）</li>
+<li>DNAT（Destination NAT）：轉換目的 IP（外 → 內）</li>
+<li>PAT（Port Address Translation）：多台內部主機共用一個公網 IP + 不同的 port</li>
+</ul>
+</li>
+<li>在 K8s 中，NAT 常出現在：<ul>
+<li>ClusterIP Service: SNAT</li>
+<li>NodePort: DNAT</li>
+<li>ExternalTrafficPolicy&#x3D;Local: 會影響是否做 NAT</li>
+</ul>
+</li>
+<li>常見私有 IP 範圍（不能在 Internet 上直接使用）：<ul>
+<li><code>10.0.0.0/8</code></li>
+<li><code>172.16.0.0/12</code></li>
+<li><code>192.168.0.0/16</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>範例：你在家中開瀏覽器（192.168.0.5）訪問網站，路由器會將你的私有 IP 替換成公有 IP。</p>
+</blockquote>
+<h2 id="總結比較表"><a href="#總結比較表" class="headerlink" title="總結比較表"></a>總結比較表</h2><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>Switching</th>
+<th>Routing</th>
+<th>Default Gateway</th>
+<th>NAT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能</td>
+<td>同網段內資料傳送</td>
+<td>不同網段間資料傳送</td>
+<td>主機不知去向的流量所使用的預設出口（轉送非本地 IP 封包）</td>
+<td>私有 IP ↔ 公有 IP 轉換（進出網際網路）</td>
+</tr>
+<tr>
+<td>依據</td>
+<td>MAC 位址</td>
+<td>IP 位址</td>
+<td>主機 IP 設定中指定的閘道</td>
+<td>封包來源或目的 IP（SNAT&#x2F;DNAT）</td>
+</tr>
+<tr>
+<td>OSI 層級</td>
+<td>Layer 2 (Data Link)</td>
+<td>Layer 3 (Network)</td>
+<td>Layer 3</td>
+<td>Layer 3（IP 層，常與 conntrack 配合追蹤連線狀態）</td>
+</tr>
+<tr>
+<td>設備</td>
+<td>Switch（交換器）</td>
+<td>Router（路由器）</td>
+<td>Router &#x2F; Layer 3 Switch</td>
+<td>Router &#x2F; Firewall &#x2F; NAT Gateway</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>是否為 CKA 重點</th>
+<th>補充說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Switching</td>
+<td>❌ 不是</td>
+<td>Pod 在同一 Node 間溝通，透過 Linux bridge（如 cni0），為 Layer 2 概念，CKA 不深入考</td>
+</tr>
+<tr>
+<td>Routing</td>
+<td>✅ 中等</td>
+<td>Pod 跨 Node 的流量、Service 的 ClusterIP 與 kube-proxy 都涉及 L3 routing</td>
+</tr>
+<tr>
+<td>Default Gateway</td>
+<td>✅ 中等</td>
+<td>Node 如何將 Pod 的 egress 流量送到外部網路，需理解 default route 設定</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>✅ 高</td>
+<td>SNAT 用於 Pod 出網（source NAT）、DNAT 則將虛擬 IP 轉向 Pod 真實 IP，kube-proxy 實作時常見</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>層級</th>
+<th>根據什麼轉發</th>
+<th>傳送範圍</th>
+<th>常見工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Switching（交換）</td>
+<td>OSI L2</td>
+<td>MAC 位址</td>
+<td>同一個 LAN</td>
+<td><code>ip link</code>, <code>ip addr</code>, <code>bridge link</code><br>檢查&#x2F;設定網卡與 L2 網橋狀態</td>
+</tr>
+<tr>
+<td>Routing（路由）</td>
+<td>OSI L3</td>
+<td>IP 位址</td>
+<td>跨子網&#x2F;跨網段</td>
+<td><code>ip route</code>, <code>ip forward</code>, <code>traceroute</code><br>查看路由表、啟用轉發、追蹤封包路徑</td>
+</tr>
+<tr>
+<td>Default Gateway</td>
+<td>路由設定一部分</td>
+<td>預設轉送非本地流量</td>
+<td>轉送至外部或上層路由器</td>
+<td><code>ip route add default</code>, <code>ip route show</code><br>設定與查詢 default gateway</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Pod 間跨 Node 通訊的基礎</strong>：K8s CNI 插件會自動設好路由規則。</p>
+</blockquote>
+<h2 id="Kubernetes-實務關聯說明"><a href="#Kubernetes-實務關聯說明" class="headerlink" title="Kubernetes 實務關聯說明"></a>Kubernetes 實務關聯說明</h2><p>Kubernetes 的網路抽象背後建立在傳統網路知識上。掌握 Switching、Routing、Default Gateway 與 NAT 等概念，能幫助你更有效排查錯誤、設定 CNI、理解 kube-proxy 運作細節。</p>
+<p>為何這些基礎知識重要？</p>
+<ul>
+<li>Routing &amp; NAT 是 Kubernetes 網路模型（尤其是 CNI）的核心概念。<ul>
+<li>Kubernetes 中，Pod 同 Node 間的通訊，透過 veth pair 與 Linux bridge（如 cni0）建立橋接，實際上屬於 Layer 2 Switching。</li>
+<li>Kubernetes 設計中，每個 Pod 都會被分配一個 routable IP，跨 Node 的 Pod 通訊藉由每個 Node 上的路由表與 CNI 插件實現。</li>
+</ul>
+</li>
+<li>NAT 的理解 有助於排查 Service 無法連線的問題（SNAT&#x2F;DNAT 錯誤）。<ul>
+<li>例如使用 NodePort 或 External IP 進行連線時，會透過 DNAT 將外部請求轉向對應的 Service Cluster IP，再由 kube-proxy 分流至實際 Pod。</li>
+</ul>
+</li>
+<li>Default Gateway 涉及 Pod egress 到外部網路，或與外部 Service 溝通的能力。</li>
+<li>Switching 雖不考，但理解基本 L2 溝通，有助於 NetworkPolicy 與 Bridge 網路除錯。</li>
+</ul>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p>什麼是 DNS（Domain Name System）？</p>
+<blockquote>
+<p>將「人類記得住的網域名稱（如 google.com）」轉換為「機器可以識別的 IP 位址（如 142.250.66.132）」。</p>
+</blockquote>
+<h3 id="名稱解析流程（Name-Resolution）"><a href="#名稱解析流程（Name-Resolution）" class="headerlink" title="名稱解析流程（Name Resolution）"></a>名稱解析流程（Name Resolution）</h3><ol>
+<li>本地 <code>/etc/hosts</code> 檔案</li>
+<li>DNS Server（依 <code>/etc/resolv.conf</code>） <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/resolv.conf 範例</span></span><br><span class="line"><span class="string">nameserver</span> <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br><span class="line"><span class="string">nameserver</span> <span class="number">1.1</span><span class="number">.1</span><span class="number">.1</span></span><br></pre></td></tr></table></figure></li>
+<li>依 <code>/etc/nsswitch.conf</code> 設定的順序解析 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/nsswitch.conf 中的 hosts 配置範例如下：</span></span><br><span class="line"><span class="attr">hosts:</span> <span class="string">files</span> <span class="string">dns</span> <span class="string">myhostname</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># files：代表先查 /etc/hosts</span></span><br><span class="line"><span class="comment"># dns：再查 DNS Server</span></span><br><span class="line"><span class="comment"># myhostname：允許系統自己認得 hostname（非必要，但某些 Linux 發行版會加）</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/hosts</span><br><span class="line">ping db</span><br><span class="line">ssh db</span><br><span class="line">curl http://www.google.com/</span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> /etc/resolv.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查詢名稱解析順序</span></span><br><span class="line"><span class="built_in">cat</span> /etc/nsswitch.conf | grep hosts</span><br><span class="line"><span class="comment"># 通常為：hosts: files dns</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 顯示當前主機的名稱</span></span><br><span class="line">hostname</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果 ping db 失敗，可以這樣查原因：</span></span><br><span class="line"><span class="built_in">cat</span> /etc/hosts</span><br><span class="line"><span class="built_in">cat</span> /etc/resolv.conf</span><br><span class="line"><span class="built_in">cat</span> /etc/nsswitch.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="DNS-查詢流程範例"><a href="#DNS-查詢流程範例" class="headerlink" title="DNS 查詢流程範例"></a>DNS 查詢流程範例</h3><p>Domain Name 結構：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apps.google.com</span><br><span class="line">├── apps       # Subdomain (e.g. maps, www, drive, apps)</span><br><span class="line">├── google     # Second Level Domain</span><br><span class="line">├── com        # Top-Level Domain (e.g. .com, .net, .edu, .org, .io)</span><br><span class="line">└── .          # Root (隱含)</span><br></pre></td></tr></table></figure>
+
+<p>apps.google.com 查詢流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Client] ─┬─&gt; /etc/hosts ⭐️</span><br><span class="line">          ├─&gt; /etc/resolv.conf → Org DNS</span><br><span class="line">          │                   └─&gt; Cache hit? → 回應</span><br><span class="line">          │                   └─&gt; Cache miss →</span><br><span class="line">          │                                 Root DNS</span><br><span class="line">          │                                   ↓</span><br><span class="line">          │                                 .com DNS</span><br><span class="line">          │                                   ↓</span><br><span class="line">          │                             google.com NS</span><br><span class="line">          │                                   ↓</span><br><span class="line">          │                          google DNS Server</span><br><span class="line">          │                                   ↓</span><br><span class="line">          │                           216.58.221.78</span><br><span class="line">          └─&lt;─ 回傳並快取 (Cache 結果到 Org DNS 或本機)</span><br></pre></td></tr></table></figure>
+
+<h3 id="DNS-Record-Types"><a href="#DNS-Record-Types" class="headerlink" title="DNS Record Types"></a>DNS Record Types</h3><table>
+<thead>
+<tr>
+<th>類型</th>
+<th>說明</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>網域名稱 → IPv4 位址</td>
+<td><code>A www.google.com → 142.250.66.132</code></td>
+</tr>
+<tr>
+<td>AAAA</td>
+<td>網域名稱 → IPv6 位址</td>
+<td><code>AAAA www.google.com → 2607:f8b0::</code></td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>Canonical Name（別名）</td>
+<td><code>CNAME mail → ghs.google.com</code></td>
+</tr>
+<tr>
+<td>MX</td>
+<td>Mail eXchanger（郵件交換伺服器）</td>
+<td><code>MX google.com → smtp.google.com</code></td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>附加文字，常用於驗證（如 SPF、DKIM）</td>
+<td><code>TXT google.com → v=spf1 include:_spf.google.com</code></td>
+</tr>
+<tr>
+<td>NS</td>
+<td>指定此網域使用的 DNS 名稱伺服器</td>
+<td><code>NS google.com → ns1.google.com</code></td>
+</tr>
+<tr>
+<td>SOA</td>
+<td>Start of Authority，定義網域的主要資訊</td>
+<td>包含主 DNS、序號、TTL、負責人 Email 等</td>
+</tr>
+<tr>
+<td>PTR</td>
+<td>IP → 網域名稱（反查用）</td>
+<td><code>PTR 132.66.250.142.in-addr.arpa → google.com</code></td>
+</tr>
+<tr>
+<td>SRV</td>
+<td>提供服務的位址和連接埠</td>
+<td><code>SRV _sip._tcp.example.com → sipserver.example.com:5060</code></td>
+</tr>
+</tbody></table>
+<h3 id="DNS-查詢工具補充"><a href="#DNS-查詢工具補充" class="headerlink" title="DNS 查詢工具補充"></a>DNS 查詢工具補充</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>說明</th>
+<th>常用指令範例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nslookup</code></td>
+<td>傳統工具，只查詢 <code>DNS Server</code> 記錄</td>
+<td><code>nslookup www.google.com</code></td>
+</tr>
+<tr>
+<td><code>dig</code></td>
+<td>現代工具，支援多種記錄與查詢細節</td>
+<td><code>dig www.google.com A</code> 、 <code>dig +short google.com</code></td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td>簡潔快速查詢</td>
+<td><code>host www.google.com</code> 、 <code>host 8.8.8.8</code>（反查 IP）</td>
+</tr>
+<tr>
+<td><code>ping</code></td>
+<td>同時測試網路連線與名稱解析</td>
+<td><code>ping google.com</code></td>
+</tr>
+<tr>
+<td><code>traceroute</code></td>
+<td>顯示封包路徑</td>
+<td><code>traceroute google.com</code> 或 <code>tracepath</code>（Linux 上較常見）</td>
+</tr>
+<tr>
+<td><code>curl</code></td>
+<td>測試 HTTP 請求與 DNS 是否能解析成功</td>
+<td><code>curl -I https://google.com</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="Pre-Requisites-–-Network-Namespaces"><a href="#Pre-Requisites-–-Network-Namespaces" class="headerlink" title="Pre-Requisites – Network Namespaces"></a>Pre-Requisites – Network Namespaces</h1><h2 id="什麼是-Network-Namespace？"><a href="#什麼是-Network-Namespace？" class="headerlink" title="什麼是 Network Namespace？"></a>什麼是 Network Namespace？</h2><p>Network Namespace（NetNS）是 Linux 核心支援的虛擬網路隔離機制，可讓不同容器、Pod 擁有各自獨立的網路堆疊。</p>
+<ul>
+<li>每個 Namespace 擁有自己的：<ul>
+<li>Routing Table</li>
+<li>Network Interfaces</li>
+<li>IP Address Table</li>
+<li>ARP Cache</li>
+<li><code>iptables</code> (部分隔離)<blockquote>
+<p>✅ <strong>Kubernetes 的每個 Pod、Docker Container 就是透過 NetNS 實現網路隔離！</strong></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><ol>
+<li>Network Namespace 是容器網路的基礎<ul>
+<li>每個容器（或 Pod）都運作在自己的 Network Namespace。</li>
+<li>NetNS 提供隔離的網路堆疊（IP、路由表、ARP、iptables…），是實現多容器網路分離的基礎技術。</li>
+</ul>
+</li>
+<li>veth pair 建立 namespace 之間的連線<ul>
+<li>veth pair 像是「虛擬網路線」：一端在 Pod&#x2F;namespace，另一端連接 bridge（虛擬交換器）。</li>
+<li>用來模擬 Pod 與 Pod、Pod 與 host 間的網路通訊。</li>
+</ul>
+</li>
+<li>Linux Bridge 作為虛擬交換器<ul>
+<li>可連接多個 veth 口，實現 namespace 間的 L2 層網路通訊。</li>
+<li>相當於模擬多個 Pod 在同一個虛擬 switch 上。</li>
+</ul>
+</li>
+<li>iptables + IP forwarding 模擬 NAT 出網<ul>
+<li>對 NetNS 來說，要出網需要：<ul>
+<li>Host 支援 IP forwarding。</li>
+<li><code>iptables</code> 設定 POSTROUTING（SNAT&#x2F;MASQUERADE）。</li>
+<li>Namespace 設定 default route。</li>
+</ul>
+</li>
+<li>這些步驟實際對應到 Pod 出網的 CNI 流程。</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>對應物理世界</th>
+<th>重點概念</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Namespace</td>
+<td>各自的獨立網路房間</td>
+<td>每個容器&#x2F;Pod 的網路空間</td>
+</tr>
+<tr>
+<td>veth pair</td>
+<td>網路線，兩頭各在一房間</td>
+<td>將 namespace 接到 bridge</td>
+</tr>
+<tr>
+<td>bridge</td>
+<td>集線器&#x2F;交換器</td>
+<td>Pod 所在的虛擬 switch 網段</td>
+</tr>
+<tr>
+<td>iptables + MASQ</td>
+<td>NAT 出網機器（路由器）</td>
+<td>模擬 Pod 如何透過 Node 出到 Internet</td>
+</tr>
+<tr>
+<td>ip route</td>
+<td>GPS 導航地圖</td>
+<td>調整路由方向決定「去哪條路」</td>
+</tr>
+</tbody></table>
+<h2 id="建立-Network-Namespace"><a href="#建立-Network-Namespace" class="headerlink" title="建立 Network Namespace"></a>建立 Network Namespace</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ip netns add red</span><br><span class="line">ip netns add blue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 檢查已建立的 namespace</span></span><br><span class="line">ip netns list</span><br></pre></td></tr></table></figure>
+
+<p>檢查 Namespace 狀態：</p>
+<ul>
+<li><code>ip -n &lt;namespace&gt; addr</code> &#x3D; <code>ip netns exec &lt;namespace&gt; ip addr</code></li>
+<li><code>ip -n &lt;namespace&gt; link</code> &#x3D; <code>ip netns exec &lt;namespace&gt; ip link</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip netns <span class="built_in">exec</span> red  ip addr    <span class="comment"># 查看 red  內的網卡與 IP 狀態</span></span><br><span class="line">ip netns <span class="built_in">exec</span> blue ip <span class="built_in">link</span>    <span class="comment"># 查看 blue 內的 interface 狀態</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-veth-pair-建立兩個-namespace-的連線（建立-Peer-接口）"><a href="#使用-veth-pair-建立兩個-namespace-的連線（建立-Peer-接口）" class="headerlink" title="使用 veth pair 建立兩個 namespace 的連線（建立 Peer 接口）"></a>使用 veth pair 建立兩個 namespace 的連線（建立 Peer 接口）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立一對虛擬網卡（veth pair），彼此相連，像兩端的網路線。</span></span><br><span class="line">ip <span class="built_in">link</span> add veth-red <span class="built_in">type</span> veth peer name veth-blue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一端在 Pod/namespace：將這兩個 veth 接口各自移入 red 與 blue namespace，相當於模擬 Pod 網卡。</span></span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-red netns red</span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-blue netns blue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一端連接 bridge（虛擬交換器）：在兩邊的 veth interface 上設定 IP，且設定在同一個子網（/24），才能互通。</span></span><br><span class="line">ip -n red addr add 192.168.15.1/24 dev veth-red</span><br><span class="line">ip -n blue addr add 192.168.15.2/24 dev veth-blue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 啟用 interface，否則不會通訊。</span></span><br><span class="line">ip -n red <span class="built_in">link</span> <span class="built_in">set</span> veth-red up</span><br><span class="line">ip -n blue <span class="built_in">link</span> <span class="built_in">set</span> veth-blue up</span><br></pre></td></tr></table></figure>
+
+<p>測試連線：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip netns <span class="built_in">exec</span> red ping 192.168.15.2</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Linux-Bridge-模擬虛擬交換器（橋接多個-namespace）"><a href="#使用-Linux-Bridge-模擬虛擬交換器（橋接多個-namespace）" class="headerlink" title="使用 Linux Bridge 模擬虛擬交換器（橋接多個 namespace）"></a>使用 Linux Bridge 模擬虛擬交換器（橋接多個 namespace）</h2><p>當你需要 <strong>讓多個 Network Namespaces 彼此通信或接上外部網路</strong>，就需要在 host 上建立一個 <strong>虛擬交換器（virtual switch）</strong>，最常見的方式是使用：</p>
+<ul>
+<li>Linux Bridge（常用於 Docker）</li>
+<li>Open vSwitch（進階 SDN 應用）</li>
+</ul>
+<p>以下會以 <strong>Linux Bridge</strong> 為主，教你如何透過 ip 指令 <strong>建立內部虛擬網路</strong>，管理多個 netns。</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>功能說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Network Namespace</code></td>
+<td>一個隔離的網路環境</td>
+</tr>
+<tr>
+<td><code>veth pair</code></td>
+<td>虛擬網卡，一端連 netns、一端連 bridge</td>
+</tr>
+<tr>
+<td><code>Bridge</code></td>
+<td>虛擬交換器，連接不同的 veth 口</td>
+</tr>
+<tr>
+<td><code>ip route</code></td>
+<td>顯示 routing table（路由表）</td>
+</tr>
+<tr>
+<td><code>arp -n</code> 或 <code>ip neigh</code></td>
+<td>顯示 ARP table（IP 對應 MAC）</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立 Bridge (虛擬橋接器)</span></span><br><span class="line">ip <span class="built_in">link</span> add v-net-0 <span class="built_in">type</span> bridge</span><br><span class="line"></span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> v-net-0 up</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>ip link set &lt;interface&gt; up</code><br>&#x3D; <code>ip link set dev &lt;interface&gt; up</code><br>&#x3D; <code>ip link set device &lt;interface&gt; up</code></p>
+<p><code>v-net-0</code>: 內部橋接 red&#x2F;blue 用</p>
+</blockquote>
+<p>重新建立 veth pair 並橋接至 bridge：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先刪掉原本 red 的 veth-red (舊 veth)</span></span><br><span class="line">ip -n red <span class="built_in">link</span> del veth-red</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建 veth pair</span></span><br><span class="line">ip <span class="built_in">link</span> add veth-red <span class="built_in">type</span> veth peer name veth-red-br</span><br><span class="line">ip <span class="built_in">link</span> add veth-blue <span class="built_in">type</span> veth peer name veth-blue-br</span><br><span class="line"></span><br><span class="line"><span class="comment"># 將 veth 一端放入 namespace</span></span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-red netns red</span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-blue netns blue</span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一端接到 bridge</span></span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-red-br master v-net-0</span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-blue-br master v-net-0</span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-red-br up</span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-blue-br up</span><br></pre></td></tr></table></figure>
+
+<p>在 namespace 中設定 IP 與啟動：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ip -n red addr add 192.168.15.1/24 dev veth-red</span><br><span class="line">ip -n blue addr add 192.168.15.2/24 dev veth-blue</span><br><span class="line"></span><br><span class="line">ip -n red <span class="built_in">link</span> <span class="built_in">set</span> veth-red up</span><br><span class="line">ip -n blue <span class="built_in">link</span> <span class="built_in">set</span> veth-blue up</span><br></pre></td></tr></table></figure>
+
+<h2 id="與-Host-通訊-模擬-NAT-出網（模擬-Internet）"><a href="#與-Host-通訊-模擬-NAT-出網（模擬-Internet）" class="headerlink" title="與 Host 通訊 + 模擬 NAT 出網（模擬 Internet）"></a>與 Host 通訊 + 模擬 NAT 出網（模擬 Internet）</h2><ol>
+<li>設定 Host 端 IP： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr add 192.168.15.5/24 dev v-net-0</span><br><span class="line">ping 192.168.15.1  <span class="comment"># 測試是否能通 red</span></span><br></pre></td></tr></table></figure></li>
+<li>新增 NAT 規則（允許 namespace 出網，使用 iptables）： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -s 192.168.15.0/24 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip netns <span class="built_in">exec</span> blue ping 192.168.1.3  <span class="comment"># success</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>ip_forward</code> （host 端）必須打開，否則無法從 namespace 出網<br><code># 確保 Host 可以進行 IP forwarding（必要）</code><br><code>echo 1 &gt; /proc/sys/net/ipv4/ip_forward</code></p>
+</blockquote>
+</li>
+<li>在 namespace 中設定 default gateway： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip netns <span class="built_in">exec</span> blue ip route add default via 192.168.15.5</span><br></pre></td></tr></table></figure></li>
+<li>測試連線： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip netns <span class="built_in">exec</span> blue ping 8.8.8.8</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="網路診斷與排錯工具"><a href="#網路診斷與排錯工具" class="headerlink" title="網路診斷與排錯工具"></a>網路診斷與排錯工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">arp</span><br><span class="line">ip netns <span class="built_in">exec</span> red arp</span><br><span class="line">ip netns <span class="built_in">exec</span> blue arp</span><br><span class="line"></span><br><span class="line">ip netns <span class="built_in">exec</span> red route</span><br><span class="line">ip netns <span class="built_in">exec</span> blue route</span><br><span class="line"></span><br><span class="line">ip netns <span class="built_in">exec</span> red iptables -L -n -v</span><br><span class="line">iptables -nvL -t nat</span><br><span class="line"></span><br><span class="line">ip netns <span class="built_in">exec</span> red ss -tnlp</span><br></pre></td></tr></table></figure>
+
+<h2 id="常見錯誤與排錯提示"><a href="#常見錯誤與排錯提示" class="headerlink" title="常見錯誤與排錯提示"></a>常見錯誤與排錯提示</h2><table>
+<thead>
+<tr>
+<th>問題</th>
+<th>原因與解法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ping</code> 不通</td>
+<td>interface 沒有 <code>up</code>、IP 設定錯（忘記加 <code>/24</code>）</td>
+</tr>
+<tr>
+<td>無法出網</td>
+<td>忘記設定 <code>iptables POSTROUTING</code> 規則</td>
+</tr>
+<tr>
+<td>DNS 查不到</td>
+<td>沒設 default gateway、沒設定 resolv.conf</td>
+</tr>
+<tr>
+<td>Bridge 沒有啟用 (up)</td>
+<td>忘了執行 <code>ip link set v-net-0 up</code></td>
+</tr>
+</tbody></table>
+<h2 id="CKA-考試應用場景"><a href="#CKA-考試應用場景" class="headerlink" title="CKA 考試應用場景"></a>CKA 考試應用場景</h2><table>
+<thead>
+<tr>
+<th>CKA 主題</th>
+<th>Network Namespace 可模擬場景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CNI Plugin 原理</td>
+<td>Pod-to-Pod 網路結構與虛擬網卡關係</td>
+</tr>
+<tr>
+<td>DNS &#x2F; 網路不通排查</td>
+<td>查看 route &#x2F; iptables &#x2F; ARP 狀態</td>
+</tr>
+<tr>
+<td>kube-proxy 行為模擬</td>
+<td>DNAT &#x2F; MASQUERADE 行為</td>
+</tr>
+<tr>
+<td>NetworkPolicy 測試</td>
+<td>多 namespace 流量隔離測試</td>
+</tr>
+</tbody></table>
+<h2 id="進階補充：DNAT、靜態路由"><a href="#進階補充：DNAT、靜態路由" class="headerlink" title="進階補充：DNAT、靜態路由"></a>進階補充：DNAT、靜態路由</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模擬 DNAT（port forwarding）</span></span><br><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 192.168.15.2:80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 靜態路由</span></span><br><span class="line">ip netns <span class="built_in">exec</span> blue ip route add 192.168.1.0/24 via 192.168.15.5</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-與-Namespace-的關係"><a href="#Docker-與-Namespace-的關係" class="headerlink" title="Docker 與 Namespace 的關係"></a>Docker 與 Namespace 的關係</h2><p>每個 Docker Container 都使用獨立的 Network Namespace，可用下列方式觀察：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -it alpine sh</span><br><span class="line"></span><br><span class="line">ps aux          <span class="comment"># 查看 process</span></span><br><span class="line">ip <span class="built_in">link</span>         <span class="comment"># 查看 interface 狀態</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Pre-Requisites-–-Networking-in-Docker"><a href="#Pre-Requisites-–-Networking-in-Docker" class="headerlink" title="Pre-Requisites – Networking in Docker"></a>Pre-Requisites – Networking in Docker</h1><h2 id="Docker-Networking-Modes"><a href="#Docker-Networking-Modes" class="headerlink" title="Docker Networking Modes"></a>Docker Networking Modes</h2><h3 id="network-none"><a href="#network-none" class="headerlink" title="--network none"></a><code>--network none</code></h3><ul>
+<li>沒有網路介面，僅有 loopback (lo)。</li>
+<li>沒有對外通訊能力。</li>
+<li>用於測試網路隔離或安全環境。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --network none nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="network-host"><a href="#network-host" class="headerlink" title="--network host"></a><code>--network host</code></h3><ul>
+<li>容器與主機共用網路堆疊。</li>
+<li>沒有容器獨立的 IP，與主機共用，亦無 NAT。</li>
+<li>有效省略 port mapping，但多容器會有 port 衝突風險。<ul>
+<li>例如多個 Nginx 無法同時用 80 port。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --network host nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="network-bridge（預設模式）"><a href="#network-bridge（預設模式）" class="headerlink" title="--network bridge（預設模式）"></a><code>--network bridge</code>（預設模式）</h3><ul>
+<li>使用 Docker 預設的 bridge network (<code>docker0</code>)。</li>
+<li>容器有獨立 IP（如 172.17.0.x）。</li>
+<li>支援 NAT，容器可透過 container name 互通。</li>
+<li>Docker 提供內建 DNS 做 name resolution。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 預設使用 bridge 模式</span></span><br><span class="line">docker run nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-Network-檢查指令"><a href="#Docker-Network-檢查指令" class="headerlink" title="Docker Network 檢查指令"></a>Docker Network 檢查指令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有 Docker 建立的網路（bridge、host、none...）</span></span><br><span class="line">docker network <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器網路詳細資訊，可以觀察容器 IP、bridge 名稱、Port Mapping。</span></span><br><span class="line">docker inspect &lt;container-id&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-Network-Namespace-與-Bridge"><a href="#Linux-Network-Namespace-與-Bridge" class="headerlink" title="Linux Network Namespace 與 Bridge"></a>Linux Network Namespace 與 Bridge</h3><p>Docker 背後透過 NetNS、veth pair、Bridge 建構網路。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看主機的網路介面</span></span><br><span class="line">ip <span class="built_in">link</span></span><br><span class="line">ip addr</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看主機中的 NetNS（需手動建立，Docker 不會自動列出）</span></span><br><span class="line">ip netns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手動建立 Linux bridge（如 docker0）</span></span><br><span class="line">ip <span class="built_in">link</span> add docker0 <span class="built_in">type</span> bridge</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="iptables-NAT（Docker-Port-Mapping-原理）"><a href="#iptables-NAT（Docker-Port-Mapping-原理）" class="headerlink" title="iptables + NAT（Docker Port Mapping 原理）"></a>iptables + NAT（Docker Port Mapping 原理）</h3><p>Docker 會透過 iptables NAT 表做 DNAT，將主機 port 映射至容器(Port Mapping)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模擬 Docker port forwarding 行為，將主機的 8080 導向容器內的 80：</span></span><br><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 8080 \</span><br><span class="line">  -j DNAT --to-destination 172.17.0.2:80</span><br></pre></td></tr></table></figure>
+
+<p>範例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 對外開放 port，實際是建立一條 DNAT 規則</span></span><br><span class="line">docker run -p 8080:80 nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker-三種網路模式總整理"><a href="#Docker-三種網路模式總整理" class="headerlink" title="Docker 三種網路模式總整理"></a>Docker 三種網路模式總整理</h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>是否有獨立 IP</th>
+<th>是否 NAT</th>
+<th>是否能跨容器存取</th>
+<th>特點說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>none</code></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>完全無網路，僅有 loopback</td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td>❌</td>
+<td>❌</td>
+<td>✅（共用主機）</td>
+<td>效率高但無隔離，易衝突</td>
+</tr>
+<tr>
+<td><code>bridge</code>（預設）</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅（同網段）</td>
+<td>最常見，Docker 會設 bridge 與 veth</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="Pre-Requisites-–-Container-Networking-Interface-CNI"><a href="#Pre-Requisites-–-Container-Networking-Interface-CNI" class="headerlink" title="Pre-Requisites – Container Networking Interface (CNI)"></a>Pre-Requisites – Container Networking Interface (CNI)</h1><h2 id="什麼是-CNI？"><a href="#什麼是-CNI？" class="headerlink" title="什麼是 CNI？"></a>什麼是 CNI？</h2><ul>
+<li>CNI（Container Network Interface）是一套容器網路管理的標準接口，常用於 Kubernetes 和 Podman 等容器平台。</li>
+<li><strong>Kubernetes 本身不處理 Pod 網路</strong>，而是呼叫 CNI Plugin 來完成：<ul>
+<li>IP 分配</li>
+<li>建立 veth pair</li>
+<li>加入 Bridge</li>
+<li>設定路由與 NAT</li>
+</ul>
+</li>
+<li>常見的 CNI Plugin 有：<strong>Calico、Flannel、Cilium、Weave Net</strong> 等。</li>
+</ul>
+<h2 id="手動模擬-CNI-Plugin-行為（使用-Docker）"><a href="#手動模擬-CNI-Plugin-行為（使用-Docker）" class="headerlink" title="手動模擬 CNI Plugin 行為（使用 Docker）"></a>手動模擬 CNI Plugin 行為（使用 Docker）</h2><p>Kubernetes 透過 CNI plugin 背後其實是以下這些低階操作。我們可以透過 Docker 容器手動模擬。<br>CNI 是 Kubernetes 與 Podman 等容器平台常用的網路管理插件架構。</p>
+<ol>
+<li>步驟 1：建立沒有網路的容器<ul>
+<li>模擬 Pod 剛建立、尚未連上網路  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --network=none nginx</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>步驟 2：取得容器的 NetNS <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PID=$(docker inspect -f <span class="string">&#x27;&#123;&#123;.State.Pid&#125;&#125;&#x27;</span> mynginx)</span><br><span class="line"><span class="built_in">mkdir</span> -p /var/run/netns</span><br><span class="line"><span class="built_in">ln</span> -sf /proc/<span class="variable">$PID</span>/ns/net /var/run/netns/<span class="variable">$PID</span></span><br></pre></td></tr></table></figure></li>
+<li>步驟 3：建立 veth pair <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip <span class="built_in">link</span> add veth-host <span class="built_in">type</span> veth peer name veth-container</span><br></pre></td></tr></table></figure></li>
+<li>步驟 4：將容器端加入 NetNS <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-container netns <span class="variable">$PID</span></span><br></pre></td></tr></table></figure></li>
+<li>步驟 5：設定 IP 與啟用介面<ul>
+<li><strong>Host 端</strong>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr add 10.1.1.1/24 dev veth-host</span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> veth-host up</span><br></pre></td></tr></table></figure></li>
+<li><strong>Container 端</strong>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ip netns <span class="built_in">exec</span> <span class="variable">$PID</span> ip addr add 10.1.1.2/24 dev veth-container</span><br><span class="line">ip netns <span class="built_in">exec</span> <span class="variable">$PID</span> ip <span class="built_in">link</span> <span class="built_in">set</span> veth-container up</span><br><span class="line">ip netns <span class="built_in">exec</span> <span class="variable">$PID</span> ip <span class="built_in">link</span> <span class="built_in">set</span> lo up</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>步驟 6：測試連線 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ping 10.1.1.2                      <span class="comment"># Host ping Container</span></span><br><span class="line">ip netns <span class="built_in">exec</span> <span class="variable">$PID</span> ping 10.1.1.1   <span class="comment"># Container ping Host</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="小提醒與補充"><a href="#小提醒與補充" class="headerlink" title="小提醒與補充"></a>小提醒與補充</h2><table>
+<thead>
+<tr>
+<th>平台</th>
+<th>網路方式</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Docker</td>
+<td>bridge + iptables NAT</td>
+<td>容器預設透過 NAT 出網</td>
+</tr>
+<tr>
+<td>Kubernetes</td>
+<td>CNI + Routable IP</td>
+<td>每個 Pod 有 routable IP，<strong>不經 NAT</strong></td>
+</tr>
+</tbody></table>
+<ul>
+<li>Kubernetes Pod-to-Pod 通訊在同一網段內不經 NAT。</li>
+<li>CNI Plugin 的動作就是：建立 veth pair、加進 NetNS、加入 Bridge、設 IP 與 Route。</li>
+</ul>
+
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/24/K8s-Advanced/K8s-Networking-PreRequisites/" title="K8s | Networking - PreRequisites">https://bessyhuang.github.io/2025/07/24/K8s-Advanced/K8s-Networking-PreRequisites/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Networking/" rel="tag"># Networking</a>
+              <a href="/tags/Pre-Requisites/" rel="tag"># Pre-Requisites</a>
+              <a href="/tags/CNI/" rel="tag"># CNI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/15/K8s-Advanced/K8s-Storage/" rel="prev" title="K8s Storage">
+                  <i class="fa fa-angle-left"></i> K8s Storage
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
