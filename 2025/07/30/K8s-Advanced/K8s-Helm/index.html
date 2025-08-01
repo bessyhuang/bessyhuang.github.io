@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/cloud-favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cloud-favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cloud-favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,700,700italic%7CNoto+Sans+TC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"bessyhuang.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-301145615-1');
+</script>
+
+
+    <meta name="description" content="Kubernetes 套件管理工具 Helm 的介紹、安裝與使用教學，並比較 Helm 2 與 Helm 3 的差異">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="K8s | Helm">
+<meta property="og:url" content="https://bessyhuang.github.io/2025/07/30/K8s-Advanced/K8s-Helm/index.html">
+<meta property="og:site_name" content="Bessy&#39;s Tech Blog">
+<meta property="og:description" content="Kubernetes 套件管理工具 Helm 的介紹、安裝與使用教學，並比較 Helm 2 與 Helm 3 的差異">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-30T13:17:33.000Z">
+<meta property="article:modified_time" content="2025-08-01T03:10:12.604Z">
+<meta property="article:author" content="Bessy">
+<meta property="article:tag" content="Helm">
+<meta property="article:tag" content="Package Management">
+<meta property="article:tag" content="Chart">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://bessyhuang.github.io/2025/07/30/K8s-Advanced/K8s-Helm/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://bessyhuang.github.io/2025/07/30/K8s-Advanced/K8s-Helm/","path":"2025/07/30/K8s-Advanced/K8s-Helm/","title":"K8s | Helm"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>K8s | Helm | Bessy's Tech Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-301145615-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-301145615-1","only_pageview":false,"measure_protocol_api_secret":null,"localhost_ignored":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Bessy's Tech Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一個紀錄自我學習和抒發本人心情的地方</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Bessy's Tech Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">72</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">33</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-Helm"><span class="nav-number">1.</span> <span class="nav-text">What is Helm?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Helm-Commands"><span class="nav-number">1.1.</span> <span class="nav-text">Basic Helm Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.1.</span> <span class="nav-text">其他常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Chart-Repository-%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Chart Repository 操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Release-%E5%AE%89%E8%A3%9D%E8%88%87%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">Release 安裝與管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%A9%A2%E8%88%87%E9%99%A4%E9%8C%AF"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">查詢與除錯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%AB%E5%8A%A9%E8%88%87%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">幫助與文件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Installation"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Helm2-vs-Helm3"><span class="nav-number">3.</span> <span class="nav-text">Helm2 vs Helm3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Way-Strategic-Merge-Patch"><span class="nav-number">3.1.</span> <span class="nav-text">3-Way Strategic Merge Patch</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Helm-Charts"><span class="nav-number">4.</span> <span class="nav-text">Helm Charts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%81-Chart-%E7%9B%AE%E9%8C%84%E7%B5%90%E6%A7%8B%E7%AF%84%E4%BE%8B-hello-world-chart"><span class="nav-number">4.1.</span> <span class="nav-text">📁 Chart 目錄結構範例 (hello-world-chart)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Chart-yaml-%E8%AA%AA%E6%98%8E"><span class="nav-number">4.1.1.</span> <span class="nav-text">Chart.yaml 說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#values-yaml-%E8%AA%AA%E6%98%8E"><span class="nav-number">4.1.2.</span> <span class="nav-text">values.yaml 說明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Customizing-Chart-Parameters"><span class="nav-number">5.</span> <span class="nav-text">Customizing Chart Parameters</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8-set-%E5%96%AE%E8%A1%8C%E6%8C%87%E5%AE%9A%E5%8F%83%E6%95%B8"><span class="nav-number">5.1.</span> <span class="nav-text">方式一：使用 --set 單行指定參數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8-values-%E6%8C%87%E5%AE%9A%E8%87%AA%E8%A8%82%E7%9A%84-YAML-%E8%A8%AD%E5%AE%9A%E6%AA%94"><span class="nav-number">5.2.</span> <span class="nav-text">方式二：使用 --values 指定自訂的 YAML 設定檔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%A3%93%E4%B8%A6%E4%BF%AE%E6%94%B9-Chart-%E5%8E%9F%E5%A7%8B%E6%AA%94"><span class="nav-number">5.3.</span> <span class="nav-text">解壓並修改 Chart 原始檔</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Helm-Release-LifeCycle-Management"><span class="nav-number">6.</span> <span class="nav-text">Helm Release LifeCycle Management</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-Pod-%E8%88%87%E9%83%A8%E7%BD%B2%E7%8B%80%E6%85%8B%EF%BC%88K8s-%E5%B1%A4%E7%B4%9A%EF%BC%89"><span class="nav-number">6.1.</span> <span class="nav-text">查看 Pod 與部署狀態（K8s 層級）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%87%E7%B4%9A-Chart%EF%BC%88%E5%A6%82%E6%9C%89%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">升級 Chart（如有更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-Release-%E6%AD%B7%E5%8F%B2%E7%B4%80%E9%8C%84"><span class="nav-number">6.3.</span> <span class="nav-text">查看 Release 歷史紀錄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E6%BB%BE-Release-%E8%87%B3%E5%85%88%E5%89%8D%E7%89%88%E6%9C%AC"><span class="nav-number">6.4.</span> <span class="nav-text">回滾 Release 至先前版本</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bessy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/bessyhuang/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;bessyhuang&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/bessyhuang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bessyhuang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bessyhuang.working@gmail.com" title="E-Mail → mailto:bessyhuang.working@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bessyhuang.github.io/2025/07/30/K8s-Advanced/K8s-Helm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bessy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bessy's Tech Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="K8s | Helm | Bessy's Tech Blog">
+      <meta itemprop="description" content="Kubernetes 套件管理工具 Helm 的介紹、安裝與使用教學，並比較 Helm 2 與 Helm 3 的差異">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          K8s | Helm
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-30 23:17:33" itemprop="dateCreated datePublished" datetime="2025-07-30T23:17:33+10:00">2025-07-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-08-01 13:10:12" itemprop="dateModified" datetime="2025-08-01T13:10:12+10:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">Kubernetes 套件管理工具 Helm 的介紹、安裝與使用教學，並比較 Helm 2 與 Helm 3 的差異</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="What-is-Helm"><a href="#What-is-Helm" class="headerlink" title="What is Helm?"></a>What is Helm?</h1><p>Helm 是 Kubernetes 的「套件管理工具」，可協助你：</p>
+<ul>
+<li>安裝複雜應用程式（如 WordPress、MySQL、Prometheus）</li>
+<li>管理部署版本與參數設定</li>
+<li>執行升級（upgrade）、回滾（rollback）、移除（uninstall）等操作</li>
+</ul>
+<p>Helm 將應用打包成一個「Chart」，其中包含：</p>
+<ul>
+<li>Kubernetes YAML 模板（template）</li>
+<li>預設變數設定檔 <code>values.yaml</code></li>
+<li>說明檔與 Chart metadata（如 <code>Chart.yaml</code>）</li>
+</ul>
+<h2 id="Basic-Helm-Commands"><a href="#Basic-Helm-Commands" class="headerlink" title="Basic Helm Commands"></a>Basic Helm Commands</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://artifacthub.io/">Artifact HUB</a> is a web-based application that enables finding, installing, and publishing Cloud Native packages.</p>
+</blockquote>
+<p>範例：安裝 WordPress</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新增套件來源並更新</span></span><br><span class="line">helm repo add bitnami https://charts.bitnami.com/bitnami</span><br><span class="line">helm repo update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安裝應用</span></span><br><span class="line">helm install wordpress bitnami/wordpress</span><br><span class="line">helm install &lt;release-name&gt; &lt;chart&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h3><h4 id="Chart-Repository-操作"><a href="#Chart-Repository-操作" class="headerlink" title="Chart Repository 操作"></a>Chart Repository 操作</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">helm repo list                         <span class="comment"># 查看已加入的 repository</span></span><br><span class="line">helm repo add bitnami https://charts.bitnami.com/bitnami</span><br><span class="line">helm repo update                       <span class="comment"># 更新 chart repository 索引</span></span><br><span class="line">helm repo remove hashicorp             <span class="comment"># 移除某個 repository (Remove the `Hashicorp helm repository` from the cluster.)</span></span><br><span class="line"></span><br><span class="line">helm search repo wordpress             <span class="comment"># 在本地 repo 索引中搜尋 chart (在已加入的 chart repository 中搜尋)</span></span><br><span class="line">helm search hub wordpress              <span class="comment"># 在 Artifact Hub 上搜尋（需網路）</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Release-安裝與管理"><a href="#Release-安裝與管理" class="headerlink" title="Release 安裝與管理"></a>Release 安裝與管理</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">helm install &lt;release-name&gt; &lt;chart&gt;                       <span class="comment"># 安裝 release</span></span><br><span class="line">helm install &lt;release-name&gt; &lt;chart&gt; --version [x.x.x]     <span class="comment"># 安裝 release</span></span><br><span class="line"></span><br><span class="line">helm upgrade --install &lt;release-name&gt; &lt;chart&gt;        <span class="comment"># 存在則升級，不存在則安裝</span></span><br><span class="line">helm rollback &lt;release-name&gt; [revision]              <span class="comment"># 回滾 release</span></span><br><span class="line">helm uninstall &lt;release-name&gt;                        <span class="comment"># 移除 release</span></span><br><span class="line">helm list                                            <span class="comment"># 查看所有 release</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="查詢與除錯"><a href="#查詢與除錯" class="headerlink" title="查詢與除錯"></a>查詢與除錯</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">helm get all &lt;release-name&gt;            <span class="comment"># 查看 release 詳細內容</span></span><br><span class="line">helm show values &lt;chart&gt;               <span class="comment"># 查看 chart 的可覆蓋變數</span></span><br><span class="line">helm version                           <span class="comment"># 查看 Helm CLI 版本</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="幫助與文件"><a href="#幫助與文件" class="headerlink" title="幫助與文件"></a>幫助與文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">helm --<span class="built_in">help</span></span><br><span class="line">helm repo --<span class="built_in">help</span></span><br><span class="line">helm get --<span class="built_in">help</span></span><br><span class="line">helm install --<span class="built_in">help</span></span><br><span class="line">helm repo update --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://helm.sh/docs/intro/quickstart/">Helm 官方教學</a><br>你也可以使用 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3">get_helm.sh script</a> 在任何支援 bash 的系統上安裝。</p>
+</blockquote>
+<div class="note "><p>若要使用 Helm，你必須先準備好 Kubernetes Cluster，而 kubectl 和 kubeadm 是協助你「建立」或「連線」這個 Cluster 的工具。</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>角色</th>
+<th>是否必要</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>kubeadm</code></td>
+<td>用來建立 K8s Cluster 的工具</td>
+<td>❌可選</td>
+<td>你若使用 EKS、GKE、Minikube 就不需要它</td>
+</tr>
+<tr>
+<td><code>kubectl</code></td>
+<td>與 K8s 溝通的 CLI 工具</td>
+<td>✅必要</td>
+<td>Helm 執行時會使用 <code>kubectl</code> 與 API Server 對話</td>
+</tr>
+<tr>
+<td><code>helm</code></td>
+<td>K8s 應用套件管理器（需要 kube + kubectl）</td>
+<td>✅必要</td>
+<td>安裝 chart、升級、回滾、解除安裝等功能</td>
+</tr>
+</tbody></table>
+<p>✅ 正確順序：</p>
+<ol>
+<li>（可選）安裝 <code>kubeadm</code><ul>
+<li>→ 如果你是自己在本機或 VM 建立 K8s Cluster，就需要 <code>kubeadm</code> 來初始化。</li>
+</ul>
+</li>
+<li>建立 Kubernetes Cluster<ul>
+<li>→ 使用 <code>kubeadm init</code> 或其他方式（如 Minikube、Kind、EKS&#x2F;GKE）建立一個運作中的叢集。</li>
+</ul>
+</li>
+<li>安裝與設定 <code>kubectl</code><ul>
+<li>→ 用來與你的 K8s Cluster 溝通，必須設定 <code>~/.kube/config</code> 指向正確的 Cluster。</li>
+</ul>
+</li>
+<li>驗證 Cluster 狀態是否正常（可選） <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get nodes</span><br><span class="line">kubectl get pods -A</span><br></pre></td></tr></table></figure></li>
+<li>安裝 Helm 並開始部署應用<ul>
+<li>→ Helm 利用 <code>kubectl</code> 與 cluster 溝通來部署資源。</li>
+</ul>
+</li>
+</ol>
+<p>如果你還沒有 Cluster，可選以下工具建立：</p>
+<ul>
+<li>本地學習用：Minikube、Kind、kubeadm</li>
+<li>雲端正式環境：EKS（AWS）、GKE（Google）、AKS（Azure）</li>
+</ul>
+</div>
+
+<ol>
+<li>確保已安裝並啟動 K8s Cluster，可使用 <code>kubeadm</code> 部署</li>
+<li>驗證 <code>kubectl</code>、<code>kubeadm</code>、<code>helm</code> 版本 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl version</span><br><span class="line">kubeadm version</span><br></pre></td></tr></table></figure></li>
+<li>安裝 Helm 3（適用 Linux&#x2F;macOS） <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3</span><br><span class="line"><span class="built_in">chmod</span> 700 get_helm.sh</span><br><span class="line">./get_helm.sh</span><br><span class="line"></span><br><span class="line">helm version</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h1 id="Helm2-vs-Helm3"><a href="#Helm2-vs-Helm3" class="headerlink" title="Helm2 vs Helm3"></a>Helm2 vs Helm3</h1><ul>
+<li>Helm 1.0: Feb 2016</li>
+<li>Helm 2.0: Nov 2016<ul>
+<li><code>+</code> Tiller</li>
+<li><code>-</code> 3-Way Strategic Merge Patch</li>
+</ul>
+</li>
+<li>Helm 3.0: Nov 2019<ul>
+<li><code>-</code> Tiller</li>
+<li><code>+</code> RBAC (Role Based Access Control)</li>
+<li><code>+</code> CRD (Custom Resource Definitions) 自定資源</li>
+<li><code>+</code> 3-Way Strategic Merge Patch</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>功能 &#x2F; 特性</th>
+<th>Helm 2</th>
+<th>Helm 3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Server-side component</td>
+<td>✅ Tiller</td>
+<td>❌ 無 Tiller</td>
+</tr>
+<tr>
+<td>安全性（RBAC）</td>
+<td>❌ 手動設定</td>
+<td>✅ 原生整合</td>
+</tr>
+<tr>
+<td>CRD 支援</td>
+<td>⚠️ 需額外處理</td>
+<td>✅ 原生支援</td>
+</tr>
+<tr>
+<td>Release 狀態儲存位置</td>
+<td>ConfigMap in Tiller namespace</td>
+<td>Secrets&#x2F;ConfigMap in namespace</td>
+</tr>
+<tr>
+<td>3-Way Strategic Merge Patch</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<h2 id="3-Way-Strategic-Merge-Patch"><a href="#3-Way-Strategic-Merge-Patch" class="headerlink" title="3-Way Strategic Merge Patch"></a>3-Way Strategic Merge Patch</h2><p>當執行 <code>helm upgrade</code> 時，Helm 3 使用「三方比對策略」來合併資源變更：</p>
+<ul>
+<li><strong>Live manifest</strong>：目前實際在 Cluster 中的資源狀態</li>
+<li><strong>Last applied manifest</strong>：上一次部署（Helm 安裝或升級）所產生的 YAML</li>
+<li><strong>New manifest</strong>：這次 <code>helm upgrade</code> 將套用的新 YAML</li>
+</ul>
+<p>Helm 會比較這三份資料的差異，自動計算最安全的更新方式，從而：</p>
+<ul>
+<li>避免覆蓋使用者透過 <code>kubectl edit</code> 所做的即時修改 (保留現有狀態中「使用者手動修改的內容」)</li>
+<li>提供更穩定、安全的 upgrade 與 rollback 機制</li>
+</ul>
+<p><strong>優點：</strong></p>
+<ul>
+<li>安全地進行 <code>upgrade</code> 或 <code>rollback</code></li>
+<li>支援變數參數化與動態部署</li>
+<li>保留 live 狀態下手動調整的內容</li>
+<li>提升應用穩定性與維運效率</li>
+</ul>
+<hr>
+<h1 id="Helm-Charts"><a href="#Helm-Charts" class="headerlink" title="Helm Charts"></a>Helm Charts</h1><p>Helm Chart 是一個用來描述 Kubernetes 應用的「套件」，包含：</p>
+<ul>
+<li>Kubernetes 資源的 YAML 模板（Templates）</li>
+<li>預設變數（values）</li>
+<li>Chart metadata（如名稱、版本、依賴）</li>
+</ul>
+<p>透過 Helm，你可以將應用「參數化、模組化、版本化」，並用簡單指令完成部署與升級。</p>
+<h2 id="📁-Chart-目錄結構範例-hello-world-chart"><a href="#📁-Chart-目錄結構範例-hello-world-chart" class="headerlink" title="📁 Chart 目錄結構範例 (hello-world-chart)"></a>📁 Chart 目錄結構範例 (hello-world-chart)</h2><p>A <code>Chart</code> is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hello-world-chart/</span><br><span class="line">├── Chart.yaml        # Chart metadata：名稱、版本、描述、依賴等</span><br><span class="line">├── values.yaml       # 使用者可自定義變數的預設值</span><br><span class="line">├── templates/        # Kubernetes YAML 模板</span><br><span class="line">│   ├── deployment.yaml</span><br><span class="line">│   ├── service.yaml</span><br><span class="line">│   └── _helpers.tpl  # Template helper function（共用模板變數）</span><br><span class="line">├── charts/           # 子 Chart（可選，用於 dependencies）</span><br><span class="line">├── LICENSE           # 授權條款（可選）</span><br><span class="line">└── README.md         # 說明文件（可選）</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>✅ 可用 <code>helm create hello-world-chart</code> 快速建立基本結構。</p>
+</blockquote>
+<h3 id="Chart-yaml-說明"><a href="#Chart-yaml-說明" class="headerlink" title="Chart.yaml 說明"></a>Chart.yaml 說明</h3><p><code>Chart.yaml</code> 是每個 Chart 的核心定義檔，描述這個應用的 metadata 與依賴：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v2</span>              <span class="comment"># Chart API 版本（v1: Helm 2, v2: Helm 3）</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">hello-world</span>           <span class="comment"># Chart 名稱</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">A</span> <span class="string">test</span> <span class="string">chart</span>   <span class="comment"># 描述文字</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">application</span>           <span class="comment"># 類型：application 或 library</span></span><br><span class="line"><span class="attr">version:</span> <span class="number">0.1</span><span class="number">.0</span>              <span class="comment"># Chart 本身版本（非 App 版本）</span></span><br><span class="line"><span class="attr">appVersion:</span> <span class="string">&quot;1.16.0&quot;</span>        <span class="comment"># 實際部署應用的版本</span></span><br><span class="line"><span class="attr">dependencies:</span>               <span class="comment"># 依賴的其他 Charts（可選）</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">version:</span> <span class="number">14.4</span><span class="number">.0</span></span><br><span class="line">    <span class="attr">repository:</span> <span class="string">https://charts.bitnami.com/bitnami</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>apiVersion: v2</code></p>
+<ul>
+<li>Helm 3 使用，支援 dependencies、自動驗證等功能</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>type：</p>
+<ul>
+<li>application（預設）：可直接部署的應用程式（如 NGINX、MySQL）</li>
+<li>library：提供其他 Chart 引用（不能單獨部署）</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>dependencies：</p>
+<ul>
+<li>定義需要一併部署的其他 Charts（如資料庫、共用模組）</li>
+<li>可手動放進 <code>charts/</code> 資料夾或使用 <code>helm dependency update</code> 自動下載</li>
+</ul>
+</blockquote>
+<h3 id="values-yaml-說明"><a href="#values-yaml-說明" class="headerlink" title="values.yaml 說明"></a>values.yaml 說明</h3><p><code>values.yaml</code> 是 Helm Chart 的預設變數設定檔，使用者可透過參數調整部署細節。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">replicaCount:</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="attr">image:</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">tag:</span> <span class="number">1.25</span></span><br><span class="line">  <span class="attr">pullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line"></span><br><span class="line"><span class="attr">service:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">ClusterIP</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p>可在 templates&#x2F;deployment.yaml 中這樣使用：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> &#123;&#123; <span class="string">.Values.replicaCount</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">app</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; .Values.image.repository &#125;&#125;</span>:<span class="template-variable">&#123;&#123; .Values.image.tag &#125;&#125;</span>&quot;</span></span><br><span class="line">    <span class="attr">imagePullPolicy:</span> &#123;&#123; <span class="string">.Values.image.pullPolicy</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>✅ 使用者可以透過 <code>helm install -f my-values.yaml</code> 自訂部署變數。</p>
+</blockquote>
+<hr>
+<h1 id="Customizing-Chart-Parameters"><a href="#Customizing-Chart-Parameters" class="headerlink" title="Customizing Chart Parameters"></a>Customizing Chart Parameters</h1><p>Helm 提供兩種方式來覆蓋 Chart 中的預設變數設定（values.yaml）：</p>
+<h2 id="方式一：使用-set-單行指定參數"><a href="#方式一：使用-set-單行指定參數" class="headerlink" title="方式一：使用 --set 單行指定參數"></a>方式一：使用 <code>--set</code> 單行指定參數</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm install --<span class="built_in">set</span> wordpressBlogName=<span class="string">&quot;Helm Tutorials&quot;</span> my-release bitnami/wordpress</span><br></pre></td></tr></table></figure>
+<ul>
+<li>適合修改少量變數。</li>
+<li>可用 <code>--set key1=value1,key2=value2</code> 一行指定多個值。</li>
+<li>不支援複雜結構（如陣列、巢狀結構）。</li>
+</ul>
+<h2 id="方式二：使用-values-指定自訂的-YAML-設定檔"><a href="#方式二：使用-values-指定自訂的-YAML-設定檔" class="headerlink" title="方式二：使用 --values 指定自訂的 YAML 設定檔"></a>方式二：使用 <code>--values</code> 指定自訂的 YAML 設定檔</h2><p>custom-values.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">wordpressBlogName:</span> <span class="string">&quot;Helm YAML Custom Blog&quot;</span></span><br><span class="line"><span class="attr">wordpressUsername:</span> <span class="string">&quot;admin&quot;</span></span><br><span class="line"><span class="attr">wordpressPassword:</span> <span class="string">&quot;admin123&quot;</span></span><br><span class="line"><span class="attr">service:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm install --values custom-values.yaml my-release bitnami/wordpress</span><br></pre></td></tr></table></figure>
+<ul>
+<li>適合修改多個參數，或巢狀結構。</li>
+<li>檔案結構需與原本 values.yaml 相容。</li>
+</ul>
+<h2 id="解壓並修改-Chart-原始檔"><a href="#解壓並修改-Chart-原始檔" class="headerlink" title="解壓並修改 Chart 原始檔"></a>解壓並修改 Chart 原始檔</h2><p>你也可以下載並解壓 Helm Chart 原始內容來進一步客製化：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">helm pull bitnami/wordpress</span><br><span class="line">helm pull --untar bitnami/wordpress  <span class="comment"># 下載並解壓縮</span></span><br><span class="line"><span class="built_in">ls</span> wordpress                         <span class="comment"># 瀏覽解壓後的 Chart 目錄</span></span><br><span class="line">helm install my-release ./wordpress  <span class="comment"># 使用本地目錄安裝</span></span><br></pre></td></tr></table></figure>
+<p>這方式適合需要修改模板檔（如 deployment.yaml）或加入其他資源。</p>
+<blockquote>
+<p>💡 若安裝出現錯誤，請確認 chart repository 已更新：<code>helm repo update</code>。</p>
+</blockquote>
+<hr>
+<h1 id="Helm-Release-LifeCycle-Management"><a href="#Helm-Release-LifeCycle-Management" class="headerlink" title="Helm Release LifeCycle Management"></a>Helm Release LifeCycle Management</h1><p>使用 Helm 部署後，release 的版本管理與 rollback 是日常操作中很重要的一環。</p>
+<h2 id="查看-Pod-與部署狀態（K8s-層級）"><a href="#查看-Pod-與部署狀態（K8s-層級）" class="headerlink" title="查看 Pod 與部署狀態（K8s 層級）"></a>查看 Pod 與部署狀態（K8s 層級）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods                                  <span class="comment"># 查看目前 Pod 狀態</span></span><br><span class="line">kubectl describe pods [pod_name]                  <span class="comment"># 查看指定 Pod 詳細資訊</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="升級-Chart（如有更新）"><a href="#升級-Chart（如有更新）" class="headerlink" title="升級 Chart（如有更新）"></a>升級 Chart（如有更新）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">helm upgrade nginx-release bitnami/nginx          <span class="comment"># 升級 nginx-release</span></span><br><span class="line"></span><br><span class="line">helm upgrade dazzling-web bitnami/nginx --version 18.3.6</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>若想自訂參數升級，可搭配 <code>--set</code> 或 <code>--values</code></p>
+</blockquote>
+<h2 id="查看-Release-歷史紀錄"><a href="#查看-Release-歷史紀錄" class="headerlink" title="查看 Release 歷史紀錄"></a>查看 Release 歷史紀錄</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">helm list                                         <span class="comment"># 所有 Helm release</span></span><br><span class="line">helm <span class="built_in">history</span> nginx-release                        <span class="comment"># 查看 nginx-release 的版本歷史</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="回滾-Release-至先前版本"><a href="#回滾-Release-至先前版本" class="headerlink" title="回滾 Release 至先前版本"></a>回滾 Release 至先前版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">helm rollback dazzling-web</span><br><span class="line"></span><br><span class="line">helm rollback nginx-release 1                     <span class="comment"># 回到版本 1</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Helm 每次 upgrade 都會記錄版本，預設保留最後 10 個版本。</p>
+</blockquote>
+
+
+        <br/>
+          <a target="_blank" rel="noopener" href="https://www.buymeacoffee.com/bessyhuang"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=bessyhuang&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Bessy
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://bessyhuang.github.io/2025/07/30/K8s-Advanced/K8s-Helm/" title="K8s | Helm">https://bessyhuang.github.io/2025/07/30/K8s-Advanced/K8s-Helm/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Helm/" rel="tag"># Helm</a>
+              <a href="/tags/Package-Management/" rel="tag"># Package Management</a>
+              <a href="/tags/Chart/" rel="tag"># Chart</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/29/K8s-Advanced/K8s-Flannel-vs-Vagrant/" rel="prev" title="K8s | Flannel vs Vagrant">
+                  <i class="fa fa-angle-left"></i> K8s | Flannel vs Vagrant
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bessy</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.3s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: false,
+  label: '🌓',
+  autoMatchOsTheme: false
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+if (window.darkmode && !window.darkmode.isActivated()) {
+  window.darkmode.toggle();
+  var toggleButtons = document.getElementsByClassName("darkmode-toggle");
+  if (toggleButtons && toggleButtons.length > 0) {
+    for (i = 0; i < toggleButtons.length; i++) {
+      toggleButtons[i].classList.add("darkmode-toggle--white");
+    }
+  }
+}
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"bessyhuang/bessyhuang.github.io","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
