@@ -82,7 +82,22 @@ helm repo update --help
 > [Helm 官方教學](https://helm.sh/docs/intro/quickstart/)  
 > 你也可以使用 [get_helm.sh script](https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3) 在任何支援 bash 的系統上安裝。
 
-{% note %}
+1. 確保已安裝並啟動 K8s Cluster，可使用 `kubeadm` 部署
+2. 驗證 `kubectl`、`kubeadm`、`helm` 版本
+	```bash
+	kubectl version
+	kubeadm version
+	```
+3. 安裝 Helm 3（適用 Linux/macOS）
+	```bash
+	curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+	chmod 700 get_helm.sh
+	./get_helm.sh
+
+	helm version
+	```
+
+{% note 必要工具安裝 %}
 若要使用 Helm，你必須先準備好 Kubernetes Cluster，而 kubectl 和 kubeadm 是協助你「建立」或「連線」這個 Cluster 的工具。
 
 | 工具        | 角色                             | 是否必要 | 說明                                    |
@@ -90,6 +105,8 @@ helm repo update --help
 | `kubeadm` | 用來建立 K8s Cluster 的工具           | ❌可選  | 你若使用 EKS、GKE、Minikube 就不需要它           |
 | `kubectl` | 與 K8s 溝通的 CLI 工具               | ✅必要  | Helm 執行時會使用 `kubectl` 與 API Server 對話 |
 | `helm`    | K8s 應用套件管理器（需要 kube + kubectl） | ✅必要  | 安裝 chart、升級、回滾、解除安裝等功能                |
+
+<br>
 
 ✅ 正確順序：
 1. （可選）安裝 `kubeadm`
@@ -106,25 +123,15 @@ helm repo update --help
 5. 安裝 Helm 並開始部署應用
 	- → Helm 利用 `kubectl` 與 cluster 溝通來部署資源。
 
-如果你還沒有 Cluster，可選以下工具建立：
-- 本地學習用：Minikube、Kind、kubeadm
-- 雲端正式環境：EKS（AWS）、GKE（Google）、AKS（Azure）
+<br>
+
+🛠️ Cluster 建立工具建議：
+| 用途      | 適合工具                            |
+| ------- | ------------------------------- |
+| 本機學習／開發 | Minikube、Kind、kubeadm           |
+| 雲端正式環境  | EKS（AWS）、GKE（Google）、AKS（Azure） |
 {% endnote %}
 
-1. 確保已安裝並啟動 K8s Cluster，可使用 `kubeadm` 部署
-2. 驗證 `kubectl`、`kubeadm`、`helm` 版本
-	```bash
-	kubectl version
-	kubeadm version
-	```
-3. 安裝 Helm 3（適用 Linux/macOS）
-	```bash
-	curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-	chmod 700 get_helm.sh
-	./get_helm.sh
-
-	helm version
-	```
 ---
 # Helm2 vs Helm3
 - Helm 1.0: Feb 2016
